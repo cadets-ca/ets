@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AircraftEntity" representedClassName="AircraftEntity" syncable="YES">
+        <attribute name="flightSequence" attributeType="String" defaultValueString="Proficiency" indexed="YES" syncable="YES"/>
+        <attribute name="gliderOrTowplane" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <attribute name="inTheAir" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="picTimeInAircraft" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="registration" attributeType="String" defaultValueString="GABC" indexed="YES" syncable="YES"/>
+        <attribute name="sectionIndex" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="tailNumber" attributeType="String" defaultValueString="GABC" indexed="YES" syncable="YES"/>
+        <attribute name="timeToNextInspection" optional="YES" attributeType="Decimal" defaultValueString="50" indexed="YES" syncable="YES"/>
+        <relationship name="connectedAircraft" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="connectedAircraft" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="currentRecord" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="FlightRecord" inverseName="aircraft" inverseEntity="FlightRecord" syncable="YES"/>
+        <relationship name="currentTimesheet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftTimesheet" inverseName="currentAircraft" inverseEntity="AircraftTimesheet" syncable="YES"/>
+        <relationship name="glidingCentre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlidingCentre" inverseName="aircraft" inverseEntity="GlidingCentre" syncable="YES"/>
+        <relationship name="maintenanceItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MaintenaceEvent" inverseName="aircraft" inverseEntity="MaintenaceEvent" syncable="YES"/>
+        <relationship name="passenger" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="aircraft" inverseEntity="Pilot" syncable="YES"/>
+        <relationship name="pilot" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="aircraft" inverseEntity="Pilot" syncable="YES"/>
+        <relationship name="region" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="aircraft" inverseEntity="Region" syncable="YES"/>
+        <relationship name="timesheets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AircraftTimesheet" inverseName="aircraft" inverseEntity="AircraftTimesheet" syncable="YES"/>
+    </entity>
+    <entity name="AircraftTimesheet" representedClassName="AircraftTimesheet" syncable="YES">
+        <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="finalTTSN" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="initialTTSN" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="recordChangeTime" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="winchFinalTTSNsetCorrectly" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <relationship name="aircraft" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="timesheets" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="currentAircraft" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="currentTimesheet" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="glidingCentre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlidingCentre" inverseName="timesheets" inverseEntity="GlidingCentre" syncable="YES"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FlightRecord" inverseName="timesheet" inverseEntity="FlightRecord" syncable="YES"/>
+    </entity>
+    <entity name="AttendanceRecord" representedClassName="AttendanceRecord" syncable="YES">
+        <attribute name="dayOrSession" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="participantType" attributeType="String" defaultValueString="cadet" indexed="YES" syncable="YES"/>
+        <attribute name="recordChangeTime" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="recordID" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="January 1, 2010" indexed="YES" syncable="YES"/>
+        <attribute name="timeIn" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="timeOut" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="glidingCentre" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GlidingCentre" inverseName="attendaceRecords" inverseEntity="GlidingCentre" syncable="YES"/>
+        <relationship name="pilot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="attendanceRecords" inverseEntity="Pilot" syncable="YES"/>
+    </entity>
+    <entity name="FlightRecord" representedClassName="FlightRecord" syncable="YES">
+        <attribute name="dualParticipantType" optional="YES" attributeType="String" defaultValueString="none" indexed="YES" syncable="YES"/>
+        <attribute name="flightLengthInMinutes" attributeType="Integer 16" defaultValueString="1" indexed="YES" syncable="YES"/>
+        <attribute name="flightSequence" attributeType="String" defaultValueString="Proficiency" indexed="YES" syncable="YES"/>
+        <attribute name="picParticipantType" attributeType="String" defaultValueString="cadet" indexed="YES" syncable="YES"/>
+        <attribute name="recordChangeTime" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="recordID" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="January 1, 2010" indexed="YES" syncable="YES"/>
+        <attribute name="timeDown" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="timeUp" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="transitRoute" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="aircraft" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="currentRecord" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="connectedAircraftRecord" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FlightRecord" inverseName="connectedAircraftRecord" inverseEntity="FlightRecord" syncable="YES"/>
+        <relationship name="passenger" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="dualFlights" inverseEntity="Pilot" syncable="YES"/>
+        <relationship name="pilot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="picFlights" inverseEntity="Pilot" syncable="YES"/>
+        <relationship name="timesheet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftTimesheet" inverseName="records" inverseEntity="AircraftTimesheet" syncable="YES"/>
+    </entity>
+    <entity name="GliderLicenseImage" representedClassName="GliderLicenseImage" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <relationship name="pilot" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="gliderLicenseImage" inverseEntity="Pilot" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="GlidingCentre" representedClassName="GlidingCentre" syncable="YES">
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="aircraft" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="glidingCentre" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="attendaceRecords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AttendanceRecord" inverseName="glidingCentre" inverseEntity="AttendanceRecord" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GlidingDayComment" inverseName="glidingCentre" inverseEntity="GlidingDayComment" syncable="YES"/>
+        <relationship name="pilots" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Pilot" inverseName="glidingCentre" inverseEntity="Pilot" syncable="YES"/>
+        <relationship name="region" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="glidingCentres" inverseEntity="Region" syncable="YES"/>
+        <relationship name="timesheets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AircraftTimesheet" inverseName="glidingCentre" inverseEntity="AircraftTimesheet" syncable="YES"/>
+    </entity>
+    <entity name="GlidingDayComment" representedClassName="GlidingDayComment" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="recordChangeTime" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="recordID" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <relationship name="glidingCentre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlidingCentre" inverseName="comments" inverseEntity="GlidingCentre" syncable="YES"/>
+    </entity>
+    <entity name="MaintenaceEvent" representedClassName="MaintenaceEvent" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="recordChangeTime" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="recordID" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="ttsn" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="aircraft" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="maintenanceItems" inverseEntity="AircraftEntity" syncable="YES"/>
+    </entity>
+    <entity name="MedicalImage" representedClassName="MedicalImage" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <relationship name="pilot" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="medicalImage" inverseEntity="Pilot" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Photo" representedClassName="Photo" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <relationship name="pilot" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="photo" inverseEntity="Pilot" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Pilot" representedClassName="Pilot" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="aniversaryOfGliderAPC" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="aniversaryOfTowAPC" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateOfBasicGliderPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfFrontSeatFamilPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfGliderCheckPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfGliderInstructorPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfGliderPilotXCountry" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfGliderStandardsPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfLaunchControlOfficer" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfRearSeatFamilPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfTowCheckPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfTowPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfTowPilotXCountry" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfTowStandardsPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfWinchLaunchInstructor" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfWinchLaunchOperator" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfWinchLaunchPilot" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateOfWinchRetrieveDriver" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fiExpiry" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="gliderLicense" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gliderThumbnailImage" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="highestGliderQual" attributeType="Integer 16" maxValueString="7" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="highestScoutQual" attributeType="Integer 16" maxValueString="3" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="inactive" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="medical" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="medicalThumbnailImage" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoThumbnailImage" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="powerLicense" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="powerThumbnailImage" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="recordChangeTime" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="2010-01-01 12:00:00 -0600" indexed="YES" syncable="YES"/>
+        <attribute name="recordID" attributeType="Date" defaultDateTimeInterval="284061600" defaultValueString="January 1, 2010" indexed="YES" syncable="YES"/>
+        <attribute name="region" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="signedIn" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="squadron" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="timeDown" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="timeIn" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="typeOfParticipant" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="aircraft" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AircraftEntity" inverseName="pilot" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="attendanceRecords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AttendanceRecord" inverseName="pilot" inverseEntity="AttendanceRecord" syncable="YES"/>
+        <relationship name="dualFlights" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FlightRecord" inverseName="passenger" inverseEntity="FlightRecord" syncable="YES"/>
+        <relationship name="gliderLicenseImage" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GliderLicenseImage" inverseName="pilot" inverseEntity="GliderLicenseImage" syncable="YES"/>
+        <relationship name="glidingCentre" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GlidingCentre" inverseName="pilots" inverseEntity="GlidingCentre" syncable="YES"/>
+        <relationship name="medicalImage" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MedicalImage" inverseName="pilot" inverseEntity="MedicalImage" syncable="YES"/>
+        <relationship name="photo" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Photo" inverseName="pilot" inverseEntity="Photo" syncable="YES"/>
+        <relationship name="picFlights" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FlightRecord" inverseName="pilot" inverseEntity="FlightRecord" syncable="YES"/>
+        <relationship name="powerLicenseImage" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="PowerLicenseImage" inverseName="pilot" inverseEntity="PowerLicenseImage" syncable="YES"/>
+        <relationship name="qualifications" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Qualification" inverseName="pilotsWhoHaveIt" inverseEntity="Qualification" syncable="YES"/>
+        <relationship name="summerUnit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SummerUnit" inverseName="pilots" inverseEntity="SummerUnit" syncable="YES"/>
+    </entity>
+    <entity name="PowerLicenseImage" representedClassName="PowerLicenseImage" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <relationship name="pilot" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pilot" inverseName="powerLicenseImage" inverseEntity="Pilot" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Qualification" syncable="YES">
+        <attribute name="nameOfQualification" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="pilotsWhoHaveIt" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Pilot" inverseName="qualifications" inverseEntity="Pilot" syncable="YES"/>
+    </entity>
+    <entity name="Region" representedClassName="Region" syncable="YES">
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="aircraft" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AircraftEntity" inverseName="region" inverseEntity="AircraftEntity" syncable="YES"/>
+        <relationship name="glidingCentres" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GlidingCentre" inverseName="region" inverseEntity="GlidingCentre" syncable="YES"/>
+        <relationship name="summerCampFlights" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SummerUnit" inverseName="region" inverseEntity="SummerUnit" syncable="YES"/>
+    </entity>
+    <entity name="SummerUnit" representedClassName="SummerUnit" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pilots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pilot" inverseName="summerUnit" inverseEntity="Pilot" syncable="YES"/>
+        <relationship name="region" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="summerCampFlights" inverseEntity="Region" syncable="YES"/>
+    </entity>
+    <fetchRequest name="vc" entity="Pilot" predicateString="highestGliderQual > 0"/>
+    <elements>
+        <element name="AircraftEntity" positionX="241" positionY="-226" width="128" height="298"/>
+        <element name="AircraftTimesheet" positionX="691" positionY="-243" width="128" height="178"/>
+        <element name="AttendanceRecord" positionX="351" positionY="486" width="128" height="163"/>
+        <element name="FlightRecord" positionX="493" positionY="66" width="128" height="253"/>
+        <element name="GliderLicenseImage" positionX="-378" positionY="504" width="128" height="75"/>
+        <element name="GlidingCentre" positionX="63" positionY="324" width="128" height="148"/>
+        <element name="GlidingDayComment" positionX="297" positionY="315" width="128" height="118"/>
+        <element name="MaintenaceEvent" positionX="844" positionY="-124" width="128" height="133"/>
+        <element name="MedicalImage" positionX="-344" positionY="333" width="128" height="75"/>
+        <element name="Photo" positionX="-360" positionY="414" width="128" height="75"/>
+        <element name="Pilot" positionX="-144" positionY="-207" width="128" height="883"/>
+        <element name="PowerLicenseImage" positionX="-378" positionY="585" width="128" height="75"/>
+        <element name="Qualification" positionX="504" positionY="591" width="128" height="75"/>
+        <element name="Region" positionX="-326" positionY="75" width="128" height="105"/>
+        <element name="SummerUnit" positionX="-324" positionY="234" width="128" height="90"/>
+    </elements>
+</model>

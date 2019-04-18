@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Apache</key>
+	<dict>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>Bandit</key>
+	<dict>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>A Flight</key>
+	<dict>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>B Flight</key>
+	<dict>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>Eagle</key>
+	<dict>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>Falcon</key>
+	<dict>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

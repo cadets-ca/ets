@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Region</string>
+			<key>Key</key>
+			<string>Region</string>
+			<key>DefaultValue</key>
+			<string>Northwest</string>
+			<key>Values</key>
+			<array>
+				<string>Pacific</string>
+				<string>Northwest</string>
+				<string>Central</string>
+				<string>Eastern</string>
+				<string>Atlantic</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Pacific Region</string>
+				<string>Northwest Region</string>
+				<string>Central Region</string>
+				<string>Eastern Region</string>
+				<string>Atlantic Region</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Training</string>
+			<key>FooterText</key>
+			<string>While in training mode, changes will not save. When you exit training mode, the app will return to the same state as when training mode was entered.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Training Mode</string>
+			<key>Key</key>
+			<string>Training Mode</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>iBeacon</string>
+			<key>FooterText</key>
+			<string>iBeacon assistance will land aircraft automatically if they are detected.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use Device As Beacon</string>
+			<key>Key</key>
+			<string>Transmit Beacon</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<string>Beacon Number</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Beacon Number</string>
+			<key>Key</key>
+			<string>Aircraft Registration</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>iBeacon Assistance</string>
+			<key>Key</key>
+			<string>iBeacon Assistance</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>CloudKit Syncing</string>
+			<key>FooterText</key>
+			<string>CloudKit provides live syncing of changes as they happen.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Disable CloudKit Sync</string>
+			<key>Key</key>
+			<string>Disable Sync</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Email Timesheets Default Addresses</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 1</string>
+			<key>Key</key>
+			<string>Timesheets Address 1</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 2</string>
+			<key>Key</key>
+			<string>Timesheets Address 2</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 3</string>
+			<key>Key</key>
+			<string>Timesheets Address 3</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Email Stats Report Default Addresses</string>
+			<key>FooterText</key>
+			<string>Designed and written by Paul Kirvan. Submit feedback at acgptimesheets.com. Privacy policy is https://acgptimesheets.com/2018/10/12/privacy-policy/.</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 1</string>
+			<key>Key</key>
+			<string>Stats Address 1</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 2</string>
+			<key>Key</key>
+			<string>Stats Address 2</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 3</string>
+			<key>Key</key>
+			<string>Stats Address 3</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 4</string>
+			<key>Key</key>
+			<string>Stats Address 4</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 5</string>
+			<key>Key</key>
+			<string>Stats Address 5</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>EmailAddress</string>
+			<key>DefaultValue</key>
+			<string>Enter Address Here</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Address 6</string>
+			<key>Key</key>
+			<string>Stats Address 6</string>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>Towing should always be the sequence whenever a glider is towed, whether to towplane is solo or dual.</string>
+	<string>If a glider is towed use Towing instead.</string>
+	<string>This is strictly for the training of tow pilots who have not towed solo before.</string>
+	<string>This is for when the towplane itself is being moved. If a glider is towed use Towing.</string>
+	<string>This is towplane maintenance flights. If a glider is towed use Towing.</string>
+	<string>This is for currency and APC flights for tow pilots who have already towed solo. If a glider is towed use Towing.</string>
+	<string>This is to upgrade current tow pilots to check, standards, or x-country. For new training use Tow Course.</string>
+</array>
+</plist>

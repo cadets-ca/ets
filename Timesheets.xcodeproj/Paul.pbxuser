@@ -1,0 +1,1370 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* TimesheetsAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 763}}";
+			sepNavSelRange = "{333, 14}";
+			sepNavVisRange = "{0, 497}";
+		};
+	};
+	1D3623250D0F684500981E51 /* TimesheetsAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1965, 962}}";
+			sepNavSelRange = "{1532, 0}";
+			sepNavVisRange = "{186, 1800}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* Timesheets */ = {
+		activeExec = 0;
+		executables = (
+			DA426AEF12761256000E42F9 /* Timesheets */,
+		);
+	};
+	28D7ACF60DDB3853001CB0EB /* TimesheetsViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 1924}}";
+			sepNavSelRange = "{3038, 13}";
+			sepNavVisRange = "{2395, 2248}";
+		};
+	};
+	28D7ACF70DDB3853001CB0EB /* TimesheetsViewController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = statements;\n            r = \"{122, 14}\";\n            s = 1;\n        },\n                {\n            l = statements;\n            r = \"{153, 14}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 74726}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1083, 34073}}";
+			sepNavSelRange = "{22239, 0}";
+			sepNavVisRange = "{21403, 1943}";
+			sepNavWindowFrame = "{{615, 147}, {1061, 837}}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeArchitecturePreference = armv7;
+		activeBuildConfigurationName = Distribution;
+		activeExecutable = DA426AEF12761256000E42F9 /* Timesheets */;
+		activeSDKPreference = iphoneos4.2;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* Timesheets */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* Timesheets */,
+		);
+		breakpoints = (
+			DA87201C12C6E97F00D9A290 /* TimesheetsViewController.m:466 */,
+			DA87201E12C6EA2600D9A290 /* Aircraft.m:217 */,
+			DAF1CAC712CD3664007214A0 /* TimesheetsViewController.m:2183 */,
+			DAF1CAD112CD36A5007214A0 /* TimesheetsViewController.m:2212 */,
+			DAF1CAD312CD36A6007214A0 /* TimesheetsViewController.m:2211 */,
+			DA6F101D12DD3DD700ABFC44 /* EditRecordPopover.m:220 */,
+		);
+		codeSenseManager = DA5308B3126F9F690057A124 /* Code sense */;
+		executables = (
+			DA426AEF12761256000E42F9 /* Timesheets */,
+		);
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					198,
+					20,
+					99,
+					99,
+					29,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					765,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					877,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					837,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 316489962;
+			PBXWorkspaceStateSaveDate = 316489962;
+		};
+		perUserProjectItems = {
+			DA19750012A8186700099B37 /* PBXBookmark */ = DA19750012A8186700099B37 /* PBXBookmark */;
+			DA19750112A8186700099B37 /* PBXBookmark */ = DA19750112A8186700099B37 /* PBXBookmark */;
+			DA19750212A8186700099B37 /* PBXBookmark */ = DA19750212A8186700099B37 /* PBXBookmark */;
+			DA19750312A8186700099B37 /* PBXBookmark */ = DA19750312A8186700099B37 /* PBXBookmark */;
+			DA19750612A8186700099B37 /* PBXBookmark */ = DA19750612A8186700099B37 /* PBXBookmark */;
+			DA1EC57712DBAB03000AF511 /* PBXBookmark */ = DA1EC57712DBAB03000AF511 /* PBXBookmark */;
+			DA1EC57B12DBAB03000AF511 /* PBXBookmark */ = DA1EC57B12DBAB03000AF511 /* PBXBookmark */;
+			DA1EC5AE12DBB91C000AF511 /* PBXTextBookmark */ = DA1EC5AE12DBB91C000AF511 /* PBXTextBookmark */;
+			DA1EC5AF12DBB91C000AF511 /* PBXTextBookmark */ = DA1EC5AF12DBB91C000AF511 /* PBXTextBookmark */;
+			DA1EC5B012DBB91C000AF511 /* PBXTextBookmark */ = DA1EC5B012DBB91C000AF511 /* PBXTextBookmark */;
+			DA29977B12CFEAED00589971 /* PBXBookmark */ = DA29977B12CFEAED00589971 /* PBXBookmark */;
+			DA29977D12CFEAED00589971 /* PBXBookmark */ = DA29977D12CFEAED00589971 /* PBXBookmark */;
+			DA340B6512CA920A00F8BE57 /* PBXTextBookmark */ = DA340B6512CA920A00F8BE57 /* PBXTextBookmark */;
+			DA340B7412CA936800F8BE57 /* PBXTextBookmark */ = DA340B7412CA936800F8BE57 /* PBXTextBookmark */;
+			DA39BCC512BEC698004C5685 /* PBXTextBookmark */ = DA39BCC512BEC698004C5685 /* PBXTextBookmark */;
+			DA3E84EE12AD737300C913FE /* PBXTextBookmark */ = DA3E84EE12AD737300C913FE /* PBXTextBookmark */;
+			DA67056312D3E61F00481E1C /* PBXTextBookmark */ = DA67056312D3E61F00481E1C /* PBXTextBookmark */;
+			DA6F100412DD257200ABFC44 /* PlistBookmark */ = DA6F100412DD257200ABFC44 /* PlistBookmark */;
+			DA6F100612DD257200ABFC44 /* PBXTextBookmark */ = DA6F100612DD257200ABFC44 /* PBXTextBookmark */;
+			DA6F102E12DD3EB800ABFC44 /* PBXTextBookmark */ = DA6F102E12DD3EB800ABFC44 /* PBXTextBookmark */;
+			DA6F103E12DD40DF00ABFC44 /* PBXTextBookmark */ = DA6F103E12DD40DF00ABFC44 /* PBXTextBookmark */;
+			DA6F104012DD40DF00ABFC44 /* PBXTextBookmark */ = DA6F104012DD40DF00ABFC44 /* PBXTextBookmark */;
+			DA76036A12D67921000A40A2 /* PBXTextBookmark */ = DA76036A12D67921000A40A2 /* PBXTextBookmark */;
+			DA77081B1271CEB60026C26C /* PBXTextBookmark */ = DA77081B1271CEB60026C26C /* PBXTextBookmark */;
+			DA856B9E12C827C500C2C83D /* PBXTextBookmark */ = DA856B9E12C827C500C2C83D /* PBXTextBookmark */;
+			DA85D219129AC27E004ABD5B /* PBXTextBookmark */ = DA85D219129AC27E004ABD5B /* PBXTextBookmark */;
+			DA8757FE12A096F200AA5FDA /* PlistBookmark */ = DA8757FE12A096F200AA5FDA /* PlistBookmark */;
+			DA9C94FC12D657AA00689BFF /* PBXTextBookmark */ = DA9C94FC12D657AA00689BFF /* PBXTextBookmark */;
+			DA9C94FE12D657AA00689BFF /* PBXTextBookmark */ = DA9C94FE12D657AA00689BFF /* PBXTextBookmark */;
+			DA9C953612D65BFA00689BFF /* PBXTextBookmark */ = DA9C953612D65BFA00689BFF /* PBXTextBookmark */;
+			DA9C956112D66A9900689BFF /* PBXTextBookmark */ = DA9C956112D66A9900689BFF /* PBXTextBookmark */;
+			DAAC2ADB12ABD6F100CA979F /* PBXTextBookmark */ = DAAC2ADB12ABD6F100CA979F /* PBXTextBookmark */;
+			DAAC2AEA12ABD9A700CA979F /* PBXTextBookmark */ = DAAC2AEA12ABD9A700CA979F /* PBXTextBookmark */;
+			DAB8386C12DD4756003E39FF /* PlistBookmark */ = DAB8386C12DD4756003E39FF /* PlistBookmark */;
+			DAB8386D12DD4756003E39FF /* PlistBookmark */ = DAB8386D12DD4756003E39FF /* PlistBookmark */;
+			DAB8386E12DD4756003E39FF /* PlistBookmark */ = DAB8386E12DD4756003E39FF /* PlistBookmark */;
+			DAB8386F12DD4756003E39FF /* PlistBookmark */ = DAB8386F12DD4756003E39FF /* PlistBookmark */;
+			DAB8387012DD4756003E39FF /* PlistBookmark */ = DAB8387012DD4756003E39FF /* PlistBookmark */;
+			DAB8387112DD4756003E39FF /* PlistBookmark */ = DAB8387112DD4756003E39FF /* PlistBookmark */;
+			DAB8387212DD4756003E39FF /* PBXBookmark */ = DAB8387212DD4756003E39FF /* PBXBookmark */;
+			DAB8387312DD4756003E39FF /* PBXBookmark */ = DAB8387312DD4756003E39FF /* PBXBookmark */;
+			DAB8387412DD4756003E39FF /* PBXBookmark */ = DAB8387412DD4756003E39FF /* PBXBookmark */;
+			DAB8387512DD4756003E39FF /* PBXBookmark */ = DAB8387512DD4756003E39FF /* PBXBookmark */;
+			DAB8387612DD4756003E39FF /* PBXBookmark */ = DAB8387612DD4756003E39FF /* PBXBookmark */;
+			DAB8387712DD4756003E39FF /* PBXBookmark */ = DAB8387712DD4756003E39FF /* PBXBookmark */;
+			DAB8387812DD4756003E39FF /* PBXBookmark */ = DAB8387812DD4756003E39FF /* PBXBookmark */;
+			DAB8387912DD4756003E39FF /* PBXBookmark */ = DAB8387912DD4756003E39FF /* PBXBookmark */;
+			DAB8387A12DD4756003E39FF /* PBXBookmark */ = DAB8387A12DD4756003E39FF /* PBXBookmark */;
+			DAB8387B12DD4756003E39FF /* PBXBookmark */ = DAB8387B12DD4756003E39FF /* PBXBookmark */;
+			DAB8387C12DD4756003E39FF /* PBXBookmark */ = DAB8387C12DD4756003E39FF /* PBXBookmark */;
+			DAB8387D12DD4756003E39FF /* PBXBookmark */ = DAB8387D12DD4756003E39FF /* PBXBookmark */;
+			DAB8387E12DD4756003E39FF /* PBXTextBookmark */ = DAB8387E12DD4756003E39FF /* PBXTextBookmark */;
+			DAB8387F12DD4756003E39FF /* PBXTextBookmark */ = DAB8387F12DD4756003E39FF /* PBXTextBookmark */;
+			DAB8388012DD4756003E39FF /* PlistBookmark */ = DAB8388012DD4756003E39FF /* PlistBookmark */;
+			DAB8388112DD4756003E39FF /* PlistBookmark */ = DAB8388112DD4756003E39FF /* PlistBookmark */;
+			DAB8388212DD4756003E39FF /* PlistBookmark */ = DAB8388212DD4756003E39FF /* PlistBookmark */;
+			DAB8388312DD4756003E39FF /* PBXTextBookmark */ = DAB8388312DD4756003E39FF /* PBXTextBookmark */;
+			DAB8388412DD4756003E39FF /* PBXTextBookmark */ = DAB8388412DD4756003E39FF /* PBXTextBookmark */;
+			DAC4B27E12D8CC38009DB843 /* PBXTextBookmark */ = DAC4B27E12D8CC38009DB843 /* PBXTextBookmark */;
+			DACBDF7D129F3877002F4E02 /* PlistBookmark */ = DACBDF7D129F3877002F4E02 /* PlistBookmark */;
+			DACE291312CFE3F100AE3EBD /* PBXTextBookmark */ = DACE291312CFE3F100AE3EBD /* PBXTextBookmark */;
+			DACE291512CFE3F100AE3EBD /* PBXTextBookmark */ = DACE291512CFE3F100AE3EBD /* PBXTextBookmark */;
+			DACE292B12CFE73700AE3EBD /* PBXTextBookmark */ = DACE292B12CFE73700AE3EBD /* PBXTextBookmark */;
+			DACE292F12CFE73700AE3EBD /* PBXTextBookmark */ = DACE292F12CFE73700AE3EBD /* PBXTextBookmark */;
+			DAD68EA612D52FF700E77A89 /* PBXTextBookmark */ = DAD68EA612D52FF700E77A89 /* PBXTextBookmark */;
+			DAD68EA712D52FF700E77A89 /* PBXTextBookmark */ = DAD68EA712D52FF700E77A89 /* PBXTextBookmark */;
+			DADD974E12A9545700CE7824 /* PBXTextBookmark */ = DADD974E12A9545700CE7824 /* PBXTextBookmark */;
+			DADD975012A9545700CE7824 /* PBXTextBookmark */ = DADD975012A9545700CE7824 /* PBXTextBookmark */;
+			DADD975312A9545700CE7824 /* PBXTextBookmark */ = DADD975312A9545700CE7824 /* PBXTextBookmark */;
+			DAE51E5A12A99E91005857DB /* PBXTextBookmark */ = DAE51E5A12A99E91005857DB /* PBXTextBookmark */;
+			DAF1C9BC12CCE6FA007214A0 /* PBXTextBookmark */ = DAF1C9BC12CCE6FA007214A0 /* PBXTextBookmark */;
+			DAF1C9FE12CCEC97007214A0 /* PBXBookmark */ = DAF1C9FE12CCEC97007214A0 /* PBXBookmark */;
+			DAF1CA3B12CD264F007214A0 /* PBXTextBookmark */ = DAF1CA3B12CD264F007214A0 /* PBXTextBookmark */;
+			DAFB12C912AB178400943D48 /* PBXTextBookmark */ = DAFB12C912AB178400943D48 /* PBXTextBookmark */;
+		};
+		sourceControlManager = DA5308B2126F9F690057A124 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1187, 330}}";
+			sepNavSelRange = "{265, 0}";
+			sepNavVisRange = "{0, 364}";
+		};
+	};
+	DA04669412A48D500030A599 /* Default-Landscape.png */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 192}, {875, 831}}";
+		};
+	};
+	DA0EBF7A127788AD00F6BC3F /* EditGliderPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 788}}";
+			sepNavSelRange = "{873, 44}";
+			sepNavVisRange = "{0, 967}";
+			sepNavWindowFrame = "{{15, 248}, {1176, 775}}";
+		};
+	};
+	DA0EBF7B127788AD00F6BC3F /* EditGliderPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 3042}}";
+			sepNavSelRange = "{685, 14}";
+			sepNavVisRange = "{0, 1243}";
+			sepNavWindowFrame = "{{15, 248}, {1176, 775}}";
+		};
+	};
+	DA1974F412A8159A00099B37 /* ScoutTakeOff.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = ScoutTakeOff.png;
+		path = /Users/Paul/Desktop/Timesheets/ScoutTakeOff.png;
+		sourceTree = "<absolute>";
+	};
+	DA19750012A8186700099B37 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA8757D112A091CB00AA5FDA /* Cloud3.png */;
+	};
+	DA19750112A8186700099B37 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA8757D912A0940500AA5FDA /* Cloud4.png */;
+	};
+	DA19750212A8186700099B37 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DACBDE84129EFC25002F4E02 /* GliderCell.png */;
+	};
+	DA19750312A8186700099B37 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DACBDE86129EFC32002F4E02 /* ScoutCell.png */;
+	};
+	DA19750612A8186700099B37 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DACBDE8A129EFC4F002F4E02 /* LandedAircraft.png */;
+	};
+	DA1A13F312943E9B00387525 /* GliderSequences.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{1, 114}, {1176, 775}}";
+		};
+	};
+	DA1A13F712943EA800387525 /* TowplaneSequences.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 248}, {1176, 775}}";
+		};
+	};
+	DA1A13FB12943FD600387525 /* ChangeSequencePopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {985, 623}}";
+			sepNavSelRange = "{742, 42}";
+			sepNavVisRange = "{0, 823}";
+		};
+	};
+	DA1A13FC12943FD600387525 /* ChangeSequencePopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1021, 1963}}";
+			sepNavSelRange = "{3056, 0}";
+			sepNavVisRange = "{191, 1575}";
+		};
+	};
+	DA1EC57712DBAB03000AF511 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DAF1C9E712CCEB5A007214A0 /* AircraftFlying@2x.png */;
+	};
+	DA1EC57B12DBAB03000AF511 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DAF1CA1812CCEEF3007214A0 /* ScoutTakeOff@2x.png */;
+	};
+	DA1EC5AE12DBB91C000AF511 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA77079F1271C4150026C26C /* AddPilotPopover.h */;
+		name = "AddPilotPopover.h: 14";
+		rLen = 15;
+		rLoc = 261;
+		rType = 0;
+		vrLen = 885;
+		vrLoc = 0;
+	};
+	DA1EC5AF12DBB91C000AF511 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA6063A11274D4BF009FCB79 /* AddAircraftPopover.m */;
+		name = "AddAircraftPopover.m: 42";
+		rLen = 0;
+		rLoc = 1074;
+		rType = 0;
+		vrLen = 1565;
+		vrLoc = 47;
+	};
+	DA1EC5B012DBB91C000AF511 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA6063A01274D4BF009FCB79 /* AddAircraftPopover.h */;
+		name = "AddAircraftPopover.h: 13";
+		rLen = 18;
+		rLoc = 246;
+		rType = 0;
+		vrLen = 1005;
+		vrLoc = 0;
+	};
+	DA29976112CFE98600589971 /* Icon@2x.png */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{84, 129}, {875, 831}}";
+		};
+	};
+	DA29977B12CFEAED00589971 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA04669412A48D500030A599 /* Default-Landscape.png */;
+	};
+	DA29977D12CFEAED00589971 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DAFADAE812CD37B1008418C4 /* Default.png */;
+	};
+	DA340B6512CA920A00F8BE57 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA784A5F127CCCC600078FA8 /* ListManagement.h */;
+		name = "ListManagement.h: 18";
+		rLen = 30;
+		rLoc = 390;
+		rType = 0;
+		vrLen = 1955;
+		vrLoc = 0;
+	};
+	DA340B7412CA936800F8BE57 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA784A60127CCCC600078FA8 /* ListManagement.m */;
+		name = "ListManagement.m: 100";
+		rLen = 0;
+		rLoc = 3153;
+		rType = 0;
+		vrLen = 1566;
+		vrLoc = 2431;
+	};
+	DA39BCC512BEC698004C5685 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA66D13E12972F5B00E822EB /* ChangeTime.h */;
+		name = "ChangeTime.h: 19";
+		rLen = 12;
+		rLoc = 352;
+		rType = 0;
+		vrLen = 760;
+		vrLoc = 0;
+	};
+	DA3E84EE12AD737300C913FE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAAA36C0129329D300A8B153 /* ChangePilotPopover.m */;
+		name = "ChangePilotPopover.m: 207";
+		rLen = 0;
+		rLoc = 6485;
+		rType = 0;
+		vrLen = 1341;
+		vrLoc = 5830;
+	};
+	DA426AEF12761256000E42F9 /* Timesheets */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+			{
+				active = NO;
+				name = NSZombieEnabled;
+				value = YES;
+			},
+			{
+				active = NO;
+				name = NSAutoreleaseFreedObjectCheckEnabled;
+				value = YES;
+			},
+			{
+				active = NO;
+				name = NSDebugEnabled;
+				value = YES;
+			},
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Timesheets;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+			$lr = 1;
+			$pc = 1;
+			$r0 = 1;
+			$r1 = 1;
+			$r10 = 1;
+			$r11 = 1;
+			$r12 = 1;
+			$r2 = 1;
+			$r3 = 1;
+			$r4 = 1;
+			$r5 = 1;
+			$r6 = 1;
+			$r7 = 1;
+			$r8 = 1;
+			$r9 = 1;
+			$sp = 1;
+		};
+	};
+	DA4C1FDB1279A99D0096BCDA /* ChangeTowplaneOrGliderPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 788}}";
+			sepNavSelRange = "{541, 0}";
+			sepNavVisRange = "{0, 813}";
+		};
+	};
+	DA4C1FDC1279A99D0096BCDA /* ChangeTowplaneOrGliderPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1146, 1495}}";
+			sepNavSelRange = "{1489, 23}";
+			sepNavVisRange = "{163, 1458}";
+		};
+	};
+	DA5308B2126F9F690057A124 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	DA5308B3126F9F690057A124 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	DA5308CA126FA4A80057A124 /* AircraftRecord.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{88, 125}, {671, 757}}";
+		};
+	};
+	DA5308D2126FA5240057A124 /* FlightRecord.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 242}, {916, 781}}";
+		};
+	};
+	DA5308FF126FAAD40057A124 /* GliderList.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{2, 209}, {916, 781}}";
+		};
+	};
+	DA530901126FAADC0057A124 /* TowPlaneList.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{83, 203}, {916, 781}}";
+		};
+	};
+	DA53090A126FAF2E0057A124 /* Aircraft.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 1924}}";
+			sepNavSelRange = "{442, 13}";
+			sepNavVisRange = "{3, 1958}";
+			sepNavWindowFrame = "{{15, 248}, {1176, 775}}";
+		};
+	};
+	DA53090B126FAF2E0057A124 /* Aircraft.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 16419}}";
+			sepNavSelRange = "{38050, 0}";
+			sepNavVisRange = "{37627, 1087}";
+			sepNavWindowFrame = "{{130, 143}, {1176, 775}}";
+		};
+	};
+	DA530914126FAFF20057A124 /* Qualifications.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{579, 130}, {916, 781}}";
+		};
+	};
+	DA6063A01274D4BF009FCB79 /* AddAircraftPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 763}}";
+			sepNavSelRange = "{246, 18}";
+			sepNavVisRange = "{0, 1005}";
+		};
+	};
+	DA6063A11274D4BF009FCB79 /* AddAircraftPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 2236}}";
+			sepNavSelRange = "{1074, 0}";
+			sepNavVisRange = "{47, 1565}";
+			sepNavWindowFrame = "{{107, 158}, {916, 781}}";
+		};
+	};
+	DA66D0EB1296D94400E822EB /* EditRecordPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 764}}";
+			sepNavSelRange = "{831, 0}";
+			sepNavVisRange = "{0, 1071}";
+		};
+	};
+	DA66D0EC1296D94400E822EB /* EditRecordPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 3549}}";
+			sepNavSelRange = "{5166, 0}";
+			sepNavVisRange = "{5096, 1470}";
+			sepNavWindowFrame = "{{15, 248}, {1176, 775}}";
+		};
+	};
+	DA66D13E12972F5B00E822EB /* ChangeTime.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1111, 763}}";
+			sepNavSelRange = "{352, 12}";
+			sepNavVisRange = "{0, 760}";
+		};
+	};
+	DA66D13F12972F5B00E822EB /* ChangeTime.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 1131}}";
+			sepNavSelRange = "{936, 0}";
+			sepNavVisRange = "{169, 1545}";
+		};
+	};
+	DA66D39E1298934E00E822EB /* ChangeAircraftPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {985, 570}}";
+			sepNavSelRange = "{246, 16}";
+			sepNavVisRange = "{0, 934}";
+		};
+	};
+	DA66D39F1298934E00E822EB /* ChangeAircraftPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1062, 2483}}";
+			sepNavSelRange = "{607, 0}";
+			sepNavVisRange = "{7, 1426}";
+		};
+	};
+	DA67056312D3E61F00481E1C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA4C1FDB1279A99D0096BCDA /* ChangeTowplaneOrGliderPopover.h */;
+		name = "ChangeTowplaneOrGliderPopover.h: 22";
+		rLen = 0;
+		rLoc = 541;
+		rType = 0;
+		vrLen = 813;
+		vrLoc = 0;
+	};
+	DA6F100412DD257200ABFC44 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA5308CA126FA4A80057A124 /* AircraftRecord.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			InTheAir,
+		);
+		name = /Users/Paul/Desktop/Timesheets/AircraftRecord.plist;
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	DA6F100612DD257200ABFC44 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA4C1FDC1279A99D0096BCDA /* ChangeTowplaneOrGliderPopover.m */;
+		name = "ChangeTowplaneOrGliderPopover.m: 57";
+		rLen = 23;
+		rLoc = 1489;
+		rType = 0;
+		vrLen = 1458;
+		vrLoc = 163;
+	};
+	DA6F101D12DD3DD700ABFC44 /* EditRecordPopover.m:220 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = DA66D0EC1296D94400E822EB /* EditRecordPopover.m */;
+		functionName = "-viewWillAppear:";
+		hitCount = 5;
+		ignoreCount = 0;
+		lineNumber = 220;
+		location = Timesheets;
+		modificationTime = 316489502.110965;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	DA6F102E12DD3EB800ABFC44 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA66D0EB1296D94400E822EB /* EditRecordPopover.h */;
+		name = "EditRecordPopover.h: 36";
+		rLen = 0;
+		rLoc = 831;
+		rType = 0;
+		vrLen = 1071;
+		vrLoc = 0;
+	};
+	DA6F103E12DD40DF00ABFC44 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA66D0EC1296D94400E822EB /* EditRecordPopover.m */;
+		name = "EditRecordPopover.m: 220";
+		rLen = 0;
+		rLoc = 5166;
+		rType = 0;
+		vrLen = 1470;
+		vrLoc = 5096;
+	};
+	DA6F104012DD40DF00ABFC44 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA53090A126FAF2E0057A124 /* Aircraft.h */;
+		name = "Aircraft.h: 17";
+		rLen = 13;
+		rLoc = 442;
+		rType = 0;
+		vrLen = 1958;
+		vrLoc = 3;
+	};
+	DA76036A12D67921000A40A2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAC3864812C1275400F4EC16 /* Records.m */;
+		name = "Records.m: 74";
+		rLen = 0;
+		rLoc = 1876;
+		rType = 0;
+		vrLen = 1706;
+		vrLoc = 645;
+	};
+	DA77079F1271C4150026C26C /* AddPilotPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 786}}";
+			sepNavSelRange = "{261, 15}";
+			sepNavVisRange = "{0, 885}";
+			sepNavWindowFrame = "{{15, 248}, {1176, 775}}";
+		};
+	};
+	DA7707A01271C4150026C26C /* AddPilotPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 2002}}";
+			sepNavSelRange = "{538, 15}";
+			sepNavVisRange = "{47, 1591}";
+		};
+	};
+	DA77081B1271CEB60026C26C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 364;
+		vrLoc = 0;
+	};
+	DA7708481271D52B0026C26C /* OrganizeTemplate.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{738, 92}, {916, 781}}";
+		};
+	};
+	DA784A5F127CCCC600078FA8 /* ListManagement.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 780}}";
+			sepNavSelRange = "{390, 30}";
+			sepNavVisRange = "{0, 1955}";
+		};
+	};
+	DA784A60127CCCC600078FA8 /* ListManagement.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 4667}}";
+			sepNavSelRange = "{3153, 0}";
+			sepNavVisRange = "{2431, 1566}";
+			sepNavWindowFrame = "{{38, 227}, {1176, 775}}";
+		};
+	};
+	DA856B9E12C827C500C2C83D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAC3863012C1264800F4EC16 /* Airplanes.h */;
+		name = "Airplanes.h: 15";
+		rLen = 0;
+		rLoc = 282;
+		rType = 0;
+		vrLen = 634;
+		vrLoc = 0;
+	};
+	DA85D219129AC27E004ABD5B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA8EB688129476C800A8D723 /* CGGeometry.h */;
+		name = "CGGeometry.h: 264";
+		rLen = 0;
+		rLoc = 8272;
+		rType = 0;
+		vrLen = 1266;
+		vrLoc = 7602;
+	};
+	DA87201C12C6E97F00D9A290 /* TimesheetsViewController.m:466 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 28D7ACF70DDB3853001CB0EB /* TimesheetsViewController.m */;
+		functionName = "-LandAircraft:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 466;
+		location = Timesheets;
+		modificationTime = 316489387.531155;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	DA87201E12C6EA2600D9A290 /* Aircraft.m:217 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = DA53090B126FAF2E0057A124 /* Aircraft.m */;
+		functionName = "-RemoveAircraftPendingLandingByIdent:WithTowingStatus:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 217;
+		location = Timesheets;
+		modificationTime = 316489387.568153;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	DA8757FE12A096F200AA5FDA /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA1A13F312943E9B00387525 /* GliderSequences.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Paul/Desktop/Timesheets/GliderSequences.plist;
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	DA8EB6441294706D00A8D723 /* ChangeGlidingCentrePopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1021, 570}}";
+			sepNavSelRange = "{296, 23}";
+			sepNavVisRange = "{0, 732}";
+		};
+	};
+	DA8EB6451294706D00A8D723 /* ChangeGlidingCentrePopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {985, 1599}}";
+			sepNavSelRange = "{550, 62}";
+			sepNavVisRange = "{0, 1233}";
+		};
+	};
+	DA8EB688129476C800A8D723 /* CGGeometry.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = CGGeometry.h;
+		path = /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGGeometry.h;
+		sourceTree = "<absolute>";
+	};
+	DA9C94FC12D657AA00689BFF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAC3864512C1275400F4EC16 /* PilotsController.m */;
+		name = "PilotsController.m: 12";
+		rLen = 0;
+		rLoc = 199;
+		rType = 0;
+		vrLen = 1916;
+		vrLoc = 968;
+	};
+	DA9C94FE12D657AA00689BFF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAC3863112C1264800F4EC16 /* Airplanes.m */;
+		name = "Airplanes.m: 65";
+		rLen = 22;
+		rLoc = 1923;
+		rType = 0;
+		vrLen = 2061;
+		vrLoc = 637;
+	};
+	DA9C953612D65BFA00689BFF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA0EBF7A127788AD00F6BC3F /* EditGliderPopover.h */;
+		name = "EditGliderPopover.h: 39";
+		rLen = 44;
+		rLoc = 873;
+		rType = 0;
+		vrLen = 967;
+		vrLoc = 0;
+	};
+	DA9C956112D66A9900689BFF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAC3864712C1275400F4EC16 /* Records.h */;
+		name = "Records.h: 13";
+		rLen = 45;
+		rLoc = 237;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DAAA36BF129329D300A8B153 /* ChangePilotPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1021, 637}}";
+			sepNavSelRange = "{1002, 281}";
+			sepNavVisRange = "{86, 1205}";
+		};
+	};
+	DAAA36C0129329D300A8B153 /* ChangePilotPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1187, 4576}}";
+			sepNavSelRange = "{6885, 0}";
+			sepNavVisRange = "{6158, 1013}";
+		};
+	};
+	DAAA37691293487000A8B153 /* ChangePassengerPopover.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {985, 623}}";
+			sepNavSelRange = "{1233, 60}";
+			sepNavVisRange = "{0, 1300}";
+		};
+	};
+	DAAA376A1293487000A8B153 /* ChangePassengerPopover.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 4524}}";
+			sepNavSelRange = "{7136, 0}";
+			sepNavVisRange = "{5593, 1705}";
+		};
+	};
+	DAAC2ADB12ABD6F100CA979F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA8EB6441294706D00A8D723 /* ChangeGlidingCentrePopover.h */;
+		name = "ChangeGlidingCentrePopover.h: 13";
+		rLen = 23;
+		rLoc = 296;
+		rType = 0;
+		vrLen = 732;
+		vrLoc = 0;
+	};
+	DAAC2AEA12ABD9A700CA979F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA1A13FC12943FD600387525 /* ChangeSequencePopover.m */;
+		name = "ChangeSequencePopover.m: 102";
+		rLen = 0;
+		rLoc = 3056;
+		rType = 0;
+		vrLen = 1575;
+		vrLoc = 191;
+	};
+	DAB8386C12DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA7708481271D52B0026C26C /* OrganizeTemplate.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Paul/Desktop/Timesheets/OrganizeTemplate.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8386D12DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DAC140A3129DD62D00643B6E /* TimeRemaining.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			"Scout 5",
+		);
+		name = /Users/Paul/Desktop/Timesheets/TimeRemaining.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8386E12DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA1A13F712943EA800387525 /* TowplaneSequences.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Paul/Desktop/Timesheets/TowplaneSequences.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8386F12DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA530901126FAADC0057A124 /* TowPlaneList.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Paul/Desktop/Timesheets/TowPlaneList.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8387012DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA5308D2126FA5240057A124 /* FlightRecord.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			"Pilot Time in Aircraft",
+		);
+		name = /Users/Paul/Desktop/Timesheets/FlightRecord.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8387112DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA5308CE126FA4DC0057A124 /* StaffRecord.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Paul/Desktop/Timesheets/StaffRecord.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8387212DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DAF1C9E812CCEB5A007214A0 /* AircraftLanded.png */;
+	};
+	DAB8387312DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA3E847612AD69D900C913FE /* Icon-72.png */;
+	};
+	DAB8387412DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA2997B612CFF34D00589971 /* Icon.png */;
+	};
+	DAB8387512DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA2997BE12CFF3B300589971 /* Icon5.png */;
+	};
+	DAB8387612DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA29976112CFE98600589971 /* Icon@2x.png */;
+	};
+	DAB8387712DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA3E847712AD69D900C913FE /* Icon-Small-50.png */;
+	};
+	DAB8387812DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA3E847812AD69D900C913FE /* Icon-Small.png */;
+	};
+	DAB8387912DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA1974F312A8159900099B37 /* ScoutLanding.png */;
+	};
+	DAB8387A12DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DAF1CA1412CCEEDF007214A0 /* ScoutLanding@2x.png */;
+	};
+	DAB8387B12DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA1974F512A8159A00099B37 /* GliderLanding.png */;
+	};
+	DAB8387C12DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DAF1CA1612CCEEEA007214A0 /* GliderLanding@2x.png */;
+	};
+	DAB8387D12DD4756003E39FF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DA1974F412A8159A00099B37 /* ScoutTakeOff.png */;
+	};
+	DAB8387E12DD4756003E39FF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* TimesheetsViewController.h */;
+		name = "TimesheetsViewController.h: 94";
+		rLen = 13;
+		rLoc = 3038;
+		rType = 0;
+		vrLen = 2248;
+		vrLoc = 2395;
+	};
+	DAB8387F12DD4756003E39FF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* TimesheetsViewController.m */;
+		name = "TimesheetsViewController.m: 751";
+		rLen = 0;
+		rLoc = 22265;
+		rType = 0;
+		vrLen = 1943;
+		vrLoc = 21429;
+	};
+	DAB8388012DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA530914126FAFF20057A124 /* Qualifications.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			Kirvan,
+			"Glider Pilot",
+		);
+		name = /Users/Paul/Desktop/Timesheets/Qualifications.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8388112DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DA5308FF126FAAD40057A124 /* GliderList.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			5,
+		);
+		name = /Users/Paul/Desktop/Timesheets/GliderList.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8388212DD4756003E39FF /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Timesheets-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			UIPrerenderedIcon,
+		);
+		name = "/Users/Paul/Desktop/Timesheets/Timesheets-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DAB8388312DD4756003E39FF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA53090B126FAF2E0057A124 /* Aircraft.m */;
+		name = "Aircraft.m: 1202";
+		rLen = 0;
+		rLoc = 38050;
+		rType = 0;
+		vrLen = 934;
+		vrLoc = 37708;
+	};
+	DAB8388412DD4756003E39FF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA53090B126FAF2E0057A124 /* Aircraft.m */;
+		name = "Aircraft.m: 1202";
+		rLen = 0;
+		rLoc = 38050;
+		rType = 0;
+		vrLen = 1087;
+		vrLoc = 37627;
+	};
+	DAC140A3129DD62D00643B6E /* TimeRemaining.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{34, 194}, {1176, 775}}";
+		};
+	};
+	DAC3863012C1264800F4EC16 /* Airplanes.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 786}}";
+			sepNavSelRange = "{282, 0}";
+			sepNavVisRange = "{0, 634}";
+		};
+	};
+	DAC3863112C1264800F4EC16 /* Airplanes.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1187, 1352}}";
+			sepNavSelRange = "{1972, 0}";
+			sepNavVisRange = "{1577, 949}";
+		};
+	};
+	DAC3864412C1275400F4EC16 /* PilotsController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 811}}";
+			sepNavSelRange = "{525, 0}";
+			sepNavVisRange = "{0, 791}";
+		};
+	};
+	DAC3864512C1275400F4EC16 /* PilotsController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1430}}";
+			sepNavSelRange = "{199, 0}";
+			sepNavVisRange = "{968, 1916}";
+		};
+	};
+	DAC3864712C1275400F4EC16 /* Records.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1055, 788}}";
+			sepNavSelRange = "{237, 45}";
+			sepNavVisRange = "{0, 899}";
+		};
+	};
+	DAC3864812C1275400F4EC16 /* Records.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1937}}";
+			sepNavSelRange = "{1876, 0}";
+			sepNavVisRange = "{645, 1706}";
+		};
+	};
+	DAC4B27E12D8CC38009DB843 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAC3864412C1275400F4EC16 /* PilotsController.h */;
+		name = "PilotsController.h: 25";
+		rLen = 0;
+		rLoc = 525;
+		rType = 0;
+		vrLen = 791;
+		vrLoc = 0;
+	};
+	DACBDF7D129F3877002F4E02 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = DAE7625D1282B4E3005383BB /* GlidingCentreCoordinates.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/Paul/Desktop/Timesheets Now/GlidingCentreCoordinates.plist";
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	DACE291312CFE3F100AE3EBD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA66D39F1298934E00E822EB /* ChangeAircraftPopover.m */;
+		name = "ChangeAircraftPopover.m: 24";
+		rLen = 0;
+		rLoc = 607;
+		rType = 0;
+		vrLen = 1426;
+		vrLoc = 7;
+	};
+	DACE291512CFE3F100AE3EBD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA0EBF7B127788AD00F6BC3F /* EditGliderPopover.m */;
+		name = "EditGliderPopover.m: 40";
+		rLen = 14;
+		rLoc = 685;
+		rType = 0;
+		vrLen = 1243;
+		vrLoc = 0;
+	};
+	DACE292B12CFE73700AE3EBD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA66D13F12972F5B00E822EB /* ChangeTime.m */;
+		name = "ChangeTime.m: 46";
+		rLen = 0;
+		rLoc = 936;
+		rType = 0;
+		vrLen = 1545;
+		vrLoc = 169;
+	};
+	DACE292F12CFE73700AE3EBD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAAA376A1293487000A8B153 /* ChangePassengerPopover.m */;
+		name = "ChangePassengerPopover.m: 226";
+		rLen = 0;
+		rLoc = 7136;
+		rType = 0;
+		vrLen = 1705;
+		vrLoc = 5593;
+	};
+	DAD68EA612D52FF700E77A89 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* TimesheetsAppDelegate.h */;
+		name = "TimesheetsAppDelegate.h: 15";
+		rLen = 14;
+		rLoc = 333;
+		rType = 0;
+		vrLen = 497;
+		vrLoc = 0;
+	};
+	DAD68EA712D52FF700E77A89 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TimesheetsAppDelegate.m */;
+		name = "TimesheetsAppDelegate.m: 48";
+		rLen = 0;
+		rLoc = 1532;
+		rType = 0;
+		vrLen = 1800;
+		vrLoc = 186;
+	};
+	DADD974E12A9545700CE7824 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAAA37691293487000A8B153 /* ChangePassengerPopover.h */;
+		name = "ChangePassengerPopover.h: 43";
+		rLen = 60;
+		rLoc = 1233;
+		rType = 0;
+		vrLen = 1300;
+		vrLoc = 0;
+	};
+	DADD975012A9545700CE7824 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA1A13FB12943FD600387525 /* ChangeSequencePopover.h */;
+		name = "ChangeSequencePopover.h: 31";
+		rLen = 42;
+		rLoc = 742;
+		rType = 0;
+		vrLen = 823;
+		vrLoc = 0;
+	};
+	DADD975312A9545700CE7824 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA8EB6451294706D00A8D723 /* ChangeGlidingCentrePopover.m */;
+		name = "ChangeGlidingCentrePopover.m: 29";
+		rLen = 62;
+		rLoc = 550;
+		rType = 0;
+		vrLen = 1233;
+		vrLoc = 0;
+	};
+	DAE51E5A12A99E91005857DB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA66D39E1298934E00E822EB /* ChangeAircraftPopover.h */;
+		name = "ChangeAircraftPopover.h: 13";
+		rLen = 16;
+		rLoc = 246;
+		rType = 0;
+		vrLen = 934;
+		vrLoc = 0;
+	};
+	DAE7625D1282B4E3005383BB /* GlidingCentreCoordinates.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{497, 66}, {1176, 775}}";
+		};
+	};
+	DAF1C9BC12CCE6FA007214A0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAF1C9BD12CCE6FA007214A0 /* TimesheetsViewController.m */;
+		name = "TimesheetsViewController.m: 1042";
+		rLen = 1287;
+		rLoc = 35095;
+		rType = 0;
+		vrLen = 2404;
+		vrLoc = 34453;
+	};
+	DAF1C9BD12CCE6FA007214A0 /* TimesheetsViewController.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = TimesheetsViewController.m;
+		path = "/Users/Paul/Desktop/App Backups/Timesheets iPhone/Classes/TimesheetsViewController.m";
+		sourceTree = "<absolute>";
+	};
+	DAF1C9FE12CCEC97007214A0 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DACBDE88129EFC40002F4E02 /* FlyingAircraft.png */;
+	};
+	DAF1CA1812CCEEF3007214A0 /* ScoutTakeOff@2x.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = "ScoutTakeOff@2x.png";
+		path = "/Users/Paul/Desktop/Timesheets/ScoutTakeOff@2x.png";
+		sourceTree = "<absolute>";
+	};
+	DAF1CA3B12CD264F007214A0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DA7707A01271C4150026C26C /* AddPilotPopover.m */;
+		name = "AddPilotPopover.m: 22";
+		rLen = 15;
+		rLoc = 538;
+		rType = 0;
+		vrLen = 1591;
+		vrLoc = 47;
+	};
+	DAF1CAC712CD3664007214A0 /* TimesheetsViewController.m:2183 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 28D7ACF70DDB3853001CB0EB /* TimesheetsViewController.m */;
+		functionName = "-ChangeAircraft";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 2183;
+		location = Timesheets;
+		modificationTime = 316489387.592677;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	DAF1CAD112CD36A5007214A0 /* TimesheetsViewController.m:2212 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 28D7ACF70DDB3853001CB0EB /* TimesheetsViewController.m */;
+		functionName = "-ChangeAircraft";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 2212;
+		location = Timesheets;
+		modificationTime = 316489387.630721;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	DAF1CAD312CD36A6007214A0 /* TimesheetsViewController.m:2211 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 28D7ACF70DDB3853001CB0EB /* TimesheetsViewController.m */;
+		functionName = "-ChangeAircraft";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 2211;
+		location = Timesheets;
+		modificationTime = 316489387.656409;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	DAFADAE812CD37B1008418C4 /* Default.png */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{38, 171}, {875, 831}}";
+		};
+	};
+	DAFB12C912AB178400943D48 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DAAA36BF129329D300A8B153 /* ChangePilotPopover.h */;
+		name = "ChangePilotPopover.h: 40";
+		rLen = 281;
+		rLoc = 1002;
+		rType = 0;
+		vrLen = 1205;
+		vrLoc = 86;
+	};
+}

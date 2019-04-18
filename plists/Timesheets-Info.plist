@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>FileTypeIcon</string>
+				<string>FileType320.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>SQL Data Store</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.Timesheets.sqlite</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>51</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>6.2.3</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>625</string>
+	<key>CKSharingSupported</key>
+	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This app uses Bluetooth to enable your device to act as a beacon so the app can automatically record your landing times.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>iBeacon ranging is used to automatically land aircraft as they near the timekeeper.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>iBeacon ranging is used to automatically land aircraft as they near the timekeeper.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>iBeacon ranging is used to automatically land aircraft as they near the timekeeper.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app can use your photo library to help you assign photos to your pilots, as an alternative to using your camera.</string>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.com.Kirvan.Timesheets.Backups</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>ACGP Timesheets</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>Any</string>
+		</dict>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>iPadStoryboard</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>iPadStoryboard</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
+	<key>UIStatusBarTintParameters</key>
+	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>Style</key>
+			<string>UIBarStyleDefault</string>
+			<key>Translucent</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>SQL Data Store</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.Timesheets.sqlite</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>Icon@2x</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>Icon-Small</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sqlite</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/x-sqlite3</string>
+			</dict>
+		</dict>
+	</array>
+	<key>com.apple.developer.icloud-container-environment</key>
+	<string>Production</string>
+</dict>
+</plist>

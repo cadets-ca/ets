@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Background Launch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Debug Timesheets.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Flights This Season.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Flights Today.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Gliding Centre Flights.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Hours This Season.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Timesheets.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1D6058900D05DD3D006BFB54</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA19D0B71F6CCCA3008A6765</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA19D0C91F6CCCA4008A6765</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA19D0D41F6CCCA4008A6765</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA21DDDC1B7B0E8F00D16889</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA66CA6419E9D7EF00A69615</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA66CA8219EA24B400A69615</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA90F76C1D9B762000046192</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA90F77F1D9B764200046192</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAE6B4E91A58E7DE008F1AC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAEB43581A579FFA00D387F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

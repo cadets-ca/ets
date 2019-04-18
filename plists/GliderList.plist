@@ -1,0 +1,1416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 1</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCLD</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 2</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCLS</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 3</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>FFDR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 4</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GFMC</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 5</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GSOR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 6</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCLE</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 7</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>FJNM</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 8</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCLZ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 9</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCLJ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 10</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GRFQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 11</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCLW</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 12</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GMOG</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 13</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>FYLQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 14</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GRVH</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 15</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>FADN</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 16</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>FQMH</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 17</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>FWYJ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GNPF</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GNPF</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Scout 1</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GSSV</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Scout 2</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GOBW</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Scout 3</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GQNQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Scout 4</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GSSD</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Scout 5</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GBAZ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Scout 6</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>GCDL</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Tow 1</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>FTGP</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Tow 2</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>FTGY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Tow 3</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GBBD</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Tow 4</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>FTGU</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>Tow 5</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>FTGA</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 1</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GBJH</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 2</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GCLF</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 3</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>FAYB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 4</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GFMF</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 5</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GFNA</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 6</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GCLV</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 7</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GCLN</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 8</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GCLX</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 9</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GBZG</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 10</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GRMS</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 11</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>GCSD</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>TEME 2</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>41988</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>TEME 3</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>41989</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>TEME 4</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>41990</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Romans 1</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>96682</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Romans 2</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>05731</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Romans 3</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>13034</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Romans 4</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>17259</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Romans 5</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>Registration</key>
+		<string>21594</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 1</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GCLL</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 2</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GCLK</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 3</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GCLY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 4</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GQRT</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 5</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GFMB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 6</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GLIT</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 7</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FJSN</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 8</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GCLB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 9</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FXGX</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 10</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GDXR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 11</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FABQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 12</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FWMT</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>Glider 13</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GOQQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>TUG 1</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FCGS</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>TUG 2</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FTUG</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>TUG 3</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FTRY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>TUG 4</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FOAR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>TUG 5</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>GRGS</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>TUG 6</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Registration</key>
+		<string>FGZR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Winch 1</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>96680</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Winch 4</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>96676</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Winch 7</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>01158</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>Winch 8</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>02780</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Debert</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Debert</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Miramichi</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Miramichi</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Summerside</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Summerside</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Greenwood</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Greenwood</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Sydney</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Sydney</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Stephenville</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Stephenville</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Auto</string>
+		<key>Tail Number</key>
+		<string>Gander</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>Registration</key>
+		<string>Gander</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FNWO</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FNWO</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GFMN</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GFMN</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GAIU</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GAIU</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FQON</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FQON</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCLH</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GCLH</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FYWL</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FYWL</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCLM</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GCLM</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FBUJ</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FBUJ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FDXP</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FDXP</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GFME</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GFME</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GBJR</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GBJR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FYLP</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FYLP</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FCIV</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FCIV</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FGHV</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FGHV</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GFIN</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GFIN</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GWCV</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GWCV</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GIIB</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GIIB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FYLJ</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FYLJ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GTGB</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GTGB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GDZF</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GDZF</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCLG</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GCLG</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GNPF</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GNPF</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FABE</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>FABE</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCLR</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GCLR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GGYS</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GGYS</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GPKB</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GPKB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GDVY</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GDVY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GQII</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GQII</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GQSC</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GQSC</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GDOL</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GDOL</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GXZK</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GXZK</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GXAC</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GXAC</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GFIU</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GFIU</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GGQK</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GGQK</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FARD</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FARD</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCSK</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GCSK</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GFMD</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GFMD</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCLA</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GCLA</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FACY</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FACY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GVQM</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GVQM</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GKRR</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GKRR</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FDUH</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FDUH</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FQYI</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FQYI</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FZIQ</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FZIQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FDWB</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FDWB</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GCSY</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GCSY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FACQ</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FACQ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>FXAE</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FXAE</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Glider</string>
+		<key>Tail Number</key>
+		<string>GLID</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GLID</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>FTGE</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FTGE</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>FTGC</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FTGC</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>FTGN</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FTGN</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>FTGV</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FTGV</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>FTZZ</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>FTZZ</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GGCY</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>GGCY</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>DND 1</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>DND 1</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>DND 1</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>DND 1</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>DND 2</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>DND 2</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>ACL 1</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>ACL 1</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>ACL 2</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>ACL 2</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>ACL 3</string>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Registration</key>
+		<string>ACL 3</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>ACL 1</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>ACL 1</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Winch</string>
+		<key>Tail Number</key>
+		<string>ACL 8</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>ACL 8</string>
+	</dict>
+</array>
+</plist>

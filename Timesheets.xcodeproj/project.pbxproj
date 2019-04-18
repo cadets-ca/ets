@@ -1,0 +1,2492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA03438A1DA7470100B54165 /* AddCadetsIndividually.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */; };
+		DA05548F1B113F6000F50AB8 /* GPSmanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05548E1B113F6000F50AB8 /* GPSmanager.swift */; };
+		DA059F0A1438C6C2000FEB4C /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA059F081438C6C2000FEB4C /* iPadStoryboard.storyboard */; };
+		DA059F261438C8DF000FEB4C /* OrganizeTemplate.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA059F251438C8DF000FEB4C /* OrganizeTemplate.plist */; };
+		DA059F281438C8E4000FEB4C /* GliderList.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA059F271438C8E4000FEB4C /* GliderList.plist */; };
+		DA059F2C1438C8FA000FEB4C /* GlidingCentreCoordinates.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA059F2B1438C8FA000FEB4C /* GlidingCentreCoordinates.plist */; };
+		DA059F2E1438C903000FEB4C /* TowplaneSequences.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA059F2D1438C903000FEB4C /* TowplaneSequences.plist */; };
+		DA059F311438C90F000FEB4C /* GliderSequences.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA059F2F1438C90F000FEB4C /* GliderSequences.plist */; };
+		DA0656341F7978CE00BFD540 /* CKRecordExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0656331F7978CE00BFD540 /* CKRecordExtensions.swift */; };
+		DA0656351F797DDD00BFD540 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB43721A58728700D387F0 /* UIImageExtensions.swift */; };
+		DA0656361F797E1000BFD540 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */; };
+		DA06563B1F7983FE00BFD540 /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA06563A1F7983FE00BFD540 /* RecordCell.swift */; };
+		DA0DCD4C1BE1B8FA001DA3F9 /* Scout 1.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD4B1BE1B8FA001DA3F9 /* Scout 1.aiff */; };
+		DA0DCD4E1BE1C6D3001DA3F9 /* Scout 2.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD4D1BE1C6D3001DA3F9 /* Scout 2.aiff */; };
+		DA0DCD531BE1C794001DA3F9 /* Scout 3.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD4F1BE1C794001DA3F9 /* Scout 3.aiff */; };
+		DA0DCD541BE1C794001DA3F9 /* Scout 4.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD501BE1C794001DA3F9 /* Scout 4.aiff */; };
+		DA0DCD551BE1C794001DA3F9 /* Scout 6.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD511BE1C794001DA3F9 /* Scout 6.aiff */; };
+		DA0DCD561BE1C794001DA3F9 /* Scout 5.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD521BE1C794001DA3F9 /* Scout 5.aiff */; };
+		DA0DCD6C1BE1C8E9001DA3F9 /* Glider 1.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD581BE1C8E9001DA3F9 /* Glider 1.aiff */; };
+		DA0DCD6D1BE1C8E9001DA3F9 /* Glider 2.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD591BE1C8E9001DA3F9 /* Glider 2.aiff */; };
+		DA0DCD6E1BE1C8E9001DA3F9 /* Glider 3.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD5A1BE1C8E9001DA3F9 /* Glider 3.aiff */; };
+		DA0DCD6F1BE1C8E9001DA3F9 /* Glider 4.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD5B1BE1C8E9001DA3F9 /* Glider 4.aiff */; };
+		DA0DCD701BE1C8E9001DA3F9 /* Glider 5.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD5C1BE1C8E9001DA3F9 /* Glider 5.aiff */; };
+		DA0DCD711BE1C8E9001DA3F9 /* Glider 6.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD5D1BE1C8E9001DA3F9 /* Glider 6.aiff */; };
+		DA0DCD721BE1C8E9001DA3F9 /* Glider 7.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD5E1BE1C8E9001DA3F9 /* Glider 7.aiff */; };
+		DA0DCD731BE1C8E9001DA3F9 /* Glider 8.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD5F1BE1C8E9001DA3F9 /* Glider 8.aiff */; };
+		DA0DCD741BE1C8E9001DA3F9 /* Glider 9.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD601BE1C8E9001DA3F9 /* Glider 9.aiff */; };
+		DA0DCD751BE1C8E9001DA3F9 /* Glider 10.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD611BE1C8E9001DA3F9 /* Glider 10.aiff */; };
+		DA0DCD761BE1C8E9001DA3F9 /* Glider 11.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD621BE1C8E9001DA3F9 /* Glider 11.aiff */; };
+		DA0DCD771BE1C8E9001DA3F9 /* Glider 12.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD631BE1C8E9001DA3F9 /* Glider 12.aiff */; };
+		DA0DCD781BE1C8E9001DA3F9 /* Glider 13.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD641BE1C8E9001DA3F9 /* Glider 13.aiff */; };
+		DA0DCD791BE1C8E9001DA3F9 /* Glider 14.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD651BE1C8E9001DA3F9 /* Glider 14.aiff */; };
+		DA0DCD7A1BE1C8E9001DA3F9 /* Glider 15.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD661BE1C8E9001DA3F9 /* Glider 15.aiff */; };
+		DA0DCD7B1BE1C8E9001DA3F9 /* Glider 16.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD671BE1C8E9001DA3F9 /* Glider 16.aiff */; };
+		DA0DCD7C1BE1C8E9001DA3F9 /* Glider 17.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD681BE1C8E9001DA3F9 /* Glider 17.aiff */; };
+		DA0DCD7D1BE1C8E9001DA3F9 /* Glider 18.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD691BE1C8E9001DA3F9 /* Glider 18.aiff */; };
+		DA0DCD7E1BE1C8E9001DA3F9 /* Glider 19.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD6A1BE1C8E9001DA3F9 /* Glider 19.aiff */; };
+		DA0DCD7F1BE1C8E9001DA3F9 /* Glider 20.aiff in Resources */ = {isa = PBXBuildFile; fileRef = DA0DCD6B1BE1C8E9001DA3F9 /* Glider 20.aiff */; };
+		DA19D0BB1F6CCCA4008A6765 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA19D0BA1F6CCCA4008A6765 /* AppDelegate.swift */; };
+		DA19D0C21F6CCCA4008A6765 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA19D0C01F6CCCA4008A6765 /* Main.storyboard */; };
+		DA19D0CF1F6CCCA4008A6765 /* Flights_TodayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA19D0CE1F6CCCA4008A6765 /* Flights_TodayTests.swift */; };
+		DA19D0DA1F6CCCA4008A6765 /* Flights_TodayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA19D0D91F6CCCA4008A6765 /* Flights_TodayUITests.swift */; };
+		DA19D38E1EF70695005A8AD3 /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA19D38D1EF70695005A8AD3 /* CloudKitController.swift */; };
+		DA1D2F841B0292F000160AC9 /* PilotCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D2F831B0292F000160AC9 /* PilotCollectionView.swift */; };
+		DA1D2F861B02B35D00160AC9 /* CollectionViewCellStylePilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D2F851B02B35D00160AC9 /* CollectionViewCellStylePilot.swift */; };
+		DA1D2F881B069A9E00160AC9 /* BeaconNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D2F871B069A9E00160AC9 /* BeaconNumberCell.swift */; };
+		DA1D2F8A1B0A9B8E00160AC9 /* StatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D2F891B0A9B8E00160AC9 /* StatsManager.swift */; };
+		DA1D2F8B1B0AC85800160AC9 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE6B4EF1A58E7DE008F1AC3 /* TodayViewController.swift */; };
+		DA21DDE01B7B0E8F00D16889 /* TimesheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21DDDF1B7B0E8F00D16889 /* TimesheetsUITests.swift */; };
+		DA24DFDB1F70427C00CD9FD1 /* FlightRecordsViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24DFDA1F70427C00CD9FD1 /* FlightRecordsViewer.swift */; };
+		DA24DFDD1F70430A00CD9FD1 /* RecordsTabRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24DFDC1F70430A00CD9FD1 /* RecordsTabRoot.swift */; };
+		DA24DFDE1F70DE3100CD9FD1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6DDE0617CAB5C300D81C4E /* Images.xcassets */; };
+		DA2882C5204FA83F005D2083 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA2882C3204FA61A005D2083 /* Settings.bundle */; };
+		DA288C861D9B7C3B00B68A39 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6288CD1A587744001CED9D /* NSDateExtensions.swift */; };
+		DA288C871D9B7C3C00B68A39 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6288CD1A587744001CED9D /* NSDateExtensions.swift */; };
+		DA288C881D9B7C4B00B68A39 /* GlidingCentreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */; };
+		DA288C891D9B7C4B00B68A39 /* GlidingCentreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */; };
+		DA288C8A1D9B7C5F00B68A39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6DDE0617CAB5C300D81C4E /* Images.xcassets */; };
+		DA288C8B1D9B7C6000B68A39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6DDE0617CAB5C300D81C4E /* Images.xcassets */; };
+		DA288C8C1D9B7E0B00B68A39 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */; };
+		DA288C8D1D9B7E0C00B68A39 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */; };
+		DA288C8E1D9B7F0E00B68A39 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE503021B01D884005DC59F /* GlobalConstants.swift */; };
+		DA288C8F1D9B7F0E00B68A39 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE503021B01D884005DC59F /* GlobalConstants.swift */; };
+		DA29E4001A74501600FA6A4B /* ChangeArrivalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29E3FF1A74501600FA6A4B /* ChangeArrivalTime.swift */; };
+		DA29E4021A74AC8500FA6A4B /* RecordActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29E4011A74AC8500FA6A4B /* RecordActions.swift */; };
+		DA29E4041A758A8200FA6A4B /* ChangeGliderQual.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29E4031A758A8200FA6A4B /* ChangeGliderQual.swift */; };
+		DA29E4081A75B16D00FA6A4B /* LogBookCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29E4071A75B16D00FA6A4B /* LogBookCreator.swift */; };
+		DA29E40A1A75F26400FA6A4B /* ChangeTowQual.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29E4091A75F26400FA6A4B /* ChangeTowQual.swift */; };
+		DA29E40C1A77F5B300FA6A4B /* EditPilotPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29E40B1A77F5B300FA6A4B /* EditPilotPopover.swift */; };
+		DA301AEE1A6B071E007AC9A4 /* TNIPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA301AED1A6B071E007AC9A4 /* TNIPickerView.swift */; };
+		DA301AF01A6B339E007AC9A4 /* JourneyLogEntryEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA301AEF1A6B339E007AC9A4 /* JourneyLogEntryEditor.swift */; };
+		DA301AF21A6C720F007AC9A4 /* ChangeOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA301AF11A6C720F007AC9A4 /* ChangeOperator.swift */; };
+		DA301AF41A6C8C01007AC9A4 /* ChangePassengerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA301AF31A6C8C01007AC9A4 /* ChangePassengerPopover.swift */; };
+		DA301AF61A6CDBEB007AC9A4 /* Airplanes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA301AF51A6CDBEB007AC9A4 /* Airplanes.swift */; };
+		DA313EE31A36B6D500F1A980 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA313EE21A36B6D500F1A980 /* UIViewControllerExtensions.swift */; };
+		DA313EE51A36B70800F1A980 /* GlobalFunctionsAndDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA313EE41A36B70800F1A980 /* GlobalFunctionsAndDeclarations.swift */; };
+		DA313EE71A37FFEC00F1A980 /* ChangeSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA313EE61A37FFEC00F1A980 /* ChangeSequence.swift */; };
+		DA369A0A149F01C000200175 /* RGSflights.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA369A09149F01C000200175 /* RGSflights.plist */; };
+		DA3AA5FA1795A2F200562CC3 /* RandomNames.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA3AA5F81795A2F200562CC3 /* RandomNames.csv */; };
+		DA3AA5FB1795A2F200562CC3 /* RandomSurnames.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA3AA5F91795A2F200562CC3 /* RandomSurnames.csv */; };
+		DA40AAA51EF6524E00B9757E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA40AAA41EF6524E00B9757E /* CloudKit.framework */; };
+		DA40AE111A577836004A5389 /* ChangeAttachedVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA40AE101A577836004A5389 /* ChangeAttachedVehicle.swift */; };
+		DA4C70051ACA243C0024DE40 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C70041ACA243C0024DE40 /* CoreDataController.swift */; };
+		DA4C70071ACA31060024DE40 /* TimesheetsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C70061ACA31060024DE40 /* TimesheetsAppDelegate.swift */; };
+		DA4C70091ACB96C50024DE40 /* ImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C70081ACB96C50024DE40 /* ImageTransformer.swift */; };
+		DA4C700B1ACC5EBB0024DE40 /* ShowPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C700A1ACC5EBB0024DE40 /* ShowPhotoViewController.swift */; };
+		DA4C700D1ACC91D20024DE40 /* SelectDateToViewRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C700C1ACC91D20024DE40 /* SelectDateToViewRecords.swift */; };
+		DA4C700F1ACCA7F70024DE40 /* iPadRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C700E1ACCA7F70024DE40 /* iPadRootViewController.swift */; };
+		DA50EE611AE161DB00C4505E /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50EE601AE161DB00C4505E /* DataModel.swift */; };
+		DA579BCB14534B3700B8FB9C /* TowplaneSequenceDirections.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA579BCA14534B3700B8FB9C /* TowplaneSequenceDirections.plist */; };
+		DA58B6731A5B770B0091A288 /* OrientationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58B6721A5B770B0091A288 /* OrientationViewController.swift */; };
+		DA58B6751A5B7CD50091A288 /* TableViewCellStyleAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58B6741A5B7CD50091A288 /* TableViewCellStyleAircraft.swift */; };
+		DA58B6771A5B7E3E0091A288 /* TableViewCellStyleRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58B6761A5B7E3E0091A288 /* TableViewCellStyleRecord.swift */; };
+		DA58B6791A5B7E520091A288 /* TableViewCellStylePilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58B6781A5B7E520091A288 /* TableViewCellStylePilot.swift */; };
+		DA5BE8C314F9E0C60043E6E0 /* AtlanticAerodromes.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA5BE8C214F9E0C60043E6E0 /* AtlanticAerodromes.csv */; };
+		DA6288CE1A587744001CED9D /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6288CD1A587744001CED9D /* NSDateExtensions.swift */; };
+		DA62E5EC1547883E005FA5FA /* PacificAerodromes.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA62E5EB1547883E005FA5FA /* PacificAerodromes.csv */; };
+		DA644F9E1A45F6D2005BAE6A /* EditMaintenanceIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA644F9D1A45F6D2005BAE6A /* EditMaintenanceIssue.swift */; };
+		DA65A9711A7052F900CCFDAB /* Pilots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65A9701A7052F900CCFDAB /* Pilots.swift */; };
+		DA65A9731A71ED8300CCFDAB /* EditRecordPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65A9721A71ED8300CCFDAB /* EditRecordPopover.swift */; };
+		DA65A9751A7331E000CCFDAB /* ChangeTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65A9741A7331E000CCFDAB /* ChangeTime.swift */; };
+		DA65A9771A73639000CCFDAB /* ChangeSignificantDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65A9761A73639000CCFDAB /* ChangeSignificantDate.swift */; };
+		DA663D801A32B58500594918 /* PilotActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA663D7F1A32B58500594918 /* PilotActions.swift */; };
+		DA66CA7819E9DDCD00A69615 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA66CA6619E9D7EF00A69615 /* NotificationCenter.framework */; };
+		DA6A12301A789AD40066372A /* PilotQualifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A122F1A789AD40066372A /* PilotQualifications.swift */; };
+		DA6AD47A1EFB4C9600CA20BD /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6AD4791EFB4C9600CA20BD /* UserDefaults.swift */; };
+		DA6DDE0717CAB5C300D81C4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6DDE0617CAB5C300D81C4E /* Images.xcassets */; };
+		DA710441138B1A4900203751 /* NorthwestAerodromes.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA710440138B1A4900203751 /* NorthwestAerodromes.csv */; };
+		DA718E5B1F6CD12F009C5FEB /* SiteSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA718E5A1F6CD12F009C5FEB /* SiteSelection.swift */; };
+		DA718E5D1F6CD538009C5FEB /* CloudKitControllerTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA718E5C1F6CD538009C5FEB /* CloudKitControllerTV.swift */; };
+		DA718E601F6CD69B009C5FEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA718E5F1F6CD69B009C5FEB /* CloudKit.framework */; };
+		DA718E611F6CDB8D009C5FEB /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6288CD1A587744001CED9D /* NSDateExtensions.swift */; };
+		DA718E631F6CDDAC009C5FEB /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE503021B01D884005DC59F /* GlobalConstants.swift */; };
+		DA74273A1A5DFB18006945BE /* ChangeTimesheetDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7427391A5DFB18006945BE /* ChangeTimesheetDate.swift */; };
+		DA74273C1A5E016D006945BE /* ChangeGlidingCentreForTimesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74273B1A5E016D006945BE /* ChangeGlidingCentreForTimesheet.swift */; };
+		DA7BD1461B1B6C56004AE1DF /* ChangeVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BD1451B1B6C56004AE1DF /* ChangeVehicle.swift */; };
+		DA80B7431A5F59CC005B8545 /* ReportGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80B7421A5F59CC005B8545 /* ReportGenerator.swift */; };
+		DA832CB620C7A93F007FE2BC /* Leaderboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA832CB320C7A37D007FE2BC /* Leaderboards.swift */; };
+		DA845CE71A2D562000C951AD /* SelectGlidingCentre.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA845CE61A2D562000C951AD /* SelectGlidingCentre.swift */; };
+		DA8A38FA20204F760001BC0C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA8A38E620204F760001BC0C /* Model.xcdatamodeld */; };
+		DA8D5A871A6F5665003D431E /* Records.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D5A861A6F5665003D431E /* Records.swift */; };
+		DA8D60671A478AED00B7A37C /* GlidingCentre.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D60661A478AED00B7A37C /* GlidingCentre.swift */; };
+		DA90F76E1D9B762000046192 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA66CA6619E9D7EF00A69615 /* NotificationCenter.framework */; };
+		DA90F7711D9B762000046192 /* FlightsThisSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90F7701D9B762000046192 /* FlightsThisSeason.swift */; };
+		DA90F7741D9B762000046192 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA90F7721D9B762000046192 /* MainInterface.storyboard */; };
+		DA90F7781D9B762000046192 /* Flights This Season.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DA90F76D1D9B762000046192 /* Flights This Season.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DA90F7811D9B764200046192 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA66CA6619E9D7EF00A69615 /* NotificationCenter.framework */; };
+		DA90F7841D9B764200046192 /* HoursThisSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90F7831D9B764200046192 /* HoursThisSeason.swift */; };
+		DA90F7871D9B764200046192 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA90F7851D9B764200046192 /* MainInterface.storyboard */; };
+		DA90F78B1D9B764200046192 /* Hours This Season.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DA90F7801D9B764200046192 /* Hours This Season.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DA93C4AF1A69A6280038F766 /* AddAircraftPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA93C4AE1A69A6280038F766 /* AddAircraftPopover.swift */; };
+		DA93C4B11A69EBB60038F766 /* DeduplicateProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA93C4B01A69EBB60038F766 /* DeduplicateProgressViewController.swift */; };
+		DA94D0681867DBAE00254E2A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA94D0671867DBAE00254E2A /* CoreBluetooth.framework */; };
+		DA97EDBC1AC0CCF700DBB424 /* ChangeGlidingCentreForPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EDBB1AC0CCF700DBB424 /* ChangeGlidingCentreForPilot.swift */; };
+		DA97EDC01AC0F48F00DBB424 /* DeduplicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EDBF1AC0F48F00DBB424 /* DeduplicationManager.swift */; };
+		DA9898D21ADF4B3E0058F8DE /* Sample.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DA9898D11ADF4B3E0058F8DE /* Sample.sqlite */; };
+		DA9DA2E31A58FC2D0062C503 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6288CD1A587744001CED9D /* NSDateExtensions.swift */; };
+		DAA678E91A4603F700232CD3 /* ListMaintenanceIssues.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA678E81A4603F700232CD3 /* ListMaintenanceIssues.swift */; };
+		DAA678EB1A4769B500232CD3 /* ViewJourneyLogEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA678EA1A4769B500232CD3 /* ViewJourneyLogEntries.swift */; };
+		DAAAC15C1ACDEDDE00ECE62B /* GlidingDayCommentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAAC15B1ACDEDDE00ECE62B /* GlidingDayCommentEditor.swift */; };
+		DAAAC15E1ACDF9AC00ECE62B /* GlidingDayCommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAAC15D1ACDF9AC00ECE62B /* GlidingDayCommentList.swift */; };
+		DAAAC1601ACE09E500ECE62B /* SignInPilotFromList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAAC15F1ACE09E500ECE62B /* SignInPilotFromList.swift */; };
+		DAAC7C681A5A364A00B4B41A /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC7C671A5A364A00B4B41A /* TickerViewController.swift */; };
+		DAAFC9061A3A94F2005EE1F1 /* EditVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAFC9051A3A94F2005EE1F1 /* EditVehicle.swift */; };
+		DAC089E7215DF9F4009C0985 /* PersonnelViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC089E6215DF9F4009C0985 /* PersonnelViewHeader.swift */; };
+		DAC2917E21437EFC00FA64CD /* PilotTVcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2917D21437EFC00FA64CD /* PilotTVcell.swift */; };
+		DAC291802143861500FA64CD /* PersonnelViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2917F2143861500FA64CD /* PersonnelViewer.swift */; };
+		DAC43BF11A5CEB79006DA198 /* MaintenanceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC43BF01A5CEB79006DA198 /* MaintenanceOptions.swift */; };
+		DAC603191A69F46800E0F653 /* ChangePilotPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC603181A69F46800E0F653 /* ChangePilotPopover.swift */; };
+		DAC9C3BB1A493AA4003B0D80 /* AttendanceRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C3BA1A493AA4003B0D80 /* AttendanceRecord.swift */; };
+		DAD0A0441B5D995C00E964CC /* PlistManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0A0431B5D995C00E964CC /* PlistManagement.swift */; };
+		DAD27DB31D58260200E6079F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6DDE0617CAB5C300D81C4E /* Images.xcassets */; };
+		DAD5EF3E16E056780096E6C5 /* EasternAerodromes.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAD5EF3D16E056780096E6C5 /* EasternAerodromes.csv */; };
+		DAD936511475FCB40096A5CC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DAD936501475FCB40096A5CC /* Settings.bundle */; };
+		DADBDEA71A49078500EDA8C2 /* GliderLicenseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEA61A49078500EDA8C2 /* GliderLicenseImage.swift */; };
+		DADBDEA91A49078500EDA8C2 /* PowerLicenseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEA81A49078500EDA8C2 /* PowerLicenseImage.swift */; };
+		DADBDEAB1A49091A00EDA8C2 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEAA1A49091A00EDA8C2 /* Photo.swift */; };
+		DADBDEAD1A4909C000EDA8C2 /* MedicalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEAC1A4909C000EDA8C2 /* MedicalImage.swift */; };
+		DADBDEAF1A490D2100EDA8C2 /* MaintenanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEAE1A490D2100EDA8C2 /* MaintenanceEvent.swift */; };
+		DADBDEB11A491CAA00EDA8C2 /* SummerUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEB01A491CAA00EDA8C2 /* SummerUnit.swift */; };
+		DADBDEB31A491E5E00EDA8C2 /* Qualification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEB21A491E5E00EDA8C2 /* Qualification.swift */; };
+		DADBDEB51A49219B00EDA8C2 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEB41A49219B00EDA8C2 /* Region.swift */; };
+		DADBDEB71A49247400EDA8C2 /* GlidingDayComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEB61A49247400EDA8C2 /* GlidingDayComment.swift */; };
+		DADBDEB91A49262E00EDA8C2 /* AircraftEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBDEB81A49262E00EDA8C2 /* AircraftEntity.swift */; };
+		DADD43A11A49F9320020318C /* FlightRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD43A01A49F9320020318C /* FlightRecord.swift */; };
+		DADDB9F51D5C02E800B24B9F /* NotificationCenterDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADDB9F41D5C02E800B24B9F /* NotificationCenterDelegateExtension.swift */; };
+		DAE06C981ABF678300C5A49F /* ChangeRGSFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE06C971ABF678300C5A49F /* ChangeRGSFlight.swift */; };
+		DAE330801A40FBB700714D45 /* TableViewCellStylePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3307F1A40FBB700714D45 /* TableViewCellStylePicker.swift */; };
+		DAE401231B688E0A00F6D1B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAE401221B688E0A00F6D1B1 /* LaunchScreen.storyboard */; };
+		DAE503001B01B72F005DC59F /* iBeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE502FF1B01B72F005DC59F /* iBeaconManager.swift */; };
+		DAE503031B01D884005DC59F /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE503021B01D884005DC59F /* GlobalConstants.swift */; };
+		DAE503041B01D8AC005DC59F /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE503021B01D884005DC59F /* GlobalConstants.swift */; };
+		DAE6B4EB1A58E7DE008F1AC3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA66CA6619E9D7EF00A69615 /* NotificationCenter.framework */; };
+		DAE6B4F01A58E7DE008F1AC3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE6B4EF1A58E7DE008F1AC3 /* TodayViewController.swift */; };
+		DAE6B4F21A58E7DE008F1AC3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAE6B4F11A58E7DE008F1AC3 /* MainInterface.storyboard */; };
+		DAE6B4F51A58E7DE008F1AC3 /* Gliding Centre Flights.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DAE6B4EA1A58E7DE008F1AC3 /* Gliding Centre Flights.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DAEB436D1A585E9300D387F0 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB436B1A585CF100D387F0 /* UIColorExtensions.swift */; };
+		DAEB436F1A585F9200D387F0 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB436E1A585F9200D387F0 /* UIViewExtensions.swift */; };
+		DAEB43711A586ECA00D387F0 /* NSDecimalNumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB43701A586ECA00D387F0 /* NSDecimalNumberExtensions.swift */; };
+		DAEB43731A58728700D387F0 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB43721A58728700D387F0 /* UIImageExtensions.swift */; };
+		DAF157471B36124B00F6030C /* NDHTMLtoPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF157461B36124B00F6030C /* NDHTMLtoPDF.swift */; };
+		DAF157491B376AFA00F6030C /* FunStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF157481B376AFA00F6030C /* FunStatsViewController.swift */; };
+		DAF1574B1B38C0A800F6030C /* GlidingCentreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */; };
+		DAF1574C1B38C0AB00F6030C /* GlidingCentreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */; };
+		DAF1574D1B38F78000F6030C /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */; };
+		DAF5889C1ABF7D8F00F2B823 /* ChangeEmplymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5889B1ABF7D8F00F2B823 /* ChangeEmplymentType.swift */; };
+		DAF5889E1ABFBF4700F2B823 /* FlyingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5889D1ABFBF4700F2B823 /* FlyingRecords.swift */; };
+		DAF588A01ABFD05400F2B823 /* ListFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5889F1ABFD05400F2B823 /* ListFlights.swift */; };
+		DAF588A21AC0739400F2B823 /* ListAttendanceRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF588A11AC0739400F2B823 /* ListAttendanceRecords.swift */; };
+		DAF6189716CF351900543415 /* CentralAerodromes.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAF6189616CF351900543415 /* CentralAerodromes.csv */; };
+		DAF6321E1A4A3CD7003AA1C3 /* AircraftTimesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321D1A4A3CD7003AA1C3 /* AircraftTimesheet.swift */; };
+		DAF632201A4A41C3003AA1C3 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */; };
+		DAF632221A4A5D17003AA1C3 /* Pilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF632211A4A5D17003AA1C3 /* Pilot.swift */; };
+		DAF758B91F83384E00F829E6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF758B81F83384E00F829E6 /* Reachability.swift */; };
+		DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */; };
+		DAFDAFEF1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */; };
+		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA19D0CB1F6CCCA4008A6765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA19D0B71F6CCCA3008A6765;
+			remoteInfo = "Flights Today";
+		};
+		DA19D0D61F6CCCA4008A6765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA19D0B71F6CCCA3008A6765;
+			remoteInfo = "Flights Today";
+		};
+		DA21DDE21B7B0E8F00D16889 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
+			remoteInfo = Timesheets;
+		};
+		DA90F7761D9B762000046192 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA90F76C1D9B762000046192;
+			remoteInfo = "Flights This Season";
+		};
+		DA90F7891D9B764200046192 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA90F77F1D9B764200046192;
+			remoteInfo = "Hours This Season";
+		};
+		DAE6B4F31A58E7DE008F1AC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAE6B4E91A58E7DE008F1AC3;
+			remoteInfo = "Gliding Centre Flights";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA66CA7719E9D7F000A69615 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DA90F78B1D9B764200046192 /* Hours This Season.appex in Embed App Extensions */,
+				DAE6B4F51A58E7DE008F1AC3 /* Gliding Centre Flights.appex in Embed App Extensions */,
+				DA90F7781D9B762000046192 /* Flights This Season.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsIndividually.swift; sourceTree = "<group>"; };
+		DA05548E1B113F6000F50AB8 /* GPSmanager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSmanager.swift; sourceTree = "<group>"; };
+		DA059F081438C6C2000FEB4C /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPadStoryboard.storyboard; path = Storyboards/iPadStoryboard.storyboard; sourceTree = SOURCE_ROOT; };
+		DA059F251438C8DF000FEB4C /* OrganizeTemplate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OrganizeTemplate.plist; sourceTree = "<group>"; };
+		DA059F271438C8E4000FEB4C /* GliderList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GliderList.plist; sourceTree = "<group>"; };
+		DA059F2B1438C8FA000FEB4C /* GlidingCentreCoordinates.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GlidingCentreCoordinates.plist; sourceTree = "<group>"; };
+		DA059F2D1438C903000FEB4C /* TowplaneSequences.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TowplaneSequences.plist; sourceTree = "<group>"; };
+		DA059F2F1438C90F000FEB4C /* GliderSequences.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GliderSequences.plist; sourceTree = "<group>"; };
+		DA0656331F7978CE00BFD540 /* CKRecordExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordExtensions.swift; sourceTree = "<group>"; };
+		DA06563A1F7983FE00BFD540 /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		DA0DCD4B1BE1B8FA001DA3F9 /* Scout 1.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Scout 1.aiff"; sourceTree = "<group>"; };
+		DA0DCD4D1BE1C6D3001DA3F9 /* Scout 2.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Scout 2.aiff"; sourceTree = "<group>"; };
+		DA0DCD4F1BE1C794001DA3F9 /* Scout 3.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Scout 3.aiff"; sourceTree = "<group>"; };
+		DA0DCD501BE1C794001DA3F9 /* Scout 4.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Scout 4.aiff"; sourceTree = "<group>"; };
+		DA0DCD511BE1C794001DA3F9 /* Scout 6.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Scout 6.aiff"; sourceTree = "<group>"; };
+		DA0DCD521BE1C794001DA3F9 /* Scout 5.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Scout 5.aiff"; sourceTree = "<group>"; };
+		DA0DCD581BE1C8E9001DA3F9 /* Glider 1.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 1.aiff"; sourceTree = "<group>"; };
+		DA0DCD591BE1C8E9001DA3F9 /* Glider 2.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 2.aiff"; sourceTree = "<group>"; };
+		DA0DCD5A1BE1C8E9001DA3F9 /* Glider 3.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 3.aiff"; sourceTree = "<group>"; };
+		DA0DCD5B1BE1C8E9001DA3F9 /* Glider 4.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 4.aiff"; sourceTree = "<group>"; };
+		DA0DCD5C1BE1C8E9001DA3F9 /* Glider 5.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 5.aiff"; sourceTree = "<group>"; };
+		DA0DCD5D1BE1C8E9001DA3F9 /* Glider 6.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 6.aiff"; sourceTree = "<group>"; };
+		DA0DCD5E1BE1C8E9001DA3F9 /* Glider 7.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 7.aiff"; sourceTree = "<group>"; };
+		DA0DCD5F1BE1C8E9001DA3F9 /* Glider 8.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 8.aiff"; sourceTree = "<group>"; };
+		DA0DCD601BE1C8E9001DA3F9 /* Glider 9.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 9.aiff"; sourceTree = "<group>"; };
+		DA0DCD611BE1C8E9001DA3F9 /* Glider 10.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 10.aiff"; sourceTree = "<group>"; };
+		DA0DCD621BE1C8E9001DA3F9 /* Glider 11.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 11.aiff"; sourceTree = "<group>"; };
+		DA0DCD631BE1C8E9001DA3F9 /* Glider 12.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 12.aiff"; sourceTree = "<group>"; };
+		DA0DCD641BE1C8E9001DA3F9 /* Glider 13.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 13.aiff"; sourceTree = "<group>"; };
+		DA0DCD651BE1C8E9001DA3F9 /* Glider 14.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 14.aiff"; sourceTree = "<group>"; };
+		DA0DCD661BE1C8E9001DA3F9 /* Glider 15.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 15.aiff"; sourceTree = "<group>"; };
+		DA0DCD671BE1C8E9001DA3F9 /* Glider 16.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 16.aiff"; sourceTree = "<group>"; };
+		DA0DCD681BE1C8E9001DA3F9 /* Glider 17.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 17.aiff"; sourceTree = "<group>"; };
+		DA0DCD691BE1C8E9001DA3F9 /* Glider 18.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 18.aiff"; sourceTree = "<group>"; };
+		DA0DCD6A1BE1C8E9001DA3F9 /* Glider 19.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 19.aiff"; sourceTree = "<group>"; };
+		DA0DCD6B1BE1C8E9001DA3F9 /* Glider 20.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Glider 20.aiff"; sourceTree = "<group>"; };
+		DA14FB3D1D9B81F600F6E277 /* Flights This Season.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Flights This Season.entitlements"; sourceTree = "<group>"; };
+		DA14FB3E1D9B81FB00F6E277 /* Hours This Season.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hours This Season.entitlements"; sourceTree = "<group>"; };
+		DA19D0B21F6C5864008A6765 /* Icon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-40@3x.png"; path = "Timesheets/Images.xcassets/AppIcon.appiconset/Icon-Small-40@3x.png"; sourceTree = SOURCE_ROOT; };
+		DA19D0B31F6C5A6B008A6765 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-83.5@2x.png"; path = "Timesheets/Images.xcassets/AppIcon.appiconset/Icon-83.5@2x.png"; sourceTree = SOURCE_ROOT; };
+		DA19D0B81F6CCCA3008A6765 /* Flights Today.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flights Today.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA19D0BA1F6CCCA4008A6765 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DA19D0C11F6CCCA4008A6765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DA19D0C51F6CCCA4008A6765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA19D0CA1F6CCCA4008A6765 /* Flights TodayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flights TodayTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA19D0CE1F6CCCA4008A6765 /* Flights_TodayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flights_TodayTests.swift; sourceTree = "<group>"; };
+		DA19D0D01F6CCCA4008A6765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA19D0D51F6CCCA4008A6765 /* Flights TodayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flights TodayUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA19D0D91F6CCCA4008A6765 /* Flights_TodayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flights_TodayUITests.swift; sourceTree = "<group>"; };
+		DA19D0DB1F6CCCA4008A6765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA19D38D1EF70695005A8AD3 /* CloudKitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
+		DA1D2F831B0292F000160AC9 /* PilotCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotCollectionView.swift; sourceTree = "<group>"; };
+		DA1D2F851B02B35D00160AC9 /* CollectionViewCellStylePilot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellStylePilot.swift; sourceTree = "<group>"; };
+		DA1D2F871B069A9E00160AC9 /* BeaconNumberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconNumberCell.swift; sourceTree = "<group>"; };
+		DA1D2F891B0A9B8E00160AC9 /* StatsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsManager.swift; sourceTree = "<group>"; };
+		DA21DDDD1B7B0E8F00D16889 /* TimesheetsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA21DDDF1B7B0E8F00D16889 /* TimesheetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetsUITests.swift; sourceTree = "<group>"; };
+		DA21DDE11B7B0E8F00D16889 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA24DFDA1F70427C00CD9FD1 /* FlightRecordsViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightRecordsViewer.swift; sourceTree = "<group>"; };
+		DA24DFDC1F70430A00CD9FD1 /* RecordsTabRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsTabRoot.swift; sourceTree = "<group>"; };
+		DA2882C3204FA61A005D2083 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		DA29E3FF1A74501600FA6A4B /* ChangeArrivalTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeArrivalTime.swift; path = "Pilot Classes/ChangeArrivalTime.swift"; sourceTree = SOURCE_ROOT; };
+		DA29E4011A74AC8500FA6A4B /* RecordActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordActions.swift; sourceTree = "<group>"; };
+		DA29E4031A758A8200FA6A4B /* ChangeGliderQual.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeGliderQual.swift; sourceTree = "<group>"; };
+		DA29E4071A75B16D00FA6A4B /* LogBookCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogBookCreator.swift; sourceTree = "<group>"; };
+		DA29E4091A75F26400FA6A4B /* ChangeTowQual.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTowQual.swift; sourceTree = "<group>"; };
+		DA29E40B1A77F5B300FA6A4B /* EditPilotPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPilotPopover.swift; sourceTree = "<group>"; };
+		DA301AED1A6B071E007AC9A4 /* TNIPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNIPickerView.swift; sourceTree = "<group>"; };
+		DA301AEF1A6B339E007AC9A4 /* JourneyLogEntryEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyLogEntryEditor.swift; sourceTree = "<group>"; };
+		DA301AF11A6C720F007AC9A4 /* ChangeOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeOperator.swift; sourceTree = "<group>"; };
+		DA301AF31A6C8C01007AC9A4 /* ChangePassengerPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassengerPopover.swift; sourceTree = "<group>"; };
+		DA301AF51A6CDBEB007AC9A4 /* Airplanes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airplanes.swift; sourceTree = "<group>"; };
+		DA313EE21A36B6D500F1A980 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		DA313EE41A36B70800F1A980 /* GlobalFunctionsAndDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctionsAndDeclarations.swift; sourceTree = "<group>"; };
+		DA313EE61A37FFEC00F1A980 /* ChangeSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSequence.swift; sourceTree = "<group>"; };
+		DA369A09149F01C000200175 /* RGSflights.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RGSflights.plist; sourceTree = "<group>"; };
+		DA3AA5F81795A2F200562CC3 /* RandomNames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RandomNames.csv; sourceTree = "<group>"; };
+		DA3AA5F91795A2F200562CC3 /* RandomSurnames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RandomSurnames.csv; sourceTree = "<group>"; };
+		DA40AAA41EF6524E00B9757E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		DA40AE101A577836004A5389 /* ChangeAttachedVehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeAttachedVehicle.swift; sourceTree = "<group>"; };
+		DA4C70041ACA243C0024DE40 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		DA4C70061ACA31060024DE40 /* TimesheetsAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimesheetsAppDelegate.swift; sourceTree = "<group>"; };
+		DA4C70081ACB96C50024DE40 /* ImageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageTransformer.swift; path = CoreData/ImageTransformer.swift; sourceTree = SOURCE_ROOT; };
+		DA4C700A1ACC5EBB0024DE40 /* ShowPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowPhotoViewController.swift; sourceTree = "<group>"; };
+		DA4C700C1ACC91D20024DE40 /* SelectDateToViewRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateToViewRecords.swift; sourceTree = "<group>"; };
+		DA4C700E1ACCA7F70024DE40 /* iPadRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iPadRootViewController.swift; sourceTree = "<group>"; };
+		DA50EE601AE161DB00C4505E /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		DA579BCA14534B3700B8FB9C /* TowplaneSequenceDirections.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TowplaneSequenceDirections.plist; sourceTree = "<group>"; };
+		DA58B6721A5B770B0091A288 /* OrientationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationViewController.swift; sourceTree = "<group>"; };
+		DA58B6741A5B7CD50091A288 /* TableViewCellStyleAircraft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellStyleAircraft.swift; sourceTree = "<group>"; };
+		DA58B6761A5B7E3E0091A288 /* TableViewCellStyleRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellStyleRecord.swift; sourceTree = "<group>"; };
+		DA58B6781A5B7E520091A288 /* TableViewCellStylePilot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellStylePilot.swift; sourceTree = "<group>"; };
+		DA5B1D4C1F7CBAFE004B9713 /* Timesheets-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Timesheets-Info.plist"; sourceTree = "<group>"; };
+		DA5BE8C214F9E0C60043E6E0 /* AtlanticAerodromes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 1; path = AtlanticAerodromes.csv; sourceTree = "<group>"; };
+		DA6288CD1A587744001CED9D /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		DA62E5EB1547883E005FA5FA /* PacificAerodromes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PacificAerodromes.csv; sourceTree = "<group>"; };
+		DA644F9D1A45F6D2005BAE6A /* EditMaintenanceIssue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMaintenanceIssue.swift; sourceTree = "<group>"; };
+		DA65A9701A7052F900CCFDAB /* Pilots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pilots.swift; sourceTree = "<group>"; };
+		DA65A9721A71ED8300CCFDAB /* EditRecordPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditRecordPopover.swift; sourceTree = "<group>"; };
+		DA65A9741A7331E000CCFDAB /* ChangeTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTime.swift; sourceTree = "<group>"; };
+		DA65A9761A73639000CCFDAB /* ChangeSignificantDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSignificantDate.swift; sourceTree = "<group>"; };
+		DA663D7F1A32B58500594918 /* PilotActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotActions.swift; sourceTree = "<group>"; };
+		DA66CA6619E9D7EF00A69615 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		DA6A122F1A789AD40066372A /* PilotQualifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotQualifications.swift; sourceTree = "<group>"; };
+		DA6A552E1361962000FB92D1 /* Timesheets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Timesheets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA6AD4791EFB4C9600CA20BD /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		DA6DDE0617CAB5C300D81C4E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Timesheets/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		DA710440138B1A4900203751 /* NorthwestAerodromes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NorthwestAerodromes.csv; sourceTree = "<group>"; };
+		DA718E5A1F6CD12F009C5FEB /* SiteSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteSelection.swift; sourceTree = "<group>"; };
+		DA718E5C1F6CD538009C5FEB /* CloudKitControllerTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitControllerTV.swift; sourceTree = "<group>"; };
+		DA718E5E1F6CD699009C5FEB /* Flights Today.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Flights Today.entitlements"; sourceTree = "<group>"; };
+		DA718E5F1F6CD69B009C5FEB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS11.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		DA7427391A5DFB18006945BE /* ChangeTimesheetDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTimesheetDate.swift; sourceTree = "<group>"; };
+		DA74273B1A5E016D006945BE /* ChangeGlidingCentreForTimesheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeGlidingCentreForTimesheet.swift; sourceTree = "<group>"; };
+		DA7BD1451B1B6C56004AE1DF /* ChangeVehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeVehicle.swift; sourceTree = "<group>"; };
+		DA80B7421A5F59CC005B8545 /* ReportGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ReportGenerator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		DA832CB320C7A37D007FE2BC /* Leaderboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboards.swift; sourceTree = "<group>"; };
+		DA845CE61A2D562000C951AD /* SelectGlidingCentre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGlidingCentre.swift; sourceTree = "<group>"; };
+		DA8A38E720204F760001BC0C /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38E820204F760001BC0C /* Model 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 17.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38E920204F760001BC0C /* Model 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 12.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38EA20204F760001BC0C /* Model 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38EB20204F760001BC0C /* Model 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 18.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38EC20204F760001BC0C /* Model 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 11.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38ED20204F760001BC0C /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38EE20204F760001BC0C /* Model 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 14.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38EF20204F760001BC0C /* Model 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F020204F760001BC0C /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F120204F760001BC0C /* Model 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 13.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F220204F760001BC0C /* Model 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 16.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F320204F760001BC0C /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F420204F760001BC0C /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F520204F760001BC0C /* Model 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 15.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F620204F760001BC0C /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F720204F760001BC0C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		DA8A38F820204F760001BC0C /* Model 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 10.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38F920204F760001BC0C /* Model 19.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 19.xcdatamodel"; sourceTree = "<group>"; };
+		DA8A38FB20204FAF0001BC0C /* Model 20.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 20.xcdatamodel"; sourceTree = "<group>"; };
+		DA8D5A861A6F5665003D431E /* Records.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Records.swift; sourceTree = "<group>"; };
+		DA8D60661A478AED00B7A37C /* GlidingCentre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidingCentre.swift; sourceTree = "<group>"; };
+		DA90F76D1D9B762000046192 /* Flights This Season.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Flights This Season.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA90F7701D9B762000046192 /* FlightsThisSeason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsThisSeason.swift; sourceTree = "<group>"; };
+		DA90F7731D9B762000046192 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		DA90F7751D9B762000046192 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA90F7801D9B764200046192 /* Hours This Season.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Hours This Season.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA90F7831D9B764200046192 /* HoursThisSeason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursThisSeason.swift; sourceTree = "<group>"; };
+		DA90F7861D9B764200046192 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		DA90F7881D9B764200046192 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA93C4AE1A69A6280038F766 /* AddAircraftPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAircraftPopover.swift; sourceTree = "<group>"; };
+		DA93C4B01A69EBB60038F766 /* DeduplicateProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeduplicateProgressViewController.swift; sourceTree = "<group>"; };
+		DA94D0671867DBAE00254E2A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		DA97EDBB1AC0CCF700DBB424 /* ChangeGlidingCentreForPilot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeGlidingCentreForPilot.swift; sourceTree = "<group>"; };
+		DA97EDBF1AC0F48F00DBB424 /* DeduplicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeduplicationManager.swift; sourceTree = "<group>"; };
+		DA9898D11ADF4B3E0058F8DE /* Sample.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sample.sqlite; sourceTree = "<group>"; };
+		DAA678E81A4603F700232CD3 /* ListMaintenanceIssues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMaintenanceIssues.swift; sourceTree = "<group>"; };
+		DAA678EA1A4769B500232CD3 /* ViewJourneyLogEntries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewJourneyLogEntries.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		DAA8BAFC147746810075CFEE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DAA8D01C202656BF006304A2 /* Model 21.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 21.xcdatamodel"; sourceTree = "<group>"; };
+		DAAAC15B1ACDEDDE00ECE62B /* GlidingDayCommentEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidingDayCommentEditor.swift; sourceTree = "<group>"; };
+		DAAAC15D1ACDF9AC00ECE62B /* GlidingDayCommentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidingDayCommentList.swift; sourceTree = "<group>"; };
+		DAAAC15F1ACE09E500ECE62B /* SignInPilotFromList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInPilotFromList.swift; sourceTree = "<group>"; };
+		DAAC7C671A5A364A00B4B41A /* TickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
+		DAAFC9051A3A94F2005EE1F1 /* EditVehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditVehicle.swift; sourceTree = "<group>"; };
+		DAC089E6215DF9F4009C0985 /* PersonnelViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonnelViewHeader.swift; sourceTree = "<group>"; };
+		DAC2917D21437EFC00FA64CD /* PilotTVcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotTVcell.swift; sourceTree = "<group>"; };
+		DAC2917F2143861500FA64CD /* PersonnelViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonnelViewer.swift; sourceTree = "<group>"; };
+		DAC43BF01A5CEB79006DA198 /* MaintenanceOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MaintenanceOptions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		DAC603181A69F46800E0F653 /* ChangePilotPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePilotPopover.swift; sourceTree = "<group>"; };
+		DAC9C3BA1A493AA4003B0D80 /* AttendanceRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceRecord.swift; sourceTree = "<group>"; };
+		DAD0A0431B5D995C00E964CC /* PlistManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManagement.swift; sourceTree = "<group>"; };
+		DAD5EF3D16E056780096E6C5 /* EasternAerodromes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EasternAerodromes.csv; sourceTree = "<group>"; };
+		DAD936501475FCB40096A5CC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		DADBDEA61A49078500EDA8C2 /* GliderLicenseImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GliderLicenseImage.swift; sourceTree = "<group>"; };
+		DADBDEA81A49078500EDA8C2 /* PowerLicenseImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerLicenseImage.swift; sourceTree = "<group>"; };
+		DADBDEAA1A49091A00EDA8C2 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		DADBDEAC1A4909C000EDA8C2 /* MedicalImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MedicalImage.swift; path = ../MedicalImage.swift; sourceTree = "<group>"; };
+		DADBDEAE1A490D2100EDA8C2 /* MaintenanceEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaintenanceEvent.swift; sourceTree = "<group>"; };
+		DADBDEB01A491CAA00EDA8C2 /* SummerUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummerUnit.swift; sourceTree = "<group>"; };
+		DADBDEB21A491E5E00EDA8C2 /* Qualification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualification.swift; sourceTree = "<group>"; };
+		DADBDEB41A49219B00EDA8C2 /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		DADBDEB61A49247400EDA8C2 /* GlidingDayComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidingDayComment.swift; sourceTree = "<group>"; };
+		DADBDEB81A49262E00EDA8C2 /* AircraftEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftEntity.swift; sourceTree = "<group>"; };
+		DADD43A01A49F9320020318C /* FlightRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecord.swift; sourceTree = "<group>"; };
+		DADDB9F41D5C02E800B24B9F /* NotificationCenterDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterDelegateExtension.swift; sourceTree = "<group>"; };
+		DAE06C971ABF678300C5A49F /* ChangeRGSFlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeRGSFlight.swift; sourceTree = "<group>"; };
+		DAE3307F1A40FBB700714D45 /* TableViewCellStylePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellStylePicker.swift; sourceTree = "<group>"; };
+		DAE401221B688E0A00F6D1B1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Storyboards/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DAE502FF1B01B72F005DC59F /* iBeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iBeaconManager.swift; sourceTree = "<group>"; };
+		DAE503021B01D884005DC59F /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		DAE6A18B13662B7D00C602DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DAE6B4EA1A58E7DE008F1AC3 /* Gliding Centre Flights.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Gliding Centre Flights.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAE6B4EE1A58E7DE008F1AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAE6B4EF1A58E7DE008F1AC3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		DAE6B4F11A58E7DE008F1AC3 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		DAE6B4FA1A58FA24008F1AC3 /* Gliding Centre Flights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Gliding Centre Flights.entitlements"; sourceTree = "<group>"; };
+		DAE762671282B8D0005383BB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DAEB436B1A585CF100D387F0 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		DAEB436E1A585F9200D387F0 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		DAEB43701A586ECA00D387F0 /* NSDecimalNumberExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDecimalNumberExtensions.swift; sourceTree = "<group>"; };
+		DAEB43721A58728700D387F0 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		DAF157461B36124B00F6030C /* NDHTMLtoPDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NDHTMLtoPDF.swift; sourceTree = "<group>"; };
+		DAF157481B376AFA00F6030C /* FunStatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunStatsViewController.swift; sourceTree = "<group>"; };
+		DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidingCentreData.swift; sourceTree = "<group>"; };
+		DAF371A41336B24100215BC4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		DAF5889B1ABF7D8F00F2B823 /* ChangeEmplymentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmplymentType.swift; sourceTree = "<group>"; };
+		DAF5889D1ABFBF4700F2B823 /* FlyingRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlyingRecords.swift; sourceTree = "<group>"; };
+		DAF5889F1ABFD05400F2B823 /* ListFlights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFlights.swift; sourceTree = "<group>"; };
+		DAF588A11AC0739400F2B823 /* ListAttendanceRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListAttendanceRecords.swift; sourceTree = "<group>"; };
+		DAF6189616CF351900543415 /* CentralAerodromes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CentralAerodromes.csv; sourceTree = "<group>"; };
+		DAF61ACD16D0243800543415 /* Timesheets_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timesheets_Prefix.pch; sourceTree = "<group>"; };
+		DAF6321D1A4A3CD7003AA1C3 /* AircraftTimesheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftTimesheet.swift; sourceTree = "<group>"; };
+		DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		DAF632211A4A5D17003AA1C3 /* Pilot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pilot.swift; sourceTree = "<group>"; };
+		DAF758B81F83384E00F829E6 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Timesheets.entitlements; sourceTree = "<group>"; };
+		DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsOrGuestsPopover.swift; sourceTree = "<group>"; };
+		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA40AAA51EF6524E00B9757E /* CloudKit.framework in Frameworks */,
+				DA66CA7819E9DDCD00A69615 /* NotificationCenter.framework in Frameworks */,
+				DA94D0681867DBAE00254E2A /* CoreBluetooth.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0B51F6CCCA3008A6765 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA718E601F6CD69B009C5FEB /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0C71F6CCCA4008A6765 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0D21F6CCCA4008A6765 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA21DDDA1B7B0E8F00D16889 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA90F76A1D9B762000046192 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA90F76E1D9B762000046192 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA90F77D1D9B764200046192 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA90F7811D9B764200046192 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAE6B4E71A58E7DE008F1AC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAE6B4EB1A58E7DE008F1AC3 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA6A552E1361962000FB92D1 /* Timesheets.app */,
+				DAE6B4EA1A58E7DE008F1AC3 /* Gliding Centre Flights.appex */,
+				DA21DDDD1B7B0E8F00D16889 /* TimesheetsUITests.xctest */,
+				DA90F76D1D9B762000046192 /* Flights This Season.appex */,
+				DA90F7801D9B764200046192 /* Hours This Season.appex */,
+				DA19D0B81F6CCCA3008A6765 /* Flights Today.app */,
+				DA19D0CA1F6CCCA4008A6765 /* Flights TodayTests.xctest */,
+				DA19D0D51F6CCCA4008A6765 /* Flights TodayUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				DAE401221B688E0A00F6D1B1 /* LaunchScreen.storyboard */,
+				DA059F071438C5F5000FEB4C /* Storyboards */,
+				DAF61AB716D01DC400543415 /* Categories */,
+				DAF618DC16D01BD200543415 /* CoreData */,
+				DAF618BA16D01BC700543415 /* Core Classes */,
+				DAF6191316D01BE200543415 /* Main View Classes */,
+				DAF6195416D01BF600543415 /* Record Classes */,
+				DAF618A116D01B7700543415 /* Aircraft Classes */,
+				DAF6192316D01BEE00543415 /* Pilot Classes */,
+				DAF61A0316D01CF400543415 /* Resources */,
+				DA29977312CFEA0B00589971 /* plists */,
+				DA21DDDE1B7B0E8F00D16889 /* TimesheetsUITests */,
+				DA90F76F1D9B762000046192 /* Flights This Season */,
+				DA90F7821D9B764200046192 /* Hours This Season */,
+				DAE6B4EC1A58E7DE008F1AC3 /* Gliding Centre Flights */,
+				DA19D0B91F6CCCA3008A6765 /* Flights Today */,
+				DA19D0CD1F6CCCA4008A6765 /* Flights TodayTests */,
+				DA19D0D81F6CCCA4008A6765 /* Flights TodayUITests */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				DAF61ACB16D0243800543415 /* Other Sources */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA718E5F1F6CD69B009C5FEB /* CloudKit.framework */,
+				DA40AAA41EF6524E00B9757E /* CloudKit.framework */,
+				DA94D0671867DBAE00254E2A /* CoreBluetooth.framework */,
+				DAA8BAFC147746810075CFEE /* CoreData.framework */,
+				DAE6A18B13662B7D00C602DC /* QuartzCore.framework */,
+				DAF371A41336B24100215BC4 /* MessageUI.framework */,
+				DAE762671282B8D0005383BB /* CoreLocation.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
+				DA66CA6619E9D7EF00A69615 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA059F071438C5F5000FEB4C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				DA059F081438C6C2000FEB4C /* iPadStoryboard.storyboard */,
+			);
+			name = Storyboards;
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		DA0DCD571BE1C7A0001DA3F9 /* Landing Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				DA0DCD581BE1C8E9001DA3F9 /* Glider 1.aiff */,
+				DA0DCD591BE1C8E9001DA3F9 /* Glider 2.aiff */,
+				DA0DCD5A1BE1C8E9001DA3F9 /* Glider 3.aiff */,
+				DA0DCD5B1BE1C8E9001DA3F9 /* Glider 4.aiff */,
+				DA0DCD5C1BE1C8E9001DA3F9 /* Glider 5.aiff */,
+				DA0DCD5D1BE1C8E9001DA3F9 /* Glider 6.aiff */,
+				DA0DCD5E1BE1C8E9001DA3F9 /* Glider 7.aiff */,
+				DA0DCD5F1BE1C8E9001DA3F9 /* Glider 8.aiff */,
+				DA0DCD601BE1C8E9001DA3F9 /* Glider 9.aiff */,
+				DA0DCD611BE1C8E9001DA3F9 /* Glider 10.aiff */,
+				DA0DCD621BE1C8E9001DA3F9 /* Glider 11.aiff */,
+				DA0DCD631BE1C8E9001DA3F9 /* Glider 12.aiff */,
+				DA0DCD641BE1C8E9001DA3F9 /* Glider 13.aiff */,
+				DA0DCD651BE1C8E9001DA3F9 /* Glider 14.aiff */,
+				DA0DCD661BE1C8E9001DA3F9 /* Glider 15.aiff */,
+				DA0DCD671BE1C8E9001DA3F9 /* Glider 16.aiff */,
+				DA0DCD681BE1C8E9001DA3F9 /* Glider 17.aiff */,
+				DA0DCD691BE1C8E9001DA3F9 /* Glider 18.aiff */,
+				DA0DCD6A1BE1C8E9001DA3F9 /* Glider 19.aiff */,
+				DA0DCD6B1BE1C8E9001DA3F9 /* Glider 20.aiff */,
+				DA0DCD4B1BE1B8FA001DA3F9 /* Scout 1.aiff */,
+				DA0DCD4D1BE1C6D3001DA3F9 /* Scout 2.aiff */,
+				DA0DCD4F1BE1C794001DA3F9 /* Scout 3.aiff */,
+				DA0DCD501BE1C794001DA3F9 /* Scout 4.aiff */,
+				DA0DCD511BE1C794001DA3F9 /* Scout 6.aiff */,
+				DA0DCD521BE1C794001DA3F9 /* Scout 5.aiff */,
+			);
+			name = "Landing Sounds";
+			sourceTree = "<group>";
+		};
+		DA19D0B91F6CCCA3008A6765 /* Flights Today */ = {
+			isa = PBXGroup;
+			children = (
+				DA2882C3204FA61A005D2083 /* Settings.bundle */,
+				DA718E5C1F6CD538009C5FEB /* CloudKitControllerTV.swift */,
+				DA19D0BA1F6CCCA4008A6765 /* AppDelegate.swift */,
+				DA718E5A1F6CD12F009C5FEB /* SiteSelection.swift */,
+				DA832CB320C7A37D007FE2BC /* Leaderboards.swift */,
+				DA24DFDA1F70427C00CD9FD1 /* FlightRecordsViewer.swift */,
+				DAC2917F2143861500FA64CD /* PersonnelViewer.swift */,
+				DAC089E6215DF9F4009C0985 /* PersonnelViewHeader.swift */,
+				DA06563A1F7983FE00BFD540 /* RecordCell.swift */,
+				DAC2917D21437EFC00FA64CD /* PilotTVcell.swift */,
+				DA0656331F7978CE00BFD540 /* CKRecordExtensions.swift */,
+				DA24DFDC1F70430A00CD9FD1 /* RecordsTabRoot.swift */,
+				DA19D0C01F6CCCA4008A6765 /* Main.storyboard */,
+				DA718E5E1F6CD699009C5FEB /* Flights Today.entitlements */,
+				DA19D0C51F6CCCA4008A6765 /* Info.plist */,
+			);
+			path = "Flights Today";
+			sourceTree = "<group>";
+		};
+		DA19D0CD1F6CCCA4008A6765 /* Flights TodayTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA19D0CE1F6CCCA4008A6765 /* Flights_TodayTests.swift */,
+				DA19D0D01F6CCCA4008A6765 /* Info.plist */,
+			);
+			path = "Flights TodayTests";
+			sourceTree = "<group>";
+		};
+		DA19D0D81F6CCCA4008A6765 /* Flights TodayUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA19D0D91F6CCCA4008A6765 /* Flights_TodayUITests.swift */,
+				DA19D0DB1F6CCCA4008A6765 /* Info.plist */,
+			);
+			path = "Flights TodayUITests";
+			sourceTree = "<group>";
+		};
+		DA21DDDE1B7B0E8F00D16889 /* TimesheetsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA21DDDF1B7B0E8F00D16889 /* TimesheetsUITests.swift */,
+				DA21DDE11B7B0E8F00D16889 /* Info.plist */,
+			);
+			path = TimesheetsUITests;
+			sourceTree = "<group>";
+		};
+		DA29977312CFEA0B00589971 /* plists */ = {
+			isa = PBXGroup;
+			children = (
+				DA059F251438C8DF000FEB4C /* OrganizeTemplate.plist */,
+				DA059F2B1438C8FA000FEB4C /* GlidingCentreCoordinates.plist */,
+				DA059F271438C8E4000FEB4C /* GliderList.plist */,
+				DA5B1D4C1F7CBAFE004B9713 /* Timesheets-Info.plist */,
+				DA369A09149F01C000200175 /* RGSflights.plist */,
+				DAD936501475FCB40096A5CC /* Settings.bundle */,
+				DA62E5EB1547883E005FA5FA /* PacificAerodromes.csv */,
+				DA710440138B1A4900203751 /* NorthwestAerodromes.csv */,
+				DAF6189616CF351900543415 /* CentralAerodromes.csv */,
+				DA5BE8C214F9E0C60043E6E0 /* AtlanticAerodromes.csv */,
+				DAD5EF3D16E056780096E6C5 /* EasternAerodromes.csv */,
+				DA3AA5F81795A2F200562CC3 /* RandomNames.csv */,
+				DA3AA5F91795A2F200562CC3 /* RandomSurnames.csv */,
+				DA059F2F1438C90F000FEB4C /* GliderSequences.plist */,
+				DA059F2D1438C903000FEB4C /* TowplaneSequences.plist */,
+				DA579BCA14534B3700B8FB9C /* TowplaneSequenceDirections.plist */,
+				DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */,
+			);
+			path = plists;
+			sourceTree = "<group>";
+		};
+		DA90F76F1D9B762000046192 /* Flights This Season */ = {
+			isa = PBXGroup;
+			children = (
+				DA14FB3D1D9B81F600F6E277 /* Flights This Season.entitlements */,
+				DA90F7701D9B762000046192 /* FlightsThisSeason.swift */,
+				DA90F7721D9B762000046192 /* MainInterface.storyboard */,
+				DA90F7751D9B762000046192 /* Info.plist */,
+			);
+			path = "Flights This Season";
+			sourceTree = "<group>";
+		};
+		DA90F7821D9B764200046192 /* Hours This Season */ = {
+			isa = PBXGroup;
+			children = (
+				DA14FB3E1D9B81FB00F6E277 /* Hours This Season.entitlements */,
+				DA90F7831D9B764200046192 /* HoursThisSeason.swift */,
+				DA90F7851D9B764200046192 /* MainInterface.storyboard */,
+				DA90F7881D9B764200046192 /* Info.plist */,
+			);
+			path = "Hours This Season";
+			sourceTree = "<group>";
+		};
+		DAE637D41F95A4BA0012430C /* 3 Main View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DA8D5A861A6F5665003D431E /* Records.swift */,
+				DA301AF51A6CDBEB007AC9A4 /* Airplanes.swift */,
+				DA65A9701A7052F900CCFDAB /* Pilots.swift */,
+			);
+			path = "3 Main View Controllers";
+			sourceTree = "<group>";
+		};
+		DAE6B4EC1A58E7DE008F1AC3 /* Gliding Centre Flights */ = {
+			isa = PBXGroup;
+			children = (
+				DAE6B4FA1A58FA24008F1AC3 /* Gliding Centre Flights.entitlements */,
+				DAE6B4EF1A58E7DE008F1AC3 /* TodayViewController.swift */,
+				DAE6B4F11A58E7DE008F1AC3 /* MainInterface.storyboard */,
+				DAE6B4ED1A58E7DE008F1AC3 /* Supporting Files */,
+			);
+			path = "Gliding Centre Flights";
+			sourceTree = "<group>";
+		};
+		DAE6B4ED1A58E7DE008F1AC3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAE6B4EE1A58E7DE008F1AC3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAF618A116D01B7700543415 /* Aircraft Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DA40AE101A577836004A5389 /* ChangeAttachedVehicle.swift */,
+				DA301AEF1A6B339E007AC9A4 /* JourneyLogEntryEditor.swift */,
+				DAA678EA1A4769B500232CD3 /* ViewJourneyLogEntries.swift */,
+				DA74273B1A5E016D006945BE /* ChangeGlidingCentreForTimesheet.swift */,
+				DA7427391A5DFB18006945BE /* ChangeTimesheetDate.swift */,
+				DA1D2F871B069A9E00160AC9 /* BeaconNumberCell.swift */,
+				DA313EE61A37FFEC00F1A980 /* ChangeSequence.swift */,
+				DAC43BF01A5CEB79006DA198 /* MaintenanceOptions.swift */,
+				DAA678E81A4603F700232CD3 /* ListMaintenanceIssues.swift */,
+				DA644F9D1A45F6D2005BAE6A /* EditMaintenanceIssue.swift */,
+				DAAFC9051A3A94F2005EE1F1 /* EditVehicle.swift */,
+				DA301AED1A6B071E007AC9A4 /* TNIPickerView.swift */,
+				DA301AF11A6C720F007AC9A4 /* ChangeOperator.swift */,
+				DAC603181A69F46800E0F653 /* ChangePilotPopover.swift */,
+				DA301AF31A6C8C01007AC9A4 /* ChangePassengerPopover.swift */,
+			);
+			path = "Aircraft Classes";
+			sourceTree = "<group>";
+		};
+		DAF618BA16D01BC700543415 /* Core Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DA19D38D1EF70695005A8AD3 /* CloudKitController.swift */,
+				DA4C70061ACA31060024DE40 /* TimesheetsAppDelegate.swift */,
+				DA4C70041ACA243C0024DE40 /* CoreDataController.swift */,
+				DAF758B81F83384E00F829E6 /* Reachability.swift */,
+				DA6AD4791EFB4C9600CA20BD /* UserDefaults.swift */,
+				DA50EE601AE161DB00C4505E /* DataModel.swift */,
+				DA80B7421A5F59CC005B8545 /* ReportGenerator.swift */,
+				DAE502FF1B01B72F005DC59F /* iBeaconManager.swift */,
+				DA97EDBF1AC0F48F00DBB424 /* DeduplicationManager.swift */,
+				DADDB9F41D5C02E800B24B9F /* NotificationCenterDelegateExtension.swift */,
+				DA05548E1B113F6000F50AB8 /* GPSmanager.swift */,
+				DA58B6721A5B770B0091A288 /* OrientationViewController.swift */,
+				DA4C700E1ACCA7F70024DE40 /* iPadRootViewController.swift */,
+				DAE637D41F95A4BA0012430C /* 3 Main View Controllers */,
+				DAAC7C671A5A364A00B4B41A /* TickerViewController.swift */,
+				DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */,
+				DA58B6781A5B7E520091A288 /* TableViewCellStylePilot.swift */,
+				DA58B6741A5B7CD50091A288 /* TableViewCellStyleAircraft.swift */,
+				DA58B6761A5B7E3E0091A288 /* TableViewCellStyleRecord.swift */,
+				DA1D2F851B02B35D00160AC9 /* CollectionViewCellStylePilot.swift */,
+				DA1D2F891B0A9B8E00160AC9 /* StatsManager.swift */,
+			);
+			path = "Core Classes";
+			sourceTree = "<group>";
+		};
+		DAF618DC16D01BD200543415 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DA8A38E620204F760001BC0C /* Model.xcdatamodeld */,
+				DAF6321D1A4A3CD7003AA1C3 /* AircraftTimesheet.swift */,
+				DAF632211A4A5D17003AA1C3 /* Pilot.swift */,
+				DAC9C3BA1A493AA4003B0D80 /* AttendanceRecord.swift */,
+				DADBDEB81A49262E00EDA8C2 /* AircraftEntity.swift */,
+				DADD43A01A49F9320020318C /* FlightRecord.swift */,
+				DADBDEB61A49247400EDA8C2 /* GlidingDayComment.swift */,
+				DADBDEAE1A490D2100EDA8C2 /* MaintenanceEvent.swift */,
+				DADBDEA61A49078500EDA8C2 /* GliderLicenseImage.swift */,
+				DADBDEAC1A4909C000EDA8C2 /* MedicalImage.swift */,
+				DADBDEAA1A49091A00EDA8C2 /* Photo.swift */,
+				DADBDEA81A49078500EDA8C2 /* PowerLicenseImage.swift */,
+				DADBDEB21A491E5E00EDA8C2 /* Qualification.swift */,
+				DA8D60661A478AED00B7A37C /* GlidingCentre.swift */,
+				DADBDEB41A49219B00EDA8C2 /* Region.swift */,
+				DADBDEB01A491CAA00EDA8C2 /* SummerUnit.swift */,
+				DA4C70081ACB96C50024DE40 /* ImageTransformer.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DAF6191316D01BE200543415 /* Main View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DAF157481B376AFA00F6030C /* FunStatsViewController.swift */,
+				DA663D7F1A32B58500594918 /* PilotActions.swift */,
+				DA93C4B01A69EBB60038F766 /* DeduplicateProgressViewController.swift */,
+				DA93C4AE1A69A6280038F766 /* AddAircraftPopover.swift */,
+				DA845CE61A2D562000C951AD /* SelectGlidingCentre.swift */,
+				DA29E4011A74AC8500FA6A4B /* RecordActions.swift */,
+				DAE3307F1A40FBB700714D45 /* TableViewCellStylePicker.swift */,
+			);
+			path = "Main View Classes";
+			sourceTree = "<group>";
+		};
+		DAF6192316D01BEE00543415 /* Pilot Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */,
+				DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */,
+				DA1D2F831B0292F000160AC9 /* PilotCollectionView.swift */,
+				DA29E40B1A77F5B300FA6A4B /* EditPilotPopover.swift */,
+				DAAAC15F1ACE09E500ECE62B /* SignInPilotFromList.swift */,
+				DA29E4031A758A8200FA6A4B /* ChangeGliderQual.swift */,
+				DA29E4091A75F26400FA6A4B /* ChangeTowQual.swift */,
+				DA6A122F1A789AD40066372A /* PilotQualifications.swift */,
+				DA29E4071A75B16D00FA6A4B /* LogBookCreator.swift */,
+				DA97EDBB1AC0CCF700DBB424 /* ChangeGlidingCentreForPilot.swift */,
+				DAE06C971ABF678300C5A49F /* ChangeRGSFlight.swift */,
+				DA65A9761A73639000CCFDAB /* ChangeSignificantDate.swift */,
+				DAF5889B1ABF7D8F00F2B823 /* ChangeEmplymentType.swift */,
+				DA29E3FF1A74501600FA6A4B /* ChangeArrivalTime.swift */,
+				DAF5889F1ABFD05400F2B823 /* ListFlights.swift */,
+				DAF5889D1ABFBF4700F2B823 /* FlyingRecords.swift */,
+				DAF588A11AC0739400F2B823 /* ListAttendanceRecords.swift */,
+				DA4C700A1ACC5EBB0024DE40 /* ShowPhotoViewController.swift */,
+			);
+			path = "Pilot Classes";
+			sourceTree = "<group>";
+		};
+		DAF6195416D01BF600543415 /* Record Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DA7BD1451B1B6C56004AE1DF /* ChangeVehicle.swift */,
+				DA65A9721A71ED8300CCFDAB /* EditRecordPopover.swift */,
+				DA65A9741A7331E000CCFDAB /* ChangeTime.swift */,
+				DA4C700C1ACC91D20024DE40 /* SelectDateToViewRecords.swift */,
+				DAAAC15D1ACDF9AC00ECE62B /* GlidingDayCommentList.swift */,
+				DAAAC15B1ACDEDDE00ECE62B /* GlidingDayCommentEditor.swift */,
+			);
+			path = "Record Classes";
+			sourceTree = "<group>";
+		};
+		DAF61A0316D01CF400543415 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DA6DDE0617CAB5C300D81C4E /* Images.xcassets */,
+				DA19D0B21F6C5864008A6765 /* Icon-Small-40@3x.png */,
+				DA19D0B31F6C5A6B008A6765 /* Icon-83.5@2x.png */,
+				DA0DCD571BE1C7A0001DA3F9 /* Landing Sounds */,
+				DA9898D11ADF4B3E0058F8DE /* Sample.sqlite */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DAF61AB716D01DC400543415 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				DA313EE41A36B70800F1A980 /* GlobalFunctionsAndDeclarations.swift */,
+				DAE503021B01D884005DC59F /* GlobalConstants.swift */,
+				DAEB43721A58728700D387F0 /* UIImageExtensions.swift */,
+				DAF157461B36124B00F6030C /* NDHTMLtoPDF.swift */,
+				DA6288CD1A587744001CED9D /* NSDateExtensions.swift */,
+				DAEB436B1A585CF100D387F0 /* UIColorExtensions.swift */,
+				DA313EE21A36B6D500F1A980 /* UIViewControllerExtensions.swift */,
+				DAEB43701A586ECA00D387F0 /* NSDecimalNumberExtensions.swift */,
+				DAEB436E1A585F9200D387F0 /* UIViewExtensions.swift */,
+				DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */,
+				DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */,
+				DAD0A0431B5D995C00E964CC /* PlistManagement.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		DAF61ACB16D0243800543415 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DAF61ACD16D0243800543415 /* Timesheets_Prefix.pch */,
+			);
+			path = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* Timesheets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Timesheets" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				DA66CA7719E9D7F000A69615 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAE6B4F41A58E7DE008F1AC3 /* PBXTargetDependency */,
+				DA90F7771D9B762000046192 /* PBXTargetDependency */,
+				DA90F78A1D9B764200046192 /* PBXTargetDependency */,
+			);
+			name = Timesheets;
+			productName = Timesheets;
+			productReference = DA6A552E1361962000FB92D1 /* Timesheets.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA19D0B71F6CCCA3008A6765 /* Flights Today */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA19D0DC1F6CCCA4008A6765 /* Build configuration list for PBXNativeTarget "Flights Today" */;
+			buildPhases = (
+				DA19D0B41F6CCCA3008A6765 /* Sources */,
+				DA19D0B51F6CCCA3008A6765 /* Frameworks */,
+				DA19D0B61F6CCCA3008A6765 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Flights Today";
+			productName = "Flights Today";
+			productReference = DA19D0B81F6CCCA3008A6765 /* Flights Today.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA19D0C91F6CCCA4008A6765 /* Flights TodayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA19D0DF1F6CCCA4008A6765 /* Build configuration list for PBXNativeTarget "Flights TodayTests" */;
+			buildPhases = (
+				DA19D0C61F6CCCA4008A6765 /* Sources */,
+				DA19D0C71F6CCCA4008A6765 /* Frameworks */,
+				DA19D0C81F6CCCA4008A6765 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA19D0CC1F6CCCA4008A6765 /* PBXTargetDependency */,
+			);
+			name = "Flights TodayTests";
+			productName = "Flights TodayTests";
+			productReference = DA19D0CA1F6CCCA4008A6765 /* Flights TodayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA19D0D41F6CCCA4008A6765 /* Flights TodayUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA19D0E21F6CCCA4008A6765 /* Build configuration list for PBXNativeTarget "Flights TodayUITests" */;
+			buildPhases = (
+				DA19D0D11F6CCCA4008A6765 /* Sources */,
+				DA19D0D21F6CCCA4008A6765 /* Frameworks */,
+				DA19D0D31F6CCCA4008A6765 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA19D0D71F6CCCA4008A6765 /* PBXTargetDependency */,
+			);
+			name = "Flights TodayUITests";
+			productName = "Flights TodayUITests";
+			productReference = DA19D0D51F6CCCA4008A6765 /* Flights TodayUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DA21DDDC1B7B0E8F00D16889 /* TimesheetsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA21DDE61B7B0E8F00D16889 /* Build configuration list for PBXNativeTarget "TimesheetsUITests" */;
+			buildPhases = (
+				DA21DDD91B7B0E8F00D16889 /* Sources */,
+				DA21DDDA1B7B0E8F00D16889 /* Frameworks */,
+				DA21DDDB1B7B0E8F00D16889 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA21DDE31B7B0E8F00D16889 /* PBXTargetDependency */,
+			);
+			name = TimesheetsUITests;
+			productName = TimesheetsUITests;
+			productReference = DA21DDDD1B7B0E8F00D16889 /* TimesheetsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DA90F76C1D9B762000046192 /* Flights This Season */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA90F77B1D9B762000046192 /* Build configuration list for PBXNativeTarget "Flights This Season" */;
+			buildPhases = (
+				DA90F7691D9B762000046192 /* Sources */,
+				DA90F76A1D9B762000046192 /* Frameworks */,
+				DA90F76B1D9B762000046192 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Flights This Season";
+			productName = "Flights This Season";
+			productReference = DA90F76D1D9B762000046192 /* Flights This Season.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DA90F77F1D9B764200046192 /* Hours This Season */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA90F78C1D9B764200046192 /* Build configuration list for PBXNativeTarget "Hours This Season" */;
+			buildPhases = (
+				DA90F77C1D9B764200046192 /* Sources */,
+				DA90F77D1D9B764200046192 /* Frameworks */,
+				DA90F77E1D9B764200046192 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Hours This Season";
+			productName = "Hours This Season";
+			productReference = DA90F7801D9B764200046192 /* Hours This Season.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DAE6B4E91A58E7DE008F1AC3 /* Gliding Centre Flights */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAE6B4F61A58E7DF008F1AC3 /* Build configuration list for PBXNativeTarget "Gliding Centre Flights" */;
+			buildPhases = (
+				DAE6B4E61A58E7DE008F1AC3 /* Sources */,
+				DAE6B4E71A58E7DE008F1AC3 /* Frameworks */,
+				DAE6B4E81A58E7DE008F1AC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Gliding Centre Flights";
+			productName = "Gliding Centre Flights";
+			productReference = DAE6B4EA1A58E7DE008F1AC3 /* Gliding Centre Flights.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0930;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					DA19D0B71F6CCCA3008A6765 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes.appletvos = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					DA19D0C91F6CCCA4008A6765 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DA19D0B71F6CCCA3008A6765;
+					};
+					DA19D0D41F6CCCA4008A6765 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DA19D0B71F6CCCA3008A6765;
+					};
+					DA21DDDC1B7B0E8F00D16889 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						TestTargetID = 1D6058900D05DD3D006BFB54;
+					};
+					DA90F76C1D9B762000046192 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					DA90F77F1D9B764200046192 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					DAE6B4E91A58E7DE008F1AC3 = {
+						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 77432UPB7H;
+						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Timesheets" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				Base,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* Timesheets */,
+				DAE6B4E91A58E7DE008F1AC3 /* Gliding Centre Flights */,
+				DA21DDDC1B7B0E8F00D16889 /* TimesheetsUITests */,
+				DA90F76C1D9B762000046192 /* Flights This Season */,
+				DA90F77F1D9B764200046192 /* Hours This Season */,
+				DA19D0B71F6CCCA3008A6765 /* Flights Today */,
+				DA19D0C91F6CCCA4008A6765 /* Flights TodayTests */,
+				DA19D0D41F6CCCA4008A6765 /* Flights TodayUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA0DCD551BE1C794001DA3F9 /* Scout 6.aiff in Resources */,
+				DA710441138B1A4900203751 /* NorthwestAerodromes.csv in Resources */,
+				DA0DCD531BE1C794001DA3F9 /* Scout 3.aiff in Resources */,
+				DA0DCD721BE1C8E9001DA3F9 /* Glider 7.aiff in Resources */,
+				DA0DCD4C1BE1B8FA001DA3F9 /* Scout 1.aiff in Resources */,
+				DA0DCD741BE1C8E9001DA3F9 /* Glider 9.aiff in Resources */,
+				DA0DCD771BE1C8E9001DA3F9 /* Glider 12.aiff in Resources */,
+				DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */,
+				DA0DCD761BE1C8E9001DA3F9 /* Glider 11.aiff in Resources */,
+				DA0DCD7C1BE1C8E9001DA3F9 /* Glider 17.aiff in Resources */,
+				DA0DCD731BE1C8E9001DA3F9 /* Glider 8.aiff in Resources */,
+				DA0DCD711BE1C8E9001DA3F9 /* Glider 6.aiff in Resources */,
+				DA059F0A1438C6C2000FEB4C /* iPadStoryboard.storyboard in Resources */,
+				DA0DCD7F1BE1C8E9001DA3F9 /* Glider 20.aiff in Resources */,
+				DA059F261438C8DF000FEB4C /* OrganizeTemplate.plist in Resources */,
+				DA0DCD6D1BE1C8E9001DA3F9 /* Glider 2.aiff in Resources */,
+				DA0DCD7A1BE1C8E9001DA3F9 /* Glider 15.aiff in Resources */,
+				DA059F281438C8E4000FEB4C /* GliderList.plist in Resources */,
+				DA059F2C1438C8FA000FEB4C /* GlidingCentreCoordinates.plist in Resources */,
+				DA0DCD6E1BE1C8E9001DA3F9 /* Glider 3.aiff in Resources */,
+				DA059F2E1438C903000FEB4C /* TowplaneSequences.plist in Resources */,
+				DA6DDE0717CAB5C300D81C4E /* Images.xcassets in Resources */,
+				DA059F311438C90F000FEB4C /* GliderSequences.plist in Resources */,
+				DA0DCD7E1BE1C8E9001DA3F9 /* Glider 19.aiff in Resources */,
+				DA0DCD781BE1C8E9001DA3F9 /* Glider 13.aiff in Resources */,
+				DA0DCD6C1BE1C8E9001DA3F9 /* Glider 1.aiff in Resources */,
+				DA0DCD561BE1C794001DA3F9 /* Scout 5.aiff in Resources */,
+				DA0DCD6F1BE1C8E9001DA3F9 /* Glider 4.aiff in Resources */,
+				DA579BCB14534B3700B8FB9C /* TowplaneSequenceDirections.plist in Resources */,
+				DAD936511475FCB40096A5CC /* Settings.bundle in Resources */,
+				DA0DCD7B1BE1C8E9001DA3F9 /* Glider 16.aiff in Resources */,
+				DA369A0A149F01C000200175 /* RGSflights.plist in Resources */,
+				DA5BE8C314F9E0C60043E6E0 /* AtlanticAerodromes.csv in Resources */,
+				DA62E5EC1547883E005FA5FA /* PacificAerodromes.csv in Resources */,
+				DAF6189716CF351900543415 /* CentralAerodromes.csv in Resources */,
+				DA0DCD4E1BE1C6D3001DA3F9 /* Scout 2.aiff in Resources */,
+				DA9898D21ADF4B3E0058F8DE /* Sample.sqlite in Resources */,
+				DA0DCD7D1BE1C8E9001DA3F9 /* Glider 18.aiff in Resources */,
+				DA0DCD541BE1C794001DA3F9 /* Scout 4.aiff in Resources */,
+				DA0DCD791BE1C8E9001DA3F9 /* Glider 14.aiff in Resources */,
+				DAD5EF3E16E056780096E6C5 /* EasternAerodromes.csv in Resources */,
+				DAE401231B688E0A00F6D1B1 /* LaunchScreen.storyboard in Resources */,
+				DA0DCD701BE1C8E9001DA3F9 /* Glider 5.aiff in Resources */,
+				DA3AA5FA1795A2F200562CC3 /* RandomNames.csv in Resources */,
+				DA3AA5FB1795A2F200562CC3 /* RandomSurnames.csv in Resources */,
+				DA0DCD751BE1C8E9001DA3F9 /* Glider 10.aiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0B61F6CCCA3008A6765 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24DFDE1F70DE3100CD9FD1 /* Images.xcassets in Resources */,
+				DA2882C5204FA83F005D2083 /* Settings.bundle in Resources */,
+				DA19D0C21F6CCCA4008A6765 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0C81F6CCCA4008A6765 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0D31F6CCCA4008A6765 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA21DDDB1B7B0E8F00D16889 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA90F76B1D9B762000046192 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA90F7741D9B762000046192 /* MainInterface.storyboard in Resources */,
+				DA288C8A1D9B7C5F00B68A39 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA90F77E1D9B764200046192 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA90F7871D9B764200046192 /* MainInterface.storyboard in Resources */,
+				DA288C8B1D9B7C6000B68A39 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAE6B4E81A58E7DE008F1AC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAE6B4F21A58E7DE008F1AC3 /* MainInterface.storyboard in Resources */,
+				DAD27DB31D58260200E6079F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA6288CE1A587744001CED9D /* NSDateExtensions.swift in Sources */,
+				DA03438A1DA7470100B54165 /* AddCadetsIndividually.swift in Sources */,
+				DAAAC15E1ACDF9AC00ECE62B /* GlidingDayCommentList.swift in Sources */,
+				DA74273A1A5DFB18006945BE /* ChangeTimesheetDate.swift in Sources */,
+				DADBDEB91A49262E00EDA8C2 /* AircraftEntity.swift in Sources */,
+				DA1D2F881B069A9E00160AC9 /* BeaconNumberCell.swift in Sources */,
+				DAF5889E1ABFBF4700F2B823 /* FlyingRecords.swift in Sources */,
+				DAEB43711A586ECA00D387F0 /* NSDecimalNumberExtensions.swift in Sources */,
+				DA301AF61A6CDBEB007AC9A4 /* Airplanes.swift in Sources */,
+				DA6A12301A789AD40066372A /* PilotQualifications.swift in Sources */,
+				DAF5889C1ABF7D8F00F2B823 /* ChangeEmplymentType.swift in Sources */,
+				DAEB436D1A585E9300D387F0 /* UIColorExtensions.swift in Sources */,
+				DA93C4AF1A69A6280038F766 /* AddAircraftPopover.swift in Sources */,
+				DAF588A01ABFD05400F2B823 /* ListFlights.swift in Sources */,
+				DA58B6731A5B770B0091A288 /* OrientationViewController.swift in Sources */,
+				DAFDAFEF1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift in Sources */,
+				DAAAC1601ACE09E500ECE62B /* SignInPilotFromList.swift in Sources */,
+				DA1D2F8A1B0A9B8E00160AC9 /* StatsManager.swift in Sources */,
+				DAF632201A4A41C3003AA1C3 /* StringExtensions.swift in Sources */,
+				DA1D2F8B1B0AC85800160AC9 /* TodayViewController.swift in Sources */,
+				DA7BD1461B1B6C56004AE1DF /* ChangeVehicle.swift in Sources */,
+				DA313EE71A37FFEC00F1A980 /* ChangeSequence.swift in Sources */,
+				DAEB436F1A585F9200D387F0 /* UIViewExtensions.swift in Sources */,
+				DA8D5A871A6F5665003D431E /* Records.swift in Sources */,
+				DA97EDC01AC0F48F00DBB424 /* DeduplicationManager.swift in Sources */,
+				DA313EE31A36B6D500F1A980 /* UIViewControllerExtensions.swift in Sources */,
+				DAF157471B36124B00F6030C /* NDHTMLtoPDF.swift in Sources */,
+				DAAC7C681A5A364A00B4B41A /* TickerViewController.swift in Sources */,
+				DADBDEB11A491CAA00EDA8C2 /* SummerUnit.swift in Sources */,
+				DADBDEB51A49219B00EDA8C2 /* Region.swift in Sources */,
+				DAA678E91A4603F700232CD3 /* ListMaintenanceIssues.swift in Sources */,
+				DADBDEA71A49078500EDA8C2 /* GliderLicenseImage.swift in Sources */,
+				DA301AF01A6B339E007AC9A4 /* JourneyLogEntryEditor.swift in Sources */,
+				DA845CE71A2D562000C951AD /* SelectGlidingCentre.swift in Sources */,
+				DA301AF41A6C8C01007AC9A4 /* ChangePassengerPopover.swift in Sources */,
+				DAF588A21AC0739400F2B823 /* ListAttendanceRecords.swift in Sources */,
+				DAC9C3BB1A493AA4003B0D80 /* AttendanceRecord.swift in Sources */,
+				DA58B6771A5B7E3E0091A288 /* TableViewCellStyleRecord.swift in Sources */,
+				DA644F9E1A45F6D2005BAE6A /* EditMaintenanceIssue.swift in Sources */,
+				DA8D60671A478AED00B7A37C /* GlidingCentre.swift in Sources */,
+				DA6AD47A1EFB4C9600CA20BD /* UserDefaults.swift in Sources */,
+				DAF6321E1A4A3CD7003AA1C3 /* AircraftTimesheet.swift in Sources */,
+				DA29E40A1A75F26400FA6A4B /* ChangeTowQual.swift in Sources */,
+				DADBDEB31A491E5E00EDA8C2 /* Qualification.swift in Sources */,
+				DA40AE111A577836004A5389 /* ChangeAttachedVehicle.swift in Sources */,
+				DA29E4041A758A8200FA6A4B /* ChangeGliderQual.swift in Sources */,
+				DAE503001B01B72F005DC59F /* iBeaconManager.swift in Sources */,
+				DADBDEA91A49078500EDA8C2 /* PowerLicenseImage.swift in Sources */,
+				DA50EE611AE161DB00C4505E /* DataModel.swift in Sources */,
+				DA80B7431A5F59CC005B8545 /* ReportGenerator.swift in Sources */,
+				DA58B6751A5B7CD50091A288 /* TableViewCellStyleAircraft.swift in Sources */,
+				DAD0A0441B5D995C00E964CC /* PlistManagement.swift in Sources */,
+				DA19D38E1EF70695005A8AD3 /* CloudKitController.swift in Sources */,
+				DA29E4081A75B16D00FA6A4B /* LogBookCreator.swift in Sources */,
+				DA301AEE1A6B071E007AC9A4 /* TNIPickerView.swift in Sources */,
+				DA97EDBC1AC0CCF700DBB424 /* ChangeGlidingCentreForPilot.swift in Sources */,
+				DA65A9771A73639000CCFDAB /* ChangeSignificantDate.swift in Sources */,
+				DAE330801A40FBB700714D45 /* TableViewCellStylePicker.swift in Sources */,
+				DA58B6791A5B7E520091A288 /* TableViewCellStylePilot.swift in Sources */,
+				DAAFC9061A3A94F2005EE1F1 /* EditVehicle.swift in Sources */,
+				DA29E4021A74AC8500FA6A4B /* RecordActions.swift in Sources */,
+				DAF632221A4A5D17003AA1C3 /* Pilot.swift in Sources */,
+				DAE503031B01D884005DC59F /* GlobalConstants.swift in Sources */,
+				DA65A9751A7331E000CCFDAB /* ChangeTime.swift in Sources */,
+				DAAAC15C1ACDEDDE00ECE62B /* GlidingDayCommentEditor.swift in Sources */,
+				DADBDEAF1A490D2100EDA8C2 /* MaintenanceEvent.swift in Sources */,
+				DA65A9731A71ED8300CCFDAB /* EditRecordPopover.swift in Sources */,
+				DA663D801A32B58500594918 /* PilotActions.swift in Sources */,
+				DAC43BF11A5CEB79006DA198 /* MaintenanceOptions.swift in Sources */,
+				DA93C4B11A69EBB60038F766 /* DeduplicateProgressViewController.swift in Sources */,
+				DA65A9711A7052F900CCFDAB /* Pilots.swift in Sources */,
+				DAEB43731A58728700D387F0 /* UIImageExtensions.swift in Sources */,
+				DADDB9F51D5C02E800B24B9F /* NotificationCenterDelegateExtension.swift in Sources */,
+				DA29E40C1A77F5B300FA6A4B /* EditPilotPopover.swift in Sources */,
+				DA4C700F1ACCA7F70024DE40 /* iPadRootViewController.swift in Sources */,
+				DAA678EB1A4769B500232CD3 /* ViewJourneyLogEntries.swift in Sources */,
+				DA1D2F841B0292F000160AC9 /* PilotCollectionView.swift in Sources */,
+				DAF1574B1B38C0A800F6030C /* GlidingCentreData.swift in Sources */,
+				DA4C700B1ACC5EBB0024DE40 /* ShowPhotoViewController.swift in Sources */,
+				DA29E4001A74501600FA6A4B /* ChangeArrivalTime.swift in Sources */,
+				DAF157491B376AFA00F6030C /* FunStatsViewController.swift in Sources */,
+				DADD43A11A49F9320020318C /* FlightRecord.swift in Sources */,
+				DAE06C981ABF678300C5A49F /* ChangeRGSFlight.swift in Sources */,
+				DA05548F1B113F6000F50AB8 /* GPSmanager.swift in Sources */,
+				DA4C70051ACA243C0024DE40 /* CoreDataController.swift in Sources */,
+				DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */,
+				DA8A38FA20204F760001BC0C /* Model.xcdatamodeld in Sources */,
+				DADBDEB71A49247400EDA8C2 /* GlidingDayComment.swift in Sources */,
+				DA4C700D1ACC91D20024DE40 /* SelectDateToViewRecords.swift in Sources */,
+				DA301AF21A6C720F007AC9A4 /* ChangeOperator.swift in Sources */,
+				DA4C70071ACA31060024DE40 /* TimesheetsAppDelegate.swift in Sources */,
+				DA4C70091ACB96C50024DE40 /* ImageTransformer.swift in Sources */,
+				DA313EE51A36B70800F1A980 /* GlobalFunctionsAndDeclarations.swift in Sources */,
+				DADBDEAB1A49091A00EDA8C2 /* Photo.swift in Sources */,
+				DADBDEAD1A4909C000EDA8C2 /* MedicalImage.swift in Sources */,
+				DAF758B91F83384E00F829E6 /* Reachability.swift in Sources */,
+				DA1D2F861B02B35D00160AC9 /* CollectionViewCellStylePilot.swift in Sources */,
+				DA74273C1A5E016D006945BE /* ChangeGlidingCentreForTimesheet.swift in Sources */,
+				DAC603191A69F46800E0F653 /* ChangePilotPopover.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0B41F6CCCA3008A6765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC2917E21437EFC00FA64CD /* PilotTVcell.swift in Sources */,
+				DA0656351F797DDD00BFD540 /* UIImageExtensions.swift in Sources */,
+				DAC089E7215DF9F4009C0985 /* PersonnelViewHeader.swift in Sources */,
+				DA0656341F7978CE00BFD540 /* CKRecordExtensions.swift in Sources */,
+				DA0656361F797E1000BFD540 /* StringExtensions.swift in Sources */,
+				DAC291802143861500FA64CD /* PersonnelViewer.swift in Sources */,
+				DA718E611F6CDB8D009C5FEB /* NSDateExtensions.swift in Sources */,
+				DA718E5B1F6CD12F009C5FEB /* SiteSelection.swift in Sources */,
+				DA19D0BB1F6CCCA4008A6765 /* AppDelegate.swift in Sources */,
+				DA24DFDD1F70430A00CD9FD1 /* RecordsTabRoot.swift in Sources */,
+				DA718E631F6CDDAC009C5FEB /* GlobalConstants.swift in Sources */,
+				DA24DFDB1F70427C00CD9FD1 /* FlightRecordsViewer.swift in Sources */,
+				DA832CB620C7A93F007FE2BC /* Leaderboards.swift in Sources */,
+				DA06563B1F7983FE00BFD540 /* RecordCell.swift in Sources */,
+				DA718E5D1F6CD538009C5FEB /* CloudKitControllerTV.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0C61F6CCCA4008A6765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA19D0CF1F6CCCA4008A6765 /* Flights_TodayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA19D0D11F6CCCA4008A6765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA19D0DA1F6CCCA4008A6765 /* Flights_TodayUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA21DDD91B7B0E8F00D16889 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA21DDE01B7B0E8F00D16889 /* TimesheetsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA90F7691D9B762000046192 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA288C8C1D9B7E0B00B68A39 /* StringExtensions.swift in Sources */,
+				DA288C881D9B7C4B00B68A39 /* GlidingCentreData.swift in Sources */,
+				DA288C8E1D9B7F0E00B68A39 /* GlobalConstants.swift in Sources */,
+				DA288C861D9B7C3B00B68A39 /* NSDateExtensions.swift in Sources */,
+				DA90F7711D9B762000046192 /* FlightsThisSeason.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA90F77C1D9B764200046192 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA288C8D1D9B7E0C00B68A39 /* StringExtensions.swift in Sources */,
+				DA288C891D9B7C4B00B68A39 /* GlidingCentreData.swift in Sources */,
+				DA288C8F1D9B7F0E00B68A39 /* GlobalConstants.swift in Sources */,
+				DA288C871D9B7C3C00B68A39 /* NSDateExtensions.swift in Sources */,
+				DA90F7841D9B764200046192 /* HoursThisSeason.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAE6B4E61A58E7DE008F1AC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA9DA2E31A58FC2D0062C503 /* NSDateExtensions.swift in Sources */,
+				DAE503041B01D8AC005DC59F /* GlobalConstants.swift in Sources */,
+				DAF1574D1B38F78000F6030C /* StringExtensions.swift in Sources */,
+				DAE6B4F01A58E7DE008F1AC3 /* TodayViewController.swift in Sources */,
+				DAF1574C1B38C0AB00F6030C /* GlidingCentreData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA19D0CC1F6CCCA4008A6765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA19D0B71F6CCCA3008A6765 /* Flights Today */;
+			targetProxy = DA19D0CB1F6CCCA4008A6765 /* PBXContainerItemProxy */;
+		};
+		DA19D0D71F6CCCA4008A6765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA19D0B71F6CCCA3008A6765 /* Flights Today */;
+			targetProxy = DA19D0D61F6CCCA4008A6765 /* PBXContainerItemProxy */;
+		};
+		DA21DDE31B7B0E8F00D16889 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D6058900D05DD3D006BFB54 /* Timesheets */;
+			targetProxy = DA21DDE21B7B0E8F00D16889 /* PBXContainerItemProxy */;
+		};
+		DA90F7771D9B762000046192 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA90F76C1D9B762000046192 /* Flights This Season */;
+			targetProxy = DA90F7761D9B762000046192 /* PBXContainerItemProxy */;
+		};
+		DA90F78A1D9B764200046192 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA90F77F1D9B764200046192 /* Hours This Season */;
+			targetProxy = DA90F7891D9B764200046192 /* PBXContainerItemProxy */;
+		};
+		DAE6B4F41A58E7DE008F1AC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAE6B4E91A58E7DE008F1AC3 /* Gliding Centre Flights */;
+			targetProxy = DAE6B4F31A58E7DE008F1AC3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DA19D0C01F6CCCA4008A6765 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA19D0C11F6CCCA4008A6765 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA90F7721D9B762000046192 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA90F7731D9B762000046192 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		DA90F7851D9B764200046192 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA90F7861D9B764200046192 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = plists/Timesheets.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Timesheets_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GENERATE_PROFILING_CODE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/plists/Timesheets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				MOMC_NO_WARNINGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
+				PRODUCT_NAME = Timesheets;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = plists/Timesheets.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Timesheets_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "$(SRCROOT)/plists/Timesheets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				MOMC_NO_WARNINGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
+				PRODUCT_NAME = Timesheets;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos4.2]" = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7s arm64 armv7 x86_64";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos4.2]" = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7s arm64 armv7 x86_64";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		DA19D0DD1F6CCCA4008A6765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS Icons";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "Flights Today/Flights Today.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights Today/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		DA19D0DE1F6CCCA4008A6765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS Icons";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "Flights Today/Flights Today.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights Today/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		DA19D0E01F6CCCA4008A6765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights TodayTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "m-.m.Flights-TodayTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flights Today.app/Flights Today";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		DA19D0E11F6CCCA4008A6765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights TodayTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "m-.m.Flights-TodayTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flights Today.app/Flights Today";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		DA19D0E31F6CCCA4008A6765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights TodayUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "m-.m.Flights-TodayUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = "Flights Today";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		DA19D0E41F6CCCA4008A6765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights TodayUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "m-.m.Flights-TodayUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = "Flights Today";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		DA21DDE41B7B0E8F00D16889 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TimesheetsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kirvan.TimesheetsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TEST_TARGET_NAME = Timesheets;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DA21DDE51B7B0E8F00D16889 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TimesheetsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kirvan.TimesheetsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TEST_TARGET_NAME = Timesheets;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		DA90F7791D9B762000046192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Flights This Season/Flights This Season.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights This Season/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Flights-This-Season";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		DA90F77A1D9B762000046192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Flights This Season/Flights This Season.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Flights This Season/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Flights-This-Season";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		DA90F78D1D9B764200046192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Hours This Season/Hours This Season.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Hours This Season/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Hours-This-Season";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		DA90F78E1D9B764200046192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Hours This Season/Hours This Season.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Hours This Season/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Hours-This-Season";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		DAE6B4F71A58E7DF008F1AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "Gliding Centre Flights/Gliding Centre Flights.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Gliding Centre Flights/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Gliding-Centre-Flights";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		DAE6B4F81A58E7DF008F1AC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "Gliding Centre Flights/Gliding Centre Flights.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 77432UPB7H;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Gliding Centre Flights/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Gliding-Centre-Flights";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Timesheets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Timesheets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA19D0DC1F6CCCA4008A6765 /* Build configuration list for PBXNativeTarget "Flights Today" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA19D0DD1F6CCCA4008A6765 /* Debug */,
+				DA19D0DE1F6CCCA4008A6765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA19D0DF1F6CCCA4008A6765 /* Build configuration list for PBXNativeTarget "Flights TodayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA19D0E01F6CCCA4008A6765 /* Debug */,
+				DA19D0E11F6CCCA4008A6765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA19D0E21F6CCCA4008A6765 /* Build configuration list for PBXNativeTarget "Flights TodayUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA19D0E31F6CCCA4008A6765 /* Debug */,
+				DA19D0E41F6CCCA4008A6765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA21DDE61B7B0E8F00D16889 /* Build configuration list for PBXNativeTarget "TimesheetsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA21DDE41B7B0E8F00D16889 /* Debug */,
+				DA21DDE51B7B0E8F00D16889 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA90F77B1D9B762000046192 /* Build configuration list for PBXNativeTarget "Flights This Season" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA90F7791D9B762000046192 /* Debug */,
+				DA90F77A1D9B762000046192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA90F78C1D9B764200046192 /* Build configuration list for PBXNativeTarget "Hours This Season" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA90F78D1D9B764200046192 /* Debug */,
+				DA90F78E1D9B764200046192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DAE6B4F61A58E7DF008F1AC3 /* Build configuration list for PBXNativeTarget "Gliding Centre Flights" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAE6B4F71A58E7DF008F1AC3 /* Debug */,
+				DAE6B4F81A58E7DF008F1AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DA8A38E620204F760001BC0C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DAA8D01C202656BF006304A2 /* Model 21.xcdatamodel */,
+				DA8A38FB20204FAF0001BC0C /* Model 20.xcdatamodel */,
+				DA8A38E720204F760001BC0C /* Model 5.xcdatamodel */,
+				DA8A38E820204F760001BC0C /* Model 17.xcdatamodel */,
+				DA8A38E920204F760001BC0C /* Model 12.xcdatamodel */,
+				DA8A38EA20204F760001BC0C /* Model 9.xcdatamodel */,
+				DA8A38EB20204F760001BC0C /* Model 18.xcdatamodel */,
+				DA8A38EC20204F760001BC0C /* Model 11.xcdatamodel */,
+				DA8A38ED20204F760001BC0C /* Model 3.xcdatamodel */,
+				DA8A38EE20204F760001BC0C /* Model 14.xcdatamodel */,
+				DA8A38EF20204F760001BC0C /* Model 6.xcdatamodel */,
+				DA8A38F020204F760001BC0C /* Model 8.xcdatamodel */,
+				DA8A38F120204F760001BC0C /* Model 13.xcdatamodel */,
+				DA8A38F220204F760001BC0C /* Model 16.xcdatamodel */,
+				DA8A38F320204F760001BC0C /* Model 4.xcdatamodel */,
+				DA8A38F420204F760001BC0C /* Model 7.xcdatamodel */,
+				DA8A38F520204F760001BC0C /* Model 15.xcdatamodel */,
+				DA8A38F620204F760001BC0C /* Model 2.xcdatamodel */,
+				DA8A38F720204F760001BC0C /* Model.xcdatamodel */,
+				DA8A38F820204F760001BC0C /* Model 10.xcdatamodel */,
+				DA8A38F920204F760001BC0C /* Model 19.xcdatamodel */,
+			);
+			currentVersion = DAA8D01C202656BF006304A2 /* Model 21.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = ../Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
