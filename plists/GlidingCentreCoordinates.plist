@@ -298,6 +298,8 @@
 		<string>Abbotsford Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>AD4</key>
 	<dict>
@@ -351,7 +353,7 @@
 		<key>Latitude</key>
 		<integer>0</integer>
 	</dict>
-	<key>Comox</key>
+	<key>Comox CFTC</key>
 	<dict>
 		<key>Latitude</key>
 		<real>49.71083333</real>
@@ -363,6 +365,23 @@
 		<string>Comox Cadet Flight Training Centre</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Comox CFS</key>
+	<dict>
+		<key>Latitude</key>
+		<real>49.71083333</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-124.8866667</real>
+		<key>FullName</key>
+		<string>Comox Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Cranbrook</key>
 	<dict>
@@ -376,6 +395,8 @@
 		<integer>0</integer>
 		<key>Latitude</key>
 		<integer>0</integer>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Grand Forks</key>
 	<dict>
@@ -389,6 +410,8 @@
 		<string>Grand Forks Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Hope</key>
 	<dict>
@@ -415,6 +438,8 @@
 		<string>Langley Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Nanaimo</key>
 	<dict>
@@ -428,6 +453,8 @@
 		<string>Nanaimo Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Oliver</key>
 	<dict>
@@ -441,6 +468,8 @@
 		<string>Oliver Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Pac Ops</key>
 	<dict>
@@ -469,6 +498,8 @@
 		<string>Pitt Meadows Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Port Alberni</key>
 	<dict>
@@ -495,6 +526,8 @@
 		<string>Prince George Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>RGS (P)</key>
 	<dict>
@@ -523,6 +556,8 @@
 		<string>Salmon Arm Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Smithers</key>
 	<dict>
@@ -536,6 +571,8 @@
 		<integer>0</integer>
 		<key>Latitude</key>
 		<integer>0</integer>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Trail</key>
 	<dict>
@@ -549,6 +586,8 @@
 		<string>Trail Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>Victoria</key>
 	<dict>
@@ -562,6 +601,8 @@
 		<string></string>
 		<key>Latitude</key>
 		<string></string>
+		<key>SummerUnit</key>
+		<true/>
 	</dict>
 	<key>YCD</key>
 	<dict>

@@ -12,7 +12,7 @@
 			<key>Key</key>
 			<string>Region</string>
 			<key>DefaultValue</key>
-			<string>Northwest</string>
+			<string>Pacific</string>
 			<key>Values</key>
 			<array>
 				<string>Pacific</string>
