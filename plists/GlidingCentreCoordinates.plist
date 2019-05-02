@@ -2,6 +2,290 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Argentia</key>
+	<dict>
+		<key>Latitude</key>
+		<real>47.30611111</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-53.99</real>
+		<key>FullName</key>
+		<string>Argentia Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>Atlantic Ops</key>
+	<dict>
+		<key>Latitude</key>
+		<real>45.41861111</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-63.46055556</real>
+		<key>FullName</key>
+		<string>Atlantic Region Air Ops</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>Clarenville CFS</key>
+	<dict>
+		<key>Latitude</key>
+		<real>48.27</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-53.91</real>
+		<key>FullName</key>
+		<string>Clarenville Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>CQ3</key>
+	<dict>
+		<key>Latitude</key>
+		<real>45.41861111</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-63.46055556</real>
+		<key>FullName</key>
+		<string>Debert Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Debert CFS</key>
+	<dict>
+		<key>Latitude</key>
+		<real>45.41861111</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-63.46055556</real>
+		<key>FullName</key>
+		<string>Debert Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Debert CFTC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>45.41861111</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-63.46055556</real>
+		<key>FullName</key>
+		<string>Debert Cadet Flight Training Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>Gander</key>
+	<dict>
+		<key>Latitude</key>
+		<real>48.93694444</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-54.56805556</real>
+		<key>FullName</key>
+		<string>Gander Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Greenwood</key>
+	<dict>
+		<key>Latitude</key>
+		<real>44.98444444</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-64.91694443999999</real>
+		<key>FullName</key>
+		<string>Greenwood Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>Miramichi</key>
+	<dict>
+		<key>Latitude</key>
+		<real>47.00777778</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-65.44916667</real>
+		<key>FullName</key>
+		<string>Miramichi Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>RGS (A)</key>
+	<dict>
+		<key>Latitude</key>
+		<real>45.41861111</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-63.46055556</real>
+		<key>FullName</key>
+		<string>Region Gliding School Atlantic</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>Stephenville</key>
+	<dict>
+		<key>Latitude</key>
+		<real>48.54138889</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-58.55</real>
+		<key>FullName</key>
+		<string>Stephenville Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Summerside</key>
+	<dict>
+		<key>Latitude</key>
+		<real>46.44055556</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-63.83361111</real>
+		<key>FullName</key>
+		<string>Summerside Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Sydney</key>
+	<dict>
+		<key>Latitude</key>
+		<real>46.16138889</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-60.04805556</real>
+		<key>FullName</key>
+		<string>Sydney Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>YAR</key>
+	<dict>
+		<key>Latitude</key>
+		<real>47.30611111</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-53.99</real>
+		<key>FullName</key>
+		<string>Argentia Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>YCH</key>
+	<dict>
+		<key>Latitude</key>
+		<real>47.00777778</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-65.44916667</real>
+		<key>FullName</key>
+		<string>Miramichi Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>YJT</key>
+	<dict>
+		<key>Latitude</key>
+		<real>48.54138889</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-58.55</real>
+		<key>FullName</key>
+		<string>Stephenville Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>YQX</key>
+	<dict>
+		<key>Latitude</key>
+		<real>48.93694444</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-54.56805556</real>
+		<key>FullName</key>
+		<string>Gander Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>YQY</key>
+	<dict>
+		<key>Latitude</key>
+		<real>46.16138889</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-60.04805556</real>
+		<key>FullName</key>
+		<string>Sydney Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>YSU</key>
+	<dict>
+		<key>Latitude</key>
+		<real>46.44055556</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-63.83361111</real>
+		<key>FullName</key>
+		<string>Summerside Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
+	<key>YZX</key>
+	<dict>
+		<key>Latitude</key>
+		<real>44.98444444</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-64.91694443999999</real>
+		<key>FullName</key>
+		<string>Greenwood Gliding Centre</string>
+		<key>Region</key>
+		<string>Atlantic</string>
+	</dict>
 	<key>Abbotsford</key>
 	<dict>
 		<key>Latitude</key>
@@ -710,261 +994,6 @@
 		<string>Vulcan Cadet Flying Site</string>
 		<key>Region</key>
 		<string>Northwest</string>
-	</dict>
-	<key>CQ3</key>
-	<dict>
-		<key>Latitude</key>
-		<real>45.41861111</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-63.46055556</real>
-		<key>FullName</key>
-		<string>Debert Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-		<key>SummerUnit</key>
-		<false/>
-	</dict>
-	<key>Debert</key>
-	<dict>
-		<key>Latitude</key>
-		<real>45.41861111</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-63.46055556</real>
-		<key>FullName</key>
-		<string>Debert Cadet Flight Training Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-		<key>SummerUnit</key>
-		<false/>
-	</dict>
-	<key>RGS (A)</key>
-	<dict>
-		<key>Latitude</key>
-		<real>45.41861111</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-63.46055556</real>
-		<key>FullName</key>
-		<string>Region Gliding School Atlantic</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-		<key>SummerUnit</key>
-		<true/>
-	</dict>
-	<key>Atlantic Ops</key>
-	<dict>
-		<key>Latitude</key>
-		<real>45.41861111</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-63.46055556</real>
-		<key>FullName</key>
-		<string>Atlantic Region Air Ops</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-		<key>SummerUnit</key>
-		<true/>
-	</dict>
-	<key>YCH</key>
-	<dict>
-		<key>Latitude</key>
-		<real>47.00777778</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-65.44916667</real>
-		<key>FullName</key>
-		<string>Miramichi Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Miramichi</key>
-	<dict>
-		<key>Latitude</key>
-		<real>47.00777778</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-65.44916667</real>
-		<key>FullName</key>
-		<string>Miramichi Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>YSU</key>
-	<dict>
-		<key>Latitude</key>
-		<real>46.44055556</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-63.83361111</real>
-		<key>FullName</key>
-		<string>Summerside Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Summerside</key>
-	<dict>
-		<key>Latitude</key>
-		<real>46.44055556</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-63.83361111</real>
-		<key>FullName</key>
-		<string>Summerside Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>YZX</key>
-	<dict>
-		<key>Latitude</key>
-		<real>44.98444444</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-64.91694443999999</real>
-		<key>FullName</key>
-		<string>Greenwood Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Greenwood</key>
-	<dict>
-		<key>Latitude</key>
-		<real>44.98444444</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-64.91694443999999</real>
-		<key>FullName</key>
-		<string>Greenwood Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>YQY</key>
-	<dict>
-		<key>Latitude</key>
-		<real>46.16138889</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-60.04805556</real>
-		<key>FullName</key>
-		<string>Sydney Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Sydney</key>
-	<dict>
-		<key>Latitude</key>
-		<real>46.16138889</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-60.04805556</real>
-		<key>FullName</key>
-		<string>Sydney Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>YJT</key>
-	<dict>
-		<key>Latitude</key>
-		<real>48.54138889</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-58.55</real>
-		<key>FullName</key>
-		<string>Stephenville Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Stephenville</key>
-	<dict>
-		<key>Latitude</key>
-		<real>48.54138889</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-58.55</real>
-		<key>FullName</key>
-		<string>Stephenville Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>YQX</key>
-	<dict>
-		<key>Latitude</key>
-		<real>48.93694444</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-54.56805556</real>
-		<key>FullName</key>
-		<string>Gander Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Gander</key>
-	<dict>
-		<key>Latitude</key>
-		<real>48.93694444</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-54.56805556</real>
-		<key>FullName</key>
-		<string>Gander Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>YAR</key>
-	<dict>
-		<key>Latitude</key>
-		<real>47.30611111</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-53.99</real>
-		<key>FullName</key>
-		<string>Argentia Gliding Centre</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Argentia</key>
-	<dict>
-		<key>Latitude</key>
-		<real>47.30611111</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-53.99</real>
-		<key>FullName</key>
-		<string>Argentia Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
-	</dict>
-	<key>Clarenville</key>
-	<dict>
-		<key>Latitude</key>
-		<real>48.27</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-53.91</real>
-		<key>FullName</key>
-		<string>Clarenville Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Atlantic</string>
 	</dict>
 	<key>YBG</key>
 	<dict>
