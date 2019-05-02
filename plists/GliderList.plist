@@ -251,6 +251,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>FTGP</string>
+		<key>Model</key>
+		<string>L-19</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -261,6 +263,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>FTGY</string>
+		<key>Model</key>
+		<string>L-19</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -271,6 +275,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GBBD</string>
+		<key>Model</key>
+		<string>L-19</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -281,6 +287,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>FTGU</string>
+		<key>Model</key>
+		<string>L-19</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -291,6 +299,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>FTGA</string>
+		<key>Model</key>
+		<string>L-19</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -301,6 +311,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GBJH</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -311,6 +323,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GCLF</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -321,6 +335,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>FAYB</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -331,6 +347,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GFMF</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -341,6 +359,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GFNA</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -351,6 +371,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GCLV</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -361,6 +383,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GCLN</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -371,6 +395,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GCLX</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -381,6 +407,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GBZG</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -391,6 +419,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GRMS</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -401,6 +431,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>GCSD</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -681,6 +713,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>96680</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -691,6 +725,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>96676</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -701,6 +737,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>01158</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -711,6 +749,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>02780</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -721,6 +761,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Debert</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -731,6 +773,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Miramichi</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -741,6 +785,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Summerside</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -751,6 +797,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Greenwood</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -761,6 +809,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Sydney</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -771,6 +821,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Stephenville</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -781,6 +833,8 @@
 		<string>Atlantic</string>
 		<key>Registration</key>
 		<string>Gander</string>
+		<key>Model</key>
+		<string>Vehicule</string>
 	</dict>
 	<dict>
 		<key>Type</key>
