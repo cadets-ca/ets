@@ -2,6 +2,365 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGC</key>
+	<dict>
+		<key>Defunct</key>
+		<true/>
+		<key>Latitude</key>
+		<real>49.91</real>
+		<key>Longitude</key>
+		<real>-99.95189999999999</real>
+		<key>FullName</key>
+		<string>Brandon Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>Brandon</key>
+	<dict>
+		<key>Defunct</key>
+		<false/>
+		<key>Latitude</key>
+		<real>49.91</real>
+		<key>Longitude</key>
+		<real>-99.95189999999999</real>
+		<key>FullName</key>
+		<string>Brandon Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>EGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>53.6675</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-113.8544</real>
+		<key>FullName</key>
+		<string>Edmonton Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>GCFTC</key>
+	<dict>
+		<key>Defunct</key>
+		<false/>
+		<key>Latitude</key>
+		<real>50.6281</real>
+		<key>Longitude</key>
+		<real>-97.0433</real>
+		<key>FullName</key>
+		<string>Gimli Cadet Flying Training Centre</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>GGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>50.6281</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-97.0433</real>
+		<key>FullName</key>
+		<string>Gimli Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Gimli</key>
+	<dict>
+		<key>Latitude</key>
+		<real>50.6281</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-97.0433</real>
+		<key>FullName</key>
+		<string>Gimli Cadet Flight Training Centre</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Grande Prairie</key>
+	<dict>
+		<key>Latitude</key>
+		<real>55.1797</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-118.885</real>
+		<key>FullName</key>
+		<string>Grande Prairie Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>JGC</key>
+	<dict>
+		<key>Defunct</key>
+		<true/>
+		<key>Latitude</key>
+		<real>53.7281</real>
+		<key>Longitude</key>
+		<real>-113.0872</real>
+		<key>FullName</key>
+		<string>Josephburg Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>Josephburg</key>
+	<dict>
+		<key>Defunct</key>
+		<false/>
+		<key>Latitude</key>
+		<real>53.7281</real>
+		<key>Longitude</key>
+		<real>-113.0872</real>
+		<key>FullName</key>
+		<string>Josephburg Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>MJGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>50.3303</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-105.5592</real>
+		<key>FullName</key>
+		<string>Moose Jaw Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>Moose Jaw</key>
+	<dict>
+		<key>Latitude</key>
+		<real>50.3303</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-105.5592</real>
+		<key>FullName</key>
+		<string>Moose Jaw Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>NBGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>52.7692</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-108.2436</real>
+		<key>FullName</key>
+		<string>North Battleford Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>Netook</key>
+	<dict>
+		<key>Latitude</key>
+		<real>51.85</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-114.0667</real>
+		<key>FullName</key>
+		<string>Netook Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>NGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>51.85</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-114.0667</real>
+		<key>FullName</key>
+		<string>Netook Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>NGC Fam</key>
+	<dict>
+		<key>Latitude</key>
+		<real>51.85</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-114.0667</real>
+		<key>FullName</key>
+		<string>Summer Famil Operations</string>
+		<key>Region</key>
+		<string>Prairie</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>North Battleford</key>
+	<dict>
+		<key>Latitude</key>
+		<real>52.7692</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-108.2436</real>
+		<key>FullName</key>
+		<string>North Battleford Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>NW Ops</key>
+	<dict>
+		<key>Defunct</key>
+		<false/>
+		<key>Latitude</key>
+		<real>50.6281</real>
+		<key>Longitude</key>
+		<real>-97.0433</real>
+		<key>FullName</key>
+		<string>Northwest Region Air Ops</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>Peace River</key>
+	<dict>
+		<key>Latitude</key>
+		<real>55.1797</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-118.885</real>
+		<key>FullName</key>
+		<string>Peace River Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>PRGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>55.1797</real>
+		<key>Defunct</key>
+		<true/>
+		<key>Longitude</key>
+		<real>-118.885</real>
+		<key>FullName</key>
+		<string>Peace River Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>RGS (NW)</key>
+	<dict>
+		<key>Defunct</key>
+		<true/>
+		<key>Latitude</key>
+		<real>50.6281</real>
+		<key>Longitude</key>
+		<real>-97.0433</real>
+		<key>FullName</key>
+		<string>Region Gliding School Northwest</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>RGS (Pra)</key>
+	<dict>
+		<key>Defunct</key>
+		<true/>
+		<key>Latitude</key>
+		<real>50.6281</real>
+		<key>Longitude</key>
+		<real>-97.0433</real>
+		<key>FullName</key>
+		<string>Region Gliding School Prairie</string>
+		<key>Region</key>
+		<string>Prairie</string>
+		<key>SummerUnit</key>
+		<true/>
+	</dict>
+	<key>SAGC</key>
+	<dict>
+		<key>Latitude</key>
+		<real>50.4047</real>
+		<key>Longitude</key>
+		<real>-113.2833</real>
+		<key>Defunct</key>
+		<true/>
+		<key>FullName</key>
+		<string>Southern Alberta Gliding Centre</string>
+		<key>Region</key>
+		<string>Prairie</string>
+	</dict>
+	<key>Tisdale</key>
+	<dict>
+		<key>Defunct</key>
+		<false/>
+		<key>Latitude</key>
+		<real>52.8367</real>
+		<key>Longitude</key>
+		<real>-1040667</real>
+		<key>FullName</key>
+		<string>North Battleford Cadet Flying Site (Tisdale)</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Villeneuve</key>
+	<dict>
+		<key>Latitude</key>
+		<real>53.6675</real>
+		<key>Defunct</key>
+		<false/>
+		<key>Longitude</key>
+		<real>-113.8544</real>
+		<key>FullName</key>
+		<string>Villeneuve Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
+	<key>Vulcan</key>
+	<dict>
+		<key>Latitude</key>
+		<real>50.4047</real>
+		<key>Longitude</key>
+		<real>-113.2833</real>
+		<key>Defunct</key>
+		<false/>
+		<key>FullName</key>
+		<string>Vulcan Cadet Flying Site</string>
+		<key>Region</key>
+		<string>Northwest</string>
+		<key>SummerUnit</key>
+		<false/>
+	</dict>
 	<key>Argentia</key>
 	<dict>
 		<key>Latitude</key>
@@ -720,321 +1079,6 @@
 		<string>Grand Forks</string>
 		<key>Region</key>
 		<string>Pacific</string>
-	</dict>
-	<key>BGC</key>
-	<dict>
-		<key>Defunct</key>
-		<true/>
-		<key>Latitude</key>
-		<real>49.91</real>
-		<key>Longitude</key>
-		<real>-99.95189999999999</real>
-		<key>FullName</key>
-		<string>Brandon Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Brandon</key>
-	<dict>
-		<key>Defunct</key>
-		<false/>
-		<key>Latitude</key>
-		<real>49.91</real>
-		<key>Longitude</key>
-		<real>-99.95189999999999</real>
-		<key>FullName</key>
-		<string>Brandon Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-	</dict>
-	<key>EGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>53.6675</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-113.8544</real>
-		<key>FullName</key>
-		<string>Edmonton Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Villeneuve</key>
-	<dict>
-		<key>Latitude</key>
-		<real>53.6675</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-113.8544</real>
-		<key>FullName</key>
-		<string>Villeneuve Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-	</dict>
-	<key>GGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>50.6281</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-97.0433</real>
-		<key>FullName</key>
-		<string>Gimli Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-		<key>SummerUnit</key>
-		<false/>
-	</dict>
-	<key>Gimli</key>
-	<dict>
-		<key>Latitude</key>
-		<real>50.6281</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-97.0433</real>
-		<key>FullName</key>
-		<string>Gimli Cadet Flight Training Centre</string>
-		<key>Region</key>
-		<string>Northwest</string>
-		<key>SummerUnit</key>
-		<false/>
-	</dict>
-	<key>RGS (Pra)</key>
-	<dict>
-		<key>Defunct</key>
-		<true/>
-		<key>Latitude</key>
-		<real>50.6281</real>
-		<key>Longitude</key>
-		<real>-97.0433</real>
-		<key>FullName</key>
-		<string>Region Gliding School Prairie</string>
-		<key>Region</key>
-		<string>Prairie</string>
-		<key>SummerUnit</key>
-		<true/>
-	</dict>
-	<key>RGS (NW)</key>
-	<dict>
-		<key>Defunct</key>
-		<true/>
-		<key>Latitude</key>
-		<real>50.6281</real>
-		<key>Longitude</key>
-		<real>-97.0433</real>
-		<key>FullName</key>
-		<string>Region Gliding School Northwest</string>
-		<key>Region</key>
-		<string>Northwest</string>
-		<key>SummerUnit</key>
-		<true/>
-	</dict>
-	<key>NW Ops</key>
-	<dict>
-		<key>Defunct</key>
-		<false/>
-		<key>Latitude</key>
-		<real>50.6281</real>
-		<key>Longitude</key>
-		<real>-97.0433</real>
-		<key>FullName</key>
-		<string>Northwest Region Air Ops</string>
-		<key>Region</key>
-		<string>Northwest</string>
-		<key>SummerUnit</key>
-		<true/>
-	</dict>
-	<key>JGC</key>
-	<dict>
-		<key>Defunct</key>
-		<true/>
-		<key>Latitude</key>
-		<real>53.7281</real>
-		<key>Longitude</key>
-		<real>-113.0872</real>
-		<key>FullName</key>
-		<string>Josephburg Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Josephburg</key>
-	<dict>
-		<key>Defunct</key>
-		<false/>
-		<key>Latitude</key>
-		<real>53.7281</real>
-		<key>Longitude</key>
-		<real>-113.0872</real>
-		<key>FullName</key>
-		<string>Josephburg Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-	</dict>
-	<key>MJGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>50.3303</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-105.5592</real>
-		<key>FullName</key>
-		<string>Moose Jaw Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Moose Jaw</key>
-	<dict>
-		<key>Latitude</key>
-		<real>50.3303</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-105.5592</real>
-		<key>FullName</key>
-		<string>Moose Jaw Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-	</dict>
-	<key>NBGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>52.7692</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-108.2436</real>
-		<key>FullName</key>
-		<string>North Battleford Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>North Battleford</key>
-	<dict>
-		<key>Latitude</key>
-		<real>52.7692</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-108.2436</real>
-		<key>FullName</key>
-		<string>North Battleford Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-	</dict>
-	<key>NGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>51.85</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-114.0667</real>
-		<key>FullName</key>
-		<string>Netook Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-		<key>SummerUnit</key>
-		<false/>
-	</dict>
-	<key>Netook</key>
-	<dict>
-		<key>Latitude</key>
-		<real>51.85</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-114.0667</real>
-		<key>FullName</key>
-		<string>Netook Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-		<key>SummerUnit</key>
-		<false/>
-	</dict>
-	<key>NGC Fam</key>
-	<dict>
-		<key>Latitude</key>
-		<real>51.85</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-114.0667</real>
-		<key>FullName</key>
-		<string>Summer Famil Operations</string>
-		<key>Region</key>
-		<string>Prairie</string>
-		<key>SummerUnit</key>
-		<true/>
-	</dict>
-	<key>PRGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>55.1797</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-118.885</real>
-		<key>FullName</key>
-		<string>Peace River Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Peace River</key>
-	<dict>
-		<key>Latitude</key>
-		<real>55.1797</real>
-		<key>Defunct</key>
-		<true/>
-		<key>Longitude</key>
-		<real>-118.885</real>
-		<key>FullName</key>
-		<string>Peace River Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Grande Prairie</key>
-	<dict>
-		<key>Latitude</key>
-		<real>55.1797</real>
-		<key>Defunct</key>
-		<false/>
-		<key>Longitude</key>
-		<real>-118.885</real>
-		<key>FullName</key>
-		<string>Grande Prairie Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
-	</dict>
-	<key>SAGC</key>
-	<dict>
-		<key>Latitude</key>
-		<real>50.4047</real>
-		<key>Longitude</key>
-		<real>-113.2833</real>
-		<key>Defunct</key>
-		<true/>
-		<key>FullName</key>
-		<string>Southern Alberta Gliding Centre</string>
-		<key>Region</key>
-		<string>Prairie</string>
-	</dict>
-	<key>Vulcan</key>
-	<dict>
-		<key>Latitude</key>
-		<real>50.4047</real>
-		<key>Longitude</key>
-		<real>-113.2833</real>
-		<key>Defunct</key>
-		<false/>
-		<key>FullName</key>
-		<string>Vulcan Cadet Flying Site</string>
-		<key>Region</key>
-		<string>Northwest</string>
 	</dict>
 	<key>YBG</key>
 	<dict>
