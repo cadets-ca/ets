@@ -1185,6 +1185,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FARD</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1195,6 +1197,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GCSK</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1205,6 +1209,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GFMD</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1215,6 +1221,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GCLA</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1225,6 +1233,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FACY</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1235,6 +1245,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GVQM</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1245,6 +1257,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GKRR</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1255,6 +1269,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FDUH</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1265,6 +1281,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FQYI</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1275,6 +1293,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FZIQ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1285,6 +1305,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FDWB</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1295,6 +1317,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GCSY</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1305,6 +1329,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FACQ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1315,6 +1341,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FXAE</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1325,6 +1353,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GLID</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1335,6 +1365,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FTGE</string>
+		<key>Model</key>
+		<string>Superdog</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1345,6 +1377,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FTGC</string>
+		<key>Model</key>
+		<string>Superdog</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1355,6 +1389,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FTGN</string>
+		<key>Model</key>
+		<string>Superdog</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1365,6 +1401,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FTGV</string>
+		<key>Model</key>
+		<string>Superdog</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1375,6 +1413,8 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>FTZZ</string>
+		<key>Model</key>
+		<string>Superdog</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1385,16 +1425,20 @@
 		<string>Eastern</string>
 		<key>Registration</key>
 		<string>GGCY</string>
+		<key>Model</key>
+		<string>Superdog</string>
 	</dict>
 	<dict>
 		<key>Type</key>
 		<string>Winch</string>
 		<key>Tail Number</key>
-		<string>DND 1</string>
+		<string>Roman 2</string>
 		<key>Region</key>
 		<string>Eastern</string>
 		<key>Registration</key>
-		<string>DND 1</string>
+		<string>96912</string>
+		<key>New item</key>
+		<string>Romans Design</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1420,31 +1464,37 @@
 		<key>Type</key>
 		<string>Winch</string>
 		<key>Tail Number</key>
-		<string>ACL 1</string>
+		<string>101</string>
 		<key>Region</key>
 		<string>Eastern</string>
 		<key>Registration</key>
-		<string>ACL 1</string>
+		<string>23277</string>
+		<key>Model</key>
+		<string>TEME 202 Workshop</string>
 	</dict>
 	<dict>
 		<key>Type</key>
 		<string>Winch</string>
 		<key>Tail Number</key>
-		<string>ACL 2</string>
+		<string>Roman 1</string>
 		<key>Region</key>
 		<string>Eastern</string>
 		<key>Registration</key>
-		<string>ACL 2</string>
+		<string>96681</string>
+		<key>Model</key>
+		<string>Romans Design</string>
 	</dict>
 	<dict>
 		<key>Type</key>
 		<string>Winch</string>
 		<key>Tail Number</key>
-		<string>ACL 3</string>
+		<string>Roman 3</string>
 		<key>Region</key>
 		<string>Eastern</string>
 		<key>Registration</key>
-		<string>ACL 3</string>
+		<string>23054</string>
+		<key>Model</key>
+		<string>Romans Design</string>
 	</dict>
 	<dict>
 		<key>Type</key>
