@@ -907,6 +907,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FNWO</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -917,6 +919,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GFMN</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -937,6 +941,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FQON</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -947,6 +953,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GCLH</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -957,6 +965,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FYWL</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -967,6 +977,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GCLM</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -977,6 +989,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FBUJ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -987,6 +1001,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FDXP</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -997,6 +1013,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GFME</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1007,6 +1025,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GBJR</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1017,6 +1037,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FYLP</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1027,6 +1049,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FCIV</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1037,6 +1061,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FGHV</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1047,6 +1073,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GFIN</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1057,6 +1085,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GWCV</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1067,6 +1097,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GIIB</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1077,6 +1109,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FYLJ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1087,6 +1121,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GTGB</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1097,6 +1133,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GDZF</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1107,6 +1145,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GCLG</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1117,6 +1157,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GNPF</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1127,6 +1169,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>FABE</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1137,6 +1181,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GCLR</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1147,6 +1193,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GGYS</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1157,6 +1205,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GPKB</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1167,6 +1217,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GDVY</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1177,6 +1229,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GQII</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1187,6 +1241,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GQSC</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1197,6 +1253,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GDOL</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1207,6 +1265,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GXZK</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1217,6 +1277,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GXAC</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1227,6 +1289,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GFIU</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1237,6 +1301,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>GGQK</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1511,6 +1577,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>DND 1</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1521,6 +1589,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>DND 2</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1567,6 +1637,8 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>ACL 1</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -1577,6 +1649,20 @@
 		<string>Central</string>
 		<key>Registration</key>
 		<string>ACL 8</string>
+		<key>Model</key>
+		<string>Winch</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Towplane</string>
+		<key>Tail Number</key>
+		<string>GYOW</string>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Registration</key>
+		<string>GYOW</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 </array>
 </plist>
