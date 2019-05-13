@@ -11,6 +11,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCLD</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -21,6 +23,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCLS</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -31,6 +35,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>FFDR</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -41,6 +47,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GFMC</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -51,6 +59,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GSOR</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -61,6 +71,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCLE</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -71,6 +83,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>FJNM</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -81,6 +95,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCLZ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -91,6 +107,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCLJ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -101,6 +119,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GRFQ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -111,6 +131,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCLW</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -121,6 +143,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GMOG</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -131,6 +155,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>FYLQ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -141,6 +167,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GRVH</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -151,6 +179,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>FADN</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -161,6 +191,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>FQMH</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -171,6 +203,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>FWYJ</string>
+		<key>Model</key>
+		<string>SGS 233A</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -191,6 +225,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GSSV</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -201,6 +237,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GOBW</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -211,6 +249,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GQNQ</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -221,6 +261,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GSSD</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -231,6 +273,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GBAZ</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -241,6 +285,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>GCDL</string>
+		<key>Model</key>
+		<string>Scout</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -443,6 +489,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>41988</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -453,6 +501,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>41989</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -463,6 +513,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>41990</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -473,6 +525,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>96682</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -483,6 +537,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>05731</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -493,6 +549,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>13034</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -503,6 +561,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>17259</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
@@ -513,6 +573,8 @@
 		<string>Northwest</string>
 		<key>Registration</key>
 		<string>21594</string>
+		<key>Model</key>
+		<string>Winch</string>
 	</dict>
 	<dict>
 		<key>Type</key>
