@@ -16,14 +16,14 @@
 		<key>Defunct</key>
 		<false/>
 	</dict>
-	<key>A Flight</key>
+	<key>A</key>
 	<dict>
 		<key>Region</key>
 		<string>Atlantic</string>
 		<key>Defunct</key>
 		<false/>
 	</dict>
-	<key>B Flight</key>
+	<key>B</key>
 	<dict>
 		<key>Region</key>
 		<string>Atlantic</string>
@@ -41,6 +41,41 @@
 	<dict>
 		<key>Region</key>
 		<string>Pacific</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>Billy Bishop</key>
+	<dict>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>Roméo Vachon</key>
+	<dict>
+		<key>Region</key>
+		<string>Eastern</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>Rodolphe Pagé</key>
+	<dict>
+		<key>Region</key>
+		<string>Pacific</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>A</key>
+	<dict>
+		<key>Region</key>
+		<string>Central</string>
+		<key>Defunct</key>
+		<false/>
+	</dict>
+	<key>B</key>
+	<dict>
+		<key>Region</key>
+		<string>Central</string>
 		<key>Defunct</key>
 		<false/>
 	</dict>
