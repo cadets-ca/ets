@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		338DA166228B2A8E001C6CBB /* MasterSiteList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 338DA164228B2A8E001C6CBB /* MasterSiteList.csv */; };
+		338DA167228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk in Resources */ = {isa = PBXBuildFile; fileRef = 338DA165228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk */; };
 		DA03438A1DA7470100B54165 /* AddCadetsIndividually.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */; };
 		DA05548F1B113F6000F50AB8 /* GPSmanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05548E1B113F6000F50AB8 /* GPSmanager.swift */; };
 		DA059F0A1438C6C2000FEB4C /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA059F081438C6C2000FEB4C /* iPadStoryboard.storyboard */; };
@@ -271,6 +273,8 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		338DA164228B2A8E001C6CBB /* MasterSiteList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MasterSiteList.csv; sourceTree = "<group>"; };
+		338DA165228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSVtoGlidingCentrePList.awk; sourceTree = "<group>"; };
 		DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsIndividually.swift; sourceTree = "<group>"; };
 		DA05548E1B113F6000F50AB8 /* GPSmanager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSmanager.swift; sourceTree = "<group>"; };
 		DA059F081438C6C2000FEB4C /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPadStoryboard.storyboard; path = Storyboards/iPadStoryboard.storyboard; sourceTree = SOURCE_ROOT; };
@@ -712,6 +716,8 @@
 		DA29977312CFEA0B00589971 /* plists */ = {
 			isa = PBXGroup;
 			children = (
+				338DA165228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk */,
+				338DA164228B2A8E001C6CBB /* MasterSiteList.csv */,
 				DA059F251438C8DF000FEB4C /* OrganizeTemplate.plist */,
 				DA059F2B1438C8FA000FEB4C /* GlidingCentreCoordinates.plist */,
 				DA059F271438C8E4000FEB4C /* GliderList.plist */,
@@ -1240,9 +1246,11 @@
 			files = (
 				DA0DCD551BE1C794001DA3F9 /* Scout 6.aiff in Resources */,
 				DA710441138B1A4900203751 /* NorthwestAerodromes.csv in Resources */,
+				338DA166228B2A8E001C6CBB /* MasterSiteList.csv in Resources */,
 				DA0DCD531BE1C794001DA3F9 /* Scout 3.aiff in Resources */,
 				DA0DCD721BE1C8E9001DA3F9 /* Glider 7.aiff in Resources */,
 				DA0DCD4C1BE1B8FA001DA3F9 /* Scout 1.aiff in Resources */,
+				338DA167228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk in Resources */,
 				DA0DCD741BE1C8E9001DA3F9 /* Glider 9.aiff in Resources */,
 				DA0DCD771BE1C8E9001DA3F9 /* Glider 12.aiff in Resources */,
 				DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */,
