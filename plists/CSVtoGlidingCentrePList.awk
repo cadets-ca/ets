@@ -3,6 +3,7 @@
 # - The Notes column is not usable with awk and this version of the script
 # - When exporting from Excel (or Google Spreadsheet), the used locale must be Canadian English, to have '.' instead of ','
 #   for decimal separator. This is to prevent confusion with field separator.
+# - Column 2 (Defunct) and 8 (SummerUnit) are boolean value and must be either true or false. Empty value default to false.
 #
 # How to call this script from terminal on MacOS
 # > awk -f CSVtoGlidingCentrePList.awk MasterSiteList.csv > GlidingCentreCoordinates.plist
