@@ -8,12 +8,7 @@ The [Values and Ethics Code for the Public Sector](https://www.tbs-sct.gc.ca/pol
 
 ## Our Pledge
 
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, sex characteristics, gender identity and expression,
-level of experience, education, socio-economic status, nationality, personal
-appearance, race, religion, or sexual identity and orientation.
+In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a  harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 ## Our Standards
 
@@ -74,12 +69,7 @@ Le [Code de valeurs et d'éthique du secteur public] (https://www.tbs-sct.gc.ca/
 
 ## Notre engagement
 
-Dans le but de favoriser un environnement ouvert et accueillant, nous, en tant que
-les contributeurs et les responsables de la maintenance s'engagent à participer à notre projet et à notre projet
-notre communauté une expérience sans harcèlement pour tout le monde, peu importe l'âge, l'âge, le corps, l'âge, l'âge, etc.
-la taille, le handicap, l'ethnicité, les caractéristiques sexuelles, l'identité et l'expression sexuelles,
-niveau d'expérience, éducation, statut socio-économique, nationalité, niveau d'instruction, situation personnelle
-l'apparence, la race, la religion ou l'identité et l'orientation sexuelles.
+Dans le but de favoriser un environnement ouvert et accueillant, nous, en tant que les contributeurs et les responsables de la maintenance s'engagent à participer à notre projet et à notre projet notre communauté une expérience sans harcèlement pour tout le monde, peu importe l'âge, l'âge, le corps, l'âge, l'âge, etc. la taille, le handicap, l'ethnicité, les caractéristiques sexuelles, l'identité et l'expression sexuelles, niveau d'expérience, éducation, statut socio-économique, nationalité, niveau d'instruction, situation personnelle l'apparence, la race, la religion ou l'identité et l'orientation sexuelles.
 
 ## Nos normes
 
@@ -94,8 +84,7 @@ inclure :
 
 Voici des exemples de comportements inacceptables de la part des participants :
 
-* L'utilisation d'un langage ou d'images sexualisés et d'une attention sexuelle importunée, ou
-  percées
+* L'utilisation d'un langage ou d'images sexualisés et d'une attention sexuelle importunée, ou percées
 * Trolling, insulting/derogatory comments, and personal or political attacks
 * Harcèlement public ou privé
 * Publication des informations privées d'autres personnes# Code de conduite de l'alliance des contributeurs
@@ -114,12 +103,8 @@ menaçant, offensant ou nuisible.
 
 ## Portée
 
-Ce Code de conduite s'applique dans tous les espaces du projet, et il s'applique également lorsque
-une personne représente le projet ou sa communauté dans les espaces publics.
-Des exemples de représentation d'un projet ou d'une collectivité comprennent l'utilisation d'un représentant officiel de la
-l'adresse électronique du projet, l'affichage par l'entremise d'un compte officiel de médias sociaux ou le fait d'agir à titre intérimaire.
-en tant que représentant désigné lors d'un événement en ligne ou hors ligne. Représentation de
-un projet peut être mieux défini et clarifié par les responsables du projet.
+Ce Code de conduite s'applique dans tous les espaces du projet, et il s'applique également lorsque une personne représente le projet ou sa communauté dans les espaces publics.
+Des exemples de représentation d'un projet ou d'une collectivité comprennent l'utilisation d'un représentant officiel de la l'adresse électronique du projet, l'affichage par l'entremise d'un compte officiel de médias sociaux ou le fait d'agir à titre intérimaire. en tant que représentant désigné lors d'un événement en ligne ou hors ligne. Représentation de un projet peut être mieux défini et clarifié par les responsables du projet.
 
 ## Application de la loi
 
