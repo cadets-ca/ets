@@ -377,7 +377,7 @@ final class iPadRootViewController : UIViewController, UINavigationBarDelegate
         present(alert, animated:true, completion:nil)
     }
     
-    func createRandomFlightForType(_ type: VehicleType)
+    func createRandomFlightForType(_ type: VehicleType, record: FlightRecord? = nil)
     {
         let pilots = dataModel.glidingCentre.pilots
         
@@ -492,17 +492,25 @@ final class iPadRootViewController : UIViewController, UINavigationBarDelegate
             towRecord.timesheet = towTimesheet
             towTimesheet.logInsertionOf(record: towRecord)
 
-            let gliderRecord = FlightRecord(context: dataModel.managedObjectContext)
-            gliderRecord.aircraft = glider
-            gliderRecord.flightSequence = glider.flightSequence
-            gliderRecord.timeUp = towRecord.timeUp
-            gliderRecord.timeDown = towRecord.timeDown
-            gliderRecord.pilot = randomPilot
-            gliderRecord.picParticipantType = randomPilot.typeOfParticipant
-            gliderRecord.timesheet = gliderTimesheet
-            gliderRecord.connectedAircraftRecord = towRecord
-            gliderTimesheet.logInsertionOf(record: gliderRecord)
-
+            if record != nil
+            {
+                let gliderRecord = FlightRecord(context: dataModel.managedObjectContext)
+                 gliderRecord.connectedAircraftRecord = towRecord
+            }
+            
+            else
+            {
+                let gliderRecord = FlightRecord(context: dataModel.managedObjectContext)
+                gliderRecord.aircraft = glider
+                gliderRecord.flightSequence = glider.flightSequence
+                gliderRecord.timeUp = towRecord.timeUp
+                gliderRecord.timeDown = towRecord.timeDown
+                gliderRecord.pilot = randomPilot
+                gliderRecord.picParticipantType = randomPilot.typeOfParticipant
+                gliderRecord.timesheet = gliderTimesheet
+                gliderRecord.connectedAircraftRecord = towRecord
+                gliderTimesheet.logInsertionOf(record: gliderRecord)
+            }
             
         case .auto:
             guard let auto = randomAuto()  else {throwAlert(forType: .auto); return}

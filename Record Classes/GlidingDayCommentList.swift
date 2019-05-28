@@ -117,6 +117,8 @@ final class GlidingDayCommentList : UITableViewController, NSFetchedResultsContr
             
         case .move:
             tableView.moveRow(at: indexPath!, to:newIndexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

@@ -69,6 +69,8 @@ final class HoursThisSeason: UITableViewController, NCWidgetProviding
             
         case NCWidgetDisplayMode.expanded:
             preferredContentSize = CGSize(width: 0, height: tableView.contentSize.height)
+        @unknown default:
+            fatalError()
         }
     }
     

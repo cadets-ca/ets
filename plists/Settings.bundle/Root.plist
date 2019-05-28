@@ -154,7 +154,7 @@
 			<key>Title</key>
 			<string>Email Stats Report Default Addresses</string>
 			<key>FooterText</key>
-			<string>Designed and written by Paul Kirvan. Submit feedback at https://github.com/cadets-ca/ets/issues. Privacy policy is https://acgptimesheets.com/2018/10/12/privacy-policy/.</string>
+			<string>Designed and written by Paul Kirvan. Submit feedback at https://github.com/cadets-ca/ets/issues. Privacy policy is https://cadets-ca.github.io/ets-docs/privacypolicy.html.</string>
 		</dict>
 		<dict>
 			<key>KeyboardType</key>

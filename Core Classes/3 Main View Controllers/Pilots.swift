@@ -90,7 +90,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
             
         else
         {
-            predicate = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND (pilot.highestScoutQual == 0 OR pilot.highestGliderQual > 0)", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre])
+            predicate = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND (pilot.highestScoutQual == 0 OR pilot.highestGliderQual > 0)", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre!])
         }
         
         request.predicate = predicate
@@ -111,7 +111,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
             
         else
         {
-            predicate2 = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND pilot.highestScoutQual > 0", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre])
+            predicate2 = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND pilot.highestScoutQual > 0", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre!])
         }
         
         request2.predicate = predicate2
@@ -646,6 +646,8 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
                         tableView.deleteRows(at: [indexPath], with: .fade)
                     }
                 }
+            @unknown default:
+                fatalError()
             }
         }
             
@@ -696,6 +698,8 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
                         tableView.deleteRows(at: [relativeIndexPath], with: .fade)
                     }
                 }
+            @unknown default:
+                fatalError()
             }
         }
     }

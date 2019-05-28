@@ -356,7 +356,7 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         try! totalController?.performFetch()
         
         let unflownCadetFetchRequest = AttendanceRecord.request
-        unflownCadetFetchRequest.predicate = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND pilot.typeOfParticipant == %@", argumentArray: [Date().midnight, Date.distantFuture, glidingCentre, "cadet"])
+        unflownCadetFetchRequest.predicate = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND pilot.typeOfParticipant == %@", argumentArray: [Date().midnight, Date.distantFuture, glidingCentre!, "cadet"])
         unflownCadetFetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(AttendanceRecord.timeIn), ascending: true)]
         unflownCadetsController = NSFetchedResultsController(fetchRequest: unflownCadetFetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath:nil, cacheName:nil)
         unflownCadetsController?.delegate = self
@@ -913,7 +913,7 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         let glidingCentreName = preferences["GlidingCentre"] as? String ?? ""
         destinationFileName += " \(Date().militaryFormatWithMinutes) \(glidingCentreName).sqlite"
         
-        guard let ubiquityUrl = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.Kirvan.Timesheets.Backups")?.appendingPathComponent("Documents") else {return}
+        guard let ubiquityUrl = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.ca.cadets.Timesheets.Backups")?.appendingPathComponent("Documents") else {return}
         
         var destinationURL = ubiquityUrl.appendingPathComponent(destinationFileName)
         

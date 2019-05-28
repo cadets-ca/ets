@@ -12,7 +12,7 @@ import CoreData
 
 public extension UserDefaults
 {
-    public var databaseChangeToken: CKServerChangeToken?
+    var databaseChangeToken: CKServerChangeToken?
     {
         get {
             guard let data = self.value(forKey: "DatabaseChangeToken") as? Data else {
@@ -39,7 +39,7 @@ public extension UserDefaults
         }
     }
     
-    public var zoneChangeToken: CKServerChangeToken?
+    var zoneChangeToken: CKServerChangeToken?
     {
         get {
             guard let data = self.value(forKey: "ZoneChangeToken") as? Data else {
@@ -66,7 +66,7 @@ public extension UserDefaults
         }
     }
     
-    public var sharedDatabaseChangeToken: CKServerChangeToken?
+    var sharedDatabaseChangeToken: CKServerChangeToken?
     {
         get {
             guard let data = self.value(forKey: "sharedDatabaseChangeToken") as? Data else {
@@ -93,7 +93,7 @@ public extension UserDefaults
         }
     }
     
-    public var sharedZoneChangeToken: CKServerChangeToken?
+    var sharedZoneChangeToken: CKServerChangeToken?
     {
         get {
             guard let data = self.value(forKey: "sharedZoneChangeToken") as? Data else {
@@ -120,7 +120,7 @@ public extension UserDefaults
         }
     }
     
-    public var createdCustomZone: Bool
+    var createdCustomZone: Bool
     {
         get
         {
@@ -134,7 +134,7 @@ public extension UserDefaults
         }
     }
     
-    public var subscribedToPrivateChanges: Bool
+    var subscribedToPrivateChanges: Bool
     {
         get
         {
@@ -148,7 +148,7 @@ public extension UserDefaults
         }
     }
     
-    public var subscribedToSharedChanges: Bool
+    var subscribedToSharedChanges: Bool
     {
         get
         {
@@ -162,7 +162,7 @@ public extension UserDefaults
         }
     }
     
-    public var viewSharedDatabase: Bool
+    var viewSharedDatabase: Bool
     {
         get
         {
@@ -176,7 +176,7 @@ public extension UserDefaults
         }
     }
     
-    public var lastRunDate: Date
+    var lastRunDate: Date
     {
         get
         {
@@ -198,7 +198,7 @@ public extension UserDefaults
         }
     }
     
-    public var attendanceRecordsToBeDeleted: Set<String>?
+    var attendanceRecordsToBeDeleted: Set<String>?
     {
         get
         {
@@ -223,7 +223,7 @@ public extension UserDefaults
         }
     }
     
-    public var flightRecordsToBeDeleted: Set<String>?
+    var flightRecordsToBeDeleted: Set<String>?
     {
         get
         {
@@ -248,7 +248,7 @@ public extension UserDefaults
         }
     }
     
-    public var timesheetsToBeDeleted: Set<String>?
+    var timesheetsToBeDeleted: Set<String>?
     {
         get
         {
@@ -273,7 +273,7 @@ public extension UserDefaults
         }
     }
     
-    public var commentsToBeDeleted: Set<String>?
+    var commentsToBeDeleted: Set<String>?
     {
         get
         {
@@ -298,7 +298,7 @@ public extension UserDefaults
         }
     }
     
-    public var maintenanceIssuesToBeDeleted: Set<String>?
+    var maintenanceIssuesToBeDeleted: Set<String>?
     {
         get
         {
@@ -323,7 +323,7 @@ public extension UserDefaults
         }
     }
     
-    public var pilotsToBeDeleted: Set<String>?
+    var pilotsToBeDeleted: Set<String>?
     {
         get
         {
@@ -348,7 +348,7 @@ public extension UserDefaults
         }
     }
     
-    public var pilotsToBeUploaded: Set<NSManagedObjectID>?
+    var pilotsToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {
@@ -386,7 +386,7 @@ public extension UserDefaults
         }
     }
     
-    public var attendanceRecordsToBeUploaded: Set<NSManagedObjectID>?
+    var attendanceRecordsToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {
@@ -425,7 +425,7 @@ public extension UserDefaults
     }
 
     
-    public var aircraftEntitiesToBeUploaded: Set<NSManagedObjectID>?
+    var aircraftEntitiesToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {
@@ -463,7 +463,7 @@ public extension UserDefaults
         }
     }
     
-    public var flightRecordsToBeUploaded: Set<NSManagedObjectID>?
+    var flightRecordsToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {
@@ -501,7 +501,7 @@ public extension UserDefaults
         }
     }
     
-    public var timesheetsToBeUploaded: Set<NSManagedObjectID>?
+    var timesheetsToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {
@@ -539,7 +539,7 @@ public extension UserDefaults
         }
     }
     
-    public var commentsToBeUploaded: Set<NSManagedObjectID>?
+    var commentsToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {
@@ -577,7 +577,7 @@ public extension UserDefaults
         }
     }
 
-    public var maintenanceIssuesToBeUploaded: Set<NSManagedObjectID>?
+    var maintenanceIssuesToBeUploaded: Set<NSManagedObjectID>?
     {
         get
         {

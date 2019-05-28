@@ -126,7 +126,7 @@ final class FunStatsViewController : UITableViewController
         let twelveWeeksAgo = today + TIME_PERIOD_FOR_FUN_STATS
         
         let request = FlightRecord.request
-        request.predicate = NSPredicate(format: "timeUp > %@ AND timesheet.glidingCentre == %@", argumentArray: [twelveWeeksAgo, dataModel.glidingCentre])
+        request.predicate = NSPredicate(format: "timeUp > %@ AND timesheet.glidingCentre == %@", argumentArray: [twelveWeeksAgo, dataModel.glidingCentre!])
         let pilotSortDescriptor = NSSortDescriptor(key: #keyPath(FlightRecord.pilot.name), ascending: false)
         request.sortDescriptors = [pilotSortDescriptor]
         
@@ -200,7 +200,7 @@ final class FunStatsViewController : UITableViewController
         pilotsSortedByWinchLaunches.sort(by: {$0.1 > $1.1})
         
         let flightRecordRequest = FlightRecord.request
-        flightRecordRequest.predicate = NSPredicate(format: "timeUp > %@ AND timesheet.glidingCentre == %@ AND timesheet.aircraft.gliderOrTowplane == 1 AND flightSequence != %@", argumentArray: [twelveWeeksAgo, dataModel.glidingCentre, "Transit"])
+        flightRecordRequest.predicate = NSPredicate(format: "timeUp > %@ AND timesheet.glidingCentre == %@ AND timesheet.aircraft.gliderOrTowplane == 1 AND flightSequence != %@", argumentArray: [twelveWeeksAgo, dataModel.glidingCentre!, "Transit"])
         let flightTimeSortDescriptor = NSSortDescriptor(key: #keyPath(FlightRecord.flightLengthInMinutes), ascending: false)
         flightRecordRequest.sortDescriptors = [flightTimeSortDescriptor]
         listOfGliderFlightsByLength = try! dataModel.managedObjectContext.fetch(flightRecordRequest) 
@@ -585,7 +585,7 @@ final class FunStatsViewController : UITableViewController
         print("Deleting \(deleteResults.result as! Int) comments")
         
         request = FlightRecord.fetchRequest()
-        request.predicate = NSPredicate(format: "pilot == nil")
+        request.predicate = NSPredicate(format: "timesheet == nil")
         deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         deleteRequest.resultType = .resultTypeCount
         deleteResults = try! dataModel.managedObjectContext.execute(deleteRequest) as! NSBatchDeleteResult
@@ -753,7 +753,7 @@ final class FunStatsViewController : UITableViewController
         let endTime = gregorian.date(from: components) ?? Date()
         
         let request = FlightRecord.request
-        request.predicate = NSPredicate(format: "timeUp > %@ AND timeDown < %@ AND timesheet.glidingCentre == %@ AND timesheet.aircraft.gliderOrTowplane = 1", argumentArray: [startTime, endTime, dataModel.glidingCentre])
+        request.predicate = NSPredicate(format: "timeUp > %@ AND timeDown < %@ AND timesheet.glidingCentre == %@ AND timesheet.aircraft.gliderOrTowplane = 1", argumentArray: [startTime, endTime, dataModel.glidingCentre!])
         
         let records = try! dataModel.managedObjectContext.fetch(request)
         

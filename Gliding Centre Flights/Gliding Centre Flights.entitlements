@@ -5,7 +5,7 @@
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array/>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
-	<string>$(TeamIdentifierPrefix)com.Kirvan.Timesheets</string>
+	<string>$(TeamIdentifierPrefix)ca.cadets.Timesheets</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.ca.cadets.Timesheets</string>

@@ -155,7 +155,7 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
             self.timesheetsDataModel.stopTimer()
         }
         
-        NotificationCenter.default.removeObserver(self.timesheetsDataModel)
+        NotificationCenter.default.removeObserver(self.timesheetsDataModel!)
         
         let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSSQLiteManualVacuumOption: true,  NSInferMappingModelAutomaticallyOption: true, NSSQLitePragmasOption : ["journal_mode" : "DELETE"]] as [String : Any]
 
@@ -271,7 +271,7 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
         let dict = userInfo as! [String: NSObject]
-        let note = CKNotification(fromRemoteNotificationDictionary:dict)
+        let note = CKNotification(fromRemoteNotificationDictionary:dict)!
         
         switch note.notificationType
         {

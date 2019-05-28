@@ -48,7 +48,7 @@ final class SignInPilotFromList: UITableViewController, UISearchBarDelegate
             var deletePathsThisSection = [IndexPath]()
             for pilot in arrayOfPilotsWithSameFirstLetter
             {
-                if currentlyDisplayedPilots.index(of: pilot) == nil
+                if currentlyDisplayedPilots.firstIndex(of: pilot) == nil
                 {
                     let pathOfPilotToRemove = IndexPath(row: rowIndex, section: sectionIndex)
                     deletePathsThisSection.append(pathOfPilotToRemove)

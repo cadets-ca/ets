@@ -287,6 +287,8 @@ final class CloudKitController
             fetchDatabaseChanges(database: sharedDB, databaseTokenKey: "shared", completion: completion)
         case .public:
             fatalError()
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -3385,6 +3387,12 @@ final class CloudKitController
         
         if let timesheet = matchingRecords.first
         {
+            if timesheet.flightRecords.count > 0
+            {
+                print("Delete timesheet aborted, timesheet has records")
+                return
+            }
+            
             backgroundContext.delete(timesheet)
             saveBackgroundContext()
         }

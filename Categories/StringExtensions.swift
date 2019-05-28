@@ -94,12 +94,12 @@ extension String
         {
             var value = self
             
-            if let decimalIndex = value.index(of: ".")
+            if let decimalIndex = value.firstIndex(of: ".")
             {
                 value = String(value[..<decimalIndex])
             }
             
-            if let negativeIndex = value.index(of: "-")
+            if let negativeIndex = value.firstIndex(of: "-")
             {
                 value.remove(at: negativeIndex)
                 let positivePart = Int(value) ?? 0

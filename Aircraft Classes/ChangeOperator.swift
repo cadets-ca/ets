@@ -56,7 +56,7 @@ final class ChangeOperator : UITableViewController
             
         else
         {
-            pilotRequest.predicate = NSPredicate(format: "timeIn > %@ AND timeOut == %@ AND glidingCentre == %@", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre])
+            pilotRequest.predicate = NSPredicate(format: "timeIn > %@ AND timeOut == %@ AND glidingCentre == %@", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre!])
         }
         
         let nameSortDescriptor = NSSortDescriptor(key: #keyPath(AttendanceRecord.pilot.name), ascending: true)

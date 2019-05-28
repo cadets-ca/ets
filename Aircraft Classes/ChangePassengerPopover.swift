@@ -88,12 +88,12 @@ final class ChangePassengerPopover : UITableViewController
         
         if yesMeansRecord
         {
-            towPilotFetchRequest.predicate = NSPredicate(format: "timeIn >= %@ AND timeIn < %@ AND glidingCentre == %@ AND pilot.highestScoutQual > 0", argumentArray: [midnightOnTargetDate, oneDayLater, dataModel.glidingCentre])
+            towPilotFetchRequest.predicate = NSPredicate(format: "timeIn >= %@ AND timeIn < %@ AND glidingCentre == %@ AND pilot.highestScoutQual > 0", argumentArray: [midnightOnTargetDate, oneDayLater, dataModel.glidingCentre!])
         }
             
         else
         {
-            towPilotFetchRequest.predicate = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND pilot.highestScoutQual > 0", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre])
+            towPilotFetchRequest.predicate = NSPredicate(format: "timeIn >= %@ AND timeOut == %@ AND glidingCentre == %@ AND pilot.highestScoutQual > 0", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre!])
         }
         
         let highestTowQualSortDescriptor = NSSortDescriptor(key: #keyPath(AttendanceRecord.pilot.highestScoutQual), ascending: false)
@@ -204,7 +204,7 @@ final class ChangePassengerPopover : UITableViewController
         }
         
         let request = FlightRecord.request
-        request.predicate = NSPredicate(format: "timeUp > %@ AND (pilot == %@ OR passenger = %@)", argumentArray: [Date().startOfDay, record.pilot, record.pilot])
+        request.predicate = NSPredicate(format: "timeUp > %@ AND (pilot == %@ OR passenger = %@)", argumentArray: [Date().startOfDay, record.pilot!, record.pilot!])
         
         let flightsToday = try! dataModel.managedObjectContext.fetch(request) 
         cell.accessoryType = flightsToday.count < 1 ? .none : .checkmark

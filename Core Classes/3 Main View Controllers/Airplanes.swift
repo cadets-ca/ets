@@ -1330,6 +1330,8 @@ final class Airplanes : UITableViewController, NSFetchedResultsControllerDelegat
                     tableView.deleteRows(at: [oldPath], with: .fade)
                 }
             }
+        @unknown default:
+            fatalError()
         }
     }
     

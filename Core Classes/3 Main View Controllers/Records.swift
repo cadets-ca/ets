@@ -80,7 +80,7 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
             
         else
         {
-            predicate = NSPredicate(format: "timeUp > %@ AND timesheet.glidingCentre == %@", argumentArray: [Date().startOfDay, dataModel.glidingCentre])
+            predicate = NSPredicate(format: "timeUp > %@ AND timesheet.glidingCentre == %@", argumentArray: [Date().startOfDay, dataModel.glidingCentre!])
         }
         
         request.predicate = predicate
@@ -298,9 +298,241 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        
+        
+        
+        
+        
+        
+        
+//        #warning("Delete this!")
+//
+//
+//
+//
+//        func createRandomFlightForType(_ type: VehicleType, record: FlightRecord? = nil)
+//        {
+//            let pilots = dataModel.glidingCentre.pilots
+//
+//            func newTimeSheetForAircraft(_ ac: AircraftEntity) -> AircraftTimesheet
+//            {
+//                let newTimesheet = AircraftTimesheet(context: dataModel.managedObjectContext)
+//                newTimesheet.date = dataModel.dateToViewRecords.startOfDay + 60*60*23
+//                newTimesheet.aircraft = ac
+//                newTimesheet.glidingCentre = dataModel.previousRecordsGlidingCentre
+//                newTimesheet.setTTSN()
+//
+//                return newTimesheet
+//            }
+//
+//            func randomTowplane() -> AircraftEntity?
+//            {
+//                for aircraft in dataModel.glidingCentre.aircraft
+//                {
+//                    if aircraft.type == .towplane
+//                    {
+//                        return aircraft
+//                    }
+//                }
+//
+//                return nil
+//            }
+//
+//            func randomGlider() -> AircraftEntity?
+//            {
+//                for aircraft in dataModel.glidingCentre.aircraft
+//                {
+//                    if aircraft.type == .glider
+//                    {
+//                        return aircraft
+//                    }
+//                }
+//
+//                return nil
+//            }
+//
+//            func randomWinch() -> AircraftEntity?
+//            {
+//                for aircraft in dataModel.glidingCentre.aircraft
+//                {
+//                    if aircraft.type == .winch
+//                    {
+//                        return aircraft
+//                    }
+//                }
+//
+//                return nil
+//            }
+//
+//            func randomAuto() -> AircraftEntity?
+//            {
+//                for aircraft in dataModel.glidingCentre.aircraft
+//                {
+//                    if aircraft.type == .auto
+//                    {
+//                        return aircraft
+//                    }
+//                }
+//
+//                return nil
+//            }
+//
+//            func throwAlert(forType type: VehicleType)
+//            {
+//                let alert = UIAlertController(title:"No Vehicle Available", message:"You must have at least one \(type) signed in to \(dataModel.previousRecordsGlidingCentre?.name ?? dataModel.glidingCentre.name) before you can add a \(type) flight.", preferredStyle:.alert)
+//                let done = UIAlertAction(title: "OK", style: .default, handler:nil)
+//                alert.addAction(done)
+//                self.present(alert, animated:true, completion:nil)
+//            }
+//
+//            func throwAlertForMissingPilot()
+//            {
+//                let alert = UIAlertController(title:"No Pilot Available", message:"You must have at least one pilot signed in to \(dataModel.previousRecordsGlidingCentre?.name ?? dataModel.glidingCentre.name) before you can add flight.", preferredStyle:.alert)
+//                let done = UIAlertAction(title: "OK", style: .default, handler:nil)
+//                alert.addAction(done)
+//                self.present(alert, animated:true, completion:nil)
+//            }
+//
+//            guard let randomPilot = pilots.first else {throwAlertForMissingPilot(); return}
+//
+//            switch type
+//            {
+//            case .towplane:
+//                guard let aircraft = randomTowplane() else {throwAlert(forType: .towplane); return}
+//                let timesheet = newTimeSheetForAircraft(aircraft)
+//                let record = FlightRecord(context: dataModel.managedObjectContext)
+//                record.flightSequence = aircraft.flightSequence
+//                record.timeUp = dataModel.dateToViewRecords.startOfDay + 60*60*23
+//                record.timeDown = record.timeUp + 60
+//                record.pilot = randomPilot
+//                record.picParticipantType = record.pilot.typeOfParticipant
+//                record.timesheet = timesheet
+//                timesheet.logInsertionOf(record: record)
+//
+//            case .glider:
+//                guard let towaircraft = randomTowplane() else {throwAlert(forType: .towplane); return}
+//                let towTimesheet = newTimeSheetForAircraft(towaircraft)
+//
+//                guard let glider = randomGlider() else {throwAlert(forType: .glider); return}
+//                let gliderTimesheet = newTimeSheetForAircraft(glider)
+//                let towRecord = FlightRecord(context: dataModel.managedObjectContext)
+//
+//                towRecord.flightSequence = "Towing"
+//                towRecord.timeUp = dataModel.dateToViewRecords.startOfDay + 60*60*23
+//                towRecord.timeDown = towRecord.timeUp + 60
+//                towRecord.pilot = randomPilot
+//                towRecord.picParticipantType = towRecord.pilot.typeOfParticipant
+//                towRecord.timesheet = towTimesheet
+//                towTimesheet.logInsertionOf(record: towRecord)
+//
+//                if let gliderRecord = record
+//                {
+//                    towRecord.timeUp = gliderRecord.timeUp
+//                    towRecord.timeDown = gliderRecord.timeUp + 7
+//                    towRecord.flightLengthInMinutes = 7
+//                    gliderRecord.connectedAircraftRecord = towRecord
+//                }
+//
+//                else
+//                {
+//                    let gliderRecord = FlightRecord(context: dataModel.managedObjectContext)
+//                    gliderRecord.aircraft = glider
+//                    gliderRecord.flightSequence = glider.flightSequence
+//                    gliderRecord.timeUp = towRecord.timeUp
+//                    gliderRecord.timeDown = towRecord.timeDown
+//                    gliderRecord.pilot = randomPilot
+//                    gliderRecord.picParticipantType = randomPilot.typeOfParticipant
+//                    gliderRecord.timesheet = gliderTimesheet
+//                    gliderRecord.connectedAircraftRecord = towRecord
+//                    gliderTimesheet.logInsertionOf(record: gliderRecord)
+//                }
+//
+//            case .auto:
+//                guard let auto = randomAuto()  else {throwAlert(forType: .auto); return}
+//                let autoTimesheet = newTimeSheetForAircraft(auto)
+//
+//                guard let glider = randomGlider()  else {throwAlert(forType: .glider); return}
+//                let gliderTimesheet = newTimeSheetForAircraft(glider)
+//
+//                let towRecord = FlightRecord(context: dataModel.managedObjectContext)
+//                towRecord.flightSequence = "Towing"
+//                towRecord.timeUp = dataModel.dateToViewRecords.startOfDay + 60*60*23
+//                towRecord.timeDown = towRecord.timeUp + 60
+//                towRecord.pilot = randomPilot
+//                towRecord.picParticipantType = towRecord.pilot.typeOfParticipant
+//                towRecord.timesheet = autoTimesheet
+//                autoTimesheet.logInsertionOf(record: towRecord)
+//
+//                let gliderRecord = FlightRecord(context: dataModel.managedObjectContext)
+//                gliderRecord.aircraft = glider
+//                gliderRecord.flightSequence = glider.flightSequence
+//                gliderRecord.timeUp = towRecord.timeUp
+//                gliderRecord.timeDown = towRecord.timeDown
+//                gliderRecord.pilot = randomPilot
+//                gliderRecord.picParticipantType = randomPilot.typeOfParticipant
+//                gliderRecord.timesheet = gliderTimesheet
+//                gliderRecord.connectedAircraftRecord = towRecord
+//                gliderTimesheet.logInsertionOf(record: gliderRecord)
+//
+//            case .winch:
+//                guard let winch = randomWinch()  else {throwAlert(forType: .winch); return}
+//                let winchTimesheet = newTimeSheetForAircraft(winch)
+//
+//                guard let glider = randomGlider()  else {throwAlert(forType: .glider); return}
+//                let gliderTimesheet = newTimeSheetForAircraft(glider)
+//
+//                let towRecord = FlightRecord(context: dataModel.managedObjectContext)
+//                towRecord.flightSequence = "Towing"
+//                towRecord.timeUp = dataModel.dateToViewRecords.startOfDay + 60*60*23
+//                towRecord.timeDown = towRecord.timeUp + 60
+//                towRecord.pilot = randomPilot
+//                towRecord.picParticipantType = towRecord.pilot.typeOfParticipant
+//                towRecord.timesheet = winchTimesheet
+//                winchTimesheet.logInsertionOf(record: towRecord)
+//
+//                let gliderRecord = FlightRecord(context: dataModel.managedObjectContext)
+//                gliderRecord.aircraft = glider
+//                gliderRecord.flightSequence = glider.flightSequence
+//                gliderRecord.timeUp = towRecord.timeUp
+//                gliderRecord.timeDown = towRecord.timeDown
+//                gliderRecord.pilot = randomPilot
+//                gliderRecord.picParticipantType = randomPilot.typeOfParticipant
+//                gliderRecord.timesheet = gliderTimesheet
+//                gliderRecord.connectedAircraftRecord = towRecord
+//                gliderTimesheet.logInsertionOf(record: gliderRecord)
+//            }
+//
+//            dataModel.saveContext()
+//        }
+//
+//
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         guard observerMode == false else {tableView.deselectRow(at: indexPath, animated: true); return}
         
         let record = fetchController.object(at: indexPath)
+        
+//        #warning("Delete this")
+//        if record.timesheet.aircraft.type == .glider
+//        {
+//            if record.connectedAircraftRecord == nil
+//            {
+//                createRandomFlightForType(.glider, record: record)
+//            }
+//        }
+        
+        
         let editAllowed = record.timeDown == Date.distantFuture ? false : true
         guard editAllowed else {return}
         
@@ -393,6 +625,10 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
     {
+//        #warning("Delete This")
+//        return true
+        
+        
         guard observerMode == false else {return false}
         
         let record = fetchController.object(at: indexPath)
@@ -673,6 +909,8 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
+        @unknown default:
+            fatalError()
         }
     }
     

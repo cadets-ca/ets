@@ -149,7 +149,7 @@ final class AircraftTimesheet: NSManagedObject, HasID, RecordsChanges, AttachedT
     func setTTSN()
     {
         let fetchRequest = AircraftTimesheet.request 
-        fetchRequest.predicate = NSPredicate(format: "%K = %@ AND %K < %@", argumentArray: [#keyPath(AircraftTimesheet.aircraft), aircraft, #keyPath(AircraftTimesheet.date), date])
+        fetchRequest.predicate = NSPredicate(format: "%K = %@ AND %K < %@", argumentArray: [#keyPath(AircraftTimesheet.aircraft), aircraft!, #keyPath(AircraftTimesheet.date), date])
         let sortDescriptor = NSSortDescriptor(key: #keyPath(AircraftTimesheet.date), ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchBatchSize = 1

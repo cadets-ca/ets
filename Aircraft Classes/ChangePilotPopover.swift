@@ -52,7 +52,7 @@ final class ChangePilotPopover : UITableViewController
             
         else
         {
-            request.predicate = NSPredicate(format: "timeIn > %@ AND timeOut == %@ AND glidingCentre == %@ AND %K > 0", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre, qualType])
+            request.predicate = NSPredicate(format: "timeIn > %@ AND timeOut == %@ AND glidingCentre == %@ AND %K > 0", argumentArray: [Date().startOfDay, Date.distantFuture, dataModel.glidingCentre!, qualType])
         }
         
         let highestQualSortDescriptor = NSSortDescriptor(key: qualType, ascending: false)

@@ -72,25 +72,25 @@ final class StatsManager: NSObject
         else
         {
             let request = FlightRecord.request
-            request.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [thisMorningAtMidnight, today, dataModel.glidingCentre])
+            request.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [thisMorningAtMidnight, today, dataModel.glidingCentre!])
             let flightsToday = try! dataModel.managedObjectContext.count(for: request)
             flightsLastFiveDaysArray.append(flightsToday)
         }
         
         let flightsLastFewDaysRequest = FlightRecord.request
-        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [yesterdayMorningAtMidnight, thisMorningAtMidnight, dataModel.glidingCentre])
+        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [yesterdayMorningAtMidnight, thisMorningAtMidnight, dataModel.glidingCentre!])
         let flightsOneDayAgo = try! dataModel.managedObjectContext.count(for: flightsLastFewDaysRequest)
         flightsLastFiveDaysArray.append(flightsOneDayAgo)
         
-        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [twoDaysAgoAtMidnight, yesterdayMorningAtMidnight, dataModel.glidingCentre])
+        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [twoDaysAgoAtMidnight, yesterdayMorningAtMidnight, dataModel.glidingCentre!])
         let flightsTwoDaysAgo = try! dataModel.managedObjectContext.count(for: flightsLastFewDaysRequest)
         flightsLastFiveDaysArray.append(flightsTwoDaysAgo)
 
-        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [threeDaysAgoAtMidnight, twoDaysAgoAtMidnight, dataModel.glidingCentre])
+        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [threeDaysAgoAtMidnight, twoDaysAgoAtMidnight, dataModel.glidingCentre!])
         let flightsThreeDaysAgo = try! dataModel.managedObjectContext.count(for: flightsLastFewDaysRequest)
         flightsLastFiveDaysArray.append(flightsThreeDaysAgo)
         
-        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [fourDaysAgoAtMidnight, threeDaysAgoAtMidnight, dataModel.glidingCentre])
+        flightsLastFewDaysRequest.predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [fourDaysAgoAtMidnight, threeDaysAgoAtMidnight, dataModel.glidingCentre!])
         let flightsFourDaysAgo = try! dataModel.managedObjectContext.count(for: flightsLastFewDaysRequest)
         flightsLastFiveDaysArray.append(flightsFourDaysAgo)
 
@@ -99,7 +99,7 @@ final class StatsManager: NSObject
         gcInfo["MostRecentLaunchTime"] = mostRecentLaunchTime as NSDate
         
         let flightsThisSeasonRequest = FlightRecord.request
-        flightsThisSeasonRequest.predicate = NSPredicate(format: "timeUp > %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [twelveWeeksAgo, dataModel.glidingCentre])
+        flightsThisSeasonRequest.predicate = NSPredicate(format: "timeUp > %@ AND timesheet.aircraft.gliderOrTowplane = 1 AND timesheet.glidingCentre == %@", argumentArray: [twelveWeeksAgo, dataModel.glidingCentre!])
         let flightsThisSeason = try! dataModel.managedObjectContext.fetch(flightsThisSeasonRequest)
         
         let numberOfGliderFlights = flightsThisSeason.count

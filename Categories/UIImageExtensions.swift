@@ -166,7 +166,7 @@ final class BackgroundImage
                         
             returnImage = resizeImage(returnImage!, newSize: CGSize(width: requiredImageSize.width, height: requiredImageSize.height))
 //            #warning("turn this back on!")
-            let _ = try? returnImage!.pngData()?.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
+            let _ = ((try? returnImage!.pngData()?.write(to: URL(fileURLWithPath: filePath), options: [.atomic])) as ()??)
         }
         
         return returnImage!

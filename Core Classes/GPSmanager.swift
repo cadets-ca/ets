@@ -230,7 +230,7 @@ final class GPSmanager : NSObject, CLLocationManagerDelegate
             
         case .xcountryEnd:
             var routeSoFar = recordToUpdate?.transitRoute ?? "?-"
-            let placeholder = routeSoFar.index(of: "-")!
+            let placeholder = routeSoFar.firstIndex(of: "-")!
             let rangeToReplace = routeSoFar.index(placeholder, offsetBy: 1) ... routeSoFar.index(routeSoFar.endIndex, offsetBy: -1)
             
             routeSoFar.replaceSubrange(rangeToReplace, with: closestUnit)

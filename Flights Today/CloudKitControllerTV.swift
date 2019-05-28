@@ -46,7 +46,7 @@ final class CloudKitControllerTV
     var allGliderStaffRecords = Set<CKRecord>()
     var allTowStaffRecords = Set<CKRecord>()
     var modifiedRecords = Set<CKRecord>()
-    let container = CKContainer(identifier: "iCloud.com.Kirvan.Timesheets")
+    let container = CKContainer(identifier: "iCloud.ca.cadets.Timesheets")
     var lastUpdate = Date.distantPast
     var selectedDatabase: String {
         return UserDefaults.standard.string(forKey: "Database") ?? "Your Database"
@@ -55,17 +55,27 @@ final class CloudKitControllerTV
     
     func performInitialFetch()
     {
+        if initialFetchInProgress
+        {
+            return
+        }
+        
         initialFetchInProgress = true
         allRecordsToday.removeAll()
         allRecordsThisSeason.removeAll()
         let database = selectedDatabase == "Shared Database" ? container.sharedCloudDatabase : container.privateCloudDatabase
-        let timePeriodStart = Date() + TIME_PERIOD_FOR_FUN_STATS + 60*60*24*50
-//        let timePeriodStart = Date.startOfYear
-
-        let displayDate = Date().startOfDay
-//        let displayDate = (Date() - 96*24*60*60).startOfDay
+        
+//        let timePeriodStart = Date() + TIME_PERIOD_FOR_FUN_STATS + 60*60*24*50
+//        let displayDate = Date().startOfDay
+//        let timePeriodEnd = Date.distantFuture
+        
+        let displayDate = (Date() - 246*24*60*60).startOfDay
+        print("The display date is \(displayDate.militaryFormatShort)")
+        let timePeriodStart = displayDate
+        let timePeriodEnd = timePeriodStart + 24*60*60
+        
         let endDisplayDate = displayDate + 60*60*24
-        let predicate = NSPredicate(format: "timeUp > %@", argumentArray: [timePeriodStart])
+        let predicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@", argumentArray: [timePeriodStart, timePeriodEnd])
 
         let query = CKQuery(recordType: "FlightRecord", predicate: predicate)
         var queryOperation = CKQueryOperation(query: query)
