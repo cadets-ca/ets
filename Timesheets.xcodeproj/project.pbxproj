@@ -273,6 +273,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		33265AB2229ECA2700B30EBD /* Sample-prod.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sample-prod.sqlite"; sourceTree = "<group>"; };
 		338DA164228B2A8E001C6CBB /* MasterSiteList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MasterSiteList.csv; sourceTree = "<group>"; };
 		338DA165228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSVtoGlidingCentrePList.awk; sourceTree = "<group>"; };
 		DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsIndividually.swift; sourceTree = "<group>"; };
@@ -919,6 +920,7 @@
 		DAF61A0316D01CF400543415 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				33265AB2229ECA2700B30EBD /* Sample-prod.sqlite */,
 				DA6DDE0617CAB5C300D81C4E /* Images.xcassets */,
 				DA19D0B21F6C5864008A6765 /* Icon-Small-40@3x.png */,
 				DA19D0B31F6C5A6B008A6765 /* Icon-83.5@2x.png */,
@@ -966,6 +968,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				DA66CA7719E9D7F000A69615 /* Embed App Extensions */,
+				33265AB4229ECC4100B30EBD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1352,6 +1355,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		33265AB4229ECC4100B30EBD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Debug\" ]; then\ncp -r \"${PROJECT_DIR}/Resources/Sample-prod.sqlite\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Sample.sqlite\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
