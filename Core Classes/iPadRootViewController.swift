@@ -167,8 +167,7 @@ final class iPadRootViewController : UIViewController, UINavigationBarDelegate
     {
         airViewWidthConstraint?.constant = size.width >= 1024 ? 460 : 320
         
-        let backgroundImage = BackgroundImage()
-        background?.image = backgroundImage.getBackground(size)
+        background?.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         
         super.viewWillTransition(to: size, with:coordinator)
     }
@@ -182,9 +181,7 @@ final class iPadRootViewController : UIViewController, UINavigationBarDelegate
             
         else
         {
-            let backgroundImage = BackgroundImage()
-            let screenBound = UIScreen.main.bounds
-            background?.image = backgroundImage.getBackground(screenBound.size)
+            background?.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         }
         
         airViewWidthConstraint?.constant = view.frame.size.width >= 1024 ? 460 : 320

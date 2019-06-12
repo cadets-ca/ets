@@ -53,9 +53,7 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
         
         if !regularFormat
         {
-            let backgroundImage = BackgroundImage()
-            let screenBound = UIScreen.main.bounds
-            tableView.backgroundView = UIImageView(image: backgroundImage.getBackground(screenBound.size))
+            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         }
         
         if previousRecordsViewer
@@ -113,8 +111,7 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
         
         if !regularFormat
         {
-            let backgroundImage = BackgroundImage()
-            tableView.backgroundView = UIImageView(image: backgroundImage.getBackground(size))
+            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         }
         
         navigationController?.hidesBarsOnSwipe = size.height > 400 ? false : true

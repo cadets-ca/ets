@@ -60,9 +60,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
                 
         if regularFormat == false
         {
-            let tableBackgroundManager = BackgroundImage()
-            let screenBound = UIScreen.main.bounds
-            tableView.backgroundView = UIImageView(image: tableBackgroundManager.getBackground(screenBound.size))
+            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         }
         
         self.configureFetchControllers()
@@ -262,8 +260,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
         
         if !regularFormat
         {
-            let tableBackgroundManager = BackgroundImage()
-            tableView.backgroundView = UIImageView(image: tableBackgroundManager.getBackground(size))
+            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         }
         
         navigationController?.hidesBarsOnSwipe = size.height > 400 ? false : true

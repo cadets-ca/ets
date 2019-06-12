@@ -1,4 +1,4 @@
-//
+
 //  SelectGlidingCentre.swift
 //  Timesheets
 //
@@ -26,12 +26,10 @@ final class SelectGlidingCentre: UITableViewController
     {
         NotificationCenter.default.addObserver(self, selector: #selector(self.regionChangeHandler), name: regionChangedNotification, object: nil)
 
-        if !regularFormat
-        {
-            let backgroundImage = BackgroundImage()
-            let screenBound = UIScreen.main.bounds
-            tableView.backgroundView = UIImageView(image: backgroundImage.getBackground(screenBound.size))
-        }
+//        if !regularFormat
+//        {
+            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
+//        }
         
         configure()
     }
@@ -98,8 +96,7 @@ final class SelectGlidingCentre: UITableViewController
     {
         if !regularFormat
         {
-            let backgroundImage = BackgroundImage()
-            tableView.backgroundView = UIImageView(image: backgroundImage.getBackground(size))
+            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         }
     }
     
