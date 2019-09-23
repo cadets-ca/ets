@@ -1228,9 +1228,9 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				French,
 				Base,
 				en,
+				fr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			packageReferences = (
@@ -1768,7 +1768,6 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7s arm64 armv7 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1817,7 +1816,6 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7s arm64 armv7 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
