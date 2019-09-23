@@ -476,9 +476,7 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     //MARK: - Exporting Records
     func emailTimesheets(_ overideAlert: Bool,_ includeChanges: Bool = false)
-    {
-        guard checkIfCanSendMailAndAlertUserIfNot() else {return}
-        
+    {        
         reportTypeBeingGenerated = ReportType.timesheets
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         
@@ -508,6 +506,9 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             presentController(noRecords)
             return
         }
+
+        // TODO: allow for generating report even when email not enabled.
+        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
         
         let swiftGenerator = ReportGenerator()
         swiftGenerator.regionName = UserDefaults.standard.string(forKey: "Region")?.uppercased()
@@ -531,6 +532,7 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     func emailPilotLogs()
     {
+        // FIXME: Why checkIfCanSendMailAndAlertUserIfNot not called
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         
         var noRecordsToEmail = false
@@ -1146,8 +1148,14 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         return
     }
     
+    fileprivate func getGlidingCenterNameToUse() -> String {
+        let extractedExpr: GlidingCentre? = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
+        return extractedExpr?.name ?? "Unknown Gliding Center"
+    }
+    
     func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF)
     {
+        // FIXME: Do something about the email...
         PDFgenerator = nil
         
         switch reportTypeBeingGenerated ?? ReportType.logBook
@@ -1266,48 +1274,20 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             }
             
         case .timesheets:
+            // FIXME: Finir d'arranger le picker
             picker = MFMailComposeViewController()
             picker?.mailComposeDelegate = self
-            
-            let dateOfTimesheets = viewPreviousRecords ? dateToViewRecords : Date()
-            let militaryFormat = DateFormatter()
-            militaryFormat.dateFormat = "dd-MMMM-yyyy"
-            militaryFormat.timeZone = TimeZone.current
-            let dateOfTimesheetsString = militaryFormat.string(from: dateOfTimesheets)
-            let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
-            let subjectLine = "\(dateOfTimesheetsString) \(GC!.name) Timesheets"
-            picker?.setSubject(subjectLine)
-            
-            let defaults = UserDefaults.standard
-            var toRecipients = Set<String>()
-            
-            for i in 1...3
+            picker?.setSubject(getSubjectLine())
+            let recipients = getRecipients()
+            if !recipients.isEmpty
             {
-                let key = "Timesheets Address \(i)"
-                if let value = defaults.string(forKey: key)
-                {
-                    toRecipients.insert(value)
-                }
+                picker?.setToRecipients(recipients)
             }
             
-            var invalidEmails = Set<String>()
-            for address in toRecipients
-            {
-                if stringIsValidEmail(address) == false
-                {
-                    invalidEmails.insert(address)
-                }
-            }
-            
-            toRecipients.subtract(invalidEmails)
-            if !toRecipients.isEmpty
-            {
-                picker?.setToRecipients(Array(toRecipients))
-            }
             let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
             let pathForPDF = pathArray.first!.stringByAppendingPathComponent("Timesheets.pdf")
             
-            let attachmentName = "\(dateOfTimesheetsString)-\(GC!.name)-Timesheets.pdf"
+            let attachmentName = "\(getDateOfTimesheets())-\(getGlidingCenterNameToUse())-Timesheets.pdf"
             let myData = try? Data(contentsOf: URL(fileURLWithPath: pathForPDF))
             attachmentPath = pathForPDF
             picker?.addAttachmentData(myData!, mimeType: "application/pdf", fileName:attachmentName)
@@ -1333,6 +1313,44 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         }
     }
 
+    fileprivate func getRecipients() -> [String] {
+        let defaults = UserDefaults.standard
+        var toRecipients = Set<String>()
+        
+        for i in 1...3
+        {
+            let key = "Timesheets Address \(i)"
+            if let value = defaults.string(forKey: key)
+            {
+                toRecipients.insert(value)
+            }
+        }
+        
+        var invalidEmails = Set<String>()
+        for address in toRecipients
+        {
+            if stringIsValidEmail(address) == false
+            {
+                invalidEmails.insert(address)
+            }
+        }
+        
+        toRecipients.subtract(invalidEmails)
+        return Array(toRecipients)
+    }
+    
+    fileprivate func getSubjectLine() -> String {
+        return "\(getDateOfTimesheets()) \(getGlidingCenterNameToUse()) Timesheets"
+    }
+    
+    fileprivate func getDateOfTimesheets() -> String {
+        let dateOfTimesheets = viewPreviousRecords ? dateToViewRecords : Date()
+        let militaryFormat = DateFormatter()
+        militaryFormat.dateFormat = "dd-MMMM-yyyy"
+        militaryFormat.timeZone = TimeZone.current
+        return militaryFormat.string(from: dateOfTimesheets)
+    }
+    
     func checkIfCanSendMailAndAlertUserIfNot() -> Bool
     {
         let canSendMail = MFMailComposeViewController.canSendMail()
