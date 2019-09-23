@@ -19,36 +19,13 @@ final class OrientationViewController: UITabBarController, UITabBarControllerDel
     
     override func encodeRestorableState(with coder: NSCoder)
     {
-//        super.encodeRestorableStateWithCoder(coder)
-
         coder.encode(selectedIndex, forKey: "SelectedTab")
-        
-//        for controller in childViewControllers
-//        {
-//            if let controller = controller as? iPadRootViewController
-//            {
-//                coder.encodeBool(Bool(controller.attendanceOrTimesheets.selectedSegmentIndex), forKey: "SwitchLeftView")
-//            }
-//        }
     }
     
     override func decodeRestorableState(with coder: NSCoder)
     {
         let index = coder.decodeInteger(forKey: "SelectedTab")
         selectedIndex = index
-
-//        for controller in childViewControllers
-//        {
-//            if let controller = controller as? iPadRootViewController
-//            {
-//                if coder.decodeBoolForKey("SwitchLeftView") == false
-//                {
-//                    dispatch_after(5, dispatch_get_main_queue(), {
-//                        controller.switchLeftView()
-//                    })
-//                }
-//            }
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool)
