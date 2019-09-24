@@ -2535,7 +2535,7 @@ final class ReportGenerator
         return report
     }
 
-    
+    // TODO: Modify this function to be able to generate both a HTML (for PDF) and an Excel file.
     func generateTimesheetsForDate(_ date: Date, _ includeChangeLog: Bool = false) -> String
     {
         let GC = (regularFormat && dataModel.viewPreviousRecords) ? dataModel.previousRecordsGlidingCentre! : dataModel.glidingCentre

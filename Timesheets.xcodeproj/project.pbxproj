@@ -208,6 +208,7 @@
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F37978462336F9F1006F69DA /* ExcelExport in Frameworks */ = {isa = PBXBuildFile; productRef = F37978452336F9F1006F69DA /* ExcelExport */; };
 		F379784823370877006F69DA /* ReportTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379784723370877006F69DA /* ReportTransmitter.swift */; };
+		F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +253,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DAE6B4E91A58E7DE008F1AC3;
 			remoteInfo = "Gliding Centre Flights";
+		};
+		F3FDAF872339ACFC002E11EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
+			remoteInfo = Timesheets;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -496,6 +504,9 @@
 		DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsOrGuestsPopover.swift; sourceTree = "<group>"; };
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		F379784723370877006F69DA /* ReportTransmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransmitter.swift; sourceTree = "<group>"; };
+		F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGeneratorTests.swift; sourceTree = "<group>"; };
+		F3FDAF862339ACFC002E11EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,6 +574,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F3FDAF7F2339ACFC002E11EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -577,6 +595,7 @@
 				DA19D0B81F6CCCA3008A6765 /* Flights Today.app */,
 				DA19D0CA1F6CCCA4008A6765 /* Flights TodayTests.xctest */,
 				DA19D0D51F6CCCA4008A6765 /* Flights TodayUITests.xctest */,
+				F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -595,15 +614,16 @@
 				DAF6192316D01BEE00543415 /* Pilot Classes */,
 				DAF61A0316D01CF400543415 /* Resources */,
 				DA29977312CFEA0B00589971 /* plists */,
-				DA21DDDE1B7B0E8F00D16889 /* TimesheetsUITests */,
 				DA90F76F1D9B762000046192 /* Flights This Season */,
 				DA90F7821D9B764200046192 /* Hours This Season */,
 				DAE6B4EC1A58E7DE008F1AC3 /* Gliding Centre Flights */,
 				DA19D0B91F6CCCA3008A6765 /* Flights Today */,
-				DA19D0CD1F6CCCA4008A6765 /* Flights TodayTests */,
-				DA19D0D81F6CCCA4008A6765 /* Flights TodayUITests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				F3FDAF832339ACFC002E11EE /* TimesheetsTests */,
+				DA21DDDE1B7B0E8F00D16889 /* TimesheetsUITests */,
+				DA19D0CD1F6CCCA4008A6765 /* Flights TodayTests */,
+				DA19D0D81F6CCCA4008A6765 /* Flights TodayUITests */,
 				DAF61ACB16D0243800543415 /* Other Sources */,
 			);
 			name = CustomTemplate;
@@ -962,6 +982,15 @@
 			path = "Other Sources";
 			sourceTree = "<group>";
 		};
+		F3FDAF832339ACFC002E11EE /* TimesheetsTests */ = {
+			isa = PBXGroup;
+			children = (
+				F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */,
+				F3FDAF862339ACFC002E11EE /* Info.plist */,
+			);
+			path = TimesheetsTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1112,6 +1141,24 @@
 			productReference = DAE6B4EA1A58E7DE008F1AC3 /* Gliding Centre Flights.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		F3FDAF812339ACFC002E11EE /* TimesheetsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3FDAF892339ACFC002E11EE /* Build configuration list for PBXNativeTarget "TimesheetsTests" */;
+			buildPhases = (
+				F3FDAF7E2339ACFC002E11EE /* Sources */,
+				F3FDAF7F2339ACFC002E11EE /* Frameworks */,
+				F3FDAF802339ACFC002E11EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3FDAF882339ACFC002E11EE /* PBXTargetDependency */,
+			);
+			name = TimesheetsTests;
+			productName = TimesheetsTests;
+			productReference = F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1119,7 +1166,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 0930;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -1221,6 +1268,10 @@
 							};
 						};
 					};
+					F3FDAF812339ACFC002E11EE = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 1D6058900D05DD3D006BFB54;
+					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Timesheets" */;
@@ -1241,10 +1292,11 @@
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Timesheets */,
 				DAE6B4E91A58E7DE008F1AC3 /* Gliding Centre Flights */,
-				DA21DDDC1B7B0E8F00D16889 /* TimesheetsUITests */,
 				DA90F76C1D9B762000046192 /* Flights This Season */,
 				DA90F77F1D9B764200046192 /* Hours This Season */,
 				DA19D0B71F6CCCA3008A6765 /* Flights Today */,
+				F3FDAF812339ACFC002E11EE /* TimesheetsTests */,
+				DA21DDDC1B7B0E8F00D16889 /* TimesheetsUITests */,
 				DA19D0C91F6CCCA4008A6765 /* Flights TodayTests */,
 				DA19D0D41F6CCCA4008A6765 /* Flights TodayUITests */,
 			);
@@ -1362,6 +1414,13 @@
 			files = (
 				DAE6B4F21A58E7DE008F1AC3 /* MainInterface.storyboard in Resources */,
 				DAD27DB31D58260200E6079F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3FDAF802339ACFC002E11EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1577,6 +1636,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F3FDAF7E2339ACFC002E11EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1609,6 +1676,11 @@
 			isa = PBXTargetDependency;
 			target = DAE6B4E91A58E7DE008F1AC3 /* Gliding Centre Flights */;
 			targetProxy = DAE6B4F31A58E7DE008F1AC3 /* PBXContainerItemProxy */;
+		};
+		F3FDAF882339ACFC002E11EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D6058900D05DD3D006BFB54 /* Timesheets */;
+			targetProxy = F3FDAF872339ACFC002E11EE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2475,6 +2547,97 @@
 			};
 			name = Release;
 		};
+		F3FDAF8A2339ACFC002E11EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = RNY866QY3V;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TimesheetsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.hugues-ferland.TimesheetsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Timesheets.app/Timesheets";
+			};
+			name = Debug;
+		};
+		F3FDAF8B2339ACFC002E11EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = RNY866QY3V;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TimesheetsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.hugues-ferland.TimesheetsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Timesheets.app/Timesheets";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2555,6 +2718,15 @@
 			buildConfigurations = (
 				DAE6B4F71A58E7DF008F1AC3 /* Debug */,
 				DAE6B4F81A58E7DF008F1AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F3FDAF892339ACFC002E11EE /* Build configuration list for PBXNativeTarget "TimesheetsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3FDAF8A2339ACFC002E11EE /* Debug */,
+				F3FDAF8B2339ACFC002E11EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
