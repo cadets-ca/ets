@@ -2532,6 +2532,8 @@ final class ReportGenerator
 
         }
         
+        report += "</body></html>"
+        
         return report
     }
 

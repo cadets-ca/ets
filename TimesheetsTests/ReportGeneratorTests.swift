@@ -33,36 +33,16 @@ class ReportGeneratorTests: XCTestCase {
             center.name = "Test"
         }
         dataModel.glidingCentre = center
+        dataModel.regionName = "NORTH"
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testReportGeneratorResultIsHTML() {
-        let generator = ReportGenerator()
-        
-        let result = generator.generateTimesheetsForDate(Date())
-        
-        XCTAssert(result.hasPrefix("<html>"), "This is not html?")
-        XCTAssert(result.hasSuffix("</html>"), "This is not html?")
-    }
-    
-    func testCreateAttendanceRecordForPersonSigninPilot() {
-        let pilot = Pilot(context: context)
-        pilot.name = "John Do"
-        pilot.address = "22 Rita"
-        pilot.aniversaryOfGliderAPC = Date()
-        pilot.aniversaryOfTowAPC = Date()
-        pilot.typeOfParticipant = "Tow"
-        
-        print("Pilot is signed in? \(pilot.signedIn)")
-        _ = dataModel.createAttendanceRecordForPerson(pilot)
-        
-        XCTAssertTrue(pilot.signedIn, "The pilot must now be signed in (as per the post condition of createAttendanceRecordForPerson.")
-    }
-    
-    func testDelete() throws {
+    // MARK: - Exploratory tests
+    func testCoreDataDelete() throws {
+        // Arrange
         let centerNameToDelete = "CenterToDelete"
         let centerToDelete = GlidingCentre(context: context)
         centerToDelete.name = centerNameToDelete
@@ -74,18 +54,21 @@ class ReportGeneratorTests: XCTestCase {
             return
         }
         
+        // Act
         print("Number of \(centerNameToDelete) centers found: \(centers.count).")
         for center in centers {
             context.delete(center)
         }
         
+        // Assert
         guard let centersAfterDelete = try? context.fetch(request),
             centersAfterDelete.count == 0 else {
             XCTFail("There should be no more \(centerNameToDelete) gliding centre; I deleted them all.")
             return
         }
     }
-
+    
+    /// This test doesn't contain any assert section. It was meant to show what was the typeOfParticipant present in the database (what is the possible values).
     func testTypeOfParticipant() {
         let request = Pilot.request
         guard let result = try? context.fetch(request) else {
@@ -100,6 +83,51 @@ class ReportGeneratorTests: XCTestCase {
             print("typeOfParticipant \(value)")
         }
     }
-    
 
+    // MARK: - Tests for createAttendanceRecordForPerson
+    // TODO: Move this section into its own test file.
+    func testCreateAttendanceRecordForPersonSigninPilot() {
+        let pilot = Pilot(context: context)
+        pilot.name = "John Do"
+        pilot.address = "22 Rita"
+        pilot.aniversaryOfGliderAPC = Date()
+        pilot.aniversaryOfTowAPC = Date()
+        pilot.typeOfParticipant = "Tow"
+        
+        print("Pilot is signed in? \(pilot.signedIn)")
+        _ = dataModel.createAttendanceRecordForPerson(pilot)
+        
+        XCTAssertTrue(pilot.signedIn, "The pilot must now be signed in (as per the post condition of createAttendanceRecordForPerson.")
+    }
+
+    // MARK: - StatsReportFromDate
+    func testStatsReportFromDateIsHTML() {
+        let generator = ReportGenerator()
+        
+        let forDate = Date()
+        let result = generator.statsReportFromDate(forDate, toDate: forDate)
+        
+        XCTAssert(result.hasPrefix("<html>"), "This is not html?")
+        XCTAssert(result.hasSuffix("</html>"), "This is not html?")
+        XCTAssertTrue(result.contains(forDate.militaryFormatShort.uppercased()), "Date \(forDate.militaryFormatShort.uppercased()) not found in content")
+    }
+    
+    func testStatsReportFromDateForCenter() {
+        let generator = ReportGenerator()
+        generator.unit = dataModel.glidingCentre.name // FIXME: Find out why need to set both the generator unit AND pass the parameter siteSpecific=true
+        let forDate = Date()
+        let result = generator.statsReportFromDate(forDate, toDate: forDate, true)
+        
+        XCTAssertTrue(result.contains(dataModel.glidingCentre.name), "Our challenge, if we accept it, is to find how we display the centre name instead of the title REGIONAL REPORT.")
+    }
+            
+    // TODO: Never never forget to have some fun on the road to improvement!
+    func testStatsReportFromDateIncludeAircraftInReport() {
+        // Given
+
+        // When
+        
+        // Then
+                
+    }
 }
