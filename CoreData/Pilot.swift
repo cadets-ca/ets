@@ -114,7 +114,11 @@ final class Pilot: NSManagedObject, NSFetchedResultsControllerDelegate, RecordsC
 
     override var description: String
     {
-        return "recordID:\(recordID) \r recordChangeTime \(recordChangeTime) \r pilotName \(uniqueName)"
+        return  """
+                recordID: \(recordID)
+                  recordChangeTime: \(recordChangeTime)
+                  pilotName: \(uniqueName)
+                """
     }
     
     override var debugDescription: String
