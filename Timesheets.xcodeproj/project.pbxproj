@@ -206,6 +206,8 @@
 		DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */; };
 		DAFDAFEF1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */; };
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
+		F300CE2F23413FB500BC1831 /* File.html in Resources */ = {isa = PBXBuildFile; fileRef = F300CE2E23413FB500BC1831 /* File.html */; };
+		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
 		F37978462336F9F1006F69DA /* ExcelExport in Frameworks */ = {isa = PBXBuildFile; productRef = F37978452336F9F1006F69DA /* ExcelExport */; };
 		F379784823370877006F69DA /* ReportTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379784723370877006F69DA /* ReportTransmitter.swift */; };
 		F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */; };
@@ -503,6 +505,8 @@
 		DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Timesheets.entitlements; sourceTree = "<group>"; };
 		DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsOrGuestsPopover.swift; sourceTree = "<group>"; };
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
+		F300CE2E23413FB500BC1831 /* File.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = File.html; sourceTree = "<group>"; };
+		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		F379784723370877006F69DA /* ReportTransmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransmitter.swift; sourceTree = "<group>"; };
 		F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGeneratorTests.swift; sourceTree = "<group>"; };
@@ -985,8 +989,10 @@
 		F3FDAF832339ACFC002E11EE /* TimesheetsTests */ = {
 			isa = PBXGroup;
 			children = (
+				F300CE2E23413FB500BC1831 /* File.html */,
 				F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */,
 				F3FDAF862339ACFC002E11EE /* Info.plist */,
+				F307AD052346B1680093120F /* XCTestExtensions.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1421,6 +1427,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F300CE2F23413FB500BC1831 /* File.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1640,6 +1647,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2566,7 +2574,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = RNY866QY3V;
+				DEVELOPMENT_TEAM = 77432UPB7H;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2585,7 +2593,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.hugues-ferland.TimesheetsTests";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.TimesheetsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2614,7 +2622,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = RNY866QY3V;
+				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2628,7 +2636,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.hugues-ferland.TimesheetsTests";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.TimesheetsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

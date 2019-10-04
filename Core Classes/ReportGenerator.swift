@@ -922,6 +922,7 @@ final class ReportGenerator
         return report
     }
     
+    // TODO: Modify this function to be able to generate both a HTML (for PDF) and an Excel file.
     func statsReportFromDate(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String
     {
         //Heading and number of glider flights
@@ -936,7 +937,6 @@ final class ReportGenerator
         let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
         let secondsInTwelveDays = -12*24*60*60
         let twelveDaysAgo = Date(timeInterval: Double(secondsInTwelveDays), since: now).startOfDay
-        let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
         
         let gliderFlightsLastFiveDaysrequest = FlightRecord.request
         let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timesheet.aircraft.gliderOrTowplane)) == 1", argumentArray: [fiveDaysAgo])
@@ -1122,6 +1122,11 @@ final class ReportGenerator
             
             for date in last7Days
             {
+                if date != last7Days.first
+                {
+                    startHTMLtableRow(&report)
+                }
+
                 addTableCellToHTMLcode(&report, withText: date.militaryFormatShort)
                 
                 comps.day = 1
@@ -1314,6 +1319,7 @@ final class ReportGenerator
         let handler = NSDecimalNumberHandler(roundingMode: .plain, scale: 1, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         
         //Glider Instructor Course
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "GIC")
         
         if let sequenceTotal = gliderFlightsBySequence["GIC"]
@@ -1340,6 +1346,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         //Tow Pilot Course
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "TPC")
         addBlackCellToHTMLstring(&report)
         addBlackCellToHTMLstring(&report)
@@ -1368,6 +1375,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         // Conversion
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "C")
         
         if let sequenceTotal = gliderFlightsBySequence["Conversion"]
@@ -1394,6 +1402,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         // Student Trg
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "S")
         
         if let sequenceTotal = gliderFlightsBySequence["Student Trg"]
@@ -1420,6 +1429,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         // Proficiency
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "P")
         
         if let sequenceTotal = gliderFlightsBySequence["Proficiency"]
@@ -1462,6 +1472,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         // Upgrade
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "U")
         if let sequenceTotal = gliderFlightsBySequence["Upgrade"]
         {
@@ -1503,6 +1514,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         // Famil
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "F")
         if let sequenceTotal = gliderFlightsBySequence["Famil"]
         {
@@ -1545,6 +1557,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         // Transit
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "✗")
         if let sequenceTotal = gliderFlightsBySequence["Transit"]
         {
@@ -1586,6 +1599,7 @@ final class ReportGenerator
         endHTMLtableRow(&report)
         
         //Towing
+        startHTMLtableRow(&report)
         addTableCellToHTMLcode(&report, withText: "TOW")
         addBlackCellToHTMLstring(&report)
         addBlackCellToHTMLstring(&report)
@@ -1683,7 +1697,9 @@ final class ReportGenerator
         
         let squadronCadetRequest = AttendanceRecord.request
         let cadetRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND pilot.typeOfParticipant == %@", argumentArray: [startDate,endDate, "cadet"])
-        
+
+        let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
+
         if siteSpecific
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [cadetRequestPredicate, sitePredicate])
@@ -2021,6 +2037,7 @@ final class ReportGenerator
         
         func appendStatsFor(_ participantType: String, PICFlights: Int, dualFlights: Int, daysWorked: Double, reportString: inout String)
         {
+            reportString += "<tr>"
             reportString += "<td>\(participantType)</td>"
             reportString += "<td>\(daysWorked.oneDecimalStringRepresentation)</td>"
             reportString += "<td>\(PICFlights)</td>"
@@ -2066,7 +2083,7 @@ final class ReportGenerator
             if let daysWorked = staffCadetAttandance[cadet], daysWorked > 1.5
             {
                 beginHTMLtableRow(&report)
-                report += "<td>\(cadet.fullName)</td><td>\(cadet.squadron)</td><td>\(cadet.glidingCentre.name)</td><td>\(daysWorked.oneDecimalStringRepresentation)</td>"
+                report += "<tr><td>\(cadet.fullName)</td><td>\(cadet.squadron)</td><td>\(cadet.glidingCentre.name)</td><td>\(daysWorked.oneDecimalStringRepresentation)</td></tr>"
                 endHTMLtableRow(&report)
             }
         }
@@ -3271,6 +3288,11 @@ final class ReportGenerator
         }
         
         greyRow = !greyRow
+    }
+
+    func startHTMLtableRow(_ HTMLCode: inout String)
+    {
+        HTMLCode += "<tr>"
     }
 
     /// Ends a HTML table row
