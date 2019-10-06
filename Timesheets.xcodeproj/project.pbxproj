@@ -206,7 +206,6 @@
 		DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */; };
 		DAFDAFEF1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */; };
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
-		F300CE2F23413FB500BC1831 /* File.html in Resources */ = {isa = PBXBuildFile; fileRef = F300CE2E23413FB500BC1831 /* File.html */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
 		F37978462336F9F1006F69DA /* ExcelExport in Frameworks */ = {isa = PBXBuildFile; productRef = F37978452336F9F1006F69DA /* ExcelExport */; };
 		F379784823370877006F69DA /* ReportTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379784723370877006F69DA /* ReportTransmitter.swift */; };
@@ -505,7 +504,6 @@
 		DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Timesheets.entitlements; sourceTree = "<group>"; };
 		DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsOrGuestsPopover.swift; sourceTree = "<group>"; };
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
-		F300CE2E23413FB500BC1831 /* File.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = File.html; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		F379784723370877006F69DA /* ReportTransmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransmitter.swift; sourceTree = "<group>"; };
 		F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -989,7 +987,6 @@
 		F3FDAF832339ACFC002E11EE /* TimesheetsTests */ = {
 			isa = PBXGroup;
 			children = (
-				F300CE2E23413FB500BC1831 /* File.html */,
 				F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */,
 				F3FDAF862339ACFC002E11EE /* Info.plist */,
 				F307AD052346B1680093120F /* XCTestExtensions.swift */,
@@ -1427,7 +1424,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F300CE2F23413FB500BC1831 /* File.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

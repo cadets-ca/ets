@@ -26,8 +26,10 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     var center: GlidingCentre!
     var pilotJoBlack: Pilot!
     var pilotJohnDo: Pilot!
+    var staffCadetPilot: Pilot!
     
-    override func setUp() {
+    override func setUp()
+    {
         dataModel.viewPreviousRecords = false
         regularFormat = true
         dataModel.regionName = "South"
@@ -48,25 +50,22 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         
         if pilotJoBlack == nil
         {
-            pilotJoBlack = Pilot(context: context)
-            pilotJoBlack.name = "Jo Black"
-            pilotJoBlack.typeOfParticipant = "COATS"
-            pilotJoBlack.glidingCentre = dataModel.glidingCentre
-            pilotJoBlack.email = "joblack@hellkitchen.us"
+            pilotJoBlack = createPilot(name: "Jo Black", typeOfParticipant: "COATS")
+            dataModel.createAttendanceRecordForPerson(pilotJoBlack)
         }
         
         if pilotJohnDo == nil
         {
-            pilotJohnDo = Pilot(context: context)
-            pilotJohnDo.name = "John Do"
-            pilotJohnDo.address = "22 Rita"
-            pilotJohnDo.aniversaryOfGliderAPC = Date()
-            pilotJohnDo.aniversaryOfTowAPC = Date()
-            pilotJohnDo.typeOfParticipant = "COATS"
-            pilotJohnDo.email = "johndo@daily.planet"
+            pilotJohnDo = createPilot(name: "John Do", typeOfParticipant: "COATS")
+        }
+        
+        if staffCadetPilot == nil
+        {
+            staffCadetPilot = createPilot(name: "Glider Pilot", typeOfParticipant: "Staff Cadet")
+            dataModel.createAttendanceRecordForPerson(staffCadetPilot)
         }
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
@@ -130,17 +129,45 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     
     // MARK: - Helper functions for StatsReportFromDate
     // TODO: Never never forget to have some fun on the road to improvement!
-    fileprivate func createFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: TowplaneSequence = .TowCourse) {
+    
+    fileprivate func createPilot(name: String, typeOfParticipant: String, withBirthDay birthday : Date = Calendar.current.date(byAdding: DateComponents(year: -20), to: Date())!) -> Pilot
+    {
+        let pilot = Pilot(context: context)
+        pilot.name = name
+        pilot.typeOfParticipant = typeOfParticipant
+        pilot.glidingCentre = dataModel.glidingCentre
+        pilot.email = "\(pilot.name.replacingOccurrences(of: " ", with: ""))@hellkitchen.us"
+        pilot.address = "13 Anywhere"
+        pilot.aniversaryOfTowAPC = Date().advanced(by: -10)
+        pilot.aniversaryOfGliderAPC = Date().advanced(by: -10)
+        pilot.birthday = birthday
+        return pilot
+    }
+    
+    fileprivate func createFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: TowplaneSequence = .TowCourse, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil) {
         let flight = FlightRecord(context: context)
         flight.aircraft = aircraft
         flight.timesheet = timesheet
         flight.flightSequence = sequence.rawValue
-        flight.pilot = pilotJoBlack
-        flight.timeUp = startDate //Calendar.current.date(byAdding: Calendar.Component.day, value: -1, to: Date())!
+        flight.pilot = pilot ?? pilotJoBlack
+        flight.passenger = passenger
+        flight.timeUp = startDate
         flight.timeDown = Calendar.current.date(byAdding: Calendar.Component.minute, value: Int(duration), to: flight.timeUp)!
         flight.flightLengthInMinutes = duration
     }
-    
+
+    fileprivate func createGliderFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: GliderSequence = .StudentTrg, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil) {
+        let flight = FlightRecord(context: context)
+        flight.aircraft = aircraft
+        flight.timesheet = timesheet
+        flight.flightSequence = sequence.rawValue
+        flight.pilot = pilot ?? pilotJoBlack
+        flight.passenger = passenger
+        flight.timeUp = startDate
+        flight.timeDown = Calendar.current.date(byAdding: Calendar.Component.minute, value: Int(duration), to: flight.timeUp)!
+        flight.flightLengthInMinutes = duration
+    }
+
     fileprivate func createTimesheet(_ aircraft : AircraftEntity, _ forDate : Date) -> AircraftTimesheet {
         let timesheet = aircraft.insertNewTimeSheetForAircraft(withContext: context)
         timesheet.date = forDate
@@ -169,9 +196,20 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         let aircraft = AircraftEntity(context: context)
         aircraft.registration = registration
         aircraft.tailNumber = tailNumber
-        aircraft.gliderOrTowplane = 0
-        aircraft.glidingCentre = dataModel.glidingCentre
         aircraft.type = .towplane
+        aircraft.gliderOrTowplane = Int16(aircraft.type.rawValue)
+        aircraft.glidingCentre = dataModel.glidingCentre
+        return aircraft
+    }
+    
+    fileprivate func createGlider(registration: String, tailNumber: String) -> AircraftEntity
+    {
+        let aircraft = AircraftEntity(context: context)
+        aircraft.registration = registration
+        aircraft.tailNumber = tailNumber
+        aircraft.type = .glider
+        aircraft.gliderOrTowplane = Int16(aircraft.type.rawValue)
+        aircraft.glidingCentre = dataModel.glidingCentre
         return aircraft
     }
     
@@ -214,7 +252,10 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
      It can become quite embarassing if it becomes too **big**
      
      - Warning
-     The content of this test method will become quite big. Better brace yourself!
+     The content of this test method will become quite big. This is because I'd like to have all possible cases in one place.
+     This might not be possible though. We'll see. If that become too big, I whish to have what it takes to split it into smaller tests...;-)
+     
+     Better brace yourself!
      */
     func testStatsReportFromDateIncludeAircraftInReport() {
         // Given
@@ -245,6 +286,14 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         aircraft.updateTTSN()
         
         // FIXME: total of 460 minutes in 7 flights... only 6 flights are totalized, but all the minutes are there....
+        let glider = createGlider(registration: "Glider", tailNumber: "333")
+        let gliderTakeOffDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-4), to: Date())!
+        let gliderTimesheet = createTimesheet(glider, gliderTakeOffDate)
+        let towTimesheet = createTimesheet(aircraft, gliderTakeOffDate)
+        createFlight(aircraft, towTimesheet, startingOn: gliderTakeOffDate, forMinutes: 20, sequence: .TowCourse)
+        aircraft.updateTTSN()
+        createGliderFlight(glider, gliderTimesheet, startingOn: gliderTakeOffDate, forMinutes: 40, sequence: .StudentTrg, withPilot: staffCadetPilot)
+        glider.updateTTSN()
         
         
         // When
