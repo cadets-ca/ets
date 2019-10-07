@@ -19,7 +19,7 @@ final class ReportGenerator
     
     var unit: String!
     var regionName: String!
-
+    
     var regionNameString: String
     {
         get
@@ -28,7 +28,7 @@ final class ReportGenerator
             {
                 return "NORTHWEST"
             }
-            
+                
             else
             {
                 return regionName ?? ""
@@ -46,32 +46,32 @@ final class ReportGenerator
     lazy var dateToCreateRecords = Date()
     
     lazy var gliderSequenceList: [String] =
-    {
-        if let myfile = Bundle.main.path(forResource: "GliderSequences", ofType:"plist")
         {
-            return NSArray(contentsOfFile:myfile) as? [String] ?? [String]()
-        }
-        
-        else
-        {
-            return [String]()
-        }
+            if let myfile = Bundle.main.path(forResource: "GliderSequences", ofType:"plist")
+            {
+                return NSArray(contentsOfFile:myfile) as? [String] ?? [String]()
+            }
+                
+            else
+            {
+                return [String]()
+            }
     }()
     
     lazy var towplaneSequenceList: [String] =
-    {
-        if let myfile = Bundle.main.path(forResource: "TowplaneSequences", ofType:"plist")
         {
-            return NSArray(contentsOfFile:myfile) as? [String] ?? [String]()
-        }
+            if let myfile = Bundle.main.path(forResource: "TowplaneSequences", ofType:"plist")
+            {
+                return NSArray(contentsOfFile:myfile) as? [String] ?? [String]()
+            }
+                
+            else
+            {
+                return [String]()
+            }
             
-        else
-        {
-            return [String]()
-        }
-
     }()
-
+    
     var sequenceList = [String]()
     
     final class GlidingDay
@@ -184,17 +184,17 @@ final class ReportGenerator
                 {
                     switch connectedAircraftRecord.timesheet.aircraft.type
                     {
-                    case .towplane:
-                        launchMethodString = " Air Tow"
+                        case .towplane:
+                            launchMethodString = " Air Tow"
                         
-                    case .winch:
-                        launchMethodString = " Winch"
+                        case .winch:
+                            launchMethodString = " Winch"
                         
-                    case .glider:
-                        launchMethodString = ""
+                        case .glider:
+                            launchMethodString = ""
                         
-                    case .auto:
-                        launchMethodString = " Auto Tow"
+                        case .auto:
+                            launchMethodString = " Auto Tow"
                     }
                 }
                 
@@ -220,7 +220,7 @@ final class ReportGenerator
                 {
                     passengerString = "\(passenger.fullName) (\(passenger.squadron) RCACS)"
                 }
-                
+                    
                 else
                 {
                     passengerString = record.passenger?.fullName ?? ""
@@ -254,7 +254,7 @@ final class ReportGenerator
             if numberOfWinchLaunches > 0
             {
                 htmlString += "<br>\(numberOfWinchLaunches) winch launch"
-
+                
                 if numberOfWinchLaunches > 1
                 {
                     htmlString += "es"
@@ -264,7 +264,7 @@ final class ReportGenerator
             if numberOfAutoLaunches > 0
             {
                 htmlString += "<br>\(numberOfAutoLaunches) auto launch"
-
+                
                 if numberOfAutoLaunches > 1
                 {
                     htmlString += "es"
@@ -307,10 +307,10 @@ final class ReportGenerator
             gliderHeader += tableHeaderCell(headerText: "Dual")
             gliderHeader += tableHeaderCell(headerText: "Instructor")
             gliderHeader += tableHeaderCell(headerText: "Sequence")
-
+            
             return gliderHeader
         }
-
+        
         towplaneLogBook += "<big>\(pilot.fullName.uppercased()) TOW AIRCRAFT LOG BOOK \(startDate.militaryFormatShort.uppercased()) to \(endDate.militaryFormatShort.uppercased())</big>"
         towplaneLogBook += "<table border='1'>"
         towplaneLogBook.appendTableRow(header: true)
@@ -349,7 +349,7 @@ final class ReportGenerator
         
         var towplaneRowShouldBeShaded = false
         var gliderRowShouldBeShaded = false
-
+        
         func completeTowAircraftBlockEntry()
         {
             towplaneLogBook.appendTableRow(shading: towplaneRowShouldBeShaded)
@@ -407,14 +407,14 @@ final class ReportGenerator
                     
                     switch record.connectedAircraftRecord?.timesheet?.aircraft?.type
                     {
-                    case let type where type == .towplane:
-                        entryText += tableCell(text: "Air Tow")
+                        case let type where type == .towplane:
+                            entryText += tableCell(text: "Air Tow")
                         
-                    case let type where type == .winch:
-                        entryText += tableCell(text: "Winch")
+                        case let type where type == .winch:
+                            entryText += tableCell(text: "Winch")
                         
-                    default:
-                        entryText += tableCell(text: "Auto Tow")
+                        default:
+                            entryText += tableCell(text: "Auto Tow")
                     }
                     
                     entryText += tableCell(text: record.pilot!.fullName)
@@ -488,7 +488,7 @@ final class ReportGenerator
                 
                 if blockEntry && ((record.timeUp - blockEntryDownTime > blockEntryMargin) || (record.pilot !== blockEntryPilot) || (record.passenger !== blockEntryPassenger) || (record.flightSequence != blockEntrySequence) || (record.timesheet.aircraft !== blockEntryAircraft))
                 {
-
+                    
                     completeTowAircraftBlockEntry()
                     
                     blockEntryTows = 0
@@ -498,7 +498,7 @@ final class ReportGenerator
                     {
                         blockEntrySequence = record.flightSequence + " (\(record.transitRoute))"
                     }
-                    
+                        
                     else
                     {
                         blockEntrySequence = record.flightSequence
@@ -527,7 +527,7 @@ final class ReportGenerator
                     {
                         blockEntrySequence = record.flightSequence + " (\(record.transitRoute))"
                     }
-                    
+                        
                     else
                     {
                         blockEntrySequence = record.flightSequence
@@ -584,7 +584,7 @@ final class ReportGenerator
         let totalGliderPICstring = String(fromMinutes: Double(totalGliderPICtime))
         let totalGliderDualString = String(fromMinutes: Double(totalGliderDualTime))
         let totalGliderInstructorString = String(fromMinutes: Double(totalGliderInstructorTime))
-
+        
         gliderLogBook.appendTableRow(header: true)
         {
             var gliderLogBookHeaderText = tableHeaderCell()
@@ -597,10 +597,10 @@ final class ReportGenerator
             gliderLogBookHeaderText += tableHeaderCell(headerText: totalGliderDualString)
             gliderLogBookHeaderText += tableHeaderCell(headerText: totalGliderInstructorString)
             gliderLogBookHeaderText += tableHeaderCell()
-
+            
             return gliderLogBookHeaderText
         }
-    
+        
         gliderLogBook += "</table>"
         
         towplaneLogBook.appendTableRow(header: true)
@@ -617,7 +617,7 @@ final class ReportGenerator
             
             return towLogBookHeaderText
         }
-            
+        
         towplaneLogBook += "</table>"
         
         reportHeaders += gliderLogBook
@@ -662,51 +662,51 @@ final class ReportGenerator
             
             let stats365 = pilot.flyingStatsFromDate(yearAgo, toDate:now)
             let allTimeStats = pilot.flyingStatsFromDate(distantPast, toDate:now)
-
+            
             beginHTMLtableRow(&report)
             addTableCellToHTMLcode(&report, withText: pilot.fullName)
             addTableCellToHTMLcode(&report, withText: pilot.typeOfParticipant)
             
             switch (pilot.typeOfParticipant, pilot.ageOutDate)
             {
-            case ("Staff Cadet", Date.distantPast):
-                addTableCellToHTMLcode(&report, withText: "?", andTextColor: .red)
+                case ("Staff Cadet", Date.distantPast):
+                    addTableCellToHTMLcode(&report, withText: "?", andTextColor: .red)
                 
-            case ("Staff Cadet", Date.distantPast ..< now):
-                addTableCellToHTMLcode(&report, withText: pilot.ageOutDate.militaryFormatShort, andTextColor: .red)
+                case ("Staff Cadet", Date.distantPast ..< now):
+                    addTableCellToHTMLcode(&report, withText: pilot.ageOutDate.militaryFormatShort, andTextColor: .red)
                 
-            case ("Staff Cadet", now ..< threeMonthsFromNow):
-                addTableCellToHTMLcode(&report, withText: pilot.ageOutDate.militaryFormatShort, andTextColor: .yellow)
-
-            case ("Staff Cadet", _):
-                addTableCellToHTMLcode(&report, withText: pilot.ageOutDate.militaryFormatShort, andTextColor: .defaultColor)
+                case ("Staff Cadet", now ..< threeMonthsFromNow):
+                    addTableCellToHTMLcode(&report, withText: pilot.ageOutDate.militaryFormatShort, andTextColor: .yellow)
                 
-            default:
-                addTableCellToHTMLcode(&report, withText: "N/A")
+                case ("Staff Cadet", _):
+                    addTableCellToHTMLcode(&report, withText: pilot.ageOutDate.militaryFormatShort, andTextColor: .defaultColor)
+                
+                default:
+                    addTableCellToHTMLcode(&report, withText: "N/A")
             }
             
             switch (pilot.typeOfParticipant, pilot.squadron)
             {
-            case let (_, squadronNumber) where squadronNumber != 0:
-                addTableCellToHTMLcode(&report, withText: "\(squadronNumber)")
-
-            case ("Staff Cadet", _):
-                addTableCellToHTMLcode(&report, withText: nil, andTextColor: .red)
+                case let (_, squadronNumber) where squadronNumber != 0:
+                    addTableCellToHTMLcode(&report, withText: "\(squadronNumber)")
                 
-            default:
-                addTableCellToHTMLcode(&report, withText: nil, andTextColor: .defaultColor)
+                case ("Staff Cadet", _):
+                    addTableCellToHTMLcode(&report, withText: nil, andTextColor: .red)
+                
+                default:
+                    addTableCellToHTMLcode(&report, withText: nil, andTextColor: .defaultColor)
             }
             
             switch pilot.medical
             {
-            case Date.distantPast ..< now:
-                addTableCellToHTMLcode(&report, withText: "", andTextColor: .red)
-
-            case threeMonthsFromNow ..< Date.distantFuture:
-                addTableCellToHTMLcode(&report, withText: pilot.medical.militaryFormatShort, andTextColor: .defaultColor)
+                case Date.distantPast ..< now:
+                    addTableCellToHTMLcode(&report, withText: "", andTextColor: .red)
                 
-            default:
-                addTableCellToHTMLcode(&report, withText: pilot.medical.militaryFormatShort, andTextColor: .yellow)
+                case threeMonthsFromNow ..< Date.distantFuture:
+                    addTableCellToHTMLcode(&report, withText: pilot.medical.militaryFormatShort, andTextColor: .defaultColor)
+                
+                default:
+                    addTableCellToHTMLcode(&report, withText: pilot.medical.militaryFormatShort, andTextColor: .yellow)
             }
             
             if pilot.gliderQual > .noGlider
@@ -737,15 +737,15 @@ final class ReportGenerator
                 
                 switch currencyDate
                 {
-                case oneMonthFromNow ... (Date.distantFuture):
-                    addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .defaultColor)
-
-                case (Date.distantPast) ..< now:
-                    currencyString = APCexpiresBeforeCurrency ? "Expired APC" : "Expired"
-                    addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .red)
-
-                default:
-                    addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .yellow)
+                    case oneMonthFromNow ... (Date.distantFuture):
+                        addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .defaultColor)
+                    
+                    case (Date.distantPast) ..< now:
+                        currencyString = APCexpiresBeforeCurrency ? "Expired APC" : "Expired"
+                        addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .red)
+                    
+                    default:
+                        addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .yellow)
                 }
                 
                 if pilot.aniversaryOfGliderAPC > Date() - 100*365*24*60*60
@@ -762,17 +762,17 @@ final class ReportGenerator
                 {
                     switch pilot.fiExpiry
                     {
-                    case threeMonthsFromNow ..< Date.distantFuture:
-                        addTableCellToHTMLcode(&report, withText: pilot.fiExpiry.militaryFormatShort, andTextColor: .defaultColor)
+                        case threeMonthsFromNow ..< Date.distantFuture:
+                            addTableCellToHTMLcode(&report, withText: pilot.fiExpiry.militaryFormatShort, andTextColor: .defaultColor)
                         
-                    case now ... threeMonthsFromNow:
-                        addTableCellToHTMLcode(&report, withText: pilot.fiExpiry.militaryFormatShort, andTextColor: .yellow)
+                        case now ... threeMonthsFromNow:
+                            addTableCellToHTMLcode(&report, withText: pilot.fiExpiry.militaryFormatShort, andTextColor: .yellow)
                         
-                    case Date.distantPast ..< now:
-                        addTableCellToHTMLcode(&report, withText: pilot.fiExpiry.militaryFormatShort, andTextColor: .red)
+                        case Date.distantPast ..< now:
+                            addTableCellToHTMLcode(&report, withText: pilot.fiExpiry.militaryFormatShort, andTextColor: .red)
                         
-                    default:
-                        addTableCellToHTMLcode(&report, withText: "?", andTextColor: .red)
+                        default:
+                            addTableCellToHTMLcode(&report, withText: "?", andTextColor: .red)
                     }
                 }
                     
@@ -788,24 +788,24 @@ final class ReportGenerator
                 addTableCellToHTMLcode(&report, withText: gliderPICstring)
                 addTableCellToHTMLcode(&report, withText: gliderDualString)
                 addTableCellToHTMLcode(&report, withText: gliderInstructorString)
-
+                
                 let gliderFlightsNumber = stats365.gliderFlights
                 
                 switch gliderFlightsNumber
                 {
-                case 0 ..< 10:
-                    addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .red)
+                    case 0 ..< 10:
+                        addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .red)
                     
-                case 10 ..< 20:
-                    addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .yellow)
+                    case 10 ..< 20:
+                        addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .yellow)
                     
-                case 20 ..< 75:
-                    addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .defaultColor)
+                    case 20 ..< 75:
+                        addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .defaultColor)
                     
-                default:
-                    addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .green)
+                    default:
+                        addTableCellToHTMLcode(&report, withText: "\(gliderFlightsNumber)", andTextColor: .green)
                 }
-
+                
                 pilot.pilotHoldsQual("Winch Launch") ? addTableCellToHTMLcode(&report, withText: "✓") : addTableCellToHTMLcode(&report, withText: "✗")
             }
                 
@@ -823,7 +823,7 @@ final class ReportGenerator
             {
                 addTableCellToHTMLcode(&report, withText: "\(winchLaunchNumber) Launches")
             }
-            
+                
             else
             {
                 addTableCellToHTMLcode(&report, withText: "✗")
@@ -836,18 +836,18 @@ final class ReportGenerator
             
             switch powerLicenseNumbers.count
             {
-            case let licenseNumberCount where licenseNumberCount > 2:
-                addTableCellToHTMLcode(&report, withText: powerLicenseNumbers, andTextColor: .defaultColor)
-                
-            default:
-                if pilot.towQual > .noScout
-                {
-                    addTableCellToHTMLcode(&report, withText: powerLicenseNumbers, andTextColor: .red)
-                }
-                    
-                else
-                {
+                case let licenseNumberCount where licenseNumberCount > 2:
                     addTableCellToHTMLcode(&report, withText: powerLicenseNumbers, andTextColor: .defaultColor)
+                
+                default:
+                    if pilot.towQual > .noScout
+                    {
+                        addTableCellToHTMLcode(&report, withText: powerLicenseNumbers, andTextColor: .red)
+                    }
+                        
+                    else
+                    {
+                        addTableCellToHTMLcode(&report, withText: powerLicenseNumbers, andTextColor: .defaultColor)
                 }
             }
             
@@ -864,15 +864,15 @@ final class ReportGenerator
                 
                 switch currencyDate
                 {
-                case oneMonthFromNow ... (Date.distantFuture):
-                    addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .defaultColor)
+                    case oneMonthFromNow ... (Date.distantFuture):
+                        addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .defaultColor)
                     
-                case (Date.distantPast) ..< now:
-                    currencyString = APCexpiresBeforeCurrency ? "Expired APC" : "Expired"
-                    addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .red)
+                    case (Date.distantPast) ..< now:
+                        currencyString = APCexpiresBeforeCurrency ? "Expired APC" : "Expired"
+                        addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .red)
                     
-                default:
-                    addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .yellow)
+                    default:
+                        addTableCellToHTMLcode(&report, withText: currencyString, andTextColor: .yellow)
                 }
                 
                 if pilot.aniversaryOfTowAPC > oneHundredYearsAgo
@@ -886,27 +886,27 @@ final class ReportGenerator
                 }
                 
                 let towFlightsNumber = stats365.towAircraftTows
-
+                
                 switch towFlightsNumber
                 {
-                case 0 ..< 10:
-                    addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .red)
+                    case 0 ..< 10:
+                        addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .red)
                     
-                case 10 ..< 20:
-                    addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .yellow)
+                    case 10 ..< 20:
+                        addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .yellow)
                     
-                case 20 ..< 100:
-                    addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .defaultColor)
+                    case 20 ..< 100:
+                        addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .defaultColor)
                     
-                default:
-                    addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .green)
+                    default:
+                        addTableCellToHTMLcode(&report, withText: "\(towFlightsNumber)", andTextColor: .green)
                 }
             }
                 
             else
             {
                 addTableCellToHTMLcode(&report, withText: "✗")
-
+                
                 for _ in 1...6
                 {
                     addTableCellToHTMLcode(&report, withText: "N/A")
@@ -918,7 +918,7 @@ final class ReportGenerator
         
         report += "</table>"
         try? report.write(toFile: saveFilePath(), atomically: true, encoding: String.Encoding.unicode)
-
+        
         return report
     }
     
@@ -947,7 +947,7 @@ final class ReportGenerator
             let siteSpecificPredicate = NSPredicate(format: "timesheet.glidingCentre == %@", argumentArray: [GC])
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [gliderFlightsLastFiveDaysPredicate, siteSpecificPredicate])
         }
-        
+            
         else
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [gliderFlightsLastFiveDaysPredicate])
@@ -962,7 +962,7 @@ final class ReportGenerator
         {
             report += "<big>\(unit.uppercased()) STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
-        
+            
         else
         {
             report += "<big>REGIONAL STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
@@ -982,7 +982,7 @@ final class ReportGenerator
         
         report += "<br><br>"
         
-        //Maintenance portion of report
+        // MARK: - Maintenance portion of report
         report += "<big>MAINTENANCE REPORT</big><br>"
         
         let allVehicleRequest = AircraftEntity.request
@@ -1001,7 +1001,7 @@ final class ReportGenerator
             {
                 aircraftMostRecentlyUsedAtCurrentGC.insert(aircraft)
             }
-            
+                
             else
             {
                 if timesheet.date - twelveDaysAgo > 0, timesheet.flightRecords.count > 0
@@ -1009,19 +1009,20 @@ final class ReportGenerator
                     aircraftMostRecentlyUsedAtCurrentGC.insert(aircraft)
                 }
             }
-
+            
+            // TODO: What is the scenario where timesheet.flightRecords.count is 0 and we want to enter the following block? Please comment.
             if timesheet.flightRecords.count == 0
             {
                 let timesheetsLastTwelveDaysRequest = AircraftTimesheet.request
                 let timesheetsLastTwelveDaysPredicate = NSPredicate(format: "aircraft == %@ AND date > %@", argumentArray: [aircraft, twelveDaysAgo])
                 let compoundPredicate: NSCompoundPredicate
-
+                
                 if siteSpecific
                 {
                     let siteSpecificPredicate = NSPredicate(format: "glidingCentre == %@", argumentArray: [GC])
                     compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timesheetsLastTwelveDaysPredicate, siteSpecificPredicate])
                 }
-                
+                    
                 else
                 {
                     compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timesheetsLastTwelveDaysPredicate])
@@ -1031,7 +1032,7 @@ final class ReportGenerator
                 let timesheetsLastTwelveDays: [AircraftTimesheet]
                 do {try timesheetsLastTwelveDays = dataModel.managedObjectContext.fetch(timesheetsLastTwelveDaysRequest)}
                 catch {timesheetsLastTwelveDays = [AircraftTimesheet]()}
-
+                
                 for sheet in timesheetsLastTwelveDays
                 {
                     if sheet.flightRecords.count > 0
@@ -1047,15 +1048,15 @@ final class ReportGenerator
         
         switch (aircraftOrderedByTailNumber.count, siteSpecific)
         {
-        case (0, true):
-            report += "No timesheets found for \(unit!) in the past two weeks."
-
-        case (0, false):
-            report += "No timesheets found in the past two weeks."
+            case (0, true):
+                report += "No timesheets found for \(unit!) in the past two weeks."
             
-        default:
-            report += "<table border='1'>"
-            report += "<tr bgcolor='CCCCCC'><th width ='15%'>Vehicle</th><th width ='30%'>Issues</th><th width ='10%'>Date</th><th width ='10%'>Air Time</th><th width ='10%'>Ground Launches</th><th width ='9%'>Final TTSN</th><th width ='8%'>TNI</th><th width ='8%'>TTNI</th></tr>"
+            case (0, false):
+                report += "No timesheets found in the past two weeks."
+            
+            default:
+                report += "<table border='1'>"
+                report += "<tr bgcolor='CCCCCC'><th width ='15%'>Vehicle</th><th width ='30%'>Issues</th><th width ='10%'>Date</th><th width ='10%'>Air Time</th><th width ='10%'>Ground Launches</th><th width ='9%'>Final TTSN</th><th width ='8%'>TNI</th><th width ='8%'>TTNI</th></tr>"
         }
         
         var last7Days = [Date]()
@@ -1107,7 +1108,7 @@ final class ReportGenerator
                 let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
                 compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timesheetsLastSevenDaysPredicate, sitePredicate])
             }
-            
+                
             else
             {
                 compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timesheetsLastSevenDaysPredicate])
@@ -1126,7 +1127,7 @@ final class ReportGenerator
                 {
                     startHTMLtableRow(&report)
                 }
-
+                
                 addTableCellToHTMLcode(&report, withText: date.militaryFormatShort)
                 
                 comps.day = 1
@@ -1192,7 +1193,7 @@ final class ReportGenerator
         }
         
         let MAINTENANCECOMPLETED = Date()
-        //MARK: End Of Maintenance Section
+        // MARK: End Of Maintenance Section
         
         let allFlightRecordsForReportPeriodRequest = FlightRecord.request
         let allFlightRecordsForReportPeriodPredicate = NSPredicate(format: "timeUp > %@ AND timeUp < %@ AND pilot != nil", argumentArray: [beginningOfReport, endDate])
@@ -1202,7 +1203,7 @@ final class ReportGenerator
             let siteSpecificPredicate = NSPredicate(format: "timesheet.glidingCentre == %@", argumentArray: [GC])
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [allFlightRecordsForReportPeriodPredicate, siteSpecificPredicate])
         }
-        
+            
         else
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [allFlightRecordsForReportPeriodPredicate])
@@ -1255,39 +1256,39 @@ final class ReportGenerator
         {
             switch record.timesheet.aircraft.type
             {
-            case .glider:
-                let previousSequenceCount = gliderFlightsBySequence[record.flightSequence] ?? 0
-                let newCount = previousSequenceCount + 1
-                gliderFlightsBySequence[record.flightSequence] = newCount
-                let previousMinutes = gliderSequenceMinutes[record.flightSequence] ?? 0
-                gliderSequenceMinutes[record.flightSequence] = Int(record.flightLengthInMinutes) + previousMinutes
-                var glidingDayStats = statsForDay(record.timeUp)
-                let newTotal = glidingDayStats.totalGliderFlights + 1
-                glidingDayStats.totalGliderFlights = newTotal
+                case .glider:
+                    let previousSequenceCount = gliderFlightsBySequence[record.flightSequence] ?? 0
+                    let newCount = previousSequenceCount + 1
+                    gliderFlightsBySequence[record.flightSequence] = newCount
+                    let previousMinutes = gliderSequenceMinutes[record.flightSequence] ?? 0
+                    gliderSequenceMinutes[record.flightSequence] = Int(record.flightLengthInMinutes) + previousMinutes
+                    var glidingDayStats = statsForDay(record.timeUp)
+                    let newTotal = glidingDayStats.totalGliderFlights + 1
+                    glidingDayStats.totalGliderFlights = newTotal
                 
-            case .towplane:
-                let previousSequenceCount = towplaneFlightsBySequence[record.flightSequence] ?? 0
-                let newCount = previousSequenceCount + 1
-                towplaneFlightsBySequence[record.flightSequence] = newCount
-                let previousMinutes = towplaneSequenceMinutes[record.flightSequence] ?? 0
-                towplaneSequenceMinutes[record.flightSequence] = Int(record.flightLengthInMinutes) + previousMinutes
-            
-                if let passenger = record.passenger
-                {
-                    if record.flightSequence == "Fam / PR / Wx" && passenger.typeOfParticipant == "cadet"
+                case .towplane:
+                    let previousSequenceCount = towplaneFlightsBySequence[record.flightSequence] ?? 0
+                    let newCount = previousSequenceCount + 1
+                    towplaneFlightsBySequence[record.flightSequence] = newCount
+                    let previousMinutes = towplaneSequenceMinutes[record.flightSequence] ?? 0
+                    towplaneSequenceMinutes[record.flightSequence] = Int(record.flightLengthInMinutes) + previousMinutes
+                    
+                    if let passenger = record.passenger
                     {
-                        towFamFlights += 1
-                        var glidingDayStats = statsForDay(record.timeUp)
-                        let newTotal = glidingDayStats.totalScoutFams + 1
-                        glidingDayStats.totalScoutFams = newTotal
-                    }
+                        if record.flightSequence == "Fam / PR / Wx" && passenger.typeOfParticipant == "cadet"
+                        {
+                            towFamFlights += 1
+                            var glidingDayStats = statsForDay(record.timeUp)
+                            let newTotal = glidingDayStats.totalScoutFams + 1
+                            glidingDayStats.totalScoutFams = newTotal
+                        }
                 }
                 
-            case .winch:
-                winchLaunches += 1
+                case .winch:
+                    winchLaunches += 1
                 
-            case .auto:
-                autoLaunches += 1
+                case .auto:
+                    autoLaunches += 1
             }
         }
         
@@ -1299,7 +1300,7 @@ final class ReportGenerator
         {
             report += "<big>\(unit.uppercased()) NATIONAL REPORT STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
-        
+            
         else
         {
             report += "<big>NATIONAL REPORT STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
@@ -1641,16 +1642,16 @@ final class ReportGenerator
         {
             let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [winchTimesheetRequestPredicate, sitePredicate])
-
+            
         }
-        
+            
         else
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [winchTimesheetRequestPredicate])
         }
-
+        
         winchTimesheetRequest.predicate = compoundPredicate
-
+        
         let winchTimesheets: [AircraftTimesheet]
         
         do{try winchTimesheets = dataModel.managedObjectContext.fetch(winchTimesheetRequest)}
@@ -1684,7 +1685,7 @@ final class ReportGenerator
         {
             report += "<big>\(unit.uppercased()) SQUADRON ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
-        
+            
         else
         {
             report += "<big>SQUADRON ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
@@ -1697,14 +1698,14 @@ final class ReportGenerator
         
         let squadronCadetRequest = AttendanceRecord.request
         let cadetRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND pilot.typeOfParticipant == %@", argumentArray: [startDate,endDate, "cadet"])
-
+        
         let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
-
+        
         if siteSpecific
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [cadetRequestPredicate, sitePredicate])
         }
-        
+            
         else
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [cadetRequestPredicate])
@@ -1782,12 +1783,12 @@ final class ReportGenerator
             {
                 compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [commentRequestPredicate2])
             }
-
+            
             commentRequest.predicate = compoundPredicate
             commentRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(GlidingDayComment.date), ascending: true)]
             do{comments = try dataModel.managedObjectContext.fetch(commentRequest)}
             catch{comments = [GlidingDayComment]()}
-
+            
             for comment in comments
             {
                 if siteSpecific == false
@@ -1894,7 +1895,7 @@ final class ReportGenerator
         {
             report += "<big>\(unit.uppercased()) PERSONNEL STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
-        
+            
         else
         {
             report += "<big>PERSONNEL STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
@@ -1911,7 +1912,7 @@ final class ReportGenerator
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [staffAttendanceRequestPredicate, sitePredicate])
         }
-        
+            
         else
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [staffAttendanceRequestPredicate])
@@ -1934,7 +1935,7 @@ final class ReportGenerator
                 }
             }
         }
-        
+            
         else
         {
             let flightRecordRequest = FlightRecord.request
@@ -1943,7 +1944,7 @@ final class ReportGenerator
             do{flightRecordsInTimePeriod = try Set(dataModel.managedObjectContext.fetch(flightRecordRequest))}
             catch{}
         }
-
+        
         struct StaffStats
         {
             var daysWorked = Double(0)
@@ -1955,47 +1956,47 @@ final class ReportGenerator
         var volunteerStats = StaffStats()
         var CIstats = StaffStats()
         var COATSstats = StaffStats()
-
+        
         for record in flightRecordsInTimePeriod
         {
             guard let type = record.timesheet?.aircraft?.type, type >= .towplane else{continue}
             
             switch record.picParticipantType
             {
-            case "Staff Cadet":
-                staffCadetStats.PICflights += 1
+                case "Staff Cadet":
+                    staffCadetStats.PICflights += 1
                 
-            case "COATS":
-                COATSstats.PICflights += 1
+                case "COATS":
+                    COATSstats.PICflights += 1
                 
-            case "Civilian Instructor":
-                CIstats.PICflights += 1
+                case "Civilian Instructor":
+                    CIstats.PICflights += 1
                 
-            case "Volunteer":
-                volunteerStats.PICflights += 1
+                case "Volunteer":
+                    volunteerStats.PICflights += 1
                 
-            default:
-                break
+                default:
+                    break
             }
             
             if let dualParticipantType = record.dualParticipantType
             {
                 switch dualParticipantType
                 {
-                case "Staff Cadet":
-                    staffCadetStats.dualFlights += 1
+                    case "Staff Cadet":
+                        staffCadetStats.dualFlights += 1
                     
-                case "COATS":
-                    COATSstats.dualFlights += 1
+                    case "COATS":
+                        COATSstats.dualFlights += 1
                     
-                case "Civilian Instructor":
-                    CIstats.dualFlights += 1
+                    case "Civilian Instructor":
+                        CIstats.dualFlights += 1
                     
-                case "Volunteer":
-                    volunteerStats.dualFlights += 1
+                    case "Volunteer":
+                        volunteerStats.dualFlights += 1
                     
-                default:
-                    break
+                    default:
+                        break
                 }
             }
         }
@@ -2006,32 +2007,32 @@ final class ReportGenerator
         {
             switch record.participantType
             {
-            case "Staff Cadet":
-                let amountWorked = record.sessionType.rawValue
-                staffCadetStats.daysWorked += record.sessionType.rawValue
-                
-                if let previousNumberOfDaysWorked = staffCadetAttandance[record.pilot]
-                {
-                    let newNumberOfDaysWorked = previousNumberOfDaysWorked + amountWorked
-                    staffCadetAttandance[record.pilot] = newNumberOfDaysWorked
-                }
+                case "Staff Cadet":
+                    let amountWorked = record.sessionType.rawValue
+                    staffCadetStats.daysWorked += record.sessionType.rawValue
                     
-                else
-                {
-                    staffCadetAttandance[record.pilot] = amountWorked
+                    if let previousNumberOfDaysWorked = staffCadetAttandance[record.pilot]
+                    {
+                        let newNumberOfDaysWorked = previousNumberOfDaysWorked + amountWorked
+                        staffCadetAttandance[record.pilot] = newNumberOfDaysWorked
+                    }
+                        
+                    else
+                    {
+                        staffCadetAttandance[record.pilot] = amountWorked
                 }
                 
-            case "COATS":
-                COATSstats.daysWorked += record.sessionType.rawValue
+                case "COATS":
+                    COATSstats.daysWorked += record.sessionType.rawValue
                 
-            case "Civilian Instructor":
-                CIstats.daysWorked += record.sessionType.rawValue
+                case "Civilian Instructor":
+                    CIstats.daysWorked += record.sessionType.rawValue
                 
-            case "Volunteer":
-                volunteerStats.daysWorked += record.sessionType.rawValue
+                case "Volunteer":
+                    volunteerStats.daysWorked += record.sessionType.rawValue
                 
-            default:
-                break
+                default:
+                    break
             }
         }
         
@@ -2065,7 +2066,7 @@ final class ReportGenerator
         {
             report += "<big>\(unit.uppercased()) STAFF CADET ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         }
-        
+            
         else
         {
             report += "<big>STAFF CADET ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
@@ -2094,14 +2095,14 @@ final class ReportGenerator
         if siteSpecific
         {
             report += "<big>\(unit.uppercased()) STAFF UPGRADES \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
-
+            
         }
-        
+            
         else
         {
             report += "<big>STAFF UPGRADES \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         }
-
+        
         report += "</P>"
         report += "<table border='1'><br>"
         report += "<tr bgcolor='CCCCCC'><th>Upgrade</th><th>Name</th><th>Type of Participant</th><th>Site</th></tr>"
@@ -2112,7 +2113,7 @@ final class ReportGenerator
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [upgradeFetchRequestPredicate, sitePredicate])
         }
-        
+            
         else
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [upgradeFetchRequestPredicate])
@@ -2134,7 +2135,7 @@ final class ReportGenerator
                 compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [newPredicate])
             }
             upgradeFetchRequest.predicate = compoundPredicate
-
+            
             do{return try dataModel.managedObjectContext.fetch(upgradeFetchRequest)}
             catch{return [Pilot]()}
         }
@@ -2244,7 +2245,7 @@ final class ReportGenerator
         print("The time is spent \(Int(maintenancePercent)) percent for maintenance, \(Int(nationalPercent)) percent for national stats, \(Int(squadronPercent)) percent for squadron stats, and \(Int(personnelPercent)) percent for personnel stats.")
         print("The record loop uses \(Int(recordLoopPercent)) percent of the total time")
         
-        //MARK: Beginning of Aircraft Usage
+        //MARK: - Beginning of Aircraft Usage
         
         let vehicleFetchRequest = AircraftEntity.request
         var vehicles = try! dataModel.managedObjectContext.fetch(vehicleFetchRequest)
@@ -2259,13 +2260,13 @@ final class ReportGenerator
             private(set) var profFlights: Int = 0
             private(set) var upgradeFlights: Int = 0
             private(set) var studentFlights: Int = 0
-
+            
             private var transitMinutes: Double = 0
             private var familMinutes: Double = 0
             private var profMinutes: Double = 0
             private var upgradeMinutes: Double = 0
             private var studentMinutes: Double = 0
-
+            
             private(set) var transitHours: Decimal = 0
             private(set) var familHours: Decimal = 0
             private(set) var profHours: Decimal = 0
@@ -2286,29 +2287,29 @@ final class ReportGenerator
                     guard let sequence = GliderSequence(rawValue: flight.flightSequence) else {continue}
                     switch  sequence
                     {
-                    case .Famil:
-                        familFlights += 1
-                        familMinutes += Double(flight.flightLengthInMinutes)
+                        case .Famil:
+                            familFlights += 1
+                            familMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Transit:
-                        transitFlights += 1
-                        transitMinutes += Double(flight.flightLengthInMinutes)
+                        case .Transit:
+                            transitFlights += 1
+                            transitMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Proficiency:
-                        profFlights += 1
-                        profMinutes += Double(flight.flightLengthInMinutes)
+                        case .Proficiency:
+                            profFlights += 1
+                            profMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Upgrade:
-                        upgradeFlights += 1
-                        upgradeMinutes += Double(flight.flightLengthInMinutes)
+                        case .Upgrade:
+                            upgradeFlights += 1
+                            upgradeMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .StudentTrg:
-                        studentFlights += 1
-                        studentMinutes += Double(flight.flightLengthInMinutes)
+                        case .StudentTrg:
+                            studentFlights += 1
+                            studentMinutes += Double(flight.flightLengthInMinutes)
                         
-                    default:
-                        profFlights += 1
-                        profMinutes += Double(flight.flightLengthInMinutes)
+                        default:
+                            profFlights += 1
+                            profMinutes += Double(flight.flightLengthInMinutes)
                     }
                 }
                 
@@ -2346,7 +2347,7 @@ final class ReportGenerator
             private var towCourseMinutes: Double = 0
             private var upgradeMinutes: Double = 0
             private var maintenanceMinutes: Double = 0
-
+            
             private(set) var towingHours: Decimal = 0
             private(set) var transitHours: Decimal = 0
             private(set) var familHours: Decimal = 0
@@ -2368,27 +2369,27 @@ final class ReportGenerator
                     guard let sequence = TowplaneSequence(rawValue: flight.flightSequence) else {continue}
                     switch  sequence
                     {
-                    case .FamPRWx:
-                        familFlights += 1
-                        familMinutes += Double(flight.flightLengthInMinutes)
+                        case .FamPRWx:
+                            familFlights += 1
+                            familMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Transit:
-                        transitMinutes += Double(flight.flightLengthInMinutes)
+                        case .Transit:
+                            transitMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Proficiency:
-                        profMinutes += Double(flight.flightLengthInMinutes)
+                        case .Proficiency:
+                            profMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Upgrade:
-                        upgradeMinutes += Double(flight.flightLengthInMinutes)
+                        case .Upgrade:
+                            upgradeMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .Towing:
-                        towingMinutes += Double(flight.flightLengthInMinutes)
+                        case .Towing:
+                            towingMinutes += Double(flight.flightLengthInMinutes)
                         
-                    case .TowCourse:
-                        towCourseMinutes += Double(flight.flightLengthInMinutes)
-                      
-                    case .Maintenance:
-                        maintenanceMinutes += Double(flight.flightLengthInMinutes)
+                        case .TowCourse:
+                            towCourseMinutes += Double(flight.flightLengthInMinutes)
+                        
+                        case .Maintenance:
+                            maintenanceMinutes += Double(flight.flightLengthInMinutes)
                     }
                 }
                 
@@ -2414,7 +2415,7 @@ final class ReportGenerator
                 
                 maintenanceHours = Decimal(maintenanceMinutes/60)
                 maintenanceHours = (maintenanceHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-
+                
                 totalHours = familHours + transitHours + profHours + upgradeHours + towingHours + towCourseHours + maintenanceHours
             }
         }
@@ -2450,21 +2451,20 @@ final class ReportGenerator
         {
             switch vehicle.type
             {
-            case .glider:
-                gliders.append(GliderData(glider: vehicle, startDate: startDate, endDate: endDate))
+                case .glider:
+                    gliders.append(GliderData(glider: vehicle, startDate: startDate, endDate: endDate))
                 
-            case .towplane:
-                towplanes.append(TowplaneData(towplane: vehicle, startDate: startDate, endDate: endDate))
+                case .towplane:
+                    towplanes.append(TowplaneData(towplane: vehicle, startDate: startDate, endDate: endDate))
                 
-            case .winch:
-                winches.append(WinchData(winch: vehicle, startDate: startDate, endDate: endDate))
+                case .winch:
+                    winches.append(WinchData(winch: vehicle, startDate: startDate, endDate: endDate))
                 
-            default:
-                break
+                default:
+                    break
             }
         }
         
-        report += "</table>"
         report += "<P CLASS='pagebreakhere'>"
         report += "</P>"
         report += "<big>GLIDER USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
@@ -2533,27 +2533,27 @@ final class ReportGenerator
             report += "<P CLASS='pagebreakhere'>"
             report += "</P>"
             report += "<big>ACTIVE STAFF CONTACT INFO</big><br>"
-
+            
             let pilotRequest = Pilot.request
             pilotRequest.predicate = NSPredicate(format: "inactive == NO AND glidingCentre == %@ AND (highestGliderQual > 0 OR highestScoutQual > 0)", dataModel.glidingCentre)
             let nameSortDescriptor = NSSortDescriptor(key: #keyPath(Pilot.fullName), ascending: true)
             pilotRequest.sortDescriptors = [nameSortDescriptor]
             let pilots = try! dataModel.managedObjectContext.fetch(pilotRequest)
-
+            
             for pilot in pilots
             {
                 guard pilot.email.count > 0 else{continue}
                 report += pilot.email
                 report += ", "
             }
-
+            
         }
         
         report += "</body></html>"
         
         return report
     }
-
+    
     // TODO: Modify this function to be able to generate both a HTML (for PDF) and an Excel file.
     func generateTimesheetsForDate(_ date: Date, _ includeChangeLog: Bool = false) -> String
     {
@@ -2581,7 +2581,7 @@ final class ReportGenerator
         var scoutSequenceFlights = [String: [String: Int]]()
         var gliderSequenceHours = [String: [String: Int]]()
         var gliderSequenceFlights = [String: [String: Int]]()
-
+        
         var winchTimesheets = [AircraftTimesheet]()
         var autoTimesheets = [AircraftTimesheet]()
         
@@ -2589,19 +2589,19 @@ final class ReportGenerator
         {
             var currentAircraftSequenceHours = [String: Int]()
             var currentAircraftSequenceFlights = [String: Int]()
-
+            
             switch timesheet.aircraft.type
             {
-            case .winch:
-                winchTimesheets.append(timesheet)
-                continue
+                case .winch:
+                    winchTimesheets.append(timesheet)
+                    continue
                 
-            case .auto:
-                autoTimesheets.append(timesheet)
-                continue
-
-            default:
-                break
+                case .auto:
+                    autoTimesheets.append(timesheet)
+                    continue
+                
+                default:
+                    break
             }
             
             let records = Array(timesheet.flightRecords).sorted {$0.timeUp < $1.timeUp}
@@ -2654,7 +2654,7 @@ final class ReportGenerator
                     {
                         addTableCellToHTMLcode(&HTML, withText: "✓")
                     }
-                    
+                        
                     else
                     {
                         addTableCellToHTMLcode(&HTML)
@@ -2668,7 +2668,7 @@ final class ReportGenerator
                     {
                         addTableCellToHTMLcode(&HTML, withText: "✓")
                     }
-                    
+                        
                     else
                     {
                         addTableCellToHTMLcode(&HTML)
@@ -2729,7 +2729,7 @@ final class ReportGenerator
                     let currentFlightTime = Int(recordBeingExamined.flightLengthInMinutes)
                     currentAircraftSequenceHours[recordBeingExamined.flightSequence] = previousHours + currentFlightTime
                 }
-                
+                    
                 else
                 {
                     currentAircraftSequenceHours[recordBeingExamined.flightSequence] = Int(recordBeingExamined.flightLengthInMinutes)
@@ -2786,7 +2786,7 @@ final class ReportGenerator
             if includeChangeLog
             {
                 addChangeLogTableToString(&HTML)
-
+                
                 let logComponents = timesheet.history.components(separatedBy: "*****")
                 
                 if logComponents.count < 5
@@ -2795,7 +2795,7 @@ final class ReportGenerator
                     HTML += "<td colspan='5'>No changes recorded after the original date of entry.</td>"
                     endHTMLtableRow(&HTML)
                 }
-                
+                    
                 else
                 {
                     struct editInfo
@@ -2833,7 +2833,7 @@ final class ReportGenerator
                         entryComponents.append(logComponents[i+4])
                         edits.append(editInfo(data: entryComponents))
                     }
-
+                    
                     for edit in edits
                     {
                         beginHTMLtableRow(&HTML)
@@ -3134,38 +3134,38 @@ final class ReportGenerator
             let closestDecimal: Int
             switch modulus
             {
-            case 0..<3:
-                closestDecimal = 0
+                case 0..<3:
+                    closestDecimal = 0
                 
-            case 3..<9:
-                closestDecimal = 6
+                case 3..<9:
+                    closestDecimal = 6
                 
-            case 9..<15:
-                closestDecimal = 12
+                case 9..<15:
+                    closestDecimal = 12
                 
-            case 15..<21:
-                closestDecimal = 18
-
-            case 21..<27:
-                closestDecimal = 24
-
-            case 27..<33:
-                closestDecimal = 30
-
-            case 33..<39:
-                closestDecimal = 36
-
-            case 39..<45:
-                closestDecimal = 42
-
-            case 45..<51:
-                closestDecimal = 48
-
-            case 51..<57:
-                closestDecimal = 54
-
-            default:
-                closestDecimal = 60
+                case 15..<21:
+                    closestDecimal = 18
+                
+                case 21..<27:
+                    closestDecimal = 24
+                
+                case 27..<33:
+                    closestDecimal = 30
+                
+                case 33..<39:
+                    closestDecimal = 36
+                
+                case 39..<45:
+                    closestDecimal = 42
+                
+                case 45..<51:
+                    closestDecimal = 48
+                
+                case 51..<57:
+                    closestDecimal = 54
+                
+                default:
+                    closestDecimal = 60
             }
             
             let adjustment = closestDecimal - modulus
@@ -3183,7 +3183,7 @@ final class ReportGenerator
         {
             var totalMinutes = 0
             var sumOfSequences = 0
-
+            
             for (sequence, minutes) in aircraftData
             {
                 if (sequence == "TTSNstart") || (sequence == "TTSNend")
@@ -3289,12 +3289,12 @@ final class ReportGenerator
         
         greyRow = !greyRow
     }
-
+    
     func startHTMLtableRow(_ HTMLCode: inout String)
     {
         HTMLCode += "<tr>"
     }
-
+    
     /// Ends a HTML table row
     ///
     /// - parameter HTMLCode: The HTML text to append the row ending to.
@@ -3310,14 +3310,14 @@ final class ReportGenerator
         
         switch (towplaneOrGlider, includeChangeLog)
         {
-        case (.glider, false):
-            HTMLtext += "<tr bgcolor='CCCCCC'><th>Pilot</th><th>Inst<br>Auth</th><th>Student /<Br>Passenger</th><th>Student<br>Ack</th><th>Time<Br>Up</th><th>Time<Br>Down</th><th>Air <Br>Time</th><th>Sequence</th><th>Launch<br>Vehicle</th></th></tr>"
-        case (_, false):
-            HTMLtext += "<tr bgcolor='CCCCCC'><th>Pilot</th><th>Student /<Br>Passenger</th><th>Time Up</th><th>Time Down</th><th>Air Time</th><th>Sequence</th><th>Glider<br>Towed</th></th></tr>"
-        case (.glider, true):
-            HTMLtext += "<tr bgcolor='CCCCCC'><th>Record<br>ID</th><th>Pilot</th><th>Inst<br>Auth</th><th>Student /<Br>Passenger</th><th>Student<br>Ack</th><th>Time<Br>Up</th><th>Time<Br>Down</th><th>Air <Br>Time</th><th>Sequence</th><th>Launch<br>Vehicle</th></th></tr>"
-        case (_, true):
-            HTMLtext += "<tr bgcolor='CCCCCC'><th>Record<br>ID</th><th>Pilot</th><th>Student /<Br>Passenger</th><th>Time Up</th><th>Time Down</th><th>Air Time</th><th>Sequence</th><th>Glider<br>Towed</th></th></tr>"
+            case (.glider, false):
+                HTMLtext += "<tr bgcolor='CCCCCC'><th>Pilot</th><th>Inst<br>Auth</th><th>Student /<Br>Passenger</th><th>Student<br>Ack</th><th>Time<Br>Up</th><th>Time<Br>Down</th><th>Air <Br>Time</th><th>Sequence</th><th>Launch<br>Vehicle</th></th></tr>"
+            case (_, false):
+                HTMLtext += "<tr bgcolor='CCCCCC'><th>Pilot</th><th>Student /<Br>Passenger</th><th>Time Up</th><th>Time Down</th><th>Air Time</th><th>Sequence</th><th>Glider<br>Towed</th></th></tr>"
+            case (.glider, true):
+                HTMLtext += "<tr bgcolor='CCCCCC'><th>Record<br>ID</th><th>Pilot</th><th>Inst<br>Auth</th><th>Student /<Br>Passenger</th><th>Student<br>Ack</th><th>Time<Br>Up</th><th>Time<Br>Down</th><th>Air <Br>Time</th><th>Sequence</th><th>Launch<br>Vehicle</th></th></tr>"
+            case (_, true):
+                HTMLtext += "<tr bgcolor='CCCCCC'><th>Record<br>ID</th><th>Pilot</th><th>Student /<Br>Passenger</th><th>Time Up</th><th>Time Down</th><th>Air Time</th><th>Sequence</th><th>Glider<br>Towed</th></th></tr>"
         }
     }
     
@@ -3332,16 +3332,16 @@ final class ReportGenerator
     {
         switch color
         {
-        case .red:
-            HTMLCode += RED_CELL_COLOR
-        case .yellow:
-            HTMLCode += YELLOW_CELL_COLOR
-        case .green:
-            HTMLCode += GREEN_CELL_COLOR
-        case .black:
-            HTMLCode += BLACK_CELL_COLOR
-        default:
-            HTMLCode += "<td>"
+            case .red:
+                HTMLCode += RED_CELL_COLOR
+            case .yellow:
+                HTMLCode += YELLOW_CELL_COLOR
+            case .green:
+                HTMLCode += GREEN_CELL_COLOR
+            case .black:
+                HTMLCode += BLACK_CELL_COLOR
+            default:
+                HTMLCode += "<td>"
         }
         
         if newCellText == nil
@@ -3363,13 +3363,13 @@ final class ReportGenerator
         return cell + "</th>"
     }
     
-//    func tableRow(header: Bool = false, _ rowTextGenerator: @noescape () -> String) -> String
-//    {
-//        var row = header ? "<tr bgcolor='CCCCCC'>" : "<tr>"
-//        row += rowTextGenerator()
-//        
-//        return row + "</tr>"
-//    }
+    //    func tableRow(header: Bool = false, _ rowTextGenerator: @noescape () -> String) -> String
+    //    {
+    //        var row = header ? "<tr bgcolor='CCCCCC'>" : "<tr>"
+    //        row += rowTextGenerator()
+    //
+    //        return row + "</tr>"
+    //    }
     
     func tableCell(text newCellText: String? = nil, textColor: TableCellColor = .defaultColor) -> String
     {
@@ -3377,16 +3377,16 @@ final class ReportGenerator
         
         switch textColor
         {
-        case .red:
-            cell += RED_CELL_COLOR
-        case .yellow:
-            cell += YELLOW_CELL_COLOR
-        case .green:
-            cell += GREEN_CELL_COLOR
-        case .black:
-            cell += BLACK_CELL_COLOR
-        default:
-            cell += "<td>"
+            case .red:
+                cell += RED_CELL_COLOR
+            case .yellow:
+                cell += YELLOW_CELL_COLOR
+            case .green:
+                cell += GREEN_CELL_COLOR
+            case .black:
+                cell += BLACK_CELL_COLOR
+            default:
+                cell += "<td>"
         }
         
         if newCellText == nil

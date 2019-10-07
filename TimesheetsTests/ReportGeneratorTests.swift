@@ -61,13 +61,13 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         
         if staffCadetPilot == nil
         {
-            staffCadetPilot = createPilot(name: "Glider Pilot", typeOfParticipant: "Staff Cadet")
+            staffCadetPilot = createStaffCadet(name: "Glider Pilot")
             dataModel.createAttendanceRecordForPerson(staffCadetPilot)
         }
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        context.rollback()
     }
     
     // MARK: - Exploratory tests
@@ -130,7 +130,9 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     // MARK: - Helper functions for StatsReportFromDate
     // TODO: Never never forget to have some fun on the road to improvement!
     
-    fileprivate func createPilot(name: String, typeOfParticipant: String, withBirthDay birthday : Date = Calendar.current.date(byAdding: DateComponents(year: -20), to: Date())!) -> Pilot
+    fileprivate func createPilot(name: String,
+                                 typeOfParticipant: String,
+                                 withBirthDay birthday : Date = Calendar.current.date(byAdding: DateComponents(year: -20), to: Date())!) -> Pilot
     {
         let pilot = Pilot(context: context)
         pilot.name = name
@@ -141,6 +143,15 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         pilot.aniversaryOfTowAPC = Date().advanced(by: -10)
         pilot.aniversaryOfGliderAPC = Date().advanced(by: -10)
         pilot.birthday = birthday
+        return pilot
+    }
+    
+    fileprivate func createStaffCadet(name: String,
+                                      withBirthDay birthday : Date = Calendar.current.date(byAdding: DateComponents(year: -17), to: Date())!,
+                                      squadron : Int16 = 123) -> Pilot
+    {
+        let pilot = createPilot(name: name, typeOfParticipant: "Staff Cadet", withBirthDay: birthday)
+        pilot.squadron = squadron
         return pilot
     }
     
@@ -213,6 +224,15 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         return aircraft
     }
     
+    fileprivate func createMaintenance(for aircraft: AircraftEntity, on date: Date, withComment comment: String) -> MaintenanceEvent
+    {
+        let event = MaintenanceEvent(context: context)
+        event.aircraft = aircraft
+        event.date = date
+        event.comment = comment
+        return event
+    }
+
     /**
      This method attach the `data` as an html file to the current test.
      */
@@ -286,7 +306,11 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         aircraft.updateTTSN()
         
         // FIXME: total of 460 minutes in 7 flights... only 6 flights are totalized, but all the minutes are there....
+        
         let glider = createGlider(registration: "Glider", tailNumber: "333")
+        let maintenanceEvent = createMaintenance(for: glider,
+                          on: Calendar.current.date(byAdding: Calendar.Component.month, value: -1, to: Date())!,
+                          withComment: "Maintenance pour \"\(glider.registrationWithTailNumberInBrackets)\".")
         let gliderTakeOffDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-4), to: Date())!
         let gliderTimesheet = createTimesheet(glider, gliderTakeOffDate)
         let towTimesheet = createTimesheet(aircraft, gliderTakeOffDate)
@@ -294,7 +318,9 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         aircraft.updateTTSN()
         createGliderFlight(glider, gliderTimesheet, startingOn: gliderTakeOffDate, forMinutes: 40, sequence: .StudentTrg, withPilot: staffCadetPilot)
         glider.updateTTSN()
-        
+
+        // FIXME: total of 480 minutes in 8 flights... only 7 flights are totalized, but all the minutes are there....
+
         
         // When
         let reportDate = Date()
@@ -307,11 +333,13 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         
         XCTAssertFalse(result.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
         XCTAssertFalse(result.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
+        XCTAssertFalse(result.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
         XCTAssert(result.contains("\(aircraft.registrationWithTailNumberInBrackets)</td>"),
                   "Plane \" \(aircraft.registrationWithTailNumberInBrackets)\" missing from the table.")
         XCTAssertTrue(result.contains("<td>\(lastFlightDate.militaryFormatShort)</td>"),
                       "Line for date \(lastFlightDate.militaryFormatShort) missing from the table.")
         AssertMatch(result, pattern: "<td>\(lastFlightDate.militaryFormatShort)</td><td>(.+?)</td>", expectedValue: "5.0")
+        XCTAssertTrue(result.contains(maintenanceEvent.comment), "Oops... maintenance comment not found.")
     }
     
     
