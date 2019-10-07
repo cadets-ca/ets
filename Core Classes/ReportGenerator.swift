@@ -922,68 +922,11 @@ final class ReportGenerator
         return report
     }
     
-    // TODO: Modify this function to be able to generate both a HTML (for PDF) and an Excel file.
-    func statsReportFromDate(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String
+    func generateMaintenanceReport(glidingCentre GC : GlidingCentre, siteSpecific : Bool) -> String
     {
-        //Heading and number of glider flights
-        guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return ""}
-        let START = Date()
-        
-        var report = "<html><head><STYLE TYPE='text/css'>P.pagebreakhere {page-break-before: always}</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>Stats Report</title></head><body>"
-        
-        let beginningOfReport = startDate
-        let now = Date()
-        let secondsInFiveDays = -5*24*60*60
-        let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
-        let secondsInTwelveDays = -12*24*60*60
-        let twelveDaysAgo = Date(timeInterval: Double(secondsInTwelveDays), since: now).startOfDay
-        
-        let gliderFlightsLastFiveDaysrequest = FlightRecord.request
-        let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timesheet.aircraft.gliderOrTowplane)) == 1", argumentArray: [fiveDaysAgo])
-        var compoundPredicate: NSCompoundPredicate
-        
-        if siteSpecific
-        {
-            let siteSpecificPredicate = NSPredicate(format: "timesheet.glidingCentre == %@", argumentArray: [GC])
-            compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [gliderFlightsLastFiveDaysPredicate, siteSpecificPredicate])
-        }
-            
-        else
-        {
-            compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [gliderFlightsLastFiveDaysPredicate])
-        }
-        
-        gliderFlightsLastFiveDaysrequest.predicate = compoundPredicate
-        let numberOfGliderFlightsInLastFiveDays: Int
-        do {try numberOfGliderFlightsInLastFiveDays = dataModel.managedObjectContext.count(for: gliderFlightsLastFiveDaysrequest)}
-        catch {numberOfGliderFlightsInLastFiveDays = 0}
-        
-        if siteSpecific
-        {
-            report += "<big>\(unit.uppercased()) STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
-        }
-            
-        else
-        {
-            report += "<big>REGIONAL STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
-        }
-        
-        report += "<br>"
-        
-        if siteSpecific
-        {
-            report += "<b>\(unit!) glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)</b>"
-        }
-            
-        else
-        {
-            report += "<b>Glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)</b>"
-        }
-        
-        report += "<br><br>"
-        
-        // MARK: - Maintenance portion of report
-        report += "<big>MAINTENANCE REPORT</big><br>"
+        let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: Date())!.startOfDay
+
+        var report = "<big>MAINTENANCE REPORT</big><br>"
         
         let allVehicleRequest = AircraftEntity.request
         let allAircraft: [AircraftEntity]
@@ -1064,14 +1007,12 @@ final class ReportGenerator
         for i in -6...0
         {
             comps.day = i
-            let date = gregorian.date(byAdding: comps, to:now.startOfDay) ?? Date()
+            let date = Calendar.current.date(byAdding: comps, to:Date())!.startOfDay
             last7Days.append(date)
         }
         
         for aircraft in aircraftOrderedByTailNumber
         {
-            guard let mostRecentTimesheet = aircraft.currentTimesheet else {return ""}
-            let TTSN = mostRecentTimesheet.TTSNfinal.stringWithDecimal
             let TTNI = aircraft.TTNI.stringWithDecimal
             report += "<tr>"
             
@@ -1151,7 +1092,9 @@ final class ReportGenerator
                     
                     for flightRecord in timesheet.flightRecords
                     {
-                        if aircraft.type == .glider, let launcherType = flightRecord.connectedAircraftRecord?.timesheet.aircraft.type, launcherType < .towplane
+                        if aircraft.type == .glider,
+                            let launcherType = flightRecord.connectedAircraftRecord?.timesheet.aircraft.type,
+                            launcherType < .towplane
                         {
                             groundLaunches += 1
                         }
@@ -1192,6 +1135,71 @@ final class ReportGenerator
             report += "</table>"
         }
         
+        return report
+    }
+    
+    // TODO: Modify this function to be able to generate both a HTML (for PDF) and an Excel file.
+    func statsReportFromDate(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String
+    {
+        //Heading and number of glider flights
+        guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return ""}
+        let START = Date()
+        
+        var report = "<html><head><STYLE TYPE='text/css'>P.pagebreakhere {page-break-before: always}</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>Stats Report</title></head><body>"
+        
+        let beginningOfReport = startDate
+        let now = Date()
+        let secondsInFiveDays = -5*24*60*60
+        let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
+        let secondsInTwelveDays = -12*24*60*60
+        let twelveDaysAgo = Date(timeInterval: Double(secondsInTwelveDays), since: now).startOfDay
+        
+        let gliderFlightsLastFiveDaysrequest = FlightRecord.request
+        let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timesheet.aircraft.gliderOrTowplane)) == 1", argumentArray: [fiveDaysAgo])
+        var compoundPredicate: NSCompoundPredicate
+        
+        if siteSpecific
+        {
+            let siteSpecificPredicate = NSPredicate(format: "timesheet.glidingCentre == %@", argumentArray: [GC])
+            compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [gliderFlightsLastFiveDaysPredicate, siteSpecificPredicate])
+        }
+            
+        else
+        {
+            compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [gliderFlightsLastFiveDaysPredicate])
+        }
+        
+        gliderFlightsLastFiveDaysrequest.predicate = compoundPredicate
+        let numberOfGliderFlightsInLastFiveDays: Int
+        do {try numberOfGliderFlightsInLastFiveDays = dataModel.managedObjectContext.count(for: gliderFlightsLastFiveDaysrequest)}
+        catch {numberOfGliderFlightsInLastFiveDays = 0}
+        
+        if siteSpecific
+        {
+            report += "<big>\(unit.uppercased()) STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+        }
+            
+        else
+        {
+            report += "<big>REGIONAL STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+        }
+        
+        report += "<br>"
+        
+        if siteSpecific
+        {
+            report += "<b>\(unit!) glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)</b>"
+        }
+            
+        else
+        {
+            report += "<b>Glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)</b>"
+        }
+        
+        report += "<br><br>"
+        
+        // MARK: - Maintenance portion of report
+        report += generateMaintenanceReport(glidingCentre: GC, siteSpecific: siteSpecific)
         let MAINTENANCECOMPLETED = Date()
         // MARK: End Of Maintenance Section
         
