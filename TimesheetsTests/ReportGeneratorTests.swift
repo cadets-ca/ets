@@ -9,17 +9,15 @@ import XCTest
 import CoreData
 @testable import Timesheets
 
-/// This test class will be used to compare actual output for report to new output. The major goal is to refactor report generation to allow testing and separate
-/// reporting, data extract, and sharing of reporting results
-class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
-    func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF) {
-        print("File saved.")
-    }
-    
-    func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF) {
-        print("File NOT saved.")
-    }
-    
+/**
+ This test class will be used to compare actual output for report to new output.
+ 
+ The major goal is to refactor report generation to allow testing and separate reporting, data extract, and sharing of reporting results.
+ 
+ There is a ManagedObjectContext that is rollbacked after each test. This ensure that we start fresh with each new test.
+ */
+class ReportGeneratorTests: XCTestCase
+{
     let centerName = "Test"
     
     var context: NSManagedObjectContext!
@@ -27,6 +25,7 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     var pilotJoBlack: Pilot!
     var pilotJohnDo: Pilot!
     var staffCadetPilot: Pilot!
+    var cadet: Pilot!
     
     override func setUp()
     {
@@ -36,34 +35,22 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         
         context = dataModel.managedObjectContext
         
-        let request = GlidingCentre.request
-        request.predicate = NSPredicate(format: "name = %@", centerName)
-        if let centers = try? context.fetch(request), centers.count > 0 {
-            center = centers.first
-        } else {
-            center = GlidingCentre(context: context)
-            center.name = "Test"
-        }
+        center = GlidingCentre(context: context)
+        center.name = "Test"
+
         dataModel.glidingCentre = center
-        dataModel.previousRecordsGlidingCentre = center
-        dataModel.regionName = "NORTH"
+        dataModel.previousRecordsGlidingCentre = center // -TODO: need to confirm if that need to be set.
         
-        if pilotJoBlack == nil
-        {
-            pilotJoBlack = createPilot(name: "Jo Black", typeOfParticipant: "COATS")
-            dataModel.createAttendanceRecordForPerson(pilotJoBlack)
-        }
+        pilotJoBlack = createPilot(name: "Jo Black", typeOfParticipant: "COATS")
+        dataModel.createAttendanceRecordForPerson(pilotJoBlack)
+
+        pilotJohnDo = createPilot(name: "John Do", typeOfParticipant: "COATS")
+
+        staffCadetPilot = createStaffCadet(name: "Glider Pilot")
+        dataModel.createAttendanceRecordForPerson(staffCadetPilot)
         
-        if pilotJohnDo == nil
-        {
-            pilotJohnDo = createPilot(name: "John Do", typeOfParticipant: "COATS")
-        }
-        
-        if staffCadetPilot == nil
-        {
-            staffCadetPilot = createStaffCadet(name: "Glider Pilot")
-            dataModel.createAttendanceRecordForPerson(staffCadetPilot)
-        }
+        cadet = createCadet(name: "A Cadet")
+        dataModel.createAttendanceRecordForPerson(cadet)
     }
 
     override func tearDown() {
@@ -71,7 +58,8 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     }
     
     // MARK: - Exploratory tests
-    func testCoreDataDelete() throws {
+    func testCoreDataDelete() throws
+    {
         // Arrange
         let centerNameToDelete = "CenterToDelete"
         let centerToDelete = GlidingCentre(context: context)
@@ -79,29 +67,34 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         
         let request = GlidingCentre.request
         request.predicate = NSPredicate(format: "name = %@", centerNameToDelete)
-        guard let centers = try? context.fetch(request) else {
+        guard let centers = try? context.fetch(request) else
+        {
             XCTFail("I just created a gliding center named \(centerNameToDelete), it sould be there.")
             return
         }
         
         // Act
         print("Number of \(centerNameToDelete) centers found: \(centers.count).")
-        for center in centers {
+        for center in centers
+        {
             context.delete(center)
         }
         
         // Assert
         guard let centersAfterDelete = try? context.fetch(request),
-            centersAfterDelete.count == 0 else {
+            centersAfterDelete.count == 0 else
+        {
                 XCTFail("There should be no more \(centerNameToDelete) gliding centre; I deleted them all.")
                 return
         }
     }
     
     /// This test doesn't contain any assert section. It was meant to show what was the typeOfParticipant present in the database (what is the possible values).
-    func testTypeOfParticipant() {
+    func testTypeOfParticipant()
+    {
         let request = Pilot.request
-        guard let result = try? context.fetch(request) else {
+        guard let result = try? context.fetch(request) else
+        {
             XCTFail("The request to obtain unique typeOfParticipant failed.")
             return
         }
@@ -109,7 +102,8 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         var distinctResult : [String: Int] = [:]
         result.forEach { distinctResult[$0.typeOfParticipant, default: 0] += 1 }
         print("Number of distinct value is \(distinctResult.count)")
-        for value in distinctResult {
+        for value in distinctResult
+        {
             print("typeOfParticipant \(value)")
         }
         
@@ -119,8 +113,8 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     
     // MARK: - Tests for createAttendanceRecordForPerson
     // TODO: Move this section into its own test file.
-    func testCreateAttendanceRecordForPersonSigninPilot() {
-        
+    func testCreateAttendanceRecordForPersonSigninPilot()
+    {
         print("Pilot is signed in? \(pilotJohnDo.signedIn)")
         dataModel.createAttendanceRecordForPerson(pilotJohnDo)
         
@@ -129,7 +123,6 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     
     // MARK: - Helper functions for StatsReportFromDate
     // TODO: Never never forget to have some fun on the road to improvement!
-    
     fileprivate func createPilot(name: String,
                                  typeOfParticipant: String,
                                  withBirthDay birthday : Date = Calendar.current.date(byAdding: DateComponents(year: -20), to: Date())!) -> Pilot
@@ -155,7 +148,17 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         return pilot
     }
     
-    fileprivate func createFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: TowplaneSequence = .TowCourse, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil) -> FlightRecord {
+    fileprivate func createCadet(name: String,
+                                 withBirthDay birthday : Date = Calendar.current.date(byAdding: DateComponents(year: -15), to: Date())!,
+                                 squadron : Int16 = 123) -> Pilot
+    {
+        let pilot = createPilot(name: name, typeOfParticipant: "cadet", withBirthDay: birthday)
+        pilot.squadron = squadron
+        return pilot
+    }
+
+    fileprivate func createFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: TowplaneSequence = .TowCourse, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil) -> FlightRecord
+    {
         let flight = FlightRecord(context: context)
         flight.aircraft = aircraft
         flight.timesheet = timesheet
@@ -168,7 +171,8 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         return flight
     }
 
-    fileprivate func createGliderFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: GliderSequence = .StudentTrg, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil, towByFlight towFlight : FlightRecord? = nil) {
+    fileprivate func createGliderFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: GliderSequence = .StudentTrg, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil, towByFlight towFlight : FlightRecord? = nil)
+    {
         let flight = FlightRecord(context: context)
         flight.aircraft = aircraft
         flight.timesheet = timesheet
@@ -269,7 +273,8 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
     }
     
     // MARK: - StatsReportFromDate
-    func testStatsReportFromDateIsHTML() {
+    func testStatsReportFromDateIsHTML()
+    {
         let generator = ReportGenerator()
         
         let forDate = Date()
@@ -280,7 +285,8 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
         XCTAssertTrue(result.contains(forDate.militaryFormatShort.uppercased()), "Date \(forDate.militaryFormatShort.uppercased()) not found in content")
     }
     
-    func testStatsReportFromDateForCenter() {
+    func testStatsReportFromDateForCenter()
+    {
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name // FIXME: Find out why need to do both: set the generator unit AND pass the parameter siteSpecific=true
         let forDate = Date()
@@ -300,8 +306,11 @@ class ReportGeneratorTests: XCTestCase, NDHTMLtoPDFDelegate {
      This might not be possible though. We'll see. If that become too big, I whish to have what it takes to split it into smaller tests...;-)
      
      Better brace yourself!
+     
+     - TODO: Once all tests implemented in that method, we might think of spliting it. Should not be that hard.
      */
-    func testStatsReportFromDateIncludeAircraftInReport() {
+    func testStatsReportFromDateIncludeAircraftInReport()
+    {
         // Given
         dataModel.createAttendanceRecordForPerson(pilotJohnDo)
 

@@ -1138,7 +1138,32 @@ final class ReportGenerator
         return report
     }
     
-    // TODO: Modify this function to be able to generate both a HTML (for PDF) and an Excel file.
+    /**
+     This is the new version of the statsReportFromDate.
+     
+     This version uses a class that implement the StatsReport protocol, whose responsibility is the structure the
+     report according to the format of the file. The goal is to keep in the method only what belongs to the gathering of the data.
+     
+     The first part will be to extract the report variable into the HtmlStatsReport, replacing each reference to the report variable
+     by a call to a method of the StatsReport protocol.
+     
+     The start and end of the HTML file will only appear in the "getResult" method called only at the end.
+     
+     I envision a addSection(text) which, in the case of HTML report, will insert a heading (<big>) with the text passed. We can also think of a addEmptyRow to create spacing.
+     
+     Other methods will be created keeping in mind that the at the end, we want to replace the HTML report by an Excel report.
+     
+     - Warning
+     
+     The problem to solve is that presently, the result is a String representing the HTML file (the text format) that will be tranformed into a PDF file (the binary format) using some utility class that
+     depends on some kind of UI API. But the goal is to be able to have it generate an Excel spreadsheet. Which is already our binary format (in fact it is still text format - XML - but need no
+     other transformation).
+     */
+    func statsReportFromDateWithReportGenerator(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String
+    {
+        return ""
+    }
+    
     func statsReportFromDate(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String
     {
         //Heading and number of glider flights
