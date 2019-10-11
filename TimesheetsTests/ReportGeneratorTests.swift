@@ -47,10 +47,10 @@ class ReportGeneratorTests: XCTestCase
 
         pilotJohnDo = createPilot(name: "John Do", typeOfParticipant: "COATS")
 
-        staffCadetPilot = createStaffCadet(name: "Glider Pilot")
+        staffCadetPilot = createStaffCadet(name: "Glider Pilot", squadron: 444)
         dataModel.createAttendanceRecordForPerson(staffCadetPilot)
         
-        cadet = createCadet(name: "A Cadet")
+        cadet = createCadet(name: "A Cadet", squadron: 999)
         dataModel.createAttendanceRecordForPerson(cadet)
 
         for _ in -4..<0
@@ -140,6 +140,8 @@ class ReportGeneratorTests: XCTestCase
     {
         let pilot = Pilot(context: context)
         pilot.name = name
+        pilot.firstName = name.components(separatedBy: " ")[0]
+        pilot.fullName = name
         pilot.typeOfParticipant = typeOfParticipant
         pilot.glidingCentre = dataModel.glidingCentre
         pilot.email = "\(pilot.name.replacingOccurrences(of: " ", with: ""))@hellkitchen.us"
