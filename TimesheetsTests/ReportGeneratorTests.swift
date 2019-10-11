@@ -29,7 +29,8 @@ class ReportGeneratorTests: XCTestCase
     
     override func setUp()
     {
-        dataModel.viewPreviousRecords = false
+        dataModel.viewPreviousRecords = true
+        dataModel.dateToViewRecords = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
         regularFormat = true
         dataModel.regionName = "South"
         
@@ -51,6 +52,16 @@ class ReportGeneratorTests: XCTestCase
         
         cadet = createCadet(name: "A Cadet")
         dataModel.createAttendanceRecordForPerson(cadet)
+
+        for _ in -4..<0
+        {
+            dataModel.dateToViewRecords += (60*60*24)
+            dataModel.createAttendanceRecordForPerson(pilotJoBlack)
+            dataModel.createAttendanceRecordForPerson(staffCadetPilot)
+            dataModel.createAttendanceRecordForPerson(cadet)
+        }
+        dataModel.viewPreviousRecords = false
+        dataModel.dateToViewRecords = Date().midnight + (-60*60*24)
     }
 
     override func tearDown() {
@@ -136,6 +147,8 @@ class ReportGeneratorTests: XCTestCase
         pilot.aniversaryOfTowAPC = Date().advanced(by: -10)
         pilot.aniversaryOfGliderAPC = Date().advanced(by: -10)
         pilot.birthday = birthday
+        pilot.inactive = false
+        pilot.highestGliderQual = 3
         return pilot
     }
     
@@ -390,10 +403,12 @@ class ReportGeneratorTests: XCTestCase
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name
         let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, true)
+        let result2 = generator.statsReportFromDateWithReportGenerator(reportDate - (5*24*60*60), toDate: reportDate, true)
         
         // Then
         saveResultAsHtml(data: result, name: "report-\(reportDate).html")
-        
+        saveResultAsHtml(data: result2, name: "report2-\(reportDate).html")
+
         XCTAssertFalse(result.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
         XCTAssertFalse(result.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
         XCTAssertFalse(result.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
