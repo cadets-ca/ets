@@ -25,6 +25,7 @@ class ReportGeneratorTests: XCTestCase
     var pilotJoBlack: Pilot!
     var pilotJohnDo: Pilot!
     var staffCadetPilot: Pilot!
+    var staffCadetPilot2: Pilot!
     var cadet: Pilot!
     
     override func setUp()
@@ -47,9 +48,12 @@ class ReportGeneratorTests: XCTestCase
 
         pilotJohnDo = createPilot(name: "John Do", typeOfParticipant: "COATS")
 
-        staffCadetPilot = createStaffCadet(name: "Glider Pilot", squadron: 444)
+        staffCadetPilot = createStaffCadet(name: "Glider Pilot 1", squadron: 444)
         dataModel.createAttendanceRecordForPerson(staffCadetPilot)
         
+        staffCadetPilot2 = createStaffCadet(name: "Glider Pilot 2", squadron: 618)
+        dataModel.createAttendanceRecordForPerson(staffCadetPilot2)
+
         cadet = createCadet(name: "A Cadet", squadron: 999)
         dataModel.createAttendanceRecordForPerson(cadet)
 
@@ -58,6 +62,7 @@ class ReportGeneratorTests: XCTestCase
             dataModel.dateToViewRecords += (60*60*24)
             dataModel.createAttendanceRecordForPerson(pilotJoBlack)
             dataModel.createAttendanceRecordForPerson(staffCadetPilot)
+            dataModel.createAttendanceRecordForPerson(staffCadetPilot2)
             dataModel.createAttendanceRecordForPerson(cadet)
         }
         dataModel.viewPreviousRecords = false
@@ -395,11 +400,19 @@ class ReportGeneratorTests: XCTestCase
         gliderLaunchWithWinch.updateTTSN()
 
         _ = createFlight(winchLauncher, winchLauncherTimesheet, startingOn: gliderTakeOffDate, forMinutes: 2, sequence: .TowCourse)
-        createGliderFlight(gliderLaunchWithWinch, gliderLaunchWithWinchTimesheet, startingOn: gliderTakeOffDate, forMinutes: 10, sequence: .Famil, withPilot: staffCadetPilot, towByFlight: winchLauncherFlight)
+        createGliderFlight(gliderLaunchWithWinch, gliderLaunchWithWinchTimesheet, startingOn: gliderTakeOffDate, forMinutes: 10, sequence: .Famil, withPilot: staffCadetPilot2, towByFlight: winchLauncherFlight)
 
         winchLauncher.updateTTSN()
         gliderLaunchWithWinch.updateTTSN()
 
+        // Upgrade
+        let staffUpgradeFrontSeat = createPilot(name: "Upgrade Pilot 1", typeOfParticipant: "COATS")
+        staffUpgradeFrontSeat.dateOfFrontSeatFamilPilot = Calendar.current.date(byAdding: .day, value: -2, to: Date())!
+        staffUpgradeFrontSeat.highestGliderQual = 3
+        let staffUpgradeRearSeat = createStaffCadet(name: "Upgrade Pilot 2",squadron: 613)
+        staffUpgradeRearSeat.dateOfRearSeatFamilPilot = Calendar.current.date(byAdding: .day, value: -3, to: Date())!
+        staffUpgradeRearSeat.highestGliderQual = 4
+        
         // When
         let reportDate = Date()
         let generator = ReportGenerator()

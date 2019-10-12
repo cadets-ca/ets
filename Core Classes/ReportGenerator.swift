@@ -2005,8 +2005,7 @@ final class ReportGenerator
                               ReportColumn(widthPixel : 60, title : "Number of Squadron Cadet Glider Fams"),
                               ReportColumn(widthPixel : 60, title : "Number of Glider Flights"),
                               ReportColumn(widthPixel : 60, title : "Number of Cadet Fam Flights in Tow A/C"),
-                              ReportColumn(title : "Comments")],
-                             withAlternatingRowColor : true)
+                              ReportColumn(title : "Comments")], withAlternatingRowColor : true)
 
         for date in arrayOfDatesFlownOrWithCadets
         {
@@ -2334,7 +2333,7 @@ final class ReportGenerator
         generator.startTable([ReportColumn(title : "Upgrade"),
                               ReportColumn(title : "Name"),
                               ReportColumn(title : "Type of Participant"),
-                              ReportColumn(title : "Site")])
+                              ReportColumn(title : "Site")], withAlternatingRowColor: true)
         
         let upgradeFetchRequest = Pilot.request
         var upgradeFetchRequestPredicate = NSPredicate(format: "dateOfFrontSeatFamilPilot > %@ AND dateOfFrontSeatFamilPilot < %@ AND highestGliderQual >2 ", argumentArray: [startDate, endDate])
@@ -2417,14 +2416,12 @@ final class ReportGenerator
         {
             for upgradedPilot in upgradedPilots
             {
-                generator.addTotalRow([ReportCell(value : name),
+                generator.addTableRow([ReportCell(value : name),
                                        ReportCell(value : upgradedPilot.fullName),
                                        ReportCell(value : upgradedPilot.typeOfParticipantStringWithSquadronForCadets),
                                        ReportCell(value : upgradedPilot.glidingCentre?.name ?? "")])
             }
         }
-        
-        greyRow = false
         
         addCellForUpgrade("Front Seat Fam", upgradedPilots: FSFupgrades)
         addCellForUpgrade("Rear Seat Fam", upgradedPilots: RSFupgrades)
