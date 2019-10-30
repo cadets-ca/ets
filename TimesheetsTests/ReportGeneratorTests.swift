@@ -21,7 +21,8 @@ class ReportGeneratorTests: XCTestCase
     let centerName = "Test"
     
     var context: NSManagedObjectContext!
-    var center: GlidingCentre!
+    var centre: GlidingCentre!
+    var anotherCenter : GlidingCentre!
     var pilotJoBlack: Pilot!
     var pilotJohnDo: Pilot!
     var staffCadetPilot: Pilot!
@@ -37,11 +38,14 @@ class ReportGeneratorTests: XCTestCase
         
         context = dataModel.managedObjectContext
         
-        center = GlidingCentre(context: context)
-        center.name = "Test"
+        centre = GlidingCentre(context: context)
+        centre.name = "Middle Island"
+        
+        anotherCenter = GlidingCentre( context: context)
+        anotherCenter.name = "Pelee Island"
 
-        dataModel.glidingCentre = center
-        dataModel.previousRecordsGlidingCentre = center // -TODO: need to confirm if that need to be set.
+        dataModel.glidingCentre = centre
+        dataModel.previousRecordsGlidingCentre = centre // -TODO: need to confirm if that need to be set.
         
         pilotJoBlack = createPilot(name: "Jo Black", typeOfParticipant: "COATS")
         dataModel.createAttendanceRecordForPerson(pilotJoBlack)
@@ -148,7 +152,7 @@ class ReportGeneratorTests: XCTestCase
         pilot.firstName = name.components(separatedBy: " ")[0]
         pilot.fullName = name
         pilot.typeOfParticipant = typeOfParticipant
-        pilot.glidingCentre = dataModel.glidingCentre
+        pilot.glidingCentre = centre
         pilot.email = "\(pilot.name.replacingOccurrences(of: " ", with: ""))@hellkitchen.us"
         pilot.address = "13 Anywhere"
         pilot.aniversaryOfTowAPC = Date().advanced(by: -10)
@@ -261,11 +265,11 @@ class ReportGeneratorTests: XCTestCase
         return aircraft
     }
     
-    fileprivate func createWinchTow() -> AircraftEntity
+    fileprivate func createWinchTow(registration : String, tailNumber : String) -> AircraftEntity
     {
         let aircraft = AircraftEntity(context: context)
-        aircraft.registration = "WINCH"
-        aircraft.tailNumber = "#1"
+        aircraft.registration = registration
+        aircraft.tailNumber = tailNumber
         aircraft.type = .winch
         aircraft.gliderOrTowplane = Int16(aircraft.type.rawValue)
         aircraft.glidingCentre = dataModel.glidingCentre
@@ -279,6 +283,17 @@ class ReportGeneratorTests: XCTestCase
         event.date = date
         event.comment = comment
         return event
+    }
+    
+    fileprivate func createLaunch(glider : AircraftEntity, launcher : AircraftEntity, takeOffDate : Date)
+    {
+        let gliderTimesheet = createTimesheet(glider, takeOffDate)
+        let launcherTimesheet = createTimesheet(launcher, takeOffDate)
+        let launcherFlight = createFlight(launcher, launcherTimesheet, startingOn: takeOffDate, forMinutes: 20, sequence: .TowCourse)
+        createGliderFlight(glider, gliderTimesheet, startingOn: takeOffDate, forMinutes: 20, sequence: .Famil, withPilot: staffCadetPilot, towByFlight: launcherFlight)
+        
+        launcher.updateTTSN()
+        glider.updateTTSN()
     }
 
     /**
@@ -334,29 +349,30 @@ class ReportGeneratorTests: XCTestCase
         // Given
         dataModel.createAttendanceRecordForPerson(pilotJohnDo)
 
-        let aircraft = createTowPlane(registration: "REG", tailNumber: "123")
-        
+        let towPlane1 = createTowPlane(registration: "REG#1", tailNumber: "123")
+        _ = createTowPlane(registration: "REG#2", tailNumber: "3")
+
         let lastFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-1), to: Date())!
-        var timesheet = createTimesheet(aircraft, lastFlightDate)
-        _ = createFlight(aircraft, timesheet, startingOn: lastFlightDate, forMinutes: 300)
+        var timesheet = createTimesheet(towPlane1, lastFlightDate)
+        _ = createFlight(towPlane1, timesheet, startingOn: lastFlightDate, forMinutes: 300)
         
-        aircraft.updateTTSN() // important to updateTTSN after each timesheet created with its flight. Otherwise the time is not adding up properly for the report...
+        towPlane1.updateTTSN() // important to updateTTSN after each timesheet created with its flight. Otherwise the time is not adding up properly for the report...
 
         let middleFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-2), to: Date())!
-        timesheet = createTimesheet(aircraft, middleFlightDate)
-        _ = createFlight(aircraft, timesheet, startingOn: middleFlightDate, forMinutes: 25, sequence: .Proficiency)
-        _ = createFlight(aircraft, timesheet, startingOn: middleFlightDate, forMinutes: 15, sequence: .Towing)
-        _ = createFlight(aircraft, timesheet, startingOn: middleFlightDate, forMinutes: 65, sequence: .Upgrade)
+        timesheet = createTimesheet(towPlane1, middleFlightDate)
+        _ = createFlight(towPlane1, timesheet, startingOn: middleFlightDate, forMinutes: 25, sequence: .Proficiency)
+        _ = createFlight(towPlane1, timesheet, startingOn: middleFlightDate, forMinutes: 15, sequence: .Towing)
+        _ = createFlight(towPlane1, timesheet, startingOn: middleFlightDate, forMinutes: 65, sequence: .Upgrade)
 
-        aircraft.updateTTSN()
+        towPlane1.updateTTSN()
         
         let previousFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-3), to: Date())!
-        timesheet = createTimesheet(aircraft, previousFlightDate)
-        _ = createFlight(aircraft, timesheet, startingOn: previousFlightDate, forMinutes: 5, sequence: .Maintenance)
-        _ = createFlight(aircraft, timesheet, startingOn: previousFlightDate, forMinutes: 20, sequence: .FamPRWx)
-        _ = createFlight(aircraft, timesheet, startingOn: previousFlightDate, forMinutes: 30, sequence: .Transit)
+        timesheet = createTimesheet(towPlane1, previousFlightDate)
+        _ = createFlight(towPlane1, timesheet, startingOn: previousFlightDate, forMinutes: 5, sequence: .Maintenance)
+        _ = createFlight(towPlane1, timesheet, startingOn: previousFlightDate, forMinutes: 20, sequence: .FamPRWx)
+        _ = createFlight(towPlane1, timesheet, startingOn: previousFlightDate, forMinutes: 30, sequence: .Transit)
         
-        aircraft.updateTTSN()
+        towPlane1.updateTTSN()
         
         // FIXME: total of 460 minutes in 7 flights... only 6 flights are totalized, but all the minutes are there....
         
@@ -367,43 +383,28 @@ class ReportGeneratorTests: XCTestCase
         let maintenanceEvent2 = createMaintenance(for: glider,
                                                  on: Calendar.current.date(byAdding: Calendar.Component.month, value: -2, to: Date())!,
                                                  withComment: "Something broke on \"\(glider.registrationWithTailNumberInBrackets)\".")
+        
+        //
         let gliderTakeOffDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-4), to: Date())!
-        let gliderTimesheet = createTimesheet(glider, gliderTakeOffDate)
-        let towTimesheet = createTimesheet(aircraft, gliderTakeOffDate)
-        let towFlight = createFlight(aircraft, towTimesheet, startingOn: gliderTakeOffDate, forMinutes: 20, sequence: .TowCourse)
-        aircraft.updateTTSN()
-        createGliderFlight(glider, gliderTimesheet, startingOn: gliderTakeOffDate, forMinutes: 40, sequence: .StudentTrg, withPilot: staffCadetPilot, towByFlight: towFlight)
-        glider.updateTTSN()
-
+        
+        //
+        createLaunch(glider: glider, launcher: towPlane1, takeOffDate: gliderTakeOffDate)
+        // - TODO: Create another launch for another towplane
+        
         // FIXME: total of 480 minutes in 8 flights... only 7 flights are totalized, but all the minutes are there....
 
         // AUTO LAUNCH
         let gliderLaunchWithAuto = createGlider(registration: "GliderFromGround", tailNumber: "GCTMT")
         let autoLauncher = createAutoTow()
-        let gliderLaunchFromGroundTimesheet = createTimesheet(gliderLaunchWithAuto, gliderTakeOffDate)
-        let autoLauncherTimesheet = createTimesheet(autoLauncher, gliderTakeOffDate)
-        let autoLauncherFlight = createFlight(autoLauncher, autoLauncherTimesheet, startingOn: gliderTakeOffDate, forMinutes: 2, sequence: .TowCourse)
-        createGliderFlight(gliderLaunchWithAuto, gliderLaunchFromGroundTimesheet, startingOn: gliderTakeOffDate, forMinutes: 10, sequence: .Famil, withPilot: staffCadetPilot, towByFlight: autoLauncherFlight)
-        
-        autoLauncher.updateTTSN()
-        gliderLaunchWithAuto.updateTTSN()
+        createLaunch(glider: gliderLaunchWithAuto, launcher: autoLauncher, takeOffDate: gliderTakeOffDate)
 
         // 2 WINCH LAUNCHes
-        let gliderLaunchWithWinch = createGlider(registration: "GliderFromWinch", tailNumber: "AAAAH")
-        let winchLauncher = createWinchTow()
-        let gliderLaunchWithWinchTimesheet = createTimesheet(gliderLaunchWithWinch, gliderTakeOffDate)
-        let winchLauncherTimesheet = createTimesheet(winchLauncher, gliderTakeOffDate)
-        let winchLauncherFlight = createFlight(winchLauncher, winchLauncherTimesheet, startingOn: gliderTakeOffDate, forMinutes: 2, sequence: .TowCourse)
-        createGliderFlight(gliderLaunchWithWinch, gliderLaunchWithWinchTimesheet, startingOn: gliderTakeOffDate, forMinutes: 10, sequence: .Famil, withPilot: staffCadetPilot, towByFlight: winchLauncherFlight)
-
-        winchLauncher.updateTTSN()
-        gliderLaunchWithWinch.updateTTSN()
-
-        _ = createFlight(winchLauncher, winchLauncherTimesheet, startingOn: gliderTakeOffDate, forMinutes: 2, sequence: .TowCourse)
-        createGliderFlight(gliderLaunchWithWinch, gliderLaunchWithWinchTimesheet, startingOn: gliderTakeOffDate, forMinutes: 10, sequence: .Famil, withPilot: staffCadetPilot2, towByFlight: winchLauncherFlight)
-
-        winchLauncher.updateTTSN()
-        gliderLaunchWithWinch.updateTTSN()
+        let gliderLaunchWithWinch = createGlider(registration: "GliderFromWinch1", tailNumber: "AAAAH")
+        let winchLauncher = createWinchTow(registration: "WINCH", tailNumber: "#1")
+        createLaunch(glider: gliderLaunchWithWinch, launcher: winchLauncher, takeOffDate: gliderTakeOffDate)
+        let gliderLaunchWithWinch2 = createGlider(registration: "GliderFromWinch2", tailNumber: "OOOOH")
+        let winchLauncher2 = createWinchTow(registration: "WINCH", tailNumber: "#2")
+        createLaunch(glider: gliderLaunchWithWinch2, launcher: winchLauncher2, takeOffDate: gliderTakeOffDate)
 
         // Upgrade
         let staffUpgradeFrontSeat = createPilot(name: "Upgrade Pilot 1", typeOfParticipant: "COATS")
@@ -412,13 +413,18 @@ class ReportGeneratorTests: XCTestCase
         let staffUpgradeRearSeat = createStaffCadet(name: "Upgrade Pilot 2",squadron: 613)
         staffUpgradeRearSeat.dateOfRearSeatFamilPilot = Calendar.current.date(byAdding: .day, value: -3, to: Date())!
         staffUpgradeRearSeat.highestGliderQual = 4
-        
+
+        let staffUpgradeRearSeat2 = createStaffCadet(name: "Upgrade Pilot 3",squadron: 121)
+        staffUpgradeRearSeat2.dateOfRearSeatFamilPilot = Calendar.current.date(byAdding: .day, value: -3, to: Date())!
+        staffUpgradeRearSeat2.highestGliderQual = 4
+        staffUpgradeRearSeat2.glidingCentre = anotherCenter
+
         // When
         let reportDate = Date()
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name
-        let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, true)
-        let result2 = generator.statsReportFromDateWithReportGenerator(reportDate - (5*24*60*60), toDate: reportDate, true)
+        let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false)
+        let result2 = generator.statsReportFromDateWithReportGenerator(reportDate - (5*24*60*60), toDate: reportDate, false)
         
         // Then
         saveResultAsHtml(data: result, name: "report-\(reportDate).html")
@@ -427,11 +433,11 @@ class ReportGeneratorTests: XCTestCase
         XCTAssertFalse(result.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
         XCTAssertFalse(result.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
         XCTAssertFalse(result.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
-        XCTAssert(result.contains("\(aircraft.registrationWithTailNumberInBrackets)</td>"),
-                  "Plane \" \(aircraft.registrationWithTailNumberInBrackets)\" missing from the table.")
+        XCTAssert(result.contains("\(towPlane1.registrationWithTailNumberInBrackets)</td>"),
+                  "Plane \" \(towPlane1.registrationWithTailNumberInBrackets)\" missing from the table.")
         XCTAssertTrue(result.contains("<td>\(lastFlightDate.militaryFormatShort)</td>"),
                       "Line for date \(lastFlightDate.militaryFormatShort) missing from the table.")
-        let aircraftRegWithTailNumberForRegEx = aircraft.registrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
+        let aircraftRegWithTailNumberForRegEx = towPlane1.registrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
         AssertMatch(result, pattern: "<tr><td.+?>\(aircraftRegWithTailNumberForRegEx)</td>.+?<td>\(lastFlightDate.militaryFormatShort)</td><td>(.+?)</td>", expectedValue: "5.0")
         XCTAssertTrue(result.contains(maintenanceEvent.comment), "Oops... \"\(maintenanceEvent.comment)\" not found.")
         XCTAssertTrue(result.contains(maintenanceEvent2.comment), "Oops... \"\(maintenanceEvent2.comment)\"not found.")
@@ -441,6 +447,4 @@ class ReportGeneratorTests: XCTestCase
         AssertMatch(result, pattern: "(.) winch launches", expectedValue: "2")
         AssertMatch(result, pattern: "(.) auto launches", expectedValue: "1")
     }
-    
-    
 }

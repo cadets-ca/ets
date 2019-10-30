@@ -1161,6 +1161,8 @@
 				F3FDAF882339ACFC002E11EE /* PBXTargetDependency */,
 			);
 			name = TimesheetsTests;
+			packageProductDependencies = (
+			);
 			productName = TimesheetsTests;
 			productReference = F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";

@@ -2304,8 +2304,10 @@ final class ReportGenerator
                              withAlternatingRowColor : true,
                              withInformationText : "Cadets signed in less than 2 days are not shown in this report.")
         
-        var cadetNames = Array(staffCadetAttandance.keys)
-        cadetNames.sort(by: {staffCadetAttandance[$0]! > staffCadetAttandance[$1]!})
+        var cadetNames = Array(staffCadetAttandance.keys).sorted(by: {(pilot1, pilot2) in
+            return pilot1.name < pilot2.name
+        })
+        //cadetNames.sort(by: {staffCadetAttandance[$0]! > staffCadetAttandance[$1]!})
         
         for cadet in cadetNames
         {
@@ -3761,8 +3763,9 @@ final class ReportGenerator
         report += "<table border='1'>Cadets signed in less than 2 days are not shown in this report.<br>"
         report += "<tr bgcolor='#CCCCCC'><th>Name</th><th>Squadron</th><th>Site</th><th>Days Worked</th></tr>"
         
-        var cadetNames = Array(staffCadetAttandance.keys)
-        cadetNames.sort(by: {staffCadetAttandance[$0]! > staffCadetAttandance[$1]!})
+        var cadetNames = Array(staffCadetAttandance.keys).sorted(by: {(pilot1, pilot2) in
+            return pilot1.name < pilot2.name })
+        //cadetNames.sort(by: {staffCadetAttandance[$0]! > staffCadetAttandance[$1]!})
         
         for cadet in cadetNames
         {
