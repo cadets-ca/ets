@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ExcelExport
 
 struct ReportColumn
 {
@@ -25,7 +26,27 @@ struct ReportCell
 
 enum VAlign: String { case bottom, top, middle }
 
-class HtmlStatsReportFromDate
+protocol StatsReportFromDate
+{
+    init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool)
+
+    func addTitle(_ title : String)
+    func addNewSectionTitle(_ title : String)
+    func addBlankLine()
+    func addLineOfInfoText(_ info : String)
+    func addLineOfText(_ text : String)
+    func addText(_ text : String)
+    
+    func startTable(_ columnsSet : [ReportColumn]..., withAlternatingRowColor : Bool, withInformationText : String?)
+    func addTableRow(_ cells : [ReportCell])
+    func addTotalRow(_ cells : [ReportCell])
+    func endTable()
+    
+    func result() -> String
+}
+
+
+class HtmlStatsReportFromDate: StatsReportFromDate
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -39,7 +60,7 @@ class HtmlStatsReportFromDate
     var isGray = false
     var isAlternatingRowColor = false
     
-    init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
+    required init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
     {
         self.startDate = startDate
         self.endDate = endDate
@@ -181,5 +202,153 @@ class HtmlStatsReportFromDate
         return "<html><head><STYLE TYPE='text/css'>P.pagebreakhere {page-break-before: always}</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>Stats Report</title></head><body>" +
             report +
         "</body></html>"
+    }
+}
+
+class ExcelStatsReportFromDate: StatsReportFromDate
+{
+    let BG_ALTERNATECOLOR = "#E3E3E3"
+    let BG_FILLEDCELL = "#000000"
+    let BG_HEADER = "#CCCCCC"
+    let BG_FOOTER = "#CCCCCC"
+    
+    let startDate : Date
+    let endDate : Date
+    let siteSpecific : Bool
+    var report : String = ""
+    var isGray = false
+    var isAlternatingRowColor = false
+
+    var rowsOnCurrentSheet = [ExcelRow]()
+    var titleCurrentSheet = ""
+    var sheets = [ExcelSheet]()
+    
+    required init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
+    {
+        self.startDate = startDate
+        self.endDate = endDate
+        self.siteSpecific = siteSpecific
+    }
+
+    func addTitle(_ title: String)
+    {
+        let cells = [ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])])]
+        rowsOnCurrentSheet.append(ExcelRow(cells))
+    }
+    
+    func addNewSectionTitle(_ title: String)
+    {
+        // end previous section
+        sheets.append(ExcelSheet(rowsOnCurrentSheet, name: titleCurrentSheet))
+        
+        // clear accumulators
+        rowsOnCurrentSheet = [ExcelRow]()
+        
+        // set section title
+        titleCurrentSheet = title
+    }
+    
+    func addBlankLine()
+    {
+        rowsOnCurrentSheet.append(ExcelRow([]))
+    }
+    
+    func addLineOfInfoText(_ info: String)
+    {
+        let cells = [ExcelCell(info)]
+        rowsOnCurrentSheet.append(ExcelRow(cells))
+    }
+    
+    func addLineOfText(_ text: String)
+    {
+        let cells = [ExcelCell(text)]
+        rowsOnCurrentSheet.append(ExcelRow(cells))
+    }
+    
+    func addText(_ text: String)
+    {
+        let cells = [ExcelCell(text)]
+        rowsOnCurrentSheet.append(ExcelRow(cells))
+    }
+    
+    func startTable(_ columnsSet: [ReportColumn]..., withAlternatingRowColor: Bool, withInformationText: String? = nil)
+    {
+        isAlternatingRowColor = withAlternatingRowColor
+        isGray = false
+
+        let bgColor = Color(hex: BG_HEADER)!
+        
+        if let text = withInformationText
+        {
+            var colSpan = 1
+            for columns in columnsSet
+            {
+                colSpan = colSpan < columns.count ? columns.count : colSpan
+            }
+            rowsOnCurrentSheet.append(ExcelRow([ExcelCell(text, [], .string, colspan: colSpan)]))
+        }
+        
+        for columns in columnsSet
+        {
+            var cells = [ExcelCell]()
+            for column in columns
+            {
+                cells.append(ExcelCell(column.title, [TextAttribute.backgroundColor(bgColor)], .string, colspan: column.colSpan))
+            }
+            rowsOnCurrentSheet.append(ExcelRow(cells))
+        }
+    }
+    
+    func addTableRow(_ cells: [ReportCell])
+    {
+        var excelCells = [ExcelCell]()
+        for cell in cells
+        {
+            var attribs = [TextAttribute]()
+            if cell.isBlack
+            {
+                attribs.append(TextAttribute.backgroundColor(.black))
+            }
+            else if isGray
+            {
+                attribs.append(TextAttribute.backgroundColor(Color(hex: BG_ALTERNATECOLOR)!))
+            }
+            
+            // TODO: Need to add rowspan as well as colSpan...
+            excelCells.append(ExcelCell(cell.value, attribs, .string))
+        }
+        rowsOnCurrentSheet.append(ExcelRow(excelCells))
+        
+        isGray = isAlternatingRowColor ? isGray != isAlternatingRowColor : false
+    }
+    
+    func addTotalRow(_ cells: [ReportCell])
+    {
+        var excelCells = [ExcelCell]()
+        for cell in cells
+        {
+            var attribs = [TextAttribute]()
+            if cell.isBlack
+            {
+                attribs.append(TextAttribute.backgroundColor(.black))
+            }
+            else
+            {
+                attribs.append(TextAttribute.backgroundColor(Color(hex: BG_FOOTER)!))
+            }
+            
+            // TODO: Need to add rowspan as well as colSpan...
+            excelCells.append(ExcelCell(cell.value, attribs, .string))
+        }
+        rowsOnCurrentSheet.append(ExcelRow(excelCells))
+    }
+    
+    func endTable()
+    {
+    }
+    
+    func result() -> String
+    {
+        return ""
     }
 }
