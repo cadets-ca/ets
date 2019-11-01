@@ -424,8 +424,9 @@ class ReportGeneratorTests: XCTestCase
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name
         let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false)
-        let result2 = generator.statsReportFromDateWithReportGenerator(reportDate - (5*24*60*60), toDate: reportDate, false)
-        
+        let result2 = generator.statsReportFromDate(for: HtmlStatsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false))
+        _ = generator.statsReportFromDate(for: ExcelStatsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false))
+
         // Then
         saveResultAsHtml(data: result, name: "report-\(reportDate).html")
         saveResultAsHtml(data: result2, name: "report2-\(reportDate).html")

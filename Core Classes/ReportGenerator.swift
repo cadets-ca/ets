@@ -1155,7 +1155,7 @@ final class ReportGenerator
         return issues
     }
     
-    func generateMaintenanceReportWithReportGenerator(_ generator : HtmlStatsReportFromDate, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
+    func generateMaintenanceReportWithReportGenerator(_ generator : StatsReportFromDateGenerator, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
     {
         generator.addTitle("MAINTENANCE REPORT")
         let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: Date())!.startOfDay
@@ -1230,14 +1230,14 @@ final class ReportGenerator
                 generator.addLineOfText("No timesheets found in the past two weeks.")
             
             default:
-                generator.startTable([ReportColumn(widthPercent: 15, title: "Vehicle"),
-                                     ReportColumn(widthPercent: 30, title: "Issues"),
-                                     ReportColumn(widthPercent: 10, title: "Date"),
-                                     ReportColumn(widthPercent: 10, title: "Air Time"),
-                                     ReportColumn(widthPercent: 10, title: "Ground Launches"),
-                                     ReportColumn(widthPercent: 9, title: "Final TTSN"),
-                                     ReportColumn(widthPercent: 8, title: "TNI"),
-                                     ReportColumn(widthPercent: 8, title: "TTNI")])
+                generator.startTable([[ReportColumn(widthPercent: 15, title: "Vehicle"),
+                                       ReportColumn(widthPercent: 30, title: "Issues"),
+                                       ReportColumn(widthPercent: 10, title: "Date"),
+                                       ReportColumn(widthPercent: 10, title: "Air Time"),
+                                       ReportColumn(widthPercent: 10, title: "Ground Launches"),
+                                       ReportColumn(widthPercent: 9, title: "Final TTSN"),
+                                       ReportColumn(widthPercent: 8, title: "TNI"),
+                                       ReportColumn(widthPercent: 8, title: "TTNI")]])
         }
         
         var last7Days = [Date]()
@@ -1384,14 +1384,15 @@ final class ReportGenerator
      depends on some kind of UI API. But the goal is to be able to have it generate an Excel spreadsheet. Which is already our binary format (in fact it is still text format - XML - but need no
      other transformation).
      */
-    func statsReportFromDateWithReportGenerator(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String
+    func statsReportFromDate(for generator: StatsReportFromDateGenerator) -> String
     {
-        let generator = HtmlStatsReportFromDate(startDate, toDate: endDate, siteSpecific)
-
         //Heading and number of glider flights
         guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return ""}
         let START = Date()
-        let beginningOfReport = startDate
+        let beginningOfReport = generator.startDate
+        let endDate = generator.endDate
+        let siteSpecific = generator.siteSpecific
+        
         let now = Date()
         let secondsInFiveDays = -5*24*60*60
         let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
@@ -1420,12 +1421,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addTitle("\(unit.uppercased()) STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addTitle("REGIONAL STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         generator.addBlankLine()
@@ -1548,22 +1549,22 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) NATIONAL REPORT STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("\(unit.uppercased()) NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("NATIONAL REPORT STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
 
-        generator.startTable([ReportColumn(title : ""),
-                              ReportColumn(colSpan : 2, title : "Gliders"),
-                              ReportColumn(colSpan : 2, title : "Tow Aircraft")],
-                             [ReportColumn(title : ""),
-                              ReportColumn(title : "Flights"),
-                              ReportColumn(title : "Hours"),
-                              ReportColumn(title : "Flights"),
-                              ReportColumn(title : "Hours")])
+        generator.startTable([[ReportColumn(title : ""),
+                               ReportColumn(colSpan : 2, title : "Gliders"),
+                               ReportColumn(colSpan : 2, title : "Tow Aircraft")],
+                              [ReportColumn(title : ""),
+                               ReportColumn(title : "Flights"),
+                               ReportColumn(title : "Hours"),
+                               ReportColumn(title : "Flights"),
+                               ReportColumn(title : "Hours")]])
         
         var gliderFlightsTotal = 0
         var gliderHoursTotal = NSDecimalNumber(value: 0)
@@ -1918,16 +1919,16 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) SQUADRON ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("\(unit.uppercased()) SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("SQUADRON ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         let squadronCadetRequest = AttendanceRecord.request
-        let cadetRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND pilot.typeOfParticipant == %@", argumentArray: [startDate,endDate, "cadet"])
+        let cadetRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND pilot.typeOfParticipant == %@", argumentArray: [beginningOfReport,endDate, "cadet"])
         
         let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
         
@@ -1974,7 +1975,7 @@ final class ReportGenerator
         }
         
         let commentRequest = GlidingDayComment.request
-        let commentRequestPredicate = NSPredicate(format: "date >= %@ AND date <= %@", argumentArray: [startDate, endDate])
+        let commentRequestPredicate = NSPredicate(format: "date >= %@ AND date <= %@", argumentArray: [beginningOfReport, endDate])
         
         if siteSpecific
         {
@@ -1999,13 +2000,13 @@ final class ReportGenerator
         var arrayOfDatesFlownOrWithCadets = Array(flyingDatesDictionary.keys)
         arrayOfDatesFlownOrWithCadets.sort(by: <)
         
-        generator.startTable([ReportColumn(widthPixel : 60, title : "Date"),
-                              ReportColumn(widthPixel : 100, title : "Squadron"),
-                              ReportColumn(widthPixel : 60, title : "Number of Squadron Cadets Attended"),
-                              ReportColumn(widthPixel : 60, title : "Number of Squadron Cadet Glider Fams"),
-                              ReportColumn(widthPixel : 60, title : "Number of Glider Flights"),
-                              ReportColumn(widthPixel : 60, title : "Number of Cadet Fam Flights in Tow A/C"),
-                              ReportColumn(title : "Comments")], withAlternatingRowColor : true)
+        generator.startTable([[ReportColumn(widthPixel : 60, title : "Date"),
+                               ReportColumn(widthPixel : 100, title : "Squadron"),
+                               ReportColumn(widthPixel : 60, title : "Number of Squadron Cadets Attended"),
+                               ReportColumn(widthPixel : 60, title : "Number of Squadron Cadet Glider Fams"),
+                               ReportColumn(widthPixel : 60, title : "Number of Glider Flights"),
+                               ReportColumn(widthPixel : 60, title : "Number of Cadet Fam Flights in Tow A/C"),
+                               ReportColumn(title : "Comments")]], withAlternatingRowColor : true)
 
         for date in arrayOfDatesFlownOrWithCadets
         {
@@ -2116,24 +2117,24 @@ final class ReportGenerator
         //Personnel portion of report
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) PERSONNEL STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("\(unit.uppercased()) PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("PERSONNEL STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         // - TODO: Start table
-        generator.startTable([ReportColumn(title : ""),
-                              ReportColumn(title : "Days Worked"),
-                              ReportColumn(title : "PIC Flights"),
-                              ReportColumn(title : "PIC flights /<br> day worked"),
-                              ReportColumn(title : "Dual Flights"),
-                              ReportColumn(title : "Dual Flights /<br>day worked")], withAlternatingRowColor : true)
+        generator.startTable([[ReportColumn(title : ""),
+                               ReportColumn(title : "Days Worked"),
+                               ReportColumn(title : "PIC Flights"),
+                               ReportColumn(title : "PIC flights /<br> day worked"),
+                               ReportColumn(title : "Dual Flights"),
+                               ReportColumn(title : "Dual Flights /<br>day worked")]], withAlternatingRowColor : true)
         
         let staffAttendanceRequest = AttendanceRecord.request
-        let staffAttendanceRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND participantType != %@ AND pilot != nil", argumentArray: [startDate, endDate, "cadet"])
+        let staffAttendanceRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND participantType != %@ AND pilot != nil", argumentArray: [beginningOfReport, endDate, "cadet"])
         
         if siteSpecific
         {
@@ -2156,7 +2157,7 @@ final class ReportGenerator
         {
             for timesheet in GC.timesheets
             {
-                if (startDate...endDate).contains(timesheet.date)
+                if (beginningOfReport...endDate).contains(timesheet.date)
                 {
                     flightRecordsInTimePeriod.formUnion(timesheet.flightRecords)
                 }
@@ -2166,7 +2167,7 @@ final class ReportGenerator
         else
         {
             let flightRecordRequest = FlightRecord.request
-            let flightRecordRequestPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timeUp)) < %@ AND \(#keyPath(FlightRecord.pilot)) != nil", argumentArray: [startDate, endDate])
+            let flightRecordRequestPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timeUp)) < %@ AND \(#keyPath(FlightRecord.pilot)) != nil", argumentArray: [beginningOfReport, endDate])
             flightRecordRequest.predicate = flightRecordRequestPredicate
             do{flightRecordsInTimePeriod = try Set(dataModel.managedObjectContext.fetch(flightRecordRequest))}
             catch{}
@@ -2289,18 +2290,18 @@ final class ReportGenerator
         // Start Staff Cadet Attendance
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) STAFF CADET ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("\(unit.uppercased()) STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("STAFF CADET ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
 
-        generator.startTable([ReportColumn(title : "Name"),
-                              ReportColumn(title : "Squadron"),
-                              ReportColumn(title : "Site"),
-                              ReportColumn(title : "Days Worked")],
+        generator.startTable([[ReportColumn(title : "Name"),
+                               ReportColumn(title : "Squadron"),
+                               ReportColumn(title : "Site"),
+                               ReportColumn(title : "Days Worked")]],
                              withAlternatingRowColor : true,
                              withInformationText : "Cadets signed in less than 2 days are not shown in this report.")
         
@@ -2324,21 +2325,21 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) STAFF UPGRADES \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("\(unit.uppercased()) STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("STAFF UPGRADES \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            generator.addNewSectionTitle("STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        generator.startTable([ReportColumn(title : "Upgrade"),
-                              ReportColumn(title : "Name"),
-                              ReportColumn(title : "Type of Participant"),
-                              ReportColumn(title : "Site")], withAlternatingRowColor: true)
+        generator.startTable([[ReportColumn(title : "Upgrade"),
+                               ReportColumn(title : "Name"),
+                               ReportColumn(title : "Type of Participant"),
+                               ReportColumn(title : "Site")]], withAlternatingRowColor: true)
         
         let upgradeFetchRequest = Pilot.request
-        var upgradeFetchRequestPredicate = NSPredicate(format: "dateOfFrontSeatFamilPilot > %@ AND dateOfFrontSeatFamilPilot < %@ AND highestGliderQual >2 ", argumentArray: [startDate, endDate])
+        var upgradeFetchRequestPredicate = NSPredicate(format: "dateOfFrontSeatFamilPilot > %@ AND dateOfFrontSeatFamilPilot < %@ AND highestGliderQual >2 ", argumentArray: [beginningOfReport, endDate])
         if siteSpecific
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [upgradeFetchRequestPredicate, sitePredicate])
@@ -2372,46 +2373,46 @@ final class ReportGenerator
         
         let FSFupgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfRearSeatFamilPilot > %@ AND dateOfRearSeatFamilPilot < %@ AND highestGliderQual >3", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfRearSeatFamilPilot > %@ AND dateOfRearSeatFamilPilot < %@ AND highestGliderQual >3", argumentArray: [beginningOfReport, endDate])
         let RSFupgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderInstructorPilot > %@ AND dateOfGliderInstructorPilot < %@ AND highestGliderQual >4", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderInstructorPilot > %@ AND dateOfGliderInstructorPilot < %@ AND highestGliderQual >4", argumentArray: [beginningOfReport, endDate])
         let instructorUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderCheckPilot > %@ AND dateOfGliderCheckPilot < %@ AND highestGliderQual >5", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderCheckPilot > %@ AND dateOfGliderCheckPilot < %@ AND highestGliderQual >5", argumentArray: [beginningOfReport, endDate])
         let gliderCheckPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderStandardsPilot > %@ AND dateOfGliderStandardsPilot < %@ AND highestGliderQual >6", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderStandardsPilot > %@ AND dateOfGliderStandardsPilot < %@ AND highestGliderQual >6", argumentArray: [beginningOfReport, endDate])
         let gliderStandardsPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderPilotXCountry > %@ AND dateOfGliderPilotXCountry < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderPilotXCountry > %@ AND dateOfGliderPilotXCountry < %@", argumentArray: [beginningOfReport, endDate])
         let gliderXCountryUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Glider Xcountry")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchPilot > %@ AND dateOfWinchLaunchPilot < %@",argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchPilot > %@ AND dateOfWinchLaunchPilot < %@",argumentArray: [beginningOfReport, endDate])
         let winchPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Launch")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchOperator > %@ AND dateOfWinchLaunchOperator < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchOperator > %@ AND dateOfWinchLaunchOperator < %@", argumentArray: [beginningOfReport, endDate])
         let winchOperatorUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Operator")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchInstructor > %@ AND dateOfWinchLaunchInstructor < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchInstructor > %@ AND dateOfWinchLaunchInstructor < %@", argumentArray: [beginningOfReport, endDate])
         let winchInstructorUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Launch Instructor")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchRetrieveDriver > %@ AND dateOfWinchRetrieveDriver < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchRetrieveDriver > %@ AND dateOfWinchRetrieveDriver < %@", argumentArray: [beginningOfReport, endDate])
         let winchRetrieveUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Retrieve Driver")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilot > %@ AND dateOfTowPilot < %@ AND highestScoutQual >0", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilot > %@ AND dateOfTowPilot < %@ AND highestScoutQual >0", argumentArray: [beginningOfReport, endDate])
         let towPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowCheckPilot > %@ AND dateOfTowCheckPilot < %@ AND highestScoutQual >1", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowCheckPilot > %@ AND dateOfTowCheckPilot < %@ AND highestScoutQual >1", argumentArray: [beginningOfReport, endDate])
         let towCheckPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowStandardsPilot > %@ AND dateOfTowStandardsPilot < %@ AND highestScoutQual >2", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowStandardsPilot > %@ AND dateOfTowStandardsPilot < %@ AND highestScoutQual >2", argumentArray: [beginningOfReport, endDate])
         let towStandardsPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilotXCountry > %@ AND dateOfTowPilotXCountry < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilotXCountry > %@ AND dateOfTowPilotXCountry < %@", argumentArray: [beginningOfReport, endDate])
         let towXcountryUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Tow Xcountry")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfLaunchControlOfficer > %@ AND dateOfLaunchControlOfficer < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfLaunchControlOfficer > %@ AND dateOfLaunchControlOfficer < %@", argumentArray: [beginningOfReport, endDate])
         let LCOupgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("LCO")})
         
         func addCellForUpgrade(_ name: String, upgradedPilots: [Pilot])
@@ -2681,38 +2682,38 @@ final class ReportGenerator
             switch vehicle.type
             {
                 case .glider:
-                    gliders.append(GliderData(glider: vehicle, startDate: startDate, endDate: endDate))
+                    gliders.append(GliderData(glider: vehicle, startDate: beginningOfReport, endDate: endDate))
                 
                 case .towplane:
-                    towplanes.append(TowplaneData(towplane: vehicle, startDate: startDate, endDate: endDate))
+                    towplanes.append(TowplaneData(towplane: vehicle, startDate: beginningOfReport, endDate: endDate))
                 
                 case .winch:
-                    winches.append(WinchData(winch: vehicle, startDate: startDate, endDate: endDate))
+                    winches.append(WinchData(winch: vehicle, startDate: beginningOfReport, endDate: endDate))
                 
                 default:
                     break
             }
         }
         
-        generator.addNewSectionTitle("GLIDER USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        generator.addNewSectionTitle("GLIDER USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
 
-        generator.startTable([ReportColumn(colSpan : 2, title : ""),
-                              ReportColumn(colSpan : 5, title : "Glider Flights"),
-                              ReportColumn(colSpan : 5, title : "Glider Hours"),
-                              ReportColumn(colSpan : 2, title : "")],
-                             [ReportColumn(colSpan : 2, title : "Gliders"),
-                              ReportColumn(title : "Transit"),
-                              ReportColumn(title : "Famil"),
-                              ReportColumn(title : "Prof"),
-                              ReportColumn(title : "Student"),
-                              ReportColumn(title : "Upgrade"),
-                              ReportColumn(title : "Transit"),
-                              ReportColumn(title : "Famil"),
-                              ReportColumn(title : "Prof"),
-                              ReportColumn(title : "Student"),
-                              ReportColumn(title : "Upgrade"),
-                              ReportColumn(title : "Time Flown"),
-                              ReportColumn(title : "Current TTSN")], withAlternatingRowColor : true)
+        generator.startTable([[ReportColumn(colSpan : 2, title : ""),
+                               ReportColumn(colSpan : 5, title : "Glider Flights"),
+                               ReportColumn(colSpan : 5, title : "Glider Hours"),
+                               ReportColumn(colSpan : 2, title : "")],
+                              [ReportColumn(colSpan : 2, title : "Gliders"),
+                               ReportColumn(title : "Transit"),
+                               ReportColumn(title : "Famil"),
+                               ReportColumn(title : "Prof"),
+                               ReportColumn(title : "Student"),
+                               ReportColumn(title : "Upgrade"),
+                               ReportColumn(title : "Transit"),
+                               ReportColumn(title : "Famil"),
+                               ReportColumn(title : "Prof"),
+                               ReportColumn(title : "Student"),
+                               ReportColumn(title : "Upgrade"),
+                               ReportColumn(title : "Time Flown"),
+                               ReportColumn(title : "Current TTSN")]], withAlternatingRowColor : true)
         
         for glider in gliders
         {
@@ -2738,23 +2739,23 @@ final class ReportGenerator
         
         generator.endTable()
 
-        generator.addNewSectionTitle("TOWPLANE USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        generator.addNewSectionTitle("TOWPLANE USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
 
-        generator.startTable([ReportColumn(colSpan : 2, title : ""),
-                              ReportColumn(colSpan : 7, title : "Scout Hours"),
-                              ReportColumn(title : "Scout Flights"),
-                              ReportColumn(colSpan : 2, title : "")],
-                             [ReportColumn(colSpan : 2, title : "Towplanes"),
-                              ReportColumn(title : "Transit"),
-                              ReportColumn(title : "Towing"),
-                              ReportColumn(title : "TPC"),
-                              ReportColumn(title : "Maintenance"),
-                              ReportColumn(title : "Prof"),
-                              ReportColumn(title : "Upgrade"),
-                              ReportColumn(title : "Fam"),
-                              ReportColumn(title : "Fam"),
-                              ReportColumn(title : "Time Flown"),
-                              ReportColumn(title : "Current TTSN")], withAlternatingRowColor: true)
+        generator.startTable([[ReportColumn(colSpan : 2, title : ""),
+                               ReportColumn(colSpan : 7, title : "Scout Hours"),
+                               ReportColumn(title : "Scout Flights"),
+                               ReportColumn(colSpan : 2, title : "")],
+                              [ReportColumn(colSpan : 2, title : "Towplanes"),
+                               ReportColumn(title : "Transit"),
+                               ReportColumn(title : "Towing"),
+                               ReportColumn(title : "TPC"),
+                               ReportColumn(title : "Maintenance"),
+                               ReportColumn(title : "Prof"),
+                               ReportColumn(title : "Upgrade"),
+                               ReportColumn(title : "Fam"),
+                               ReportColumn(title : "Fam"),
+                               ReportColumn(title : "Time Flown"),
+                               ReportColumn(title : "Current TTSN")]], withAlternatingRowColor: true)
         
         for towplane in towplanes
         {
@@ -2776,12 +2777,12 @@ final class ReportGenerator
         }
         generator.endTable()
 
-        generator.addNewSectionTitle("WINCH USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        generator.addNewSectionTitle("WINCH USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
 
-        generator.startTable([ReportColumn(colSpan : 2, title : ""),
-                              ReportColumn(title : "Current TTSN"),
-                              ReportColumn(title : "Hours"),
-                              ReportColumn(title : "Flights")], withAlternatingRowColor: true)
+        generator.startTable([[ReportColumn(colSpan : 2, title : ""),
+                               ReportColumn(title : "Current TTSN"),
+                               ReportColumn(title : "Hours"),
+                               ReportColumn(title : "Flights")]], withAlternatingRowColor: true)
         
         for winch in winches
         {
@@ -2855,12 +2856,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            report += "<big>\(unit.uppercased()) STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
             
         else
         {
-            report += "<big>REGIONAL STATS REPORT \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
         
         report += "<br>"
@@ -2985,12 +2986,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            report += "<big>\(unit.uppercased()) NATIONAL REPORT STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>\(unit.uppercased()) NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
             
         else
         {
-            report += "<big>NATIONAL REPORT STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
         
         report += "</P>"
@@ -3370,12 +3371,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            report += "<big>\(unit.uppercased()) SQUADRON ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>\(unit.uppercased()) SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
             
         else
         {
-            report += "<big>SQUADRON ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
         
         report += "</P>"
@@ -3384,7 +3385,7 @@ final class ReportGenerator
         
         
         let squadronCadetRequest = AttendanceRecord.request
-        let cadetRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND pilot.typeOfParticipant == %@", argumentArray: [startDate,endDate, "cadet"])
+        let cadetRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND pilot.typeOfParticipant == %@", argumentArray: [beginningOfReport,endDate, "cadet"])
         
         let sitePredicate = NSPredicate(format: "glidingCentre == %@",argumentArray: [GC])
         
@@ -3431,7 +3432,7 @@ final class ReportGenerator
         }
         
         let commentRequest = GlidingDayComment.request
-        let commentRequestPredicate = NSPredicate(format: "date >= %@ AND date <= %@", argumentArray: [startDate, endDate])
+        let commentRequestPredicate = NSPredicate(format: "date >= %@ AND date <= %@", argumentArray: [beginningOfReport, endDate])
         
         if siteSpecific
         {
@@ -3580,12 +3581,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            report += "<big>\(unit.uppercased()) PERSONNEL STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>\(unit.uppercased()) PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
             
         else
         {
-            report += "<big>PERSONNEL STATS \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
+            report += "<big>PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big><br>"
         }
         
         report += "</P>"
@@ -3593,7 +3594,7 @@ final class ReportGenerator
         report += "<tr bgcolor='#CCCCCC'><th></th><th>Days Worked</th><th>PIC Flights</th><th>PIC flights /<br> day worked</th><th>Dual Flights</th><th>Dual Flights /<br>day worked</th></tr>"
         
         let staffAttendanceRequest = AttendanceRecord.request
-        let staffAttendanceRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND participantType != %@ AND pilot != nil", argumentArray: [startDate, endDate, "cadet"])
+        let staffAttendanceRequestPredicate = NSPredicate(format: "timeIn > %@ AND timeIn < %@ AND participantType != %@ AND pilot != nil", argumentArray: [beginningOfReport, endDate, "cadet"])
         
         if siteSpecific
         {
@@ -3616,7 +3617,7 @@ final class ReportGenerator
         {
             for timesheet in GC.timesheets
             {
-                if (startDate...endDate).contains(timesheet.date)
+                if (beginningOfReport...endDate).contains(timesheet.date)
                 {
                     flightRecordsInTimePeriod.formUnion(timesheet.flightRecords)
                 }
@@ -3626,7 +3627,7 @@ final class ReportGenerator
         else
         {
             let flightRecordRequest = FlightRecord.request
-            let flightRecordRequestPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timeUp)) < %@ AND \(#keyPath(FlightRecord.pilot)) != nil", argumentArray: [startDate, endDate])
+            let flightRecordRequestPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timeUp)) < %@ AND \(#keyPath(FlightRecord.pilot)) != nil", argumentArray: [beginningOfReport, endDate])
             flightRecordRequest.predicate = flightRecordRequestPredicate
             do{flightRecordsInTimePeriod = try Set(dataModel.managedObjectContext.fetch(flightRecordRequest))}
             catch{}
@@ -3751,12 +3752,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            report += "<big>\(unit.uppercased()) STAFF CADET ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+            report += "<big>\(unit.uppercased()) STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         }
             
         else
         {
-            report += "<big>STAFF CADET ATTENDANCE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+            report += "<big>STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         }
         
         report += "</P>"
@@ -3782,13 +3783,13 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            report += "<big>\(unit.uppercased()) STAFF UPGRADES \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+            report += "<big>\(unit.uppercased()) STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
             
         }
             
         else
         {
-            report += "<big>STAFF UPGRADES \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+            report += "<big>STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         }
         
         report += "</P>"
@@ -3796,7 +3797,7 @@ final class ReportGenerator
         report += "<tr bgcolor='#CCCCCC'><th>Upgrade</th><th>Name</th><th>Type of Participant</th><th>Site</th></tr>"
         
         let upgradeFetchRequest = Pilot.request
-        var upgradeFetchRequestPredicate = NSPredicate(format: "dateOfFrontSeatFamilPilot > %@ AND dateOfFrontSeatFamilPilot < %@ AND highestGliderQual >2 ", argumentArray: [startDate, endDate])
+        var upgradeFetchRequestPredicate = NSPredicate(format: "dateOfFrontSeatFamilPilot > %@ AND dateOfFrontSeatFamilPilot < %@ AND highestGliderQual >2 ", argumentArray: [beginningOfReport, endDate])
         if siteSpecific
         {
             compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [upgradeFetchRequestPredicate, sitePredicate])
@@ -3830,46 +3831,46 @@ final class ReportGenerator
         
         let FSFupgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfRearSeatFamilPilot > %@ AND dateOfRearSeatFamilPilot < %@ AND highestGliderQual >3", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfRearSeatFamilPilot > %@ AND dateOfRearSeatFamilPilot < %@ AND highestGliderQual >3", argumentArray: [beginningOfReport, endDate])
         let RSFupgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderInstructorPilot > %@ AND dateOfGliderInstructorPilot < %@ AND highestGliderQual >4", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderInstructorPilot > %@ AND dateOfGliderInstructorPilot < %@ AND highestGliderQual >4", argumentArray: [beginningOfReport, endDate])
         let instructorUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderCheckPilot > %@ AND dateOfGliderCheckPilot < %@ AND highestGliderQual >5", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderCheckPilot > %@ AND dateOfGliderCheckPilot < %@ AND highestGliderQual >5", argumentArray: [beginningOfReport, endDate])
         let gliderCheckPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderStandardsPilot > %@ AND dateOfGliderStandardsPilot < %@ AND highestGliderQual >6", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderStandardsPilot > %@ AND dateOfGliderStandardsPilot < %@ AND highestGliderQual >6", argumentArray: [beginningOfReport, endDate])
         let gliderStandardsPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderPilotXCountry > %@ AND dateOfGliderPilotXCountry < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfGliderPilotXCountry > %@ AND dateOfGliderPilotXCountry < %@", argumentArray: [beginningOfReport, endDate])
         let gliderXCountryUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Glider Xcountry")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchPilot > %@ AND dateOfWinchLaunchPilot < %@",argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchPilot > %@ AND dateOfWinchLaunchPilot < %@",argumentArray: [beginningOfReport, endDate])
         let winchPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Launch")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchOperator > %@ AND dateOfWinchLaunchOperator < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchOperator > %@ AND dateOfWinchLaunchOperator < %@", argumentArray: [beginningOfReport, endDate])
         let winchOperatorUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Operator")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchInstructor > %@ AND dateOfWinchLaunchInstructor < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchLaunchInstructor > %@ AND dateOfWinchLaunchInstructor < %@", argumentArray: [beginningOfReport, endDate])
         let winchInstructorUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Launch Instructor")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchRetrieveDriver > %@ AND dateOfWinchRetrieveDriver < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfWinchRetrieveDriver > %@ AND dateOfWinchRetrieveDriver < %@", argumentArray: [beginningOfReport, endDate])
         let winchRetrieveUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Winch Retrieve Driver")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilot > %@ AND dateOfTowPilot < %@ AND highestScoutQual >0", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilot > %@ AND dateOfTowPilot < %@ AND highestScoutQual >0", argumentArray: [beginningOfReport, endDate])
         let towPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowCheckPilot > %@ AND dateOfTowCheckPilot < %@ AND highestScoutQual >1", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowCheckPilot > %@ AND dateOfTowCheckPilot < %@ AND highestScoutQual >1", argumentArray: [beginningOfReport, endDate])
         let towCheckPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowStandardsPilot > %@ AND dateOfTowStandardsPilot < %@ AND highestScoutQual >2", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowStandardsPilot > %@ AND dateOfTowStandardsPilot < %@ AND highestScoutQual >2", argumentArray: [beginningOfReport, endDate])
         let towStandardsPilotUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate)
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilotXCountry > %@ AND dateOfTowPilotXCountry < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfTowPilotXCountry > %@ AND dateOfTowPilotXCountry < %@", argumentArray: [beginningOfReport, endDate])
         let towXcountryUpgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("Tow Xcountry")})
         
-        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfLaunchControlOfficer > %@ AND dateOfLaunchControlOfficer < %@", argumentArray: [startDate, endDate])
+        upgradeFetchRequestPredicate = NSPredicate(format: "dateOfLaunchControlOfficer > %@ AND dateOfLaunchControlOfficer < %@", argumentArray: [beginningOfReport, endDate])
         let LCOupgrades = executeupgradeFetchRequest(newPredicate: upgradeFetchRequestPredicate).filter({$0.pilotHoldsQual("LCO")})
         
         func addCellForUpgrade(_ name: String, upgradedPilots: [Pilot])
@@ -4140,13 +4141,13 @@ final class ReportGenerator
             switch vehicle.type
             {
                 case .glider:
-                    gliders.append(GliderData(glider: vehicle, startDate: startDate, endDate: endDate))
+                    gliders.append(GliderData(glider: vehicle, startDate: beginningOfReport, endDate: endDate))
                 
                 case .towplane:
-                    towplanes.append(TowplaneData(towplane: vehicle, startDate: startDate, endDate: endDate))
+                    towplanes.append(TowplaneData(towplane: vehicle, startDate: beginningOfReport, endDate: endDate))
                 
                 case .winch:
-                    winches.append(WinchData(winch: vehicle, startDate: startDate, endDate: endDate))
+                    winches.append(WinchData(winch: vehicle, startDate: beginningOfReport, endDate: endDate))
                 
                 default:
                     break
@@ -4155,7 +4156,7 @@ final class ReportGenerator
         
         report += "<P CLASS='pagebreakhere'>"
         report += "</P>"
-        report += "<big>GLIDER USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+        report += "<big>GLIDER USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         report += "<table border='1'>"
         report += "<tr bgcolor='#CCCCCC'><th colspan='2'></th><th colspan='5'>Glider Flights</th><th colspan='5'>Glider Hours</th><th colspan='2'></th></tr>"
         report += "<tr bgcolor='#CCCCCC'><th colspan='2'>Gliders</th><th>Transit</th><th>Famil</th><th>Prof</th><th>Student</th><th>Upgrade</th><th>Transit</th><th>Famil</th><th>Prof</th><th>Student</th><th>Upgrade</th><th>Time Flown</th><th>Current TTSN</th></tr>"
@@ -4176,7 +4177,7 @@ final class ReportGenerator
         report += "</table>"
         report += "<P CLASS='pagebreakhere'>"
         report += "</P>"
-        report += "<big>TOWPLANE USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+        report += "<big>TOWPLANE USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         report += "<table border='1'>"
         report += "<tr bgcolor='#CCCCCC'><th colspan='2'></th><th colspan='7'>Scout Hours</th><th>Scout Flights</th><th colspan='2'></th></tr>"
         report += "<tr bgcolor='#CCCCCC'><th colspan='2'>Towplanes</th><th>Transit</th><th>Towing</th><th>TPC</th><th>Maintenance</th><th>Prof</th><th>Upgrade</th><th>Fam</th><th>Fam</th><th>Time Flown</th><th>Current TTSN</th></tr>"
@@ -4197,7 +4198,7 @@ final class ReportGenerator
         report += "</table>"
         report += "<P CLASS='pagebreakhere'>"
         report += "</P>"
-        report += "<big>WINCH USAGE \(startDate.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
+        report += "<big>WINCH USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())</big>"
         report += "<table border='1'>"
         report += "<tr bgcolor='#CCCCCC'><th colspan='2'></th><th>Current TTSN</th><th>Hours</th><th>Flights</th></tr>"
         

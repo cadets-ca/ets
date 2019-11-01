@@ -26,8 +26,12 @@ struct ReportCell
 
 enum VAlign: String { case bottom, top, middle }
 
-protocol StatsReportFromDate
+protocol StatsReportFromDateGenerator
 {
+    var startDate : Date { get }
+    var endDate : Date { get }
+    var siteSpecific : Bool { get }
+    
     init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool)
 
     func addTitle(_ title : String)
@@ -36,8 +40,10 @@ protocol StatsReportFromDate
     func addLineOfInfoText(_ info : String)
     func addLineOfText(_ text : String)
     func addText(_ text : String)
-    
-    func startTable(_ columnsSet : [ReportColumn]..., withAlternatingRowColor : Bool, withInformationText : String?)
+
+    func startTable(_ columnsSet : [[ReportColumn]])
+    func startTable(_ columnsSet : [[ReportColumn]], withAlternatingRowColor : Bool)
+    func startTable(_ columnsSet : [[ReportColumn]], withAlternatingRowColor : Bool, withInformationText : String?)
     func addTableRow(_ cells : [ReportCell])
     func addTotalRow(_ cells : [ReportCell])
     func endTable()
@@ -45,8 +51,25 @@ protocol StatsReportFromDate
     func result() -> String
 }
 
+extension StatsReportFromDateGenerator
+{
+//    init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
+//    {
+//        self(startDate, endDate, siteSpecific)
+//    }
 
-class HtmlStatsReportFromDate: StatsReportFromDate
+    func startTable(_ columnsSet : [[ReportColumn]])
+    {
+        self.startTable(columnsSet, withAlternatingRowColor: false, withInformationText: nil)
+    }
+
+    func startTable(_ columnsSet : [[ReportColumn]], withAlternatingRowColor : Bool)
+    {
+        self.startTable(columnsSet, withAlternatingRowColor: withAlternatingRowColor, withInformationText: nil)
+    }
+}
+
+class HtmlStatsReportFromDate: StatsReportFromDateGenerator
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -99,7 +122,7 @@ class HtmlStatsReportFromDate: StatsReportFromDate
         report += text
     }
     
-    func startTable(_ columnsSet : [ReportColumn]..., withAlternatingRowColor : Bool = false, withInformationText : String? = nil)
+    func startTable(_ columnsSet : [[ReportColumn]], withAlternatingRowColor : Bool, withInformationText : String?)
     {
         isAlternatingRowColor = withAlternatingRowColor
         isGray = false
@@ -205,7 +228,7 @@ class HtmlStatsReportFromDate: StatsReportFromDate
     }
 }
 
-class ExcelStatsReportFromDate: StatsReportFromDate
+class ExcelStatsReportFromDate: StatsReportFromDateGenerator
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -271,7 +294,7 @@ class ExcelStatsReportFromDate: StatsReportFromDate
         rowsOnCurrentSheet.append(ExcelRow(cells))
     }
     
-    func startTable(_ columnsSet: [ReportColumn]..., withAlternatingRowColor: Bool, withInformationText: String? = nil)
+    func startTable(_ columnsSet: [[ReportColumn]], withAlternatingRowColor: Bool, withInformationText: String?)
     {
         isAlternatingRowColor = withAlternatingRowColor
         isGray = false
