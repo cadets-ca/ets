@@ -10,13 +10,6 @@ import Foundation
 import UIKit
 import CoreData
 
-protocol ReportResultDelegate
-{
-    func success(_ url : URL)
-    func success(_ content : String)
-    func fail(_ error : String)
-}
-
 final class ReportGenerator
 {
     class func newInstance() -> ReportGenerator
