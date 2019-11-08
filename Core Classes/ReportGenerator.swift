@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
+protocol ReportResultDelegate
+{
+    func success(_ url : URL)
+    func success(_ content : String)
+    func fail(_ error : String)
+}
+
 final class ReportGenerator
 {
     class func newInstance() -> ReportGenerator
@@ -1155,7 +1162,7 @@ final class ReportGenerator
         return issues
     }
     
-    func generateMaintenanceReportWithReportGenerator(_ generator : StatsReportFromDateGenerator, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
+    func generateMaintenanceReportWithReportGenerator(_ generator : StatsReportFromDateFormater, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
     {
         generator.addTitle("MAINTENANCE REPORT")
         let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: Date())!.startOfDay
@@ -1366,32 +1373,32 @@ final class ReportGenerator
     /**
      This is the new version of the statsReportFromDate.
      
-     This version uses a class that implement the StatsReport protocol, whose responsibility is the structure the
+     This version uses a class that implement the StatsReportFromDateGenerator protocol, whose responsibility is to structure the
      report according to the format of the file. The goal is to keep in the method only what belongs to the gathering of the data.
      
-     The first part will be to extract the report variable into the HtmlStatsReport, replacing each reference to the report variable
-     by a call to a method of the StatsReport protocol.
+     The first part will be to extract the report variable into the HtmlStatsReportFromDateGenerator, replacing each reference to the report variable
+     by a call to a method of the StatsReportFromDateGenerator protocol.
      
-     The start and end of the HTML file will only appear in the "getResult" method called only at the end.
+     The start and end of the HTML file will only appear in the "getResult" method called only at the end. At a later time, the result will be change by a generate method which will be async to allow for different type of file and algorithm.
      
      I envision a addSection(text) which, in the case of HTML report, will insert a heading (<big>) with the text passed. We can also think of a addEmptyRow to create spacing.
      
-     Other methods will be created keeping in mind that the at the end, we want to replace the HTML report by an Excel report.
+     Other methods will be created keeping in mind that at the end, we want to replace the HTML report by an Excel report.
      
      - Warning
      
      The problem to solve is that presently, the result is a String representing the HTML file (the text format) that will be tranformed into a PDF file (the binary format) using some utility class that
      depends on some kind of UI API. But the goal is to be able to have it generate an Excel spreadsheet. Which is already our binary format (in fact it is still text format - XML - but need no
-     other transformation).
+     other transformation). Building the Excel file is async because of the operation required. So the generator.generate protocol method will need to be async as well. Which will change significantly the structure of the code.
      */
-    func statsReportFromDate(for generator: StatsReportFromDateGenerator) -> String
+    func statsReportFromDate(for formater: StatsReportFromDateFormater) -> String
     {
         //Heading and number of glider flights
         guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return ""}
         let START = Date()
-        let beginningOfReport = generator.startDate
-        let endDate = generator.endDate
-        let siteSpecific = generator.siteSpecific
+        let beginningOfReport = formater.startDate
+        let endDate = formater.endDate
+        let siteSpecific = formater.siteSpecific
         
         let now = Date()
         let secondsInFiveDays = -5*24*60*60
@@ -1421,30 +1428,30 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        generator.addBlankLine()
+        formater.addBlankLine()
         
         if siteSpecific
         {
-            generator.addLineOfInfoText("\(unit!) glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
+            formater.addLineOfInfoText("\(unit!) glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
         }
             
         else
         {
-            generator.addLineOfInfoText("Glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
+            formater.addLineOfInfoText("Glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
         }
         
-        generator.addBlankLine()
+        formater.addBlankLine()
         
         // MARK: - Maintenance portion of report
-        generateMaintenanceReportWithReportGenerator(generator, glidingCentre: GC, siteSpecific: siteSpecific)
+        generateMaintenanceReportWithReportGenerator(formater, glidingCentre: GC, siteSpecific: siteSpecific)
         let MAINTENANCECOMPLETED = Date()
         // MARK: End Of Maintenance Section
         
@@ -1549,15 +1556,15 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("\(unit.uppercased()) NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
 
-        generator.startTable([[ReportColumn(title : ""),
+        formater.startTable([[ReportColumn(title : ""),
                                ReportColumn(colSpan : 2, title : "Gliders"),
                                ReportColumn(colSpan : 2, title : "Tow Aircraft")],
                               [ReportColumn(title : ""),
@@ -1584,7 +1591,7 @@ final class ReportGenerator
             let newGliderHoursTotal = gliderHoursTotal.adding(roundedSequenceDecimal)
             gliderHoursTotal = newGliderHoursTotal
             
-            generator.addTableRow([ReportCell(value : "GIC"),
+            formater.addTableRow([ReportCell(value : "GIC"),
                                    ReportCell(value : "\(sequenceTotal)"),
                                    ReportCell(value : roundedSequenceDecimal.stringWithDecimal),
                                    ReportCell(isBlack : true),
@@ -1593,7 +1600,7 @@ final class ReportGenerator
             
         else
         {
-            generator.addTableRow([ReportCell(value : "GIC"),
+            formater.addTableRow([ReportCell(value : "GIC"),
                                    ReportCell(value : "0"),
                                    ReportCell(value : "0.0"),
                                    ReportCell(isBlack : true),
@@ -1612,7 +1619,7 @@ final class ReportGenerator
             let newTowplaneHoursTotal = towplaneHoursTotal.adding(roundedSequenceDecimal)
             towplaneHoursTotal = newTowplaneHoursTotal
             
-            generator.addTableRow([ReportCell(value : "TPC"),
+            formater.addTableRow([ReportCell(value : "TPC"),
                                    ReportCell(isBlack : true),
                                    ReportCell(isBlack : true),
                                    ReportCell(value : "\(sequenceTotal)"),
@@ -1621,7 +1628,7 @@ final class ReportGenerator
             
         else
         {
-            generator.addTableRow([ReportCell(value : "TPC"),
+            formater.addTableRow([ReportCell(value : "TPC"),
                                    ReportCell(isBlack : true),
                                    ReportCell(isBlack : true),
                                    ReportCell(value : "0"),
@@ -1639,7 +1646,7 @@ final class ReportGenerator
             let newGliderHoursTotal = gliderHoursTotal.adding(roundedSequenceDecimal)
             gliderHoursTotal = newGliderHoursTotal
             
-            generator.addTableRow([ReportCell(value : "C"),
+            formater.addTableRow([ReportCell(value : "C"),
                                    ReportCell(value : "\(sequenceTotal)"),
                                    ReportCell(value : roundedSequenceDecimal.stringWithDecimal),
                                    ReportCell(isBlack : true),
@@ -1648,7 +1655,7 @@ final class ReportGenerator
             
         else
         {
-            generator.addTableRow([ReportCell(value : "C"),
+            formater.addTableRow([ReportCell(value : "C"),
                                    ReportCell(value : "0"),
                                    ReportCell(value : "0.0"),
                                    ReportCell(isBlack : true),
@@ -1665,7 +1672,7 @@ final class ReportGenerator
             let roundedSequenceDecimal = sequenceDecimal.rounding(accordingToBehavior: handler)
             let newGliderHoursTotal = gliderHoursTotal.adding(roundedSequenceDecimal)
             gliderHoursTotal = newGliderHoursTotal
-            generator.addTableRow([ReportCell(value : "S"),
+            formater.addTableRow([ReportCell(value : "S"),
                                    ReportCell(value : "\(sequenceTotal)"),
                                    ReportCell(value : roundedSequenceDecimal.stringWithDecimal),
                                    ReportCell(isBlack : true),
@@ -1674,7 +1681,7 @@ final class ReportGenerator
             
         else
         {
-            generator.addTableRow([ReportCell(value : "S"),
+            formater.addTableRow([ReportCell(value : "S"),
                                    ReportCell(value : "0"),
                                    ReportCell(value : "0.0"),
                                    ReportCell(isBlack : true),
@@ -1713,7 +1720,7 @@ final class ReportGenerator
             proficiencyTowplaneHours = roundedSequenceDecimal
         }
         
-        generator.addTableRow([ReportCell(value : "P"),
+        formater.addTableRow([ReportCell(value : "P"),
                                ReportCell(value : "\(proficiencyGliderSequence)"),
                                ReportCell(value : proficiencyGliderHours.stringWithDecimal),
                                ReportCell(isBlack : true),
@@ -1753,7 +1760,7 @@ final class ReportGenerator
             upgradeTowplaneHours = roundedSequenceDecimal
         }
         
-        generator.addTableRow([ReportCell(value : "U"),
+        formater.addTableRow([ReportCell(value : "U"),
                                ReportCell(value : "\(upgradeGliderSequence)"),
                                ReportCell(value : upgradeGliderHours.stringWithDecimal),
                                ReportCell(isBlack : true),
@@ -1793,7 +1800,7 @@ final class ReportGenerator
             familTowplaneHours = roundedSequenceDecimal
         }
         
-        generator.addTableRow([ReportCell(value : "F"),
+        formater.addTableRow([ReportCell(value : "F"),
                                ReportCell(value : "\(familGliderSequence)"),
                                ReportCell(value : familGliderHours.stringWithDecimal),
                                ReportCell(value : "\(familTowplaneSequence)"),
@@ -1832,7 +1839,7 @@ final class ReportGenerator
             transitTowplaneHours = roundedSequenceDecimal
         }
         
-        generator.addTableRow([ReportCell(value : "✗"),
+        formater.addTableRow([ReportCell(value : "✗"),
                                ReportCell(value : "\(transitGliderSequence)"),
                                ReportCell(value : transitGliderHours.stringWithDecimal),
                                ReportCell(isBlack : true),
@@ -1849,7 +1856,7 @@ final class ReportGenerator
             let newTowplaneHoursTotal = towplaneHoursTotal.adding(roundedSequenceDecimal)
             towplaneHoursTotal = newTowplaneHoursTotal
             
-            generator.addTableRow([ReportCell(value : "TOW"),
+            formater.addTableRow([ReportCell(value : "TOW"),
                                    ReportCell(isBlack : true),
                                    ReportCell(isBlack : true),
                                    ReportCell(isBlack : true),
@@ -1858,7 +1865,7 @@ final class ReportGenerator
             
         else
         {
-            generator.addTableRow([ReportCell(value : "TOW"),
+            formater.addTableRow([ReportCell(value : "TOW"),
                                    ReportCell(isBlack : true),
                                    ReportCell(isBlack : true),
                                    ReportCell(value : "0"),
@@ -1866,12 +1873,12 @@ final class ReportGenerator
         }
         
         //Totals
-        generator.addTotalRow([ReportCell(value : "Total"),
+        formater.addTotalRow([ReportCell(value : "Total"),
                                ReportCell(value : "\(gliderFlightsTotal)"),
                                ReportCell(value : gliderHoursTotal.stringWithDecimal),
                                ReportCell(value : "\(towplaneFlightsTotal)"),
                                ReportCell(value : towplaneHoursTotal.stringWithDecimal)])
-        generator.endTable()
+        formater.endTable()
         
         let winchTimesheetRequest = AircraftTimesheet.request
         let winchTimesheetRequestPredicate = NSPredicate(format: "date > %@ AND date < %@ AND aircraft.gliderOrTowplane == -1", argumentArray: [beginningOfReport, endDate])
@@ -1905,12 +1912,12 @@ final class ReportGenerator
         
         if winchLaunches > 0
         {
-            generator.addLineOfText("\(winchLaunches) winch launches")
+            formater.addLineOfText("\(winchLaunches) winch launches")
         }
         
         if autoLaunches > 0
         {
-            generator.addLineOfText("\(autoLaunches) auto launches")
+            formater.addLineOfText("\(autoLaunches) auto launches")
         }
         
         let NATIONALCOMPLETED = Date()
@@ -1919,12 +1926,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("\(unit.uppercased()) SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         let squadronCadetRequest = AttendanceRecord.request
@@ -2000,7 +2007,7 @@ final class ReportGenerator
         var arrayOfDatesFlownOrWithCadets = Array(flyingDatesDictionary.keys)
         arrayOfDatesFlownOrWithCadets.sort(by: <)
         
-        generator.startTable([[ReportColumn(widthPixel : 60, title : "Date"),
+        formater.startTable([[ReportColumn(widthPixel : 60, title : "Date"),
                                ReportColumn(widthPixel : 100, title : "Squadron"),
                                ReportColumn(widthPixel : 60, title : "Number of Squadron Cadets Attended"),
                                ReportColumn(widthPixel : 60, title : "Number of Squadron Cadet Glider Fams"),
@@ -2092,7 +2099,7 @@ final class ReportGenerator
                 }
             }
 
-            generator.addTableRow([ReportCell(value : date.militaryFormatShort),
+            formater.addTableRow([ReportCell(value : date.militaryFormatShort),
                                    ReportCell(value : squadronString),
                                    ReportCell(value : squadronAttendanceString),
                                    ReportCell(value : squadronGliderAttendanceString),
@@ -2101,7 +2108,7 @@ final class ReportGenerator
                                    ReportCell(value : commentsForDate)])
         }
 
-        generator.addTotalRow([ReportCell(value : "Total"),
+        formater.addTotalRow([ReportCell(value : "Total"),
                                ReportCell(),
                                ReportCell(value : "\(totalNumberOfCadets)"),
                                ReportCell(value : "\(totalNumberOfCadetsFlown)"),
@@ -2109,7 +2116,7 @@ final class ReportGenerator
                                ReportCell(value : "\(towFamFlights)"),
                                ReportCell()])
 
-        generator.endTable()
+        formater.endTable()
         
         let SQUADRONCOMPLETED = Date()
         //MARK: End of Squadron Stats
@@ -2117,16 +2124,16 @@ final class ReportGenerator
         //Personnel portion of report
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("\(unit.uppercased()) PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         // - TODO: Start table
-        generator.startTable([[ReportColumn(title : ""),
+        formater.startTable([[ReportColumn(title : ""),
                                ReportColumn(title : "Days Worked"),
                                ReportColumn(title : "PIC Flights"),
                                ReportColumn(title : "PIC flights /<br> day worked"),
@@ -2268,7 +2275,7 @@ final class ReportGenerator
         {
             let PICflightsPerDay = daysWorked == 0 ? 0 : Double(PICFlights) / daysWorked
             let dualFlightsPerDay = daysWorked == 0 ? 0 : Double(dualFlights) / daysWorked
-            generator.addTableRow([ReportCell(value : participantType),
+            formater.addTableRow([ReportCell(value : participantType),
                                    ReportCell(value : daysWorked.oneDecimalStringRepresentation),
                                    ReportCell(value : "\(PICFlights)"),
                                    ReportCell(value : PICflightsPerDay.oneDecimalStringRepresentation),
@@ -2281,24 +2288,24 @@ final class ReportGenerator
         appendStatsFor("CI", PICFlights: CIstats.PICflights, dualFlights: CIstats.dualFlights, daysWorked: CIstats.daysWorked)
         appendStatsFor("COATS", PICFlights: COATSstats.PICflights, dualFlights: COATSstats.dualFlights, daysWorked: COATSstats.daysWorked)
 
-        generator.endTable()
+        formater.endTable()
         
         let paidDays = COATSstats.daysWorked + CIstats.daysWorked
-        generator.addBlankLine()
-        generator.addLineOfText("Total paid days used \(paidDays.oneDecimalStringRepresentation)")
+        formater.addBlankLine()
+        formater.addLineOfText("Total paid days used \(paidDays.oneDecimalStringRepresentation)")
 
         // Start Staff Cadet Attendance
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("\(unit.uppercased()) STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
 
-        generator.startTable([[ReportColumn(title : "Name"),
+        formater.startTable([[ReportColumn(title : "Name"),
                                ReportColumn(title : "Squadron"),
                                ReportColumn(title : "Site"),
                                ReportColumn(title : "Days Worked")]],
@@ -2314,26 +2321,26 @@ final class ReportGenerator
         {
             if let daysWorked = staffCadetAttandance[cadet], daysWorked > 1.5
             {
-                generator.addTableRow([ReportCell(value : cadet.fullName),
+                formater.addTableRow([ReportCell(value : cadet.fullName),
                                        ReportCell(value : "\(cadet.squadron)"),
                                        ReportCell(value : cadet.glidingCentre.name),
                                        ReportCell(value : daysWorked.oneDecimalStringRepresentation)])
             }
         }
 
-        generator.endTable()
+        formater.endTable()
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("\(unit.uppercased()) STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("\(unit.uppercased()) STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            generator.addNewSectionTitle("STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        generator.startTable([[ReportColumn(title : "Upgrade"),
+        formater.startTable([[ReportColumn(title : "Upgrade"),
                                ReportColumn(title : "Name"),
                                ReportColumn(title : "Type of Participant"),
                                ReportColumn(title : "Site")]], withAlternatingRowColor: true)
@@ -2419,7 +2426,7 @@ final class ReportGenerator
         {
             for upgradedPilot in upgradedPilots
             {
-                generator.addTableRow([ReportCell(value : name),
+                formater.addTableRow([ReportCell(value : name),
                                        ReportCell(value : upgradedPilot.fullName),
                                        ReportCell(value : upgradedPilot.typeOfParticipantStringWithSquadronForCadets),
                                        ReportCell(value : upgradedPilot.glidingCentre?.name ?? "")])
@@ -2442,9 +2449,9 @@ final class ReportGenerator
         addCellForUpgrade("Tow Pilot X-Country", upgradedPilots: towXcountryUpgrades)
         addCellForUpgrade("LCO", upgradedPilots: LCOupgrades)
         
-        generator.endTable()
+        formater.endTable()
         
-        do{try generator.result().write(toFile: saveFilePath(), atomically: true, encoding: String.Encoding.utf8)}
+        do{try formater.result().write(toFile: saveFilePath(), atomically: true, encoding: String.Encoding.utf8)}
         catch{}
         
         let PERSONNELCOMPLETED = Date()
@@ -2695,9 +2702,9 @@ final class ReportGenerator
             }
         }
         
-        generator.addNewSectionTitle("GLIDER USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        formater.addNewSectionTitle("GLIDER USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
 
-        generator.startTable([[ReportColumn(colSpan : 2, title : ""),
+        formater.startTable([[ReportColumn(colSpan : 2, title : ""),
                                ReportColumn(colSpan : 5, title : "Glider Flights"),
                                ReportColumn(colSpan : 5, title : "Glider Hours"),
                                ReportColumn(colSpan : 2, title : "")],
@@ -2721,7 +2728,7 @@ final class ReportGenerator
 
             glider.glider.updateTTSN()
 
-            generator.addTableRow([ReportCell(value : glider.glider.registration),
+            formater.addTableRow([ReportCell(value : glider.glider.registration),
                                    ReportCell(value : glider.glider.tailNumber),
                                    ReportCell(value : "\(glider.transitFlights)"),
                                    ReportCell(value : "\(glider.familFlights)"),
@@ -2737,11 +2744,11 @@ final class ReportGenerator
                                    ReportCell(value : glider.glider.currentTimesheet!.TTSNfinal.stringWithDecimal)])
         }
         
-        generator.endTable()
+        formater.endTable()
 
-        generator.addNewSectionTitle("TOWPLANE USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        formater.addNewSectionTitle("TOWPLANE USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
 
-        generator.startTable([[ReportColumn(colSpan : 2, title : ""),
+        formater.startTable([[ReportColumn(colSpan : 2, title : ""),
                                ReportColumn(colSpan : 7, title : "Scout Hours"),
                                ReportColumn(title : "Scout Flights"),
                                ReportColumn(colSpan : 2, title : "")],
@@ -2762,7 +2769,7 @@ final class ReportGenerator
             guard towplane.totalHours > 0 else {continue}
             towplane.towplane.updateTTSN()
 
-            generator.addTableRow([ReportCell(value : towplane.towplane.registration),
+            formater.addTableRow([ReportCell(value : towplane.towplane.registration),
                                    ReportCell(value : towplane.towplane.tailNumber),
                                    ReportCell(value : towplane.transitHours.stringWithDecimal),
                                    ReportCell(value : towplane.towingHours.stringWithDecimal),
@@ -2775,11 +2782,11 @@ final class ReportGenerator
                                    ReportCell(value : towplane.totalHours.stringWithDecimal),
                                    ReportCell(value : towplane.towplane.currentTimesheet!.TTSNfinal.stringWithDecimal)])
         }
-        generator.endTable()
+        formater.endTable()
 
-        generator.addNewSectionTitle("WINCH USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        formater.addNewSectionTitle("WINCH USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
 
-        generator.startTable([[ReportColumn(colSpan : 2, title : ""),
+        formater.startTable([[ReportColumn(colSpan : 2, title : ""),
                                ReportColumn(title : "Current TTSN"),
                                ReportColumn(title : "Hours"),
                                ReportColumn(title : "Flights")]], withAlternatingRowColor: true)
@@ -2789,18 +2796,18 @@ final class ReportGenerator
             guard winch.flights > 0 else {continue}
             winch.winch.updateTTSN()
 
-            generator.addTableRow([ReportCell(value : winch.winch.registration),
+            formater.addTableRow([ReportCell(value : winch.winch.registration),
                                    ReportCell(value : winch.winch.tailNumber),
                                    ReportCell(value : winch.winch.currentTimesheet!.TTSNfinal.stringWithDecimal),
                                    ReportCell(value : winch.hours.stringWithDecimal),
                                    ReportCell(value : "\(winch.flights)")])
         }
 
-        generator.endTable()
+        formater.endTable()
         
         if siteSpecific
         {
-            generator.addNewSectionTitle("<big>ACTIVE STAFF CONTACT INFO</big>")
+            formater.addNewSectionTitle("<big>ACTIVE STAFF CONTACT INFO</big>")
             
             let pilotRequest = Pilot.request
             pilotRequest.predicate = NSPredicate(format: "inactive == NO AND glidingCentre == %@ AND (highestGliderQual > 0 OR highestScoutQual > 0)", dataModel.glidingCentre)
@@ -2811,12 +2818,12 @@ final class ReportGenerator
             for pilot in pilots
             {
                 guard pilot.email.count > 0 else{continue}
-                generator.addText(pilot.email + ", ")
+                formater.addText(pilot.email + ", ")
             }
             
         }
         
-        return generator.result()
+        return formater.result()
     }
     
     func statsReportFromDate(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String

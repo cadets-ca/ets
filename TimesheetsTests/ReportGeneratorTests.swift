@@ -299,14 +299,22 @@ class ReportGeneratorTests: XCTestCase
     /**
      This method attach the `data` as an html file to the current test.
      */
-    fileprivate func saveResultAsHtml(data: String, name: String)
+    fileprivate func attachResultAsHtml(data: String, name: String)
     {
-        let html = XCTAttachment(data: data.data(using: .utf8)!, uniformTypeIdentifier: "html")
-        html.name = name
-        html.lifetime = .keepAlways
-        self.add(html)
+        let attachment = XCTAttachment(data: data.data(using: .utf8)!, uniformTypeIdentifier: "html")
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        self.add(attachment)
     }
     
+    fileprivate func attachResult(content: URL, name: String)
+    {
+        let attachment = XCTAttachment(contentsOfFile: content)
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        self.add(attachment)
+    }
+
     // MARK: - StatsReportFromDate
     func testStatsReportFromDateIsHTML()
     {
@@ -424,13 +432,15 @@ class ReportGeneratorTests: XCTestCase
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name
         let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false)
-        let result2 = generator.statsReportFromDate(for: HtmlStatsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false))
-        _ = generator.statsReportFromDate(for: ExcelStatsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false))
+        let result2 = generator.statsReportFromDate(for: HtmlStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, false))
+        _ = generator.statsReportFromDate(for: ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, false))
 
         // Then
-        saveResultAsHtml(data: result, name: "report-\(reportDate).html")
-        saveResultAsHtml(data: result2, name: "report2-\(reportDate).html")
-
+        // We start to replace the sync generation by an async generation
+        // of the content.
+        attachResultAsHtml(data: result, name: "report-\(reportDate).html")
+        attachResultAsHtml(data: result2, name: "report2-\(reportDate).html")
+        
         XCTAssertFalse(result.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
         XCTAssertFalse(result.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
         XCTAssertFalse(result.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
@@ -447,5 +457,64 @@ class ReportGeneratorTests: XCTestCase
             expectedValue: "1")
         AssertMatch(result, pattern: "(.) winch launches", expectedValue: "2")
         AssertMatch(result, pattern: "(.) auto launches", expectedValue: "1")
+    }
+    
+    func testStatsReportFromDateWithAsyncGenerateCallImplemented()
+    {
+        let expectation = self.expectation(description: "Generate")
+        
+        class Handler : ReportFormaterDelegate
+        {
+            var success = false
+            let group : XCTestExpectation!
+            let test : ReportGeneratorTests!
+            
+            init(_ group : XCTestExpectation, _ test : ReportGeneratorTests)
+            {
+                self.group = group
+                self.test = test
+            }
+            
+            func success(_ url: URL) {
+                print("success : \(url)")
+                test.attachResult(content: url, name: "result")
+                success = true
+                group.fulfill()
+            }
+            
+            func fail(_ error: String) {
+                print(error)
+                success = false
+                group.fulfill()
+            }
+        }
+        
+        // Given
+        let towPlane1 = createTowPlane(registration: "REG#1", tailNumber: "123")
+        _ = createTowPlane(registration: "REG#2", tailNumber: "3")
+        
+        let lastFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-1), to: Date())!
+        let timesheet = createTimesheet(towPlane1, lastFlightDate)
+        _ = createFlight(towPlane1, timesheet, startingOn: lastFlightDate, forMinutes: 300)
+        
+        towPlane1.updateTTSN() // important to updateTTSN after each timesheet created with its flight. Otherwise the time is not adding up properly for the report...
+
+        // When
+        let reportDate = Date()
+        let report = ReportGenerator()
+        report.unit = dataModel.glidingCentre.name
+        let formater: ExcelStatsReportFromDateFormater = ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, false)
+        _ = report.statsReportFromDate(for: formater)
+        let handler = Handler(expectation, self)
+        
+        formater.generate(delegate: handler)
+
+        // Then
+        waitForExpectations(timeout: 5, handler: {arg in
+            print("DONE")
+        })
+
+        print("After notify")
+        XCTAssertTrue(handler.success)
     }
 }

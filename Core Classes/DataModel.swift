@@ -523,7 +523,9 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             }
         }
         
-        tableText = viewPreviousRecords ? swiftGenerator.generateTimesheetsForDate(dateToViewRecords, includeChanges) : swiftGenerator.generateTimesheetsForDate(Date(), includeChanges)
+        tableText = viewPreviousRecords ?
+            swiftGenerator.generateTimesheetsForDate(dateToViewRecords, includeChanges) :
+            swiftGenerator.generateTimesheetsForDate(Date(), includeChanges)
         let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
         let pathForPDF = pathArray.first!.stringByAppendingPathComponent("Timesheets.pdf")
         
@@ -636,7 +638,6 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         let swiftGenerator  = ReportGenerator()
         swiftGenerator.regionName = UserDefaults.standard.string(forKey: "Region")?.uppercased()
         swiftGenerator.unit = GC?.name
-//        let swiftResult = swiftGenerator.generateStatsReportFromDate(startDate, toDate:endDate)
         let swiftResult = swiftGenerator.statsReportFromDate(startDate, toDate: endDate, true)
 
         tableText = swiftResult
@@ -1560,4 +1561,20 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     {
         aircraftInTheAirRefreshTimer?.invalidate()
     }
+}
+
+class StatsReportEmailSender
+{
+    let startDate : Date
+    let endDate : Date
+    let glidingCentre : GlidingCentre?
+    
+    init(startDate : Date, endDate : Date, glidingCentre : GlidingCentre?)
+    {
+        self.startDate = startDate
+        self.endDate = endDate
+        self.glidingCentre = glidingCentre
+    }
+    
+    
 }

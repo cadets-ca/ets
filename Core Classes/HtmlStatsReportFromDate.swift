@@ -26,7 +26,16 @@ struct ReportCell
 
 enum VAlign: String { case bottom, top, middle }
 
-protocol StatsReportFromDateGenerator
+/// This Delegate protocol imply that it ties to the Generator, that only exist in
+///  the form of StatsReportFromDateGenerator... Maybe there will be a Generator protocol
+///  at a later time.
+protocol ReportFormaterDelegate
+{
+    func success(_ url : URL)
+    func fail(_ error : String)
+}
+
+protocol StatsReportFromDateFormater
 {
     var startDate : Date { get }
     var endDate : Date { get }
@@ -49,15 +58,11 @@ protocol StatsReportFromDateGenerator
     func endTable()
     
     func result() -> String
+    func generate(delegate : ReportFormaterDelegate)
 }
 
-extension StatsReportFromDateGenerator
+extension StatsReportFromDateFormater
 {
-//    init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
-//    {
-//        self(startDate, endDate, siteSpecific)
-//    }
-
     func startTable(_ columnsSet : [[ReportColumn]])
     {
         self.startTable(columnsSet, withAlternatingRowColor: false, withInformationText: nil)
@@ -69,7 +74,7 @@ extension StatsReportFromDateGenerator
     }
 }
 
-class HtmlStatsReportFromDate: StatsReportFromDateGenerator
+class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -226,9 +231,33 @@ class HtmlStatsReportFromDate: StatsReportFromDateGenerator
             report +
         "</body></html>"
     }
+    
+    func generate(delegate: ReportFormaterDelegate) {
+        export{url in
+            if let url = url {
+                delegate.success(url)
+            } else {
+                delegate.fail("Cannot create file!")
+            }
+        }
+        //delegate.fail("Not implemented")
+    }
+    
+    private func export(_ done: @escaping (URL?)->Void) {
+        DispatchQueue.global(qos: .background).async {
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("result.html")
+            do {
+                try self.result().write(to: url, atomically: true, encoding: .utf8)
+                DispatchQueue.main.async{ done(url) }
+            } catch {
+                DispatchQueue.main.async{ done(nil) }
+            }
+        }
+    }
+
 }
 
-class ExcelStatsReportFromDate: StatsReportFromDateGenerator
+class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -243,7 +272,7 @@ class ExcelStatsReportFromDate: StatsReportFromDateGenerator
     var isAlternatingRowColor = false
 
     var rowsOnCurrentSheet = [ExcelRow]()
-    var titleCurrentSheet = ""
+    var titleCurrentSheet : String? = nil
     var sheets = [ExcelSheet]()
     
     required init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
@@ -262,18 +291,20 @@ class ExcelStatsReportFromDate: StatsReportFromDateGenerator
     func addNewSectionTitle(_ title: String)
     {
         // end previous section
-        sheets.append(ExcelSheet(rowsOnCurrentSheet, name: titleCurrentSheet))
-        
-        // clear accumulators
-        rowsOnCurrentSheet = [ExcelRow]()
-        
+        if let title = titleCurrentSheet {
+            sheets.append(ExcelSheet(rowsOnCurrentSheet, name: title))
+
+            // clear accumulators
+            rowsOnCurrentSheet = [ExcelRow]()
+        }
+                
         // set section title
         titleCurrentSheet = title
     }
     
     func addBlankLine()
     {
-        rowsOnCurrentSheet.append(ExcelRow([]))
+        rowsOnCurrentSheet.append(ExcelRow([ExcelCell("")]))
     }
     
     func addLineOfInfoText(_ info: String)
@@ -303,7 +334,7 @@ class ExcelStatsReportFromDate: StatsReportFromDateGenerator
         
         if let text = withInformationText
         {
-            var colSpan = 1
+            var colSpan = 0
             for columns in columnsSet
             {
                 colSpan = colSpan < columns.count ? columns.count : colSpan
@@ -316,10 +347,16 @@ class ExcelStatsReportFromDate: StatsReportFromDateGenerator
             var cells = [ExcelCell]()
             for column in columns
             {
-                cells.append(ExcelCell(column.title, [TextAttribute.backgroundColor(bgColor)], .string, colspan: column.colSpan))
+                let colSpan = (column.colSpan ?? 1) - 1
+                cells.append(ExcelCell(fix(column.title), [TextAttribute.backgroundColor(bgColor)], .string, colspan: colSpan))
             }
             rowsOnCurrentSheet.append(ExcelRow(cells))
         }
+    }
+    
+    func fix(_ value : String) -> String
+    {
+        return value.replacingOccurrences(of: "<br>", with: "&#10;")
     }
     
     func addTableRow(_ cells: [ReportCell])
@@ -338,7 +375,7 @@ class ExcelStatsReportFromDate: StatsReportFromDateGenerator
             }
             
             // TODO: Need to add rowspan as well as colSpan...
-            excelCells.append(ExcelCell(cell.value, attribs, .string))
+            excelCells.append(ExcelCell(fix(cell.value), attribs, .string))
         }
         rowsOnCurrentSheet.append(ExcelRow(excelCells))
         
@@ -373,5 +410,15 @@ class ExcelStatsReportFromDate: StatsReportFromDateGenerator
     func result() -> String
     {
         return ""
+    }
+    
+    func generate(delegate: ReportFormaterDelegate) {
+        ExcelExport.export(sheets, fileName: "report", done: {url in
+            if let url = url {
+                delegate.success(url)
+            } else {
+                delegate.fail("Could not write to file!")
+            }
+        })
     }
 }
