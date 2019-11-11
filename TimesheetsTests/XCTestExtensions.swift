@@ -24,7 +24,10 @@ extension XCTest {
                 let stringMatched = content[stringMatchedRange]
                 let valueFound = content[valueFoundRange]
                 XCTAssertTrue( String(valueFound) == expectedValue,
-                               "Found value of \"\(valueFound)\" in \"\(stringMatched)\" that don't match the expected value of \"\(expectedValue).\".", file: file, line: line)
+                               """
+                    Found value of \"\(valueFound)\" in \"\(stringMatched)\" that don't match the expected value of \"\(expectedValue).\".
+                    Using the pattern \"\(pattern)\"
+                    """, file: file, line: line)
             }
             else
             {

@@ -1421,12 +1421,12 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            formater.addTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formater.addNewSectionTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         formater.addBlankLine()
@@ -2800,7 +2800,7 @@ final class ReportGenerator
         
         if siteSpecific
         {
-            formater.addNewSectionTitle("<big>ACTIVE STAFF CONTACT INFO</big>")
+            formater.addNewSectionTitle("ACTIVE STAFF CONTACT INFO")
             
             let pilotRequest = Pilot.request
             pilotRequest.predicate = NSPredicate(format: "inactive == NO AND glidingCentre == %@ AND (highestGliderQual > 0 OR highestScoutQual > 0)", dataModel.glidingCentre)

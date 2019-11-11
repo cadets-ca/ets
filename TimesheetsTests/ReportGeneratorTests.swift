@@ -28,7 +28,32 @@ class ReportGeneratorTests: XCTestCase
     var staffCadetPilot: Pilot!
     var staffCadetPilot2: Pilot!
     var cadet: Pilot!
-    
+
+    class Handler : ReportFormaterDelegate
+    {
+        var success = false
+        let group : XCTestExpectation!
+        var url : URL?
+        
+        init(_ group : XCTestExpectation)
+        {
+            self.group = group
+        }
+        
+        func success(_ url: URL) {
+            print("success : \(url)")
+            self.url = url
+            success = true
+            group.fulfill()
+        }
+        
+        func fail(_ error: String) {
+            print(error)
+            success = false
+            group.fulfill()
+        }
+    }
+
     override func setUp()
     {
         dataModel.viewPreviousRecords = true
@@ -352,13 +377,17 @@ class ReportGeneratorTests: XCTestCase
      
      - TODO: Once all tests implemented in that method, we might think of spliting it. Should not be that hard.
      */
+    func log(_ msg: String, file: StaticString = #file, line: UInt = #line)
+    {
+        print("#\(line) : \(msg)")
+    }
     func testStatsReportFromDateIncludeAircraftInReport()
     {
         // Given
         dataModel.createAttendanceRecordForPerson(pilotJohnDo)
 
         let towPlane1 = createTowPlane(registration: "REG#1", tailNumber: "123")
-        _ = createTowPlane(registration: "REG#2", tailNumber: "3")
+//        _ = createTowPlane(registration: "REG#2", tailNumber: "3")
 
         let lastFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-1), to: Date())!
         var timesheet = createTimesheet(towPlane1, lastFlightDate)
@@ -373,7 +402,7 @@ class ReportGeneratorTests: XCTestCase
         _ = createFlight(towPlane1, timesheet, startingOn: middleFlightDate, forMinutes: 65, sequence: .Upgrade)
 
         towPlane1.updateTTSN()
-        
+
         let previousFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-3), to: Date())!
         timesheet = createTimesheet(towPlane1, previousFlightDate)
         _ = createFlight(towPlane1, timesheet, startingOn: previousFlightDate, forMinutes: 5, sequence: .Maintenance)
@@ -381,7 +410,7 @@ class ReportGeneratorTests: XCTestCase
         _ = createFlight(towPlane1, timesheet, startingOn: previousFlightDate, forMinutes: 30, sequence: .Transit)
         
         towPlane1.updateTTSN()
-        
+
         // FIXME: total of 460 minutes in 7 flights... only 6 flights are totalized, but all the minutes are there....
         
         let glider = createGlider(registration: "Glider", tailNumber: "333")
@@ -431,9 +460,27 @@ class ReportGeneratorTests: XCTestCase
         let reportDate = Date()
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name
-        let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, false)
-        let result2 = generator.statsReportFromDate(for: HtmlStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, false))
-        _ = generator.statsReportFromDate(for: ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, false))
+        let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, true)
+        let result2 = generator.statsReportFromDate(for: HtmlStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true))
+        
+        // TODO: The following few lines save values to test later. There is something that modify the properties in the related entities between line 471 and 483. That occured after update to Catalina / XCode Version 11.2 (11B52).
+        let towPlane1RegistrationWithTailNumberInBrackets = towPlane1.registrationWithTailNumberInBrackets
+        let maintenanceEventComment = maintenanceEvent.comment
+        let maintenanceEvent2Comment = maintenanceEvent2.comment
+        let gliderLaunchWithAutoRegistrationWithTailNumberInBrackets = gliderLaunchWithAuto.registrationWithTailNumberInBrackets
+        log("towPlane1: \(towPlane1.registrationWithTailNumberInBrackets)")
+
+        // ... generate an Excel version of the report and attach it to the test result
+        let excelFormater: ExcelStatsReportFromDateFormater = ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true)
+        _ = generator.statsReportFromDate(for: excelFormater)
+        let expectation = self.expectation(description: "Excel")
+        let handler = Handler(expectation)
+        excelFormater.generate(delegate: handler)
+        waitForExpectations(timeout: 10, handler: nil)
+        if let url = handler.url {
+            attachResult(content: url, name: "result")
+        }
+        log("towPlane1: \(towPlane1.registrationWithTailNumberInBrackets)")
 
         // Then
         // We start to replace the sync generation by an async generation
@@ -444,15 +491,16 @@ class ReportGeneratorTests: XCTestCase
         XCTAssertFalse(result.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
         XCTAssertFalse(result.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
         XCTAssertFalse(result.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
-        XCTAssert(result.contains("\(towPlane1.registrationWithTailNumberInBrackets)</td>"),
+        
+        XCTAssert(result.contains("\(towPlane1RegistrationWithTailNumberInBrackets)</td>"),
                   "Plane \" \(towPlane1.registrationWithTailNumberInBrackets)\" missing from the table.")
         XCTAssertTrue(result.contains("<td>\(lastFlightDate.militaryFormatShort)</td>"),
                       "Line for date \(lastFlightDate.militaryFormatShort) missing from the table.")
-        let aircraftRegWithTailNumberForRegEx = towPlane1.registrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
+        let aircraftRegWithTailNumberForRegEx = towPlane1RegistrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
         AssertMatch(result, pattern: "<tr><td.+?>\(aircraftRegWithTailNumberForRegEx)</td>.+?<td>\(lastFlightDate.militaryFormatShort)</td><td>(.+?)</td>", expectedValue: "5.0")
-        XCTAssertTrue(result.contains(maintenanceEvent.comment), "Oops... \"\(maintenanceEvent.comment)\" not found.")
-        XCTAssertTrue(result.contains(maintenanceEvent2.comment), "Oops... \"\(maintenanceEvent2.comment)\"not found.")
-        let registrationWithTailNumberInBracketsForRegEx = gliderLaunchWithAuto.registrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
+        XCTAssertTrue(result.contains(maintenanceEventComment), "Oops... \"\(maintenanceEventComment)\" not found.")
+        XCTAssertTrue(result.contains(maintenanceEvent2Comment), "Oops... \"\(maintenanceEvent2Comment)\"not found.")
+        let registrationWithTailNumberInBracketsForRegEx = gliderLaunchWithAutoRegistrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
         AssertMatch(result, pattern: "<tr><td[^>]+?>\(registrationWithTailNumberInBracketsForRegEx)</td>.+?</tr><tr>.+?</tr><tr><td>.+?</td><td>.+?</td><td>(.+?)</td>",
             expectedValue: "1")
         AssertMatch(result, pattern: "(.) winch launches", expectedValue: "2")
@@ -462,33 +510,7 @@ class ReportGeneratorTests: XCTestCase
     func testStatsReportFromDateWithAsyncGenerateCallImplemented()
     {
         let expectation = self.expectation(description: "Generate")
-        
-        class Handler : ReportFormaterDelegate
-        {
-            var success = false
-            let group : XCTestExpectation!
-            let test : ReportGeneratorTests!
-            
-            init(_ group : XCTestExpectation, _ test : ReportGeneratorTests)
-            {
-                self.group = group
-                self.test = test
-            }
-            
-            func success(_ url: URL) {
-                print("success : \(url)")
-                test.attachResult(content: url, name: "result")
-                success = true
-                group.fulfill()
-            }
-            
-            func fail(_ error: String) {
-                print(error)
-                success = false
-                group.fulfill()
-            }
-        }
-        
+                
         // Given
         let towPlane1 = createTowPlane(registration: "REG#1", tailNumber: "123")
         _ = createTowPlane(registration: "REG#2", tailNumber: "3")
@@ -503,10 +525,10 @@ class ReportGeneratorTests: XCTestCase
         let reportDate = Date()
         let report = ReportGenerator()
         report.unit = dataModel.glidingCentre.name
-        let formater: ExcelStatsReportFromDateFormater = ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, false)
+        let formater: ExcelStatsReportFromDateFormater = ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true)
         _ = report.statsReportFromDate(for: formater)
-        let handler = Handler(expectation, self)
         
+        let handler = Handler(expectation)
         formater.generate(delegate: handler)
 
         // Then
@@ -516,5 +538,8 @@ class ReportGeneratorTests: XCTestCase
 
         print("After notify")
         XCTAssertTrue(handler.success)
+        if let url = handler.url {
+            attachResult(content: url, name: "result")
+        }
     }
 }

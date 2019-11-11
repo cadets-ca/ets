@@ -282,6 +282,7 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
         self.siteSpecific = siteSpecific
     }
 
+    
     func addTitle(_ title: String)
     {
         let cells = [ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])])]
@@ -290,16 +291,11 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
     
     func addNewSectionTitle(_ title: String)
     {
-        // end previous section
-        if let title = titleCurrentSheet {
-            sheets.append(ExcelSheet(rowsOnCurrentSheet, name: title))
+        endPreviousSectionAndResetAccumulator()
+    
+        addSectionTitleToWorksheet(title)
 
-            // clear accumulators
-            rowsOnCurrentSheet = [ExcelRow]()
-        }
-                
-        // set section title
-        titleCurrentSheet = title
+        setSectionTitle(title)
     }
     
     func addBlankLine()
@@ -352,11 +348,6 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
             }
             rowsOnCurrentSheet.append(ExcelRow(cells))
         }
-    }
-    
-    func fix(_ value : String) -> String
-    {
-        return value.replacingOccurrences(of: "<br>", with: "&#10;")
     }
     
     func addTableRow(_ cells: [ReportCell])
@@ -413,6 +404,9 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
     }
     
     func generate(delegate: ReportFormaterDelegate) {
+        endPreviousSectionAndResetAccumulator()
+        
+        // generate the file
         ExcelExport.export(sheets, fileName: "report", done: {url in
             if let url = url {
                 delegate.success(url)
@@ -420,5 +414,32 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
                 delegate.fail("Could not write to file!")
             }
         })
+    }
+    
+    private func endPreviousSectionAndResetAccumulator()
+    {
+        if let title = titleCurrentSheet {
+            sheets.append(ExcelSheet(rowsOnCurrentSheet, name: title))
+            
+            // clear accumulators
+            rowsOnCurrentSheet = [ExcelRow]()
+        }
+    }
+    
+    private func addSectionTitleToWorksheet(_ title: String)
+    {
+        rowsOnCurrentSheet.append(ExcelRow([ExcelCell("")]))
+        rowsOnCurrentSheet.append(ExcelRow([ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])])]))
+        rowsOnCurrentSheet.append(ExcelRow([ExcelCell("")]))
+    }
+    
+    private func setSectionTitle(_ title: String)
+    {
+        titleCurrentSheet = title
+    }
+    
+    private func fix(_ value : String) -> String
+    {
+        return value.replacingOccurrences(of: "<br>", with: "&#10;")
     }
 }
