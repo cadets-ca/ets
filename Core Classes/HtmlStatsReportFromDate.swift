@@ -18,7 +18,7 @@ struct ReportColumn
 
 struct ReportCell
 {
-    var rowSpan : Int = 1
+    var rowSpan : Int? = nil
     var value : String = ""
     var isBlack : Bool = false
     var vAlign : VAlign? = nil
@@ -179,9 +179,9 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
                 {
                     report += " valign='\(vAlign.rawValue)'"
                 }
-                if cell.rowSpan != 1
+                if cell.rowSpan != nil && cell.rowSpan != 1
                 {
-                    report += " rowspan ='\(cell.rowSpan)'"
+                    report += " rowspan ='\(cell.rowSpan!)'"
                 }
                 report += ">\(cell.value)</td>"
             }
@@ -209,9 +209,9 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
                 {
                     report += " valign='\(vAlign.rawValue)'"
                 }
-                if cell.rowSpan != 1
+                if cell.rowSpan != nil && cell.rowSpan != 1
                 {
-                    report += " rowspan ='\(cell.rowSpan)'"
+                    report += " rowspan ='\(cell.rowSpan!)'"
                 }
                 report += ">\(cell.value)</th>"
             }
@@ -366,7 +366,8 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
             }
             
             // TODO: Need to add rowspan as well as colSpan...
-            excelCells.append(ExcelCell(fix(cell.value), attribs, .string))
+            let rowSpan : Int? = (cell.rowSpan != nil) ? cell.rowSpan! - 1 : nil
+            excelCells.append(ExcelCell(fix(cell.value), attribs, .string, colspan: nil, rowspan: rowSpan))
         }
         rowsOnCurrentSheet.append(ExcelRow(excelCells))
         

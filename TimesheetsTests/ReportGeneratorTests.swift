@@ -381,6 +381,7 @@ class ReportGeneratorTests: XCTestCase
     {
         print("#\(line) : \(msg)")
     }
+    
     func testStatsReportFromDateIncludeAircraftInReport()
     {
         // Given
