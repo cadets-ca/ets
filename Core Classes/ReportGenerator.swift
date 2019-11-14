@@ -1384,10 +1384,10 @@ final class ReportGenerator
      depends on some kind of UI API. But the goal is to be able to have it generate an Excel spreadsheet. Which is already our binary format (in fact it is still text format - XML - but need no
      other transformation). Building the Excel file is async because of the operation required. So the generator.generate protocol method will need to be async as well. Which will change significantly the structure of the code.
      */
-    func statsReportFromDate(for formater: StatsReportFromDateFormater) -> String
+    func statsReportFromDate(for formater: StatsReportFromDateFormater)
     {
         //Heading and number of glider flights
-        guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return ""}
+        guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return}
         let START = Date()
         let beginningOfReport = formater.startDate
         let endDate = formater.endDate
@@ -2813,10 +2813,7 @@ final class ReportGenerator
                 guard pilot.email.count > 0 else{continue}
                 formater.addText(pilot.email + ", ")
             }
-            
         }
-        
-        return formater.result()
     }
     
     func statsReportFromDate(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false) -> String

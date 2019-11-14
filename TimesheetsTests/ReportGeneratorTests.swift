@@ -462,7 +462,9 @@ class ReportGeneratorTests: XCTestCase
         let generator = ReportGenerator()
         generator.unit = dataModel.glidingCentre.name
         let result = generator.statsReportFromDate(reportDate - (5*24*60*60), toDate: reportDate, true)
-        let result2 = generator.statsReportFromDate(for: HtmlStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true))
+        let htmlFormater = HtmlStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true)
+        generator.statsReportFromDate(for: htmlFormater)
+        let result2 = htmlFormater.result()
         
         // TODO: The following few lines save values to test later. There is something that modify the properties in the related entities between line 471 and 483. That occured after update to Catalina / XCode Version 11.2 (11B52).
         let towPlane1RegistrationWithTailNumberInBrackets = towPlane1.registrationWithTailNumberInBrackets
@@ -471,9 +473,9 @@ class ReportGeneratorTests: XCTestCase
         let gliderLaunchWithAutoRegistrationWithTailNumberInBrackets = gliderLaunchWithAuto.registrationWithTailNumberInBrackets
         log("towPlane1: \(towPlane1.registrationWithTailNumberInBrackets)")
 
-        // ... generate an Excel version of the report and attach it to the test result
+        // ... generate an Excel version of the report and attach it to the test result. This is for visual validation.
         let excelFormater: ExcelStatsReportFromDateFormater = ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true)
-        _ = generator.statsReportFromDate(for: excelFormater)
+        generator.statsReportFromDate(for: excelFormater)
         let expectation = self.expectation(description: "Excel")
         let handler = Handler(expectation)
         excelFormater.generate(delegate: handler)
@@ -527,7 +529,7 @@ class ReportGeneratorTests: XCTestCase
         let report = ReportGenerator()
         report.unit = dataModel.glidingCentre.name
         let formater: ExcelStatsReportFromDateFormater = ExcelStatsReportFromDateFormater(reportDate - (5*24*60*60), toDate: reportDate, true)
-        _ = report.statsReportFromDate(for: formater)
+        report.statsReportFromDate(for: formater)
         
         let handler = Handler(expectation)
         formater.generate(delegate: handler)

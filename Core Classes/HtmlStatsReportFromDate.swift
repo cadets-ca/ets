@@ -240,7 +240,6 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
                 delegate.fail("Cannot create file!")
             }
         }
-        //delegate.fail("Not implemented")
     }
     
     private func export(_ done: @escaping (URL?)->Void) {
