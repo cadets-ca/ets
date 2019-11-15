@@ -171,9 +171,9 @@ class ReportGeneratorTests: XCTestCase
     {
         let forDate = Date()
         let generator = StatsReportFromDate(forDate, toDate: forDate, glidingCentre: dataModel.glidingCentre, regionName: dataModel.regionName!)
-        let formater = HtmlStatsReportFromDateFormater()
-        generator.statsReportFromDate(for: formater)
-        let result = formater.result()
+        let formatter = HtmlStatsReportFromDateFormater()
+        generator.statsReportFromDate(for: formatter)
+        let result = formatter.result()
         
         XCTAssertTrue(result.contains(dataModel.glidingCentre.name), "Our challenge, if we accept it, is to find how we display the centre name instead of the title REGIONAL REPORT.")
     }
@@ -344,12 +344,12 @@ class ReportGeneratorTests: XCTestCase
         report.unit = dataModel.glidingCentre.name
         let startDate = reportDate - (5*24*60*60)
         let endDate = reportDate
-        let formater = ExcelStatsReportFromDateFormater()
+        let formatter = ExcelStatsReportFromDateFormater()
         let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: centre, regionName: dataModel.regionName!)
-        statsReport.statsReportFromDate(for: formater)
+        statsReport.statsReportFromDate(for: formatter)
         
         let handler = Handler(expectation)
-        formater.generate(delegate: handler)
+        formatter.generate(delegate: handler)
 
         // Then
         waitForExpectations(timeout: 5, handler: {arg in

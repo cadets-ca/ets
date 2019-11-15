@@ -206,7 +206,7 @@
 		DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */; };
 		DAFDAFEF1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */; };
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
-		F3011743234D750800830EE9 /* HtmlStatsReportFromDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* HtmlStatsReportFromDate.swift */; };
+		F3011743234D750800830EE9 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* Formatters.swift */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
 		F33ED8B5237E38DC0020CEBE /* StatsReportFromDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */; };
 		F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */; };
@@ -508,7 +508,7 @@
 		DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Timesheets.entitlements; sourceTree = "<group>"; };
 		DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsOrGuestsPopover.swift; sourceTree = "<group>"; };
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
-		F3011742234D750800830EE9 /* HtmlStatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlStatsReportFromDate.swift; sourceTree = "<group>"; };
+		F3011742234D750800830EE9 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDate.swift; sourceTree = "<group>"; };
 		F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceRecordForPersonTests.swift; sourceTree = "<group>"; };
@@ -872,7 +872,7 @@
 				DA1D2F851B02B35D00160AC9 /* CollectionViewCellStylePilot.swift */,
 				DA1D2F891B0A9B8E00160AC9 /* StatsManager.swift */,
 				F379784723370877006F69DA /* ReportTransmitter.swift */,
-				F3011742234D750800830EE9 /* HtmlStatsReportFromDate.swift */,
+				F3011742234D750800830EE9 /* Formatters.swift */,
 				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
 			);
 			path = "Core Classes";
@@ -1564,7 +1564,7 @@
 				DA4C70091ACB96C50024DE40 /* ImageTransformer.swift in Sources */,
 				DA313EE51A36B70800F1A980 /* GlobalFunctionsAndDeclarations.swift in Sources */,
 				DADBDEAB1A49091A00EDA8C2 /* Photo.swift in Sources */,
-				F3011743234D750800830EE9 /* HtmlStatsReportFromDate.swift in Sources */,
+				F3011743234D750800830EE9 /* Formatters.swift in Sources */,
 				DADBDEAD1A4909C000EDA8C2 /* MedicalImage.swift in Sources */,
 				DAF758B91F83384E00F829E6 /* Reachability.swift in Sources */,
 				DA1D2F861B02B35D00160AC9 /* CollectionViewCellStylePilot.swift in Sources */,

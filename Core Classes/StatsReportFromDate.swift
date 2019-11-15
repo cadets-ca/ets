@@ -48,7 +48,7 @@ class StatsReportFromDate
      depends on some kind of UI API. But the goal is to be able to have it generate an Excel spreadsheet. Which is already our binary format (in fact it is still text format - XML - but need no
      other transformation). Building the Excel file is async because of the operation required. So the generator.generate protocol method will need to be async as well. Which will change significantly the structure of the code.
      */
-    func statsReportFromDate(for formater: StatsReportFromDateFormater)
+    func statsReportFromDate(for formatter: StatsReportFromDateFormater)
     {
         //Heading and number of glider flights
         guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return}
@@ -83,30 +83,30 @@ class StatsReportFromDate
         
         if siteSpecific
         {
-            formater.addNewSectionTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("\(unit.uppercased()) STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addNewSectionTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("REGIONAL STATS REPORT \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        formater.addBlankLine()
+        formatter.addBlankLine()
         
         if siteSpecific
         {
-            formater.addLineOfInfoText("\(unit) glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
+            formatter.addLineOfInfoText("\(unit) glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
         }
             
         else
         {
-            formater.addLineOfInfoText("Glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
+            formatter.addLineOfInfoText("Glider flights last five days: \(numberOfGliderFlightsInLastFiveDays)")
         }
         
-        formater.addBlankLine()
+        formatter.addBlankLine()
         
         // MARK: - Maintenance portion of report
-        generateMaintenanceReportWithReportGenerator(formater, glidingCentre: GC, siteSpecific: siteSpecific)
+        generateMaintenanceReportWithReportGenerator(formatter, glidingCentre: GC, siteSpecific: siteSpecific)
         let MAINTENANCECOMPLETED = Date()
         // MARK: End Of Maintenance Section
         
@@ -211,15 +211,15 @@ class StatsReportFromDate
         
         if siteSpecific
         {
-            formater.addNewSectionTitle("\(unit.uppercased()) NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("\(unit.uppercased()) NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addNewSectionTitle("NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("NATIONAL REPORT STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        formater.startTable([[ReportColumn(title : ""),
+        formatter.startTable([[ReportColumn(title : ""),
                               ReportColumn(colSpan : 2, title : "Gliders"),
                               ReportColumn(colSpan : 2, title : "Tow Aircraft")],
                              [ReportColumn(title : ""),
@@ -246,7 +246,7 @@ class StatsReportFromDate
             let newGliderHoursTotal = gliderHoursTotal.adding(roundedSequenceDecimal)
             gliderHoursTotal = newGliderHoursTotal
             
-            formater.addTableRow([ReportCell(value : "GIC"),
+            formatter.addTableRow([ReportCell(value : "GIC"),
                                   ReportCell(value : "\(sequenceTotal)"),
                                   ReportCell(value : roundedSequenceDecimal.stringWithDecimal),
                                   ReportCell(isBlack : true),
@@ -255,7 +255,7 @@ class StatsReportFromDate
             
         else
         {
-            formater.addTableRow([ReportCell(value : "GIC"),
+            formatter.addTableRow([ReportCell(value : "GIC"),
                                   ReportCell(value : "0"),
                                   ReportCell(value : "0.0"),
                                   ReportCell(isBlack : true),
@@ -274,7 +274,7 @@ class StatsReportFromDate
             let newTowplaneHoursTotal = towplaneHoursTotal.adding(roundedSequenceDecimal)
             towplaneHoursTotal = newTowplaneHoursTotal
             
-            formater.addTableRow([ReportCell(value : "TPC"),
+            formatter.addTableRow([ReportCell(value : "TPC"),
                                   ReportCell(isBlack : true),
                                   ReportCell(isBlack : true),
                                   ReportCell(value : "\(sequenceTotal)"),
@@ -283,7 +283,7 @@ class StatsReportFromDate
             
         else
         {
-            formater.addTableRow([ReportCell(value : "TPC"),
+            formatter.addTableRow([ReportCell(value : "TPC"),
                                   ReportCell(isBlack : true),
                                   ReportCell(isBlack : true),
                                   ReportCell(value : "0"),
@@ -301,7 +301,7 @@ class StatsReportFromDate
             let newGliderHoursTotal = gliderHoursTotal.adding(roundedSequenceDecimal)
             gliderHoursTotal = newGliderHoursTotal
             
-            formater.addTableRow([ReportCell(value : "C"),
+            formatter.addTableRow([ReportCell(value : "C"),
                                   ReportCell(value : "\(sequenceTotal)"),
                                   ReportCell(value : roundedSequenceDecimal.stringWithDecimal),
                                   ReportCell(isBlack : true),
@@ -310,7 +310,7 @@ class StatsReportFromDate
             
         else
         {
-            formater.addTableRow([ReportCell(value : "C"),
+            formatter.addTableRow([ReportCell(value : "C"),
                                   ReportCell(value : "0"),
                                   ReportCell(value : "0.0"),
                                   ReportCell(isBlack : true),
@@ -327,7 +327,7 @@ class StatsReportFromDate
             let roundedSequenceDecimal = sequenceDecimal.rounding(accordingToBehavior: handler)
             let newGliderHoursTotal = gliderHoursTotal.adding(roundedSequenceDecimal)
             gliderHoursTotal = newGliderHoursTotal
-            formater.addTableRow([ReportCell(value : "S"),
+            formatter.addTableRow([ReportCell(value : "S"),
                                   ReportCell(value : "\(sequenceTotal)"),
                                   ReportCell(value : roundedSequenceDecimal.stringWithDecimal),
                                   ReportCell(isBlack : true),
@@ -336,7 +336,7 @@ class StatsReportFromDate
             
         else
         {
-            formater.addTableRow([ReportCell(value : "S"),
+            formatter.addTableRow([ReportCell(value : "S"),
                                   ReportCell(value : "0"),
                                   ReportCell(value : "0.0"),
                                   ReportCell(isBlack : true),
@@ -375,7 +375,7 @@ class StatsReportFromDate
             proficiencyTowplaneHours = roundedSequenceDecimal
         }
         
-        formater.addTableRow([ReportCell(value : "P"),
+        formatter.addTableRow([ReportCell(value : "P"),
                               ReportCell(value : "\(proficiencyGliderSequence)"),
                               ReportCell(value : proficiencyGliderHours.stringWithDecimal),
                               ReportCell(isBlack : true),
@@ -415,7 +415,7 @@ class StatsReportFromDate
             upgradeTowplaneHours = roundedSequenceDecimal
         }
         
-        formater.addTableRow([ReportCell(value : "U"),
+        formatter.addTableRow([ReportCell(value : "U"),
                               ReportCell(value : "\(upgradeGliderSequence)"),
                               ReportCell(value : upgradeGliderHours.stringWithDecimal),
                               ReportCell(isBlack : true),
@@ -455,7 +455,7 @@ class StatsReportFromDate
             familTowplaneHours = roundedSequenceDecimal
         }
         
-        formater.addTableRow([ReportCell(value : "F"),
+        formatter.addTableRow([ReportCell(value : "F"),
                               ReportCell(value : "\(familGliderSequence)"),
                               ReportCell(value : familGliderHours.stringWithDecimal),
                               ReportCell(value : "\(familTowplaneSequence)"),
@@ -494,7 +494,7 @@ class StatsReportFromDate
             transitTowplaneHours = roundedSequenceDecimal
         }
         
-        formater.addTableRow([ReportCell(value : "✗"),
+        formatter.addTableRow([ReportCell(value : "✗"),
                               ReportCell(value : "\(transitGliderSequence)"),
                               ReportCell(value : transitGliderHours.stringWithDecimal),
                               ReportCell(isBlack : true),
@@ -511,7 +511,7 @@ class StatsReportFromDate
             let newTowplaneHoursTotal = towplaneHoursTotal.adding(roundedSequenceDecimal)
             towplaneHoursTotal = newTowplaneHoursTotal
             
-            formater.addTableRow([ReportCell(value : "TOW"),
+            formatter.addTableRow([ReportCell(value : "TOW"),
                                   ReportCell(isBlack : true),
                                   ReportCell(isBlack : true),
                                   ReportCell(isBlack : true),
@@ -520,7 +520,7 @@ class StatsReportFromDate
             
         else
         {
-            formater.addTableRow([ReportCell(value : "TOW"),
+            formatter.addTableRow([ReportCell(value : "TOW"),
                                   ReportCell(isBlack : true),
                                   ReportCell(isBlack : true),
                                   ReportCell(value : "0"),
@@ -528,12 +528,12 @@ class StatsReportFromDate
         }
         
         //Totals
-        formater.addTotalRow([ReportCell(value : "Total"),
+        formatter.addTotalRow([ReportCell(value : "Total"),
                               ReportCell(value : "\(gliderFlightsTotal)"),
                               ReportCell(value : gliderHoursTotal.stringWithDecimal),
                               ReportCell(value : "\(towplaneFlightsTotal)"),
                               ReportCell(value : towplaneHoursTotal.stringWithDecimal)])
-        formater.endTable()
+        formatter.endTable()
         
         let winchTimesheetRequest = AircraftTimesheet.request
         let winchTimesheetRequestPredicate = NSPredicate(format: "date > %@ AND date < %@ AND aircraft.gliderOrTowplane == -1", argumentArray: [beginningOfReport, endDate])
@@ -567,12 +567,12 @@ class StatsReportFromDate
         
         if winchLaunches > 0
         {
-            formater.addLineOfText("\(winchLaunches) winch launches")
+            formatter.addLineOfText("\(winchLaunches) winch launches")
         }
         
         if autoLaunches > 0
         {
-            formater.addLineOfText("\(autoLaunches) auto launches")
+            formatter.addLineOfText("\(autoLaunches) auto launches")
         }
         
         let NATIONALCOMPLETED = Date()
@@ -581,12 +581,12 @@ class StatsReportFromDate
         
         if siteSpecific
         {
-            formater.addNewSectionTitle("\(unit.uppercased()) SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("\(unit.uppercased()) SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addNewSectionTitle("SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("SQUADRON ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         let squadronCadetRequest = AttendanceRecord.request
@@ -662,7 +662,7 @@ class StatsReportFromDate
         var arrayOfDatesFlownOrWithCadets = Array(flyingDatesDictionary.keys)
         arrayOfDatesFlownOrWithCadets.sort(by: <)
         
-        formater.startTable([[ReportColumn(widthPixel : 60, title : "Date"),
+        formatter.startTable([[ReportColumn(widthPixel : 60, title : "Date"),
                               ReportColumn(widthPixel : 100, title : "Squadron"),
                               ReportColumn(widthPixel : 60, title : "Number of Squadron Cadets Attended"),
                               ReportColumn(widthPixel : 60, title : "Number of Squadron Cadet Glider Fams"),
@@ -754,7 +754,7 @@ class StatsReportFromDate
                 }
             }
             
-            formater.addTableRow([ReportCell(value : date.militaryFormatShort),
+            formatter.addTableRow([ReportCell(value : date.militaryFormatShort),
                                   ReportCell(value : squadronString),
                                   ReportCell(value : squadronAttendanceString),
                                   ReportCell(value : squadronGliderAttendanceString),
@@ -763,7 +763,7 @@ class StatsReportFromDate
                                   ReportCell(value : commentsForDate)])
         }
         
-        formater.addTotalRow([ReportCell(value : "Total"),
+        formatter.addTotalRow([ReportCell(value : "Total"),
                               ReportCell(),
                               ReportCell(value : "\(totalNumberOfCadets)"),
                               ReportCell(value : "\(totalNumberOfCadetsFlown)"),
@@ -771,7 +771,7 @@ class StatsReportFromDate
                               ReportCell(value : "\(towFamFlights)"),
                               ReportCell()])
         
-        formater.endTable()
+        formatter.endTable()
         
         let SQUADRONCOMPLETED = Date()
         //MARK: End of Squadron Stats
@@ -779,16 +779,16 @@ class StatsReportFromDate
         //Personnel portion of report
         if siteSpecific
         {
-            formater.addNewSectionTitle("\(unit.uppercased()) PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("\(unit.uppercased()) PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addNewSectionTitle("PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
         // - TODO: Start table
-        formater.startTable([[ReportColumn(title : ""),
+        formatter.startTable([[ReportColumn(title : ""),
                               ReportColumn(title : "Days Worked"),
                               ReportColumn(title : "PIC Flights"),
                               ReportColumn(title : "PIC flights /<br> day worked"),
@@ -930,7 +930,7 @@ class StatsReportFromDate
         {
             let PICflightsPerDay = daysWorked == 0 ? 0 : Double(PICFlights) / daysWorked
             let dualFlightsPerDay = daysWorked == 0 ? 0 : Double(dualFlights) / daysWorked
-            formater.addTableRow([ReportCell(value : participantType),
+            formatter.addTableRow([ReportCell(value : participantType),
                                   ReportCell(value : daysWorked.oneDecimalStringRepresentation),
                                   ReportCell(value : "\(PICFlights)"),
                                   ReportCell(value : PICflightsPerDay.oneDecimalStringRepresentation),
@@ -943,24 +943,24 @@ class StatsReportFromDate
         appendStatsFor("CI", PICFlights: CIstats.PICflights, dualFlights: CIstats.dualFlights, daysWorked: CIstats.daysWorked)
         appendStatsFor("COATS", PICFlights: COATSstats.PICflights, dualFlights: COATSstats.dualFlights, daysWorked: COATSstats.daysWorked)
         
-        formater.endTable()
+        formatter.endTable()
         
         let paidDays = COATSstats.daysWorked + CIstats.daysWorked
-        formater.addBlankLine()
-        formater.addLineOfText("Total paid days used \(paidDays.oneDecimalStringRepresentation)")
+        formatter.addBlankLine()
+        formatter.addLineOfText("Total paid days used \(paidDays.oneDecimalStringRepresentation)")
         
         // Start Staff Cadet Attendance
         if siteSpecific
         {
-            formater.addNewSectionTitle("\(unit.uppercased()) STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("\(unit.uppercased()) STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addNewSectionTitle("STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("STAFF CADET ATTENDANCE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        formater.startTable([[ReportColumn(title : "Name"),
+        formatter.startTable([[ReportColumn(title : "Name"),
                               ReportColumn(title : "Squadron"),
                               ReportColumn(title : "Site"),
                               ReportColumn(title : "Days Worked")]],
@@ -976,26 +976,26 @@ class StatsReportFromDate
         {
             if let daysWorked = staffCadetAttandance[cadet], daysWorked > 1.5
             {
-                formater.addTableRow([ReportCell(value : cadet.fullName),
+                formatter.addTableRow([ReportCell(value : cadet.fullName),
                                       ReportCell(value : "\(cadet.squadron)"),
                                       ReportCell(value : cadet.glidingCentre.name),
                                       ReportCell(value : daysWorked.oneDecimalStringRepresentation)])
             }
         }
         
-        formater.endTable()
+        formatter.endTable()
         
         if siteSpecific
         {
-            formater.addNewSectionTitle("\(unit.uppercased()) STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("\(unit.uppercased()) STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
             
         else
         {
-            formater.addNewSectionTitle("STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+            formatter.addNewSectionTitle("STAFF UPGRADES \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        formater.startTable([[ReportColumn(title : "Upgrade"),
+        formatter.startTable([[ReportColumn(title : "Upgrade"),
                               ReportColumn(title : "Name"),
                               ReportColumn(title : "Type of Participant"),
                               ReportColumn(title : "Site")]], withAlternatingRowColor: true)
@@ -1081,7 +1081,7 @@ class StatsReportFromDate
         {
             for upgradedPilot in upgradedPilots
             {
-                formater.addTableRow([ReportCell(value : name),
+                formatter.addTableRow([ReportCell(value : name),
                                       ReportCell(value : upgradedPilot.fullName),
                                       ReportCell(value : upgradedPilot.typeOfParticipantStringWithSquadronForCadets),
                                       ReportCell(value : upgradedPilot.glidingCentre?.name ?? "")])
@@ -1104,7 +1104,7 @@ class StatsReportFromDate
         addCellForUpgrade("Tow Pilot X-Country", upgradedPilots: towXcountryUpgrades)
         addCellForUpgrade("LCO", upgradedPilots: LCOupgrades)
         
-        formater.endTable()
+        formatter.endTable()
         
         let PERSONNELCOMPLETED = Date()
         //MARK: End of Personnel Stats
@@ -1354,9 +1354,9 @@ class StatsReportFromDate
             }
         }
         
-        formater.addNewSectionTitle("GLIDER USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        formatter.addNewSectionTitle("GLIDER USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         
-        formater.startTable([[ReportColumn(colSpan : 2, title : ""),
+        formatter.startTable([[ReportColumn(colSpan : 2, title : ""),
                               ReportColumn(colSpan : 5, title : "Glider Flights"),
                               ReportColumn(colSpan : 5, title : "Glider Hours"),
                               ReportColumn(colSpan : 2, title : "")],
@@ -1380,7 +1380,7 @@ class StatsReportFromDate
             
             glider.glider.updateTTSN()
             
-            formater.addTableRow([ReportCell(value : glider.glider.registration),
+            formatter.addTableRow([ReportCell(value : glider.glider.registration),
                                   ReportCell(value : glider.glider.tailNumber),
                                   ReportCell(value : "\(glider.transitFlights)"),
                                   ReportCell(value : "\(glider.familFlights)"),
@@ -1396,11 +1396,11 @@ class StatsReportFromDate
                                   ReportCell(value : glider.glider.currentTimesheet!.TTSNfinal.stringWithDecimal)])
         }
         
-        formater.endTable()
+        formatter.endTable()
         
-        formater.addNewSectionTitle("TOWPLANE USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        formatter.addNewSectionTitle("TOWPLANE USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         
-        formater.startTable([[ReportColumn(colSpan : 2, title : ""),
+        formatter.startTable([[ReportColumn(colSpan : 2, title : ""),
                               ReportColumn(colSpan : 7, title : "Scout Hours"),
                               ReportColumn(title : "Scout Flights"),
                               ReportColumn(colSpan : 2, title : "")],
@@ -1421,7 +1421,7 @@ class StatsReportFromDate
             guard towplane.totalHours > 0 else {continue}
             towplane.towplane.updateTTSN()
             
-            formater.addTableRow([ReportCell(value : towplane.towplane.registration),
+            formatter.addTableRow([ReportCell(value : towplane.towplane.registration),
                                   ReportCell(value : towplane.towplane.tailNumber),
                                   ReportCell(value : towplane.transitHours.stringWithDecimal),
                                   ReportCell(value : towplane.towingHours.stringWithDecimal),
@@ -1434,11 +1434,11 @@ class StatsReportFromDate
                                   ReportCell(value : towplane.totalHours.stringWithDecimal),
                                   ReportCell(value : towplane.towplane.currentTimesheet!.TTSNfinal.stringWithDecimal)])
         }
-        formater.endTable()
+        formatter.endTable()
         
-        formater.addNewSectionTitle("WINCH USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
+        formatter.addNewSectionTitle("WINCH USAGE \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         
-        formater.startTable([[ReportColumn(colSpan : 2, title : ""),
+        formatter.startTable([[ReportColumn(colSpan : 2, title : ""),
                               ReportColumn(title : "Current TTSN"),
                               ReportColumn(title : "Hours"),
                               ReportColumn(title : "Flights")]], withAlternatingRowColor: true)
@@ -1448,18 +1448,18 @@ class StatsReportFromDate
             guard winch.flights > 0 else {continue}
             winch.winch.updateTTSN()
             
-            formater.addTableRow([ReportCell(value : winch.winch.registration),
+            formatter.addTableRow([ReportCell(value : winch.winch.registration),
                                   ReportCell(value : winch.winch.tailNumber),
                                   ReportCell(value : winch.winch.currentTimesheet!.TTSNfinal.stringWithDecimal),
                                   ReportCell(value : winch.hours.stringWithDecimal),
                                   ReportCell(value : "\(winch.flights)")])
         }
         
-        formater.endTable()
+        formatter.endTable()
         
         if siteSpecific
         {
-            formater.addNewSectionTitle("ACTIVE STAFF CONTACT INFO")
+            formatter.addNewSectionTitle("ACTIVE STAFF CONTACT INFO")
             
             let pilotRequest = Pilot.request
             pilotRequest.predicate = NSPredicate(format: "inactive == NO AND glidingCentre == %@ AND (highestGliderQual > 0 OR highestScoutQual > 0)", dataModel.glidingCentre)
@@ -1470,7 +1470,7 @@ class StatsReportFromDate
             for pilot in pilots
             {
                 guard pilot.email.count > 0 else{continue}
-                formater.addText(pilot.email + ", ")
+                formatter.addText(pilot.email + ", ")
             }
         }
     }
