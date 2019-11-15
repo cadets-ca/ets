@@ -157,10 +157,11 @@ class ReportGeneratorTests: XCTestCase
     // MARK: - StatsReportFromDate
     func testStatsReportFromDateIsHTML()
     {
-        let generator = ReportGenerator()
-        
         let forDate = Date()
-        let result = generator.statsReportFromDate(forDate, toDate: forDate)
+        let report = StatsReportFromDate(forDate, toDate: forDate, glidingCentre: nil, regionName: "Any")
+        let formatter = HtmlStatsReportFromDateFormater()
+        report.statsReportFromDate(for: formatter)
+        let result = formatter.result()
         
         XCTAssert(result.hasPrefix("<html>"), "This is not html?")
         XCTAssert(result.hasSuffix("</html>"), "This is not html?")
@@ -198,7 +199,6 @@ class ReportGeneratorTests: XCTestCase
         dataModel.createAttendanceRecordForPerson(pilotJohnDo)
 
         let towPlane1 = helpers.createTowPlane(registration: "REG#1", tailNumber: "123")
-//        _ = createTowPlane(registration: "REG#2", tailNumber: "3")
 
         let lastFlightDate = Calendar.current.date(byAdding: Calendar.Component.day, value: Int(-1), to: Date())!
         var timesheet = helpers.createTimesheet(towPlane1, lastFlightDate)
@@ -269,14 +269,11 @@ class ReportGeneratorTests: XCTestCase
 
         // When
         let reportDate = Date()
-        let generator = ReportGenerator()
-        generator.unit = dataModel.glidingCentre.name
         let startDate: Date = reportDate - (5*24*60*60)
         let endDate = reportDate
         
-        let result = generator.statsReportFromDate(startDate, toDate: endDate, true)
         let htmlFormater = HtmlStatsReportFromDateFormater()
-        let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: centre, regionName: dataModel.regionName!)
+        let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: nil, regionName: "MY REGION")
         statsReport.statsReportFromDate(for: htmlFormater)
         let result2 = htmlFormater.result()
         
@@ -302,26 +299,25 @@ class ReportGeneratorTests: XCTestCase
         // Then
         // We start to replace the sync generation by an async generation
         // of the content.
-        attachResultAsHtml(data: result, name: "report-\(reportDate).html")
         attachResultAsHtml(data: result2, name: "report2-\(reportDate).html")
         
-        XCTAssertFalse(result.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
-        XCTAssertFalse(result.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
-        XCTAssertFalse(result.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
+        XCTAssertFalse(result2.contains("</tr><td"), "Oops... misformated HTML; <tr> missing between </tr> and <td>.")
+        XCTAssertFalse(result2.contains("</td><tr"), "Oops... misformated HTML; </tr> missing between </td> and <tr>.")
+        XCTAssertFalse(result2.contains("</table></table>"), "Oops... misformated HTML; multiple </table> together.")
         
-        XCTAssert(result.contains("\(towPlane1RegistrationWithTailNumberInBrackets)</td>"),
+        XCTAssert(result2.contains("\(towPlane1RegistrationWithTailNumberInBrackets)</td>"),
                   "Plane \" \(towPlane1.registrationWithTailNumberInBrackets)\" missing from the table.")
-        XCTAssertTrue(result.contains("<td>\(lastFlightDate.militaryFormatShort)</td>"),
+        XCTAssertTrue(result2.contains("<td>\(lastFlightDate.militaryFormatShort)</td>"),
                       "Line for date \(lastFlightDate.militaryFormatShort) missing from the table.")
         let aircraftRegWithTailNumberForRegEx = towPlane1RegistrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
-        AssertMatch(result, pattern: "<tr><td.+?>\(aircraftRegWithTailNumberForRegEx)</td>.+?<td>\(lastFlightDate.militaryFormatShort)</td><td>(.+?)</td>", expectedValue: "5.0")
-        XCTAssertTrue(result.contains(maintenanceEventComment), "Oops... \"\(maintenanceEventComment)\" not found.")
-        XCTAssertTrue(result.contains(maintenanceEvent2Comment), "Oops... \"\(maintenanceEvent2Comment)\"not found.")
+        AssertMatch(result2, pattern: "<tr><td.+?>\(aircraftRegWithTailNumberForRegEx)</td>.+?<td>\(lastFlightDate.militaryFormatShort)</td><td>(.+?)</td>", expectedValue: "5.0")
+        XCTAssertTrue(result2.contains(maintenanceEventComment), "Oops... \"\(maintenanceEventComment)\" not found.")
+        XCTAssertTrue(result2.contains(maintenanceEvent2Comment), "Oops... \"\(maintenanceEvent2Comment)\"not found.")
         let registrationWithTailNumberInBracketsForRegEx = gliderLaunchWithAutoRegistrationWithTailNumberInBrackets.replacingOccurrences(of: "(", with: "\\(").replacingOccurrences(of: ")", with: "\\)")
-        AssertMatch(result, pattern: "<tr><td[^>]+?>\(registrationWithTailNumberInBracketsForRegEx)</td>.+?</tr><tr>.+?</tr><tr><td>.+?</td><td>.+?</td><td>(.+?)</td>",
+        AssertMatch(result2, pattern: "<tr><td[^>]+?>\(registrationWithTailNumberInBracketsForRegEx)</td>.+?</tr><tr>.+?</tr><tr><td>.+?</td><td>.+?</td><td>(.+?)</td>",
             expectedValue: "1")
-        AssertMatch(result, pattern: "(.) winch launches", expectedValue: "2")
-        AssertMatch(result, pattern: "(.) auto launches", expectedValue: "1")
+        AssertMatch(result2, pattern: "(.) winch launches", expectedValue: "2")
+        AssertMatch(result2, pattern: "(.) auto launches", expectedValue: "1")
     }
     
     func testStatsReportFromDateWithAsyncGenerateCallImplemented()
