@@ -48,22 +48,35 @@ extension XCTest {
 
 extension XCTestCase
 {
+    var isAttachmentAvailable : Bool {
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
+    
     /**
-     This method attach the `data` as an html file to the current test.
+     This method attach the `data` as an html content to the current test.
      */
     func attachResultAsHtml(data: String, name: String)
     {
-        let attachment = XCTAttachment(data: data.data(using: .utf8)!, uniformTypeIdentifier: "html")
-        attachment.name = name
-        attachment.lifetime = .keepAlways
-        self.add(attachment)
+        if self.isAttachmentAvailable
+        {
+            let attachment = XCTAttachment(data: data.data(using: .utf8)!, uniformTypeIdentifier: "html")
+            attachment.name = name
+            attachment.lifetime = .keepAlways
+            self.add(attachment)
+        }
     }
     
+    /**
+     This method attach the content pointed to by the URL to the current test.
+     */
     func attachResult(content: URL, name: String)
     {
-        let attachment = XCTAttachment(contentsOfFile: content)
-        attachment.name = name
-        attachment.lifetime = .keepAlways
-        self.add(attachment)
+        if self.isAttachmentAvailable
+        {
+            let attachment = XCTAttachment(contentsOfFile: content)
+            attachment.name = name
+            attachment.lifetime = .keepAlways
+            self.add(attachment)
+        }
     }
 }
