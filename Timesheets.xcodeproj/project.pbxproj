@@ -208,6 +208,9 @@
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F3011743234D750800830EE9 /* HtmlStatsReportFromDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* HtmlStatsReportFromDate.swift */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
+		F33ED8B5237E38DC0020CEBE /* StatsReportFromDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */; };
+		F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */; };
+		F33ED8B9237E53890020CEBE /* CoreDataTestSetupHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */; };
 		F37978462336F9F1006F69DA /* ExcelExport in Frameworks */ = {isa = PBXBuildFile; productRef = F37978452336F9F1006F69DA /* ExcelExport */; };
 		F379784823370877006F69DA /* ReportTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379784723370877006F69DA /* ReportTransmitter.swift */; };
 		F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */; };
@@ -507,6 +510,9 @@
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		F3011742234D750800830EE9 /* HtmlStatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlStatsReportFromDate.swift; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
+		F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDate.swift; sourceTree = "<group>"; };
+		F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceRecordForPersonTests.swift; sourceTree = "<group>"; };
+		F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestSetupHelpers.swift; sourceTree = "<group>"; };
 		F379784723370877006F69DA /* ReportTransmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransmitter.swift; sourceTree = "<group>"; };
 		F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGeneratorTests.swift; sourceTree = "<group>"; };
@@ -867,6 +873,7 @@
 				DA1D2F891B0A9B8E00160AC9 /* StatsManager.swift */,
 				F379784723370877006F69DA /* ReportTransmitter.swift */,
 				F3011742234D750800830EE9 /* HtmlStatsReportFromDate.swift */,
+				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -993,6 +1000,8 @@
 				F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */,
 				F3FDAF862339ACFC002E11EE /* Info.plist */,
 				F307AD052346B1680093120F /* XCTestExtensions.swift */,
+				F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */,
+				F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1498,6 +1507,7 @@
 				DAC9C3BB1A493AA4003B0D80 /* AttendanceRecord.swift in Sources */,
 				DA58B6771A5B7E3E0091A288 /* TableViewCellStyleRecord.swift in Sources */,
 				DA644F9E1A45F6D2005BAE6A /* EditMaintenanceIssue.swift in Sources */,
+				F33ED8B5237E38DC0020CEBE /* StatsReportFromDate.swift in Sources */,
 				DA8D60671A478AED00B7A37C /* GlidingCentre.swift in Sources */,
 				DA6AD47A1EFB4C9600CA20BD /* UserDefaults.swift in Sources */,
 				DAF6321E1A4A3CD7003AA1C3 /* AircraftTimesheet.swift in Sources */,
@@ -1649,8 +1659,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F33ED8B9237E53890020CEBE /* CoreDataTestSetupHelpers.swift in Sources */,
 				F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
+				F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

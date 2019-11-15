@@ -37,12 +37,6 @@ protocol ReportFormaterDelegate
 
 protocol StatsReportFromDateFormater
 {
-    var startDate : Date { get }
-    var endDate : Date { get }
-    var siteSpecific : Bool { get }
-    
-    init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool)
-
     func addTitle(_ title : String)
     func addNewSectionTitle(_ title : String)
     func addBlankLine()
@@ -81,19 +75,9 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
     let BG_HEADER = "#CCCCCC"
     let BG_FOOTER = "#CCCCCC"
 
-    let startDate : Date
-    let endDate : Date
-    let siteSpecific : Bool
     var report : String = ""
     var isGray = false
     var isAlternatingRowColor = false
-    
-    required init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
-    {
-        self.startDate = startDate
-        self.endDate = endDate
-        self.siteSpecific = siteSpecific
-    }
     
     func addTitle(_ title : String)
     {
@@ -263,9 +247,6 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
     let BG_HEADER = "#CCCCCC"
     let BG_FOOTER = "#CCCCCC"
     
-    let startDate : Date
-    let endDate : Date
-    let siteSpecific : Bool
     var report : String = ""
     var isGray = false
     var isAlternatingRowColor = false
@@ -273,15 +254,7 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
     var rowsOnCurrentSheet = [ExcelRow]()
     var titleCurrentSheet : String? = nil
     var sheets = [ExcelSheet]()
-    
-    required init(_ startDate: Date, toDate endDate: Date, _ siteSpecific: Bool = false)
-    {
-        self.startDate = startDate
-        self.endDate = endDate
-        self.siteSpecific = siteSpecific
-    }
-
-    
+        
     func addTitle(_ title: String)
     {
         let cells = [ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])])]

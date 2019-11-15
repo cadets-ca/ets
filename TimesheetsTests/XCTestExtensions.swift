@@ -39,5 +39,31 @@ extension XCTest {
             XCTFail("The test is not valid because of an error in the pattern \"\(pattern)\"; \(error.localizedRecoverySuggestion ?? error.description)", file: file, line: line)
         }
     }
+    
+    func log(_ msg: String, file: StaticString = #file, line: UInt = #line)
+    {
+        print("#\(line) : \(msg)")
+    }
+}
 
+extension XCTestCase
+{
+    /**
+     This method attach the `data` as an html file to the current test.
+     */
+    func attachResultAsHtml(data: String, name: String)
+    {
+        let attachment = XCTAttachment(data: data.data(using: .utf8)!, uniformTypeIdentifier: "html")
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        self.add(attachment)
+    }
+    
+    func attachResult(content: URL, name: String)
+    {
+        let attachment = XCTAttachment(contentsOfFile: content)
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        self.add(attachment)
+    }
 }
