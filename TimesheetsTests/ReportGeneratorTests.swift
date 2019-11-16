@@ -19,7 +19,6 @@ import CoreData
 class ReportGeneratorTests: XCTestCase
 {
     var helpers = CoreDataTestSetupHelpers()
-    var context: NSManagedObjectContext!
     var centre: GlidingCentre!
     var anotherCenter : GlidingCentre!
     var pilotJoBlack: Pilot!
@@ -55,20 +54,12 @@ class ReportGeneratorTests: XCTestCase
 
     override func setUp()
     {
-        
-        dataModel.viewPreviousRecords = true
-        dataModel.dateToViewRecords = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
         regularFormat = true
-        dataModel.regionName = "South"
         centre = helpers.createGlidingCentre("Middle Island")
         anotherCenter = helpers.createGlidingCentre("Pelee Island")
 
-        context = dataModel.managedObjectContext
         helpers.setDefaultCentre(centre)
 
-        dataModel.glidingCentre = centre
-        dataModel.previousRecordsGlidingCentre = centre // -TODO: need to confirm if that need to be set.
-        
         pilotJoBlack = helpers.createPilot(name: "Jo Black", typeOfParticipant: "COATS")
         dataModel.createAttendanceRecordForPerson(pilotJoBlack)
         helpers.setDefaultPilot(pilotJoBlack)
@@ -92,7 +83,6 @@ class ReportGeneratorTests: XCTestCase
             dataModel.createAttendanceRecordForPerson(staffCadetPilot2)
             dataModel.createAttendanceRecordForPerson(cadet)
         }
-        dataModel.viewPreviousRecords = false
         dataModel.dateToViewRecords = Date().midnight + (-60*60*24)
     }
 
@@ -105,12 +95,11 @@ class ReportGeneratorTests: XCTestCase
     {
         // Arrange
         let centerNameToDelete = "CenterToDelete"
-        let centerToDelete = GlidingCentre(context: context)
-        centerToDelete.name = centerNameToDelete
+        _ = helpers.createGlidingCentre(centerNameToDelete)
         
         let request = GlidingCentre.request
         request.predicate = NSPredicate(format: "name = %@", centerNameToDelete)
-        guard let centers = try? context.fetch(request) else
+        guard let centers = try? helpers.fetch(request) else
         {
             XCTFail("I just created a gliding center named \(centerNameToDelete), it sould be there.")
             return
@@ -120,11 +109,11 @@ class ReportGeneratorTests: XCTestCase
         print("Number of \(centerNameToDelete) centers found: \(centers.count).")
         for center in centers
         {
-            context.delete(center)
+            helpers.delete(center)
         }
         
         // Assert
-        guard let centersAfterDelete = try? context.fetch(request),
+        guard let centersAfterDelete = try? helpers.fetch(request),
             centersAfterDelete.count == 0 else
         {
                 XCTFail("There should be no more \(centerNameToDelete) gliding centre; I deleted them all.")
@@ -136,9 +125,9 @@ class ReportGeneratorTests: XCTestCase
     func testTypeOfParticipant()
     {
         let request = Pilot.request
-        guard let result = try? context.fetch(request) else
+        guard let result = try? helpers.fetch(request) else
         {
-            XCTFail("The request to obtain unique typeOfParticipant failed.")
+            XCTFail("The request to obtain Pilots failed.")
             return
         }
         
@@ -348,11 +337,8 @@ class ReportGeneratorTests: XCTestCase
         formatter.generate(delegate: handler)
 
         // Then
-        waitForExpectations(timeout: 5, handler: {arg in
-            print("DONE")
-        })
+        waitForExpectations(timeout: 10)
 
-        print("After notify")
         XCTAssertTrue(handler.success)
         if let url = handler.url {
             attachResult(content: url, name: "result")

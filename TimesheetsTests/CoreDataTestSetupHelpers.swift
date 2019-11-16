@@ -11,7 +11,7 @@ import CoreData
 
 class CoreDataTestSetupHelpers
 {
-    var context: NSManagedObjectContext
+    private var context: NSManagedObjectContext
     {
         return dataModel.managedObjectContext
     }
@@ -183,4 +183,13 @@ class CoreDataTestSetupHelpers
         return event
     }
 
+    func fetch<T>(_ request : NSFetchRequest<T>) throws -> [T]
+    {
+        return try context.fetch(request)
+    }
+    
+    func delete(_ obj : NSManagedObject)
+    {
+        context.delete(obj)
+    }
 }
