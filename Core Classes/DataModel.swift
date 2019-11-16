@@ -635,12 +635,11 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
 
-        let swiftGenerator  = ReportGenerator()
-        swiftGenerator.regionName = UserDefaults.standard.string(forKey: "Region")?.uppercased()
-        swiftGenerator.unit = GC?.name
-        let swiftResult = swiftGenerator.statsReportFromDate(startDate, toDate: endDate, true)
-
-        tableText = swiftResult
+        let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
+        let report = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: GC, regionName: regionName)
+        let formatter = HtmlStatsReportFromDateFormater()
+        report.statsReportFromDate(for: formatter)
+        tableText = formatter.result()
         
         let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
         let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
