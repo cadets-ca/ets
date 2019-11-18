@@ -27,7 +27,7 @@ class ReportGeneratorTests: XCTestCase
     var staffCadetPilot2: Pilot!
     var cadet: Pilot!
 
-    class Handler : ReportFormaterDelegate
+    class TestingFormaterDelegate : ReportFormaterDelegate
     {
         var success = false
         let group : XCTestExpectation!
@@ -149,7 +149,7 @@ class ReportGeneratorTests: XCTestCase
         let forDate = Date()
         let report = StatsReportFromDate(forDate, toDate: forDate, glidingCentre: nil, regionName: "Any")
         let formatter = HtmlStatsReportFromDateFormater()
-        report.statsReportFromDate(for: formatter)
+        report.generate(with: formatter)
         let result = formatter.result()
         
         XCTAssert(result.hasPrefix("<html>"), "This is not html?")
@@ -162,7 +162,7 @@ class ReportGeneratorTests: XCTestCase
         let forDate = Date()
         let generator = StatsReportFromDate(forDate, toDate: forDate, glidingCentre: dataModel.glidingCentre, regionName: dataModel.regionName!)
         let formatter = HtmlStatsReportFromDateFormater()
-        generator.statsReportFromDate(for: formatter)
+        generator.generate(with: formatter)
         let result = formatter.result()
         
         XCTAssertTrue(result.contains(dataModel.glidingCentre.name), "Our challenge, if we accept it, is to find how we display the centre name instead of the title REGIONAL REPORT.")
@@ -263,7 +263,7 @@ class ReportGeneratorTests: XCTestCase
         
         let htmlFormater = HtmlStatsReportFromDateFormater()
         let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: nil, regionName: "MY REGION")
-        statsReport.statsReportFromDate(for: htmlFormater)
+        statsReport.generate(with: htmlFormater)
         let result2 = htmlFormater.result()
         
         // TODO: The following few lines save values to test later. There is something that modify the properties in the related entities between line 471 and 483. That occured after update to Catalina / XCode Version 11.2 (11B52).
@@ -275,10 +275,10 @@ class ReportGeneratorTests: XCTestCase
 
         // ... generate an Excel version of the report and attach it to the test result. This is for visual validation.
         let excelFormater = ExcelStatsReportFromDateFormater()
-        statsReport.statsReportFromDate(for: excelFormater)
+        statsReport.generate(with: excelFormater)
         let expectation = self.expectation(description: "Excel")
-        let handler = Handler(expectation)
-        excelFormater.generate(delegate: handler)
+        let handler = TestingFormaterDelegate(expectation)
+        excelFormater.generateResult(handler)
         waitForExpectations(timeout: 10, handler: nil)
         if let url = handler.url {
             attachResult(content: url, name: "result")
@@ -331,16 +331,22 @@ class ReportGeneratorTests: XCTestCase
         let endDate = reportDate
         let formatter = ExcelStatsReportFromDateFormater()
         let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: centre, regionName: dataModel.regionName!)
-        statsReport.statsReportFromDate(for: formatter)
+        statsReport.generate(with: formatter)
         
-        let handler = Handler(expectation)
-        formatter.generate(delegate: handler)
+        var receivedValidUrl = false
+        var rcvdUrl : URL?
+        formatter.generateResult  {
+            url in
+            rcvdUrl = url
+            receivedValidUrl = url != nil
+            expectation.fulfill()
+        }
 
         // Then
         waitForExpectations(timeout: 10)
 
-        XCTAssertTrue(handler.success)
-        if let url = handler.url {
+        XCTAssertTrue(receivedValidUrl)
+        if let url = rcvdUrl {
             attachResult(content: url, name: "result")
         }
     }

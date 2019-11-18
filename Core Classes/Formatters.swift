@@ -52,7 +52,9 @@ protocol StatsReportFromDateFormater
     func endTable()
     
     func result() -> String
-    func generate(delegate : ReportFormaterDelegate)
+    // TODO: my goal is to valiate which one is best and remove the unwanted one between generateResult(delegate) and generateResult(handler).
+    func generateResult(_ delegate : ReportFormaterDelegate)
+    func generateResult(_ handler : @escaping (URL?)->Void)
 }
 
 extension StatsReportFromDateFormater
@@ -216,7 +218,8 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
         "</body></html>"
     }
     
-    func generate(delegate: ReportFormaterDelegate) {
+    func generateResult(_ delegate: ReportFormaterDelegate)
+    {
         export{url in
             if let url = url {
                 delegate.success(url)
@@ -224,6 +227,11 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
                 delegate.fail("Cannot create file!")
             }
         }
+    }
+    
+    func generateResult(_ handler : @escaping (URL?)->Void)
+    {
+        export(handler)
     }
     
     private func export(_ done: @escaping (URL?)->Void) {
@@ -376,7 +384,7 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
         return ""
     }
     
-    func generate(delegate: ReportFormaterDelegate) {
+    func generateResult(_ delegate: ReportFormaterDelegate) {
         endPreviousSectionAndResetAccumulator()
         
         // generate the file
@@ -387,6 +395,13 @@ class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
                 delegate.fail("Could not write to file!")
             }
         })
+    }
+    
+    func generateResult(_ handler : @escaping (URL?) -> Void)
+    {
+        endPreviousSectionAndResetAccumulator()
+        
+        ExcelExport.export(sheets, fileName: "report", done: handler)
     }
     
     private func endPreviousSectionAndResetAccumulator()

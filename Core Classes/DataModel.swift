@@ -627,7 +627,57 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     func emailLocalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
     {
-        guard checkIfCanSendMailAndAlertUserIfNot() else {return}
+        class ResultAccumulator : NDHTMLtoPDFDelegate
+        {
+            var urls = [URL]()
+            let controller : UIViewController?
+            
+            init(_ controller : UIViewController?)
+            {
+                self.controller = controller
+            }
+            
+            func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF) {
+                if let url = htmlToPDF.URL {
+                    urls.append(url)
+                }
+                if let path = htmlToPDF.PDFpath {
+                    urls.append(URL(fileURLWithPath: path))
+                }
+                complete()
+            }
+            
+            func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF) {
+                // could not generate the PDF... nothing to add.
+                complete()
+            }
+            
+            private func complete() {
+                guard urls.count > 0 else { return }
+                
+                if MFMailComposeViewController.canSendMail() {
+                    // send email
+                    let picker = MFMailComposeViewController()
+                    picker.mailComposeDelegate = self as! MFMailComposeViewControllerDelegate
+                    
+                } else {
+                    // activity
+                    let vc = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+                    if regularFormat
+                    {
+                        controller?.present(vc, animated:true, completion:nil)
+                    }
+                    else
+                    {
+                        UIViewController.presentOnTopmostViewController(vc)
+                    }
+                }
+            }
+        }
+        
+        let resultAccumulator = ResultAccumulator(aircraftAreaController?.parent)
+        
+        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
         
         reportTypeBeingGenerated = ReportType.statsReport
         self.startDate = startDate
@@ -637,13 +687,22 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
 
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
         let report = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: GC, regionName: regionName)
-        let formatter = HtmlStatsReportFromDateFormater()
-        report.statsReportFromDate(for: formatter)
-        tableText = formatter.result()
-        
-        let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
-        let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
-        PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(tableText!, pathForPDF: pathForPDF, delegate:self, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+                
+        let excelFormatter = ExcelStatsReportFromDateFormater()
+        report.generate(with: excelFormatter)
+        excelFormatter.generateResult {
+            url in
+            if let url = url {
+                resultAccumulator.urls.append(url)
+            }
+            let htmlFormatter = HtmlStatsReportFromDateFormater()
+            report.generate(with: htmlFormatter)
+            self.tableText = htmlFormatter.result()
+            
+            let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
+            let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
+            self.PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(self.tableText!, pathForPDF: pathForPDF, delegate:resultAccumulator, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+        }
     }
     
     func emailRegionalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
@@ -1349,6 +1408,11 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         militaryFormat.dateFormat = "dd-MMMM-yyyy"
         militaryFormat.timeZone = TimeZone.current
         return militaryFormat.string(from: dateOfTimesheets)
+    }
+    
+    func canSendMail() -> Bool
+    {
+        return MFMailComposeViewController.canSendMail()
     }
     
     func checkIfCanSendMailAndAlertUserIfNot() -> Bool
