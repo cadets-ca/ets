@@ -7,6 +7,14 @@
 
 import Foundation
 
+struct StatsReportFromDateParameters
+{
+    let startDate : Date
+    let endDate : Date
+    let glidingCentre : GlidingCentre?
+    let regionName : String
+}
+
 class StatsReportFromDate
 {
     let startDate : Date
@@ -17,6 +25,15 @@ class StatsReportFromDate
         return glidingCentre!.name
     }
     let regionName : String
+    
+    init(_ parameters : StatsReportFromDateParameters)
+    {
+        self.startDate = parameters.startDate
+        self.endDate = parameters.endDate
+        self.glidingCentre = parameters.glidingCentre
+        self.siteSpecific = glidingCentre != nil
+        self.regionName = parameters.regionName
+    }
     
     init(_ startDate: Date, toDate endDate: Date, glidingCentre : GlidingCentre?, regionName : String)
     {

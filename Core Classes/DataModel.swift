@@ -9,6 +9,7 @@
 import MessageUI
 import CoreLocation
 import CoreData
+import MobileCoreServices
 
 final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedResultsControllerDelegate, GPSmanagerDelegate, NDHTMLtoPDFDelegate, MFMailComposeViewControllerDelegate, iBeaconDelegate, SelectGlidingCentreDelegate
 {
@@ -627,67 +628,172 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     func emailLocalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
     {
-        class ResultAccumulator : NDHTMLtoPDFDelegate
+        // TODO: missing some error management!! And clean-up...
+        class ResultAccumulator : NSObject, NDHTMLtoPDFDelegate, MFMailComposeViewControllerDelegate
         {
             var urls = [URL]()
             let controller : UIViewController?
+            let param : StatsReportFromDateParameters
+            var html : String?
             
-            init(_ controller : UIViewController?)
+            init(_ controller : UIViewController?, _ param : StatsReportFromDateParameters)
             {
                 self.controller = controller
+                self.param = param
             }
             
-            func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF) {
-                if let url = htmlToPDF.URL {
+            func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF)
+            {
+                if let url = htmlToPDF.URL
+                {
                     urls.append(url)
                 }
-                if let path = htmlToPDF.PDFpath {
+                if let path = htmlToPDF.PDFpath
+                {
                     urls.append(URL(fileURLWithPath: path))
                 }
                 complete()
             }
             
-            func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF) {
+            func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF)
+            {
                 // could not generate the PDF... nothing to add.
                 complete()
             }
-            
-            private func complete() {
+                        
+            func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
+            {
+                controller.presentingViewController?.dismiss(animated: true, completion: nil)
+                for url in urls
+                {
+                    try! FileManager.default.removeItem(at: url)
+                }
+            }
+
+            private func complete()
+            {
                 guard urls.count > 0 else { return }
                 
-                if MFMailComposeViewController.canSendMail() {
+                if MFMailComposeViewController.canSendMail()
+                {
                     // send email
                     let picker = MFMailComposeViewController()
-                    picker.mailComposeDelegate = self as! MFMailComposeViewControllerDelegate
-                    
-                } else {
+                    picker.mailComposeDelegate = self
+                    picker.setSubject(getSubject())
+                    picker.setToRecipients(getRecipients())
+                    for url in urls
+                    {
+                        picker.addAttachmentData((try? Data(contentsOf: url))!, mimeType: getMimeType(for: url), fileName: getFileName(for: url))
+                    }
+                    picker.setMessageBody(getBody(), isHTML: true)
+                    present(picker)
+                }
+                else
+                {
                     // activity
                     let vc = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-                    if regularFormat
+                    present(vc)
+                }
+            }
+            
+            private func present(_ view : UIViewController)
+            {
+                if regularFormat
+                {
+                    if let controller = dataModel.aircraftAreaController?.parent
                     {
-                        controller?.present(vc, animated:true, completion:nil)
-                    }
-                    else
-                    {
-                        UIViewController.presentOnTopmostViewController(vc)
+                        controller.dismiss(animated: true, completion: nil)
+                        controller.present(view, animated: true, completion: nil)
                     }
                 }
+                else
+                {
+                    UIViewController.presentOnTopmostViewController(view)
+                }
+            }
+            
+            private func getBody() -> String
+            {
+                let html = self.html ?? ""
+                let printWarning = "<b><FONT COLOR='FF0000'>This report is attached as a PDF for easy printing. Please print the attachment, do not print this email message directly.</b></FONT><br><br>"
+                return "\(printWarning)\(html)"
+            }
+            
+            private func getHtmlContent() -> String
+            {
+                for url in urls
+                {
+                    if url.pathExtension == "html" {
+                        return (try? String(contentsOf: url)) ?? ""
+                    }
+                }
+                return ""
+            }
+            
+            private func getSubject() -> String
+            {
+                let centre = (regularFormat == true && dataModel.viewPreviousRecords == true) ? dataModel.previousRecordsGlidingCentre! : dataModel.glidingCentre
+                let subjectLine = "\(centre!.name) Stats Report \(param.startDate.militaryFormatShort) to \(param.endDate.militaryFormatShort)"
+                return subjectLine
+            }
+            
+            private func getFileName(for url : URL) -> String
+            {
+                return "\(param.glidingCentre!.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
+            }
+            
+            private func getMimeType(for url : URL) -> String
+            {
+                let ext = url.pathExtension as CFString
+                if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil)?.takeUnretainedValue(),
+                    let mimeUTI = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeUnretainedValue()
+                {
+                    return mimeUTI as String
+                }
+                return ""
+            }
+            
+            private func getRecipients() -> [String]
+            {
+                let defaults = UserDefaults.standard
+                var toRecipients = Set<String>()
+                
+                for i in 1...6
+                {
+                    let key = "Stats Address \(i)"
+                    if let value = defaults.string(forKey: key)
+                    {
+                        toRecipients.insert(value)
+                    }
+                }
+                
+                var invalidEmails = Set<String>()
+                for address in toRecipients
+                {
+                    if stringIsValidEmail(address) == false
+                    {
+                        invalidEmails.insert(address)
+                    }
+                }
+                
+                toRecipients.subtract(invalidEmails)
+                return Array(toRecipients)
             }
         }
         
-        let resultAccumulator = ResultAccumulator(aircraftAreaController?.parent)
-        
-        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
+        // set report parameters
+        let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
+        let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
+        let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: GC, regionName: regionName)
         
         reportTypeBeingGenerated = ReportType.statsReport
         self.startDate = startDate
         self.endDate = endDate
         
-        let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
+        let report = StatsReportFromDate(param)
+        
+        let resultAccumulator = ResultAccumulator(aircraftAreaController?.parent, param)
 
-        let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
-        let report = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: GC, regionName: regionName)
-                
         let excelFormatter = ExcelStatsReportFromDateFormater()
         report.generate(with: excelFormatter)
         excelFormatter.generateResult {
@@ -697,11 +803,11 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             }
             let htmlFormatter = HtmlStatsReportFromDateFormater()
             report.generate(with: htmlFormatter)
-            self.tableText = htmlFormatter.result()
+            resultAccumulator.html = htmlFormatter.result()
             
             let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
             let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
-            self.PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(self.tableText!, pathForPDF: pathForPDF, delegate:resultAccumulator, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+            self.PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(resultAccumulator.html!, pathForPDF: pathForPDF, delegate:resultAccumulator, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
         }
     }
     
