@@ -186,7 +186,13 @@ class StatsReportFromDate
         
         for record in allFlightRecordsForReportPeriod
         {
-            switch record.timesheet.aircraft.type
+            guard let timesheet = record.timesheet else
+            {
+                printLog("flight record has no timesheet associated : \(record)")
+                continue
+            }
+            
+            switch timesheet.aircraft.type
             {
                 case .glider:
                     let previousSequenceCount = gliderFlightsBySequence[record.flightSequence] ?? 0

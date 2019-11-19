@@ -241,3 +241,22 @@ func stringIsValidEmail(_ checkString: String) -> Bool
     let emailTest = NSPredicate(format: "SELF MATCHES %@", stricterFilterString)
     return emailTest.evaluate(with: checkString)
 }
+
+let logDateFormatter : DateFormatter =
+{
+    let formatter = DateFormatter()
+    formatter.timeZone = TimeZone.current
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
+func printLog(_ message : String, _ file : String = #file, _ function : String = #function, _ line : Int = #line)
+{
+    var startIndex = file.startIndex
+    if let start = file.lastIndex(of: "/")
+    {
+        startIndex = file.index(after: start)
+    }
+
+    print("\(logDateFormatter.string(from: Date())) : \(file[startIndex...]).\(function)#\(line) : \(message)")
+}

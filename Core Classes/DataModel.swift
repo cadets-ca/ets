@@ -628,7 +628,6 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     func emailLocalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
     {
-        // TODO: missing some error management!! And clean-up...
         // set report parameters
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
@@ -646,21 +645,19 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     func emailRegionalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
     {
-        guard checkIfCanSendMailAndAlertUserIfNot() else {return}
-        
-        reportTypeBeingGenerated = ReportType.regionalReport
-        self.startDate = startDate
-        self.endDate = endDate
-        
-        let swiftGenerator  = ReportGenerator()
-        swiftGenerator.regionName = UserDefaults.standard.string(forKey: "Region")?.uppercased()
-        let swiftResult = swiftGenerator.statsReportFromDate(startDate, toDate: endDate)
+        // set report parameters
+        let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
+        let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: nil, regionName: regionName)
 
-        tableText = swiftResult
+        // create the producer
+        let parentViewController = aircraftAreaController?.parent
+        let producer = StatsReportFromDateProducer(param)
         
-        let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
-        let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
-        PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(tableText!, pathForPDF: pathForPDF, delegate:self, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+        // produce the report and distribute (email or, if no email available, Activity (share)
+        producer.produce( then: {
+            () in
+            producer.distributeProducts(using: StatsReportFromDateDistributor.getDistributor(withParentView: parentViewController))
+        })
     }
     
     func printTimesheets()
@@ -1337,11 +1334,13 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         return Array(toRecipients)
     }
     
-    fileprivate func getSubjectLine() -> String {
+    fileprivate func getSubjectLine() -> String
+    {
         return "\(getDateOfTimesheets()) \(getGlidingCenterNameToUse()) Timesheets"
     }
     
-    fileprivate func getDateOfTimesheets() -> String {
+    fileprivate func getDateOfTimesheets() -> String
+    {
         let dateOfTimesheets = viewPreviousRecords ? dateToViewRecords : Date()
         let militaryFormat = DateFormatter()
         militaryFormat.dateFormat = "dd-MMMM-yyyy"
@@ -1580,7 +1579,7 @@ class StatsReportFromDateProducer : NSObject, NDHTMLtoPDFDelegate, MFMailCompose
         self.param = param
     }
     
-    func produce( then : @escaping () -> Void )
+    func produce( then : @escaping CompletionHandler )
     {
         self.completionHandler = then
 
@@ -1605,6 +1604,10 @@ class StatsReportFromDateProducer : NSObject, NDHTMLtoPDFDelegate, MFMailCompose
                     let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
                     self.pdfGenerator = NDHTMLtoPDF.createPDFWithURL(url, pathForPDF: pathForPDF, delegate:self, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
                 }
+                else
+                {
+                    then()
+                }
             }
         }
     }
@@ -1616,35 +1619,57 @@ class StatsReportFromDateProducer : NSObject, NDHTMLtoPDFDelegate, MFMailCompose
     
     func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF)
     {
-        if let url = htmlToPDF.URL
-        {
-            urls.append(url)
-        }
-        if let path = htmlToPDF.PDFpath
-        {
-            urls.append(URL(fileURLWithPath: path))
-        }
-        self.completionHandler?()
+        keepGeneratedFile(htmlToPDF)
+        complete()
         self.pdfGenerator = nil
     }
     
     func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF)
     {
-        self.completionHandler?()
+        complete()
         self.pdfGenerator = nil
+    }
+    
+    private func keepGeneratedFile(_ htmlToPDF: NDHTMLtoPDF) {
+        if let path = htmlToPDF.PDFpath
+        {
+            printLog("Succeeded PDF generation : \(path)")
+            urls.append(URL(fileURLWithPath: path))
+        }
+        else
+        {
+            printLog("Succeeded PDF generation, but no file provided.")
+        }
+    }
+
+    private func complete()
+    {
+        if let completionHandler = self.completionHandler
+        {
+            printLog("Calling completionHandler.")
+            completionHandler()
+        }
+        else
+        {
+            printLog("No completion handler")
+        }
     }
 }
 
 class StatsReportFromDateDistributor : NSObject
 {
-    private let viewController : UIViewController?
+    private let parentControler : UIViewController?
     private var urls = [URL]()
     private var param : StatsReportFromDateParameters!
     
     class EmailDistributor : StatsReportFromDateDistributor, MFMailComposeViewControllerDelegate
     {
+        static private var myself : EmailDistributor?
+        static private var picker : MFMailComposeViewController!
+        
         override func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
         {
+            EmailDistributor.myself = self
             self.param = param
             self.urls.append(contentsOf: urls)
             
@@ -1664,21 +1689,36 @@ class StatsReportFromDateDistributor : NSObject
                 }
             }
             present(picker)
+            EmailDistributor.picker = picker
         }
         
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
         {
+            printLog("During mailComposeController: \(result) , \(String(describing: error))")
             controller.presentingViewController?.dismiss(animated: true, completion: nil)
             for url in urls
             {
-                try! FileManager.default.removeItem(at: url)
+                do
+                {
+                    try FileManager.default.removeItem(at: url)
+                }
+                catch
+                {
+                    printLog("An error happened!!! \(error)")
+                }
             }
+            EmailDistributor.myself = nil
+            EmailDistributor.picker = nil
         }
         
         private func getSubject() -> String
         {
-            let centre = (regularFormat == true && dataModel.viewPreviousRecords == true) ? dataModel.previousRecordsGlidingCentre! : dataModel.glidingCentre
-            let subjectLine = "\(centre!.name) Stats Report \(param.startDate.militaryFormatShort) to \(param.endDate.militaryFormatShort)"
+            var subjectPrefix = ""
+            if let centre = self.param.glidingCentre
+            {
+                subjectPrefix = "\(centre.name) "
+            }
+            let subjectLine = "\(subjectPrefix)Stats Report \(param.startDate.militaryFormatShort) to \(param.endDate.militaryFormatShort)"
             return subjectLine
         }
         
@@ -1711,7 +1751,11 @@ class StatsReportFromDateDistributor : NSObject
         
         private func getFileName(for url : URL) -> String
         {
-            return "\(param.glidingCentre!.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
+            if let glidingCentre = param.glidingCentre
+            {
+                return "\(glidingCentre.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
+            }
+            return "Regional-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
         }
 
         private func getBody(_ url : URL) -> String
@@ -1735,17 +1779,35 @@ class StatsReportFromDateDistributor : NSObject
     
     class ActivityDistributor : StatsReportFromDateDistributor
     {
+        static private var myself : ActivityDistributor?
+        private var activity : UIActivityViewController!
+        
         override func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
         {
-            let vc = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-            vc.popoverPresentationController!.sourceView = viewController!.view
-            present(vc)
+            activity = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+            activity.title = "ACGP ETS - Share Files"
+            activity.completionWithItemsHandler = self.activityCompleted
+            if let popOver = activity.popoverPresentationController
+            {
+                popOver.sourceView = parentControler!.view
+                let rect = parentControler!.view.frame
+                popOver.sourceRect = CGRect(x: (rect.maxX + rect.minX) / 2, y: rect.minY, width: 10, height: 10)
+            }
+            present(activity)
+            ActivityDistributor.myself = self
+        }
+        
+        private func activityCompleted(_ activityType : UIActivity.ActivityType?, _ completed : Bool, _ returnedItems : [Any]?, _ error : Error?) -> Void
+        {
+            printLog("Activity completed \(String(describing: activityType)), completed: \(completed), any error? \(String(describing: error))")
+            activity = nil
+            ActivityDistributor.myself = nil
         }
     }
 
     required init(_ viewController : UIViewController?)
     {
-        self.viewController = viewController
+        self.parentControler = viewController
     }
     
     func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
@@ -1753,19 +1815,20 @@ class StatsReportFromDateDistributor : NSObject
         
     }
     
-    private func present(_ view : UIViewController)
+    private func present(_ viewControler : UIViewController)
     {
         if regularFormat
         {
-            if let controller = dataModel.aircraftAreaController?.parent
-            {
-                controller.dismiss(animated: true, completion: nil)
-                controller.present(view, animated: true, completion: nil)
-            }
+            printLog("Presenting distribution controler for regularFormat (iPad).")
+            parentControler!.dismiss(animated: true, completion: {
+                () in
+                self.parentControler!.present(viewControler, animated: true, completion: nil)
+            })
         }
         else
         {
-            UIViewController.presentOnTopmostViewController(view)
+            printLog("Presenting distribution view controler for regularFormat (iPad).")
+            UIViewController.presentOnTopmostViewController(viewControler)
         }
     }
 
