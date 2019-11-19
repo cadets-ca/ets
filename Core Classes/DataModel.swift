@@ -629,186 +629,19 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     func emailLocalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
     {
         // TODO: missing some error management!! And clean-up...
-        class ResultAccumulator : NSObject, NDHTMLtoPDFDelegate, MFMailComposeViewControllerDelegate
-        {
-            var urls = [URL]()
-            let controller : UIViewController?
-            let param : StatsReportFromDateParameters
-            var html : String?
-            
-            init(_ controller : UIViewController?, _ param : StatsReportFromDateParameters)
-            {
-                self.controller = controller
-                self.param = param
-            }
-            
-            func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF)
-            {
-                if let url = htmlToPDF.URL
-                {
-                    urls.append(url)
-                }
-                if let path = htmlToPDF.PDFpath
-                {
-                    urls.append(URL(fileURLWithPath: path))
-                }
-                complete()
-            }
-            
-            func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF)
-            {
-                // could not generate the PDF... nothing to add.
-                complete()
-            }
-                        
-            func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
-            {
-                controller.presentingViewController?.dismiss(animated: true, completion: nil)
-                for url in urls
-                {
-                    try! FileManager.default.removeItem(at: url)
-                }
-            }
-
-            private func complete()
-            {
-                guard urls.count > 0 else { return }
-                
-                if MFMailComposeViewController.canSendMail()
-                {
-                    // send email
-                    let picker = MFMailComposeViewController()
-                    picker.mailComposeDelegate = self
-                    picker.setSubject(getSubject())
-                    picker.setToRecipients(getRecipients())
-                    for url in urls
-                    {
-                        picker.addAttachmentData((try? Data(contentsOf: url))!, mimeType: getMimeType(for: url), fileName: getFileName(for: url))
-                    }
-                    picker.setMessageBody(getBody(), isHTML: true)
-                    present(picker)
-                }
-                else
-                {
-                    // activity
-                    let vc = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-                    present(vc)
-                }
-            }
-            
-            private func present(_ view : UIViewController)
-            {
-                if regularFormat
-                {
-                    if let controller = dataModel.aircraftAreaController?.parent
-                    {
-                        controller.dismiss(animated: true, completion: nil)
-                        controller.present(view, animated: true, completion: nil)
-                    }
-                }
-                else
-                {
-                    UIViewController.presentOnTopmostViewController(view)
-                }
-            }
-            
-            private func getBody() -> String
-            {
-                let html = self.html ?? ""
-                let printWarning = "<b><FONT COLOR='FF0000'>This report is attached as a PDF for easy printing. Please print the attachment, do not print this email message directly.</b></FONT><br><br>"
-                return "\(printWarning)\(html)"
-            }
-            
-            private func getHtmlContent() -> String
-            {
-                for url in urls
-                {
-                    if url.pathExtension == "html" {
-                        return (try? String(contentsOf: url)) ?? ""
-                    }
-                }
-                return ""
-            }
-            
-            private func getSubject() -> String
-            {
-                let centre = (regularFormat == true && dataModel.viewPreviousRecords == true) ? dataModel.previousRecordsGlidingCentre! : dataModel.glidingCentre
-                let subjectLine = "\(centre!.name) Stats Report \(param.startDate.militaryFormatShort) to \(param.endDate.militaryFormatShort)"
-                return subjectLine
-            }
-            
-            private func getFileName(for url : URL) -> String
-            {
-                return "\(param.glidingCentre!.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
-            }
-            
-            private func getMimeType(for url : URL) -> String
-            {
-                let ext = url.pathExtension as CFString
-                if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil)?.takeUnretainedValue(),
-                    let mimeUTI = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeUnretainedValue()
-                {
-                    return mimeUTI as String
-                }
-                return ""
-            }
-            
-            private func getRecipients() -> [String]
-            {
-                let defaults = UserDefaults.standard
-                var toRecipients = Set<String>()
-                
-                for i in 1...6
-                {
-                    let key = "Stats Address \(i)"
-                    if let value = defaults.string(forKey: key)
-                    {
-                        toRecipients.insert(value)
-                    }
-                }
-                
-                var invalidEmails = Set<String>()
-                for address in toRecipients
-                {
-                    if stringIsValidEmail(address) == false
-                    {
-                        invalidEmails.insert(address)
-                    }
-                }
-                
-                toRecipients.subtract(invalidEmails)
-                return Array(toRecipients)
-            }
-        }
-        
         // set report parameters
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
         let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: GC, regionName: regionName)
-        
-        reportTypeBeingGenerated = ReportType.statsReport
-        self.startDate = startDate
-        self.endDate = endDate
-        
-        let report = StatsReportFromDate(param)
-        
-        let resultAccumulator = ResultAccumulator(aircraftAreaController?.parent, param)
 
-        let excelFormatter = ExcelStatsReportFromDateFormater()
-        report.generate(with: excelFormatter)
-        excelFormatter.generateResult {
-            url in
-            if let url = url {
-                resultAccumulator.urls.append(url)
-            }
-            let htmlFormatter = HtmlStatsReportFromDateFormater()
-            report.generate(with: htmlFormatter)
-            resultAccumulator.html = htmlFormatter.result()
-            
-            let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
-            let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
-            self.PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(resultAccumulator.html!, pathForPDF: pathForPDF, delegate:resultAccumulator, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
-        }
+        // create the proùxducer
+        let parentViewController = aircraftAreaController?.parent
+        let producer = StatsReportFromDateProducer(param)
+        
+        producer.produce( then: {
+            () in
+            producer.distributeProducts(using: StatsReportFromDateDistributor.getDistributor(withParentView: parentViewController))
+        })
     }
     
     func emailRegionalStatsReportFromDate(_ startDate: Date, toDate endDate:Date)
@@ -1732,18 +1565,220 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     }
 }
 
-class StatsReportEmailSender
+class StatsReportFromDateProducer : NSObject, NDHTMLtoPDFDelegate, MFMailComposeViewControllerDelegate
 {
-    let startDate : Date
-    let endDate : Date
-    let glidingCentre : GlidingCentre?
+    typealias CompletionHandler = () -> Void
     
-    init(startDate : Date, endDate : Date, glidingCentre : GlidingCentre?)
+    var urls = [URL]()
+    let param : StatsReportFromDateParameters
+    var html : String?
+    var pdfGenerator : NDHTMLtoPDF?
+    var completionHandler : CompletionHandler?
+    
+    init(_ param : StatsReportFromDateParameters)
     {
-        self.startDate = startDate
-        self.endDate = endDate
-        self.glidingCentre = glidingCentre
+        self.param = param
     }
     
+    func produce( then : @escaping () -> Void )
+    {
+        self.completionHandler = then
+
+        let excelFormatter = ExcelFormatter()
+        
+        let report = StatsReportFromDate(param)
+        report.generate(with: excelFormatter)
+        
+        excelFormatter.generateResult {
+            url in
+            if let url = url {
+                self.urls.append(url)
+            }
+            let htmlFormatter = HtmlFormatter()
+            report.generate(with: htmlFormatter)
+            htmlFormatter.generateResult {
+                url in
+                if let url = url {
+                    self.urls.append(url)
+                
+                    let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
+                    let pathForPDF = pathArray.first?.stringByAppendingPathComponent("StatsReport.pdf") ?? ""
+                    self.pdfGenerator = NDHTMLtoPDF.createPDFWithURL(url, pathForPDF: pathForPDF, delegate:self, pageSize:CGSize(width: 612,height: 792), margins:UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+                }
+            }
+        }
+    }
+    
+    func distributeProducts(using distributor : StatsReportFromDateDistributor)
+    {
+        distributor.distribute(self.urls, for: param)
+    }
+    
+    func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF)
+    {
+        if let url = htmlToPDF.URL
+        {
+            urls.append(url)
+        }
+        if let path = htmlToPDF.PDFpath
+        {
+            urls.append(URL(fileURLWithPath: path))
+        }
+        self.completionHandler?()
+        self.pdfGenerator = nil
+    }
+    
+    func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF)
+    {
+        self.completionHandler?()
+        self.pdfGenerator = nil
+    }
+}
+
+class StatsReportFromDateDistributor : NSObject
+{
+    private let viewController : UIViewController?
+    private var urls = [URL]()
+    private var param : StatsReportFromDateParameters!
+    
+    class EmailDistributor : StatsReportFromDateDistributor, MFMailComposeViewControllerDelegate
+    {
+        override func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
+        {
+            self.param = param
+            self.urls.append(contentsOf: urls)
+            
+            let picker = MFMailComposeViewController()
+            picker.mailComposeDelegate = self
+            picker.setSubject(getSubject())
+            picker.setToRecipients(getRecipients())
+            for url in urls
+            {
+                if url.pathExtension == "html"
+                {
+                    picker.setMessageBody(getBody(url), isHTML: true)
+                }
+                else
+                {
+                    picker.addAttachmentData((try? Data(contentsOf: url))!, mimeType: getMimeType(for: url), fileName: getFileName(for: url))
+                }
+            }
+            present(picker)
+        }
+        
+        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
+        {
+            controller.presentingViewController?.dismiss(animated: true, completion: nil)
+            for url in urls
+            {
+                try! FileManager.default.removeItem(at: url)
+            }
+        }
+        
+        private func getSubject() -> String
+        {
+            let centre = (regularFormat == true && dataModel.viewPreviousRecords == true) ? dataModel.previousRecordsGlidingCentre! : dataModel.glidingCentre
+            let subjectLine = "\(centre!.name) Stats Report \(param.startDate.militaryFormatShort) to \(param.endDate.militaryFormatShort)"
+            return subjectLine
+        }
+        
+        private func getRecipients() -> [String]
+        {
+            let defaults = UserDefaults.standard
+            var toRecipients = Set<String>()
+            
+            for i in 1...6
+            {
+                let key = "Stats Address \(i)"
+                if let value = defaults.string(forKey: key)
+                {
+                    toRecipients.insert(value)
+                }
+            }
+            
+            var invalidEmails = Set<String>()
+            for address in toRecipients
+            {
+                if stringIsValidEmail(address) == false
+                {
+                    invalidEmails.insert(address)
+                }
+            }
+            
+            toRecipients.subtract(invalidEmails)
+            return Array(toRecipients)
+        }
+        
+        private func getFileName(for url : URL) -> String
+        {
+            return "\(param.glidingCentre!.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
+        }
+
+        private func getBody(_ url : URL) -> String
+        {
+            let printWarning = "<b><FONT COLOR='FF0000'>This report is attached as a PDF for easy printing. Please print the attachment, do not print this email message directly.</b></FONT><br><br>"
+            let html = (try? String(contentsOf: url)) ?? ""
+            return "\(printWarning)\(html)"
+        }
+        
+        private func getMimeType(for url : URL) -> String
+        {
+            let ext = url.pathExtension as CFString
+            if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil)?.takeUnretainedValue(),
+                let mimeUTI = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeUnretainedValue()
+            {
+                return mimeUTI as String
+            }
+            return ""
+        }
+    }
+    
+    class ActivityDistributor : StatsReportFromDateDistributor
+    {
+        override func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
+        {
+            let vc = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+            vc.popoverPresentationController!.sourceView = viewController!.view
+            present(vc)
+        }
+    }
+
+    required init(_ viewController : UIViewController?)
+    {
+        self.viewController = viewController
+    }
+    
+    func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
+    {
+        
+    }
+    
+    private func present(_ view : UIViewController)
+    {
+        if regularFormat
+        {
+            if let controller = dataModel.aircraftAreaController?.parent
+            {
+                controller.dismiss(animated: true, completion: nil)
+                controller.present(view, animated: true, completion: nil)
+            }
+        }
+        else
+        {
+            UIViewController.presentOnTopmostViewController(view)
+        }
+    }
+
+    static func getDistributor(withParentView viewController : UIViewController?) -> StatsReportFromDateDistributor
+    {
+        if MFMailComposeViewController.canSendMail()
+        {
+            return EmailDistributor(viewController)
+        }
+        else
+        {
+            return ActivityDistributor(viewController)
+        }
+    }
     
 }

@@ -70,7 +70,7 @@ extension StatsReportFromDateFormater
     }
 }
 
-class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
+class HtmlFormatter: StatsReportFromDateFormater
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -80,6 +80,7 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
     var report : String = ""
     var isGray = false
     var isAlternatingRowColor = false
+    var pageCount = 0
     
     func addTitle(_ title : String)
     {
@@ -88,9 +89,10 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
     
     func addNewSectionTitle(_ title : String)
     {
-        report += "<P CLASS='pagebreakhere'>"
+        report += pageCount == 0 ? "<P>" : "<P CLASS='pagebreakhere'>"
         report += "<big>\(title)</big><br>"
         report += "</P>"
+        pageCount += 1        
     }
     
     func addBlankLine()
@@ -248,7 +250,7 @@ class HtmlStatsReportFromDateFormater: StatsReportFromDateFormater
 
 }
 
-class ExcelStatsReportFromDateFormater: StatsReportFromDateFormater
+class ExcelFormatter: StatsReportFromDateFormater
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"

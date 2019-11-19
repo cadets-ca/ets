@@ -148,7 +148,7 @@ class ReportGeneratorTests: XCTestCase
     {
         let forDate = Date()
         let report = StatsReportFromDate(forDate, toDate: forDate, glidingCentre: nil, regionName: "Any")
-        let formatter = HtmlStatsReportFromDateFormater()
+        let formatter = HtmlFormatter()
         report.generate(with: formatter)
         let result = formatter.result()
         
@@ -161,7 +161,7 @@ class ReportGeneratorTests: XCTestCase
     {
         let forDate = Date()
         let generator = StatsReportFromDate(forDate, toDate: forDate, glidingCentre: dataModel.glidingCentre, regionName: dataModel.regionName!)
-        let formatter = HtmlStatsReportFromDateFormater()
+        let formatter = HtmlFormatter()
         generator.generate(with: formatter)
         let result = formatter.result()
         
@@ -261,7 +261,7 @@ class ReportGeneratorTests: XCTestCase
         let startDate: Date = reportDate - (5*24*60*60)
         let endDate = reportDate
         
-        let htmlFormater = HtmlStatsReportFromDateFormater()
+        let htmlFormater = HtmlFormatter()
         let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: nil, regionName: "MY REGION")
         statsReport.generate(with: htmlFormater)
         let result2 = htmlFormater.result()
@@ -274,7 +274,7 @@ class ReportGeneratorTests: XCTestCase
         log("towPlane1: \(towPlane1.registrationWithTailNumberInBrackets)")
 
         // ... generate an Excel version of the report and attach it to the test result. This is for visual validation.
-        let excelFormater = ExcelStatsReportFromDateFormater()
+        let excelFormater = ExcelFormatter()
         statsReport.generate(with: excelFormater)
         let expectation = self.expectation(description: "Excel")
         let handler = TestingFormaterDelegate(expectation)
@@ -329,7 +329,7 @@ class ReportGeneratorTests: XCTestCase
         report.unit = dataModel.glidingCentre.name
         let startDate = reportDate - (5*24*60*60)
         let endDate = reportDate
-        let formatter = ExcelStatsReportFromDateFormater()
+        let formatter = ExcelFormatter()
         let statsReport = StatsReportFromDate(startDate, toDate: endDate, glidingCentre: centre, regionName: dataModel.regionName!)
         statsReport.generate(with: formatter)
         
