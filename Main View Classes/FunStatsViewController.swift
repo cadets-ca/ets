@@ -220,7 +220,7 @@ final class FunStatsViewController : UITableViewController
     func updateInfo()
     {
         glidingCentresActiveLastFiveDays.removeAll(keepingCapacity: true)
-        var keyValueStoreData = dataModel.keyValueStore.dictionaryRepresentation  as [String: AnyObject]
+        let keyValueStoreData = dataModel.keyValueStore.dictionaryRepresentation  as [String: AnyObject]
         
         for gcName in keyValueStoreData.keys
         {

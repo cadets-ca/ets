@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ExcelExport",
+        "repositoryURL": "https://github.com/huguesf/ExcelExport.git",
+        "state": {
+          "branch": "master",
+          "revision": "dd3e9c162fc00733887c47fb2b721420b90f1067",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

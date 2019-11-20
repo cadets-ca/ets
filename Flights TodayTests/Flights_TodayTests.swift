@@ -6,7 +6,6 @@
 //
 
 import XCTest
-@testable import Flights_Today
 
 class Flights_TodayTests: XCTestCase {
     

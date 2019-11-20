@@ -26,7 +26,7 @@ Examples of unacceptable behavior by participants include:
 * The use of sexualized language or imagery and unwelcome sexual attention or advances
 * Trolling, insulting/derogatory comments, and personal or political attacks
 * Public or private harassment
-* Publishing others' private inform# Contributor Covenant Code of Conduct
+* Publishing others' private information
 
 ## Our Responsibilities
 
@@ -42,10 +42,8 @@ Examples of representing a project or community include using an official projec
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 1.4,
 available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
-
-[homepage]: https://www.contributor-covenant.org
 
 For answers to common questions about this code of conduct, see https://www.contributor-covenant.org/faq
 
@@ -65,7 +63,7 @@ Les contributeurs aux dépôts hébergés dans `ets` sont tenus de respecter le 
 
 ## Code de valeurs et d'éthique du secteur public
 
-Le [Code de valeurs et d'éthique du secteur public] (https://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=25049)
+Le [Code de valeurs et d'éthique du secteur public](https://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=25049)
 
 ## Notre engagement
 
@@ -74,7 +72,7 @@ Dans le but de favoriser un environnement ouvert et accueillant, nous, en tant q
 ## Nos normes
 
 Exemples de comportements qui contribuent à créer un environnement positif
-inclure :
+inclure:
 
 * Utiliser un langage accueillant et inclusif
 * Être respectueux des différents points de vue et expériences
@@ -82,12 +80,12 @@ inclure :
 * Se concentrer sur ce qui est le mieux pour la communauté
 * Faire preuve d'empathie envers les autres membres de la communauté
 
-Voici des exemples de comportements inacceptables de la part des participants :
+Voici des exemples de comportements inacceptables de la part des participants:
 
 * L'utilisation d'un langage ou d'images sexualisés et d'une attention sexuelle importunée, ou percées
 * Trolling, insulting/derogatory comments, and personal or political attacks
 * Harcèlement public ou privé
-* Publication des informations privées d'autres personnes# Code de conduite de l'alliance des contributeurs
+* Publication des informations privées d'autres personnes
 
 ## Nos responsabilités
 
@@ -108,7 +106,7 @@ Des exemples de représentation d'un projet ou d'une collectivité comprennent l
 
 ## Application de la loi
 
-Les cas de comportement abusif, de harcèlement ou d'autres comportements inacceptables peuvent être en communiquant avec l'équipe de projet à l'adresse suivante :[mark.macpherson@cadets.gc.ca](mailto:mark.macpherson@cadets.gc.ca). Tous feront l'objet  d'un examen et d'une enquête et donneront lieu à une réponse qui est jugée nécessaire et appropriée dans les circonstances. L'équipe de projet est l'obligation de respecter la confidentialité à l'égard du déclarant d'un incident.
+Les cas de comportement abusif, de harcèlement ou d'autres comportements inacceptables peuvent être en communiquant avec l'équipe de projet à l'adresse suivante: [mark.macpherson@cadets.gc.ca](mailto:mark.macpherson@cadets.gc.ca). Tous feront l'objet  d'un examen et d'une enquête et donneront lieu à une réponse qui est jugée nécessaire et appropriée dans les circonstances. L'équipe de projet est l'obligation de respecter la confidentialité à l'égard du déclarant d'un incident.
 
 De plus amples détails sur les politiques d'application spécifiques peuvent être affichés séparément.
 
@@ -116,10 +114,8 @@ Les responsables de projet qui ne respectent pas ou n'appliquent pas le Code de 
 
 ## Attribution
 
-Le présent Code de conduite est adapté de la version 1.4 du[Pacte du contributeur][page d'accueil],
+Le présent Code de conduite est adapté de la version 1.4 du[Pacte du contributeur](https://www.contributor-covenant.org),
 disponible à l'adresse https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
-
-[page d'accueil] : https://www.contributor-covenant.org
 
 Pour des réponses aux questions les plus fréquentes concernant ce code de conduite, voir
 https://www.contributor-covenant.org/faq
