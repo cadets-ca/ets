@@ -75,13 +75,7 @@ class StatsReportFromDateDistributor : NSObject
         
         private func getSubject() -> String
         {
-            var subjectPrefix = ""
-            if let centre = self.param.glidingCentre
-            {
-                subjectPrefix = "\(centre.name) "
-            }
-            let subjectLine = "\(subjectPrefix)Stats Report \(param.startDate.militaryFormatShort) to \(param.endDate.militaryFormatShort)"
-            return subjectLine
+            return param.getSubject()
         }
         
         private func getRecipients() -> [String]
@@ -91,11 +85,7 @@ class StatsReportFromDateDistributor : NSObject
         
         private func getFileName(for url : URL) -> String
         {
-            if let glidingCentre = param.glidingCentre
-            {
-                return "\(glidingCentre.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
-            }
-            return "Regional-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort).\(url.pathExtension)"
+            return url.lastPathComponent
         }
         
         private func getBody(_ url : URL) -> String

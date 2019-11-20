@@ -13,6 +13,16 @@ struct StatsReportFromDateParameters
     let endDate : Date
     let glidingCentre : GlidingCentre?
     let regionName : String
+    
+    func getSubject() -> String
+    {
+        var subjectPrefix = ""
+        if let centre = glidingCentre
+        {
+            subjectPrefix = "\(centre.name) "
+        }
+        return "\(subjectPrefix)Stats Report \(startDate.militaryFormatShort) to \(endDate.militaryFormatShort)"
+    }
 }
 
 class StatsReportFromDate

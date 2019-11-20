@@ -102,11 +102,7 @@ class StatsReportFromDateProducer : NSObject, NDHTMLtoPDFDelegate
     
     private func getFileName() -> String
     {
-        if let glidingCentre = param.glidingCentre
-        {
-            return "\(glidingCentre.name)-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort)"
-        }
-        return "Regional-Stats-Report-\(param.startDate.militaryFormatShort)-\(param.endDate.militaryFormatShort)"
+        return param.getSubject()
     }
 }
 
