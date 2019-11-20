@@ -192,50 +192,6 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
             
         case emailDatabaseCell:
             cloudKitController?.backupDatabase()
-//            let aircraftRequest = AircraftEntity.request
-//            let registrationSortDescriptor = NSSortDescriptor(key: #keyPath(AircraftEntity.registration), ascending:true)
-//            aircraftRequest.sortDescriptors = [registrationSortDescriptor]
-//            let aircraftList = try! dataModel.managedObjectContext.fetch(aircraftRequest)
-//
-//            for aircraft in aircraftList
-//            {
-//                if aircraft.status == .flying
-//                {
-//                    let alert = UIAlertController(title: "Cannot Backup", message:"You cannot backup a database while you have aircraft flying. Retry when all aircraft are on the ground.", preferredStyle:.alert)
-//                    let cancel = UIAlertAction(title: "OK", style:.default, handler:nil)
-//                    alert.addAction(cancel)
-//                    present(alert, animated:true, completion:nil)
-//                    return
-//                }
-//            }
-//
-//            let alert = UIAlertController(title: "Include Photos?", message: "You may include photos or backup the database without them to reduce the email file size. The database is automatically backed up regularly.", preferredStyle: .actionSheet)
-//
-//            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
-//
-//            let removePhotos = UIAlertAction(title: "Remove Photos", style: .default){_ in
-//                globalQueue.async{dataModel.backupDatabaseForSite(dataModel.glidingCentre.name, includePhotos: false, andMoveFileToCloud: true)}
-//
-//                let finished = UIAlertController(title: "Backup Successful", message: "The database was successfully backed up. The database is automatically backed up regularly.", preferredStyle: .alert)
-//                let cancel = UIAlertAction(title: "OK", style: .default, handler:nil)
-//                finished.addAction(cancel)
-//                self.present(finished, animated:true, completion:nil)
-//            }
-//
-//            let includePhotos = UIAlertAction(title: "Include Photos", style: .default){_ in
-//            globalQueue.async{dataModel.backupDatabaseForSite(dataModel.glidingCentre.name, includePhotos: true, andMoveFileToCloud: true)}
-//
-//            let finished = UIAlertController(title: "Backup Successful", message: "The database was successfully backed up. The database is automatically backed up regularly.", preferredStyle: .alert)
-//            let cancel = UIAlertAction(title: "OK", style: .default, handler:nil)
-//            finished.addAction(cancel)
-//            self.present(finished, animated:true, completion:nil)
-//            }
-//
-//            alert.addAction(removePhotos)
-//            alert.addAction(includePhotos)
-//            alert.addAction(cancel)
-//
-//            present(alert, animated:true, completion:nil)
 
         case viewPreviousRecordsCell:
             if dataModel.viewPreviousRecords == true

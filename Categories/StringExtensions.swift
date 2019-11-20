@@ -148,7 +148,7 @@ extension String
     {
         if header
         {
-            self += "<tr bgcolor='CCCCCC'>"
+            self += "<tr bgcolor='#CCCCCC'>"
         }
         
         else
