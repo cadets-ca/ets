@@ -16,6 +16,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>SQL Data Store</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.Timesheets.sqlite</string>

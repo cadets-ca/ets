@@ -1760,7 +1760,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 629;
+				CURRENT_PROJECT_VERSION = 631;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1803,7 +1803,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 629;
+				CURRENT_PROJECT_VERSION = 631;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2322,6 +2322,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 631;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2340,6 +2341,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Flights-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2369,6 +2371,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 631;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2382,6 +2385,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Flights-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2412,6 +2416,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 631;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2430,6 +2435,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Hours-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2459,6 +2465,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 631;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2472,6 +2479,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Hours-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2506,6 +2514,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 631;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2527,6 +2536,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Gliding-Centre-Flights";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2559,6 +2569,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 631;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2574,6 +2585,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Gliding-Centre-Flights";
 				PRODUCT_NAME = "$(TARGET_NAME)";
