@@ -27,7 +27,7 @@ class ReportGeneratorTests: XCTestCase
     var staffCadetPilot2: Pilot!
     var cadet: Pilot!
 
-    class TestingFormaterDelegate : ReportFormaterDelegate
+    class TestingFormaterDelegate : ReportFormatterDelegate
     {
         var success = false
         let group : XCTestExpectation!

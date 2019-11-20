@@ -29,13 +29,13 @@ enum VAlign: String { case bottom, top, middle }
 /// This Delegate protocol imply that it ties to the Generator, that only exist in
 ///  the form of StatsReportFromDateGenerator... Maybe there will be a Generator protocol
 ///  at a later time.
-protocol ReportFormaterDelegate
+protocol ReportFormatterDelegate
 {
     func success(_ url : URL)
     func fail(_ error : String)
 }
 
-protocol StatsReportFromDateFormater
+protocol ReportFormatter
 {
     func addTitle(_ title : String)
     func addNewSectionTitle(_ title : String)
@@ -53,11 +53,11 @@ protocol StatsReportFromDateFormater
     
     func result() -> String
     // TODO: my goal is to valiate which one is best and remove the unwanted one between generateResult(delegate) and generateResult(handler).
-    func generateResult(_ delegate : ReportFormaterDelegate)
-    func generateResult(_ handler : @escaping (URL?)->Void)
+    func generateResult(filename : String, _ delegate : ReportFormatterDelegate)
+    func generateResult(filename : String, _ handler : @escaping (URL?)->Void)
 }
 
-extension StatsReportFromDateFormater
+extension ReportFormatter
 {
     func startTable(_ columnsSet : [[ReportColumn]])
     {
@@ -70,7 +70,7 @@ extension StatsReportFromDateFormater
     }
 }
 
-class HtmlFormatter: StatsReportFromDateFormater
+class HtmlFormatter: ReportFormatter
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -220,9 +220,9 @@ class HtmlFormatter: StatsReportFromDateFormater
         "</body></html>"
     }
     
-    func generateResult(_ delegate: ReportFormaterDelegate)
+    func generateResult(filename : String = "report", _ delegate: ReportFormatterDelegate)
     {
-        export{url in
+        export(filename: filename){url in
             if let url = url {
                 delegate.success(url)
             } else {
@@ -231,14 +231,14 @@ class HtmlFormatter: StatsReportFromDateFormater
         }
     }
     
-    func generateResult(_ handler : @escaping (URL?)->Void)
+    func generateResult(filename : String = "report", _ handler : @escaping (URL?)->Void)
     {
-        export(handler)
+        export(filename: filename, handler)
     }
     
-    private func export(_ done: @escaping (URL?)->Void) {
+    private func export(filename : String, _ done: @escaping (URL?)->Void) {
         DispatchQueue.global(qos: .background).async {
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("result.html")
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("\(filename).html")
             do {
                 try self.result().write(to: url, atomically: true, encoding: .utf8)
                 DispatchQueue.main.async{ done(url) }
@@ -250,7 +250,7 @@ class HtmlFormatter: StatsReportFromDateFormater
 
 }
 
-class ExcelFormatter: StatsReportFromDateFormater
+class ExcelFormatter: ReportFormatter
 {
     let BG_ALTERNATECOLOR = "#E3E3E3"
     let BG_FILLEDCELL = "#000000"
@@ -386,11 +386,11 @@ class ExcelFormatter: StatsReportFromDateFormater
         return ""
     }
     
-    func generateResult(_ delegate: ReportFormaterDelegate) {
+    func generateResult(filename : String = "report", _ delegate: ReportFormatterDelegate) {
         endPreviousSectionAndResetAccumulator()
         
         // generate the file
-        ExcelExport.export(sheets, fileName: "report", done: {url in
+        ExcelExport.export(sheets, fileName: filename, done: {url in
             if let url = url {
                 delegate.success(url)
             } else {
@@ -399,11 +399,11 @@ class ExcelFormatter: StatsReportFromDateFormater
         })
     }
     
-    func generateResult(_ handler : @escaping (URL?) -> Void)
+    func generateResult(filename : String = "report", _ handler : @escaping (URL?) -> Void)
     {
         endPreviousSectionAndResetAccumulator()
         
-        ExcelExport.export(sheets, fileName: "report", done: handler)
+        ExcelExport.export(sheets, fileName: filename, done: handler)
     }
     
     private func endPreviousSectionAndResetAccumulator()

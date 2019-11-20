@@ -65,7 +65,7 @@ class StatsReportFromDate
      depends on some kind of UI API. But the goal is to be able to have it generate an Excel spreadsheet. Which is already our binary format (in fact it is still text format - XML - but need no
      other transformation). Building the Excel file is async because of the operation required. So the generator.generate protocol method will need to be async as well. Which will change significantly the structure of the code.
      */
-    func generate(with formatter: StatsReportFromDateFormater)
+    func generate(with formatter: ReportFormatter)
     {
         //Heading and number of glider flights
         guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return}
@@ -1498,7 +1498,7 @@ class StatsReportFromDate
         }
     }
     
-    func generateMaintenanceReportWithReportGenerator(_ generator : StatsReportFromDateFormater, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
+    func generateMaintenanceReportWithReportGenerator(_ generator : ReportFormatter, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
     {
         generator.addTitle("MAINTENANCE REPORT")
         let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: Date())!.startOfDay
@@ -1721,7 +1721,6 @@ class StatsReportFromDate
         
         return issues
     }
-
 }
 
 final class GlidingDay

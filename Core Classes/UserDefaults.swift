@@ -614,4 +614,33 @@ public extension UserDefaults
             }
         }
     }
+    
+    var statsAddressRecipients: [String]
+    {
+        get
+        {
+            var toRecipients = Set<String>()
+            
+            for i in 1...6
+            {
+                let key = "Stats Address \(i)"
+                if let value = self.string(forKey: key)
+                {
+                    toRecipients.insert(value)
+                }
+            }
+            
+            var invalidEmails = Set<String>()
+            for address in toRecipients
+            {
+                if stringIsValidEmail(address) == false
+                {
+                    invalidEmails.insert(address)
+                }
+            }
+            
+            toRecipients.subtract(invalidEmails)
+            return Array(toRecipients)
+        }
+    }
 }
