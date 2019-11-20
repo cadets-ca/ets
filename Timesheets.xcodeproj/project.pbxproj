@@ -1760,6 +1760,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 629;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1777,6 +1778,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				MOMC_NO_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
@@ -1801,6 +1803,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 629;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1816,6 +1819,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 6.2.5;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				MOMC_NO_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
