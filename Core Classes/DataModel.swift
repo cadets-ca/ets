@@ -633,13 +633,10 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
         let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: GC, regionName: regionName)
 
-        // create the proùxducer
-        let parentViewController = aircraftAreaController?.parent
-        let producer = StatsReportFromDateProducer(param)
-        
-        producer.produce( then: {
-            () in
-            producer.distributeProducts(using: StatsReportFromDateDistributor.getDistributor(withParentView: parentViewController))
+        // produce and distribute the report
+        ReportProducer().produce( report: StatsReportFromDate(param), then: {
+            (urls) in
+            Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
         })
     }
     
@@ -648,15 +645,11 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         // set report parameters
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
         let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: nil, regionName: regionName)
-
-        // create the producer
-        let parentViewController = aircraftAreaController?.parent
-        let producer = StatsReportFromDateProducer(param)
         
         // produce the report and distribute (email or, if no email available, Activity (share)
-        producer.produce( then: {
-            () in
-            producer.distributeProducts(using: StatsReportFromDateDistributor.getDistributor(withParentView: parentViewController))
+        ReportProducer().produce( report: StatsReportFromDate(param), then: {
+            (urls) in
+            Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
         })
     }
     

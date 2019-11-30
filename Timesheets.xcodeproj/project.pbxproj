@@ -208,8 +208,9 @@
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F3011743234D750800830EE9 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* Formatters.swift */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
-		F33BD5A92384DF1B00D121B9 /* StatsReportFromDateDistributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5A82384DF1B00D121B9 /* StatsReportFromDateDistributor.swift */; };
-		F33BD5AB2384DFB500D121B9 /* StatsReportFromDateProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5AA2384DFB500D121B9 /* StatsReportFromDateProducer.swift */; };
+		F33BD5A92384DF1B00D121B9 /* Distributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5A82384DF1B00D121B9 /* Distributor.swift */; };
+		F33BD5AB2384DFB500D121B9 /* ReportProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */; };
+		F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */; };
 		F33ED8B5237E38DC0020CEBE /* StatsReportFromDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */; };
 		F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */; };
 		F33ED8B9237E53890020CEBE /* CoreDataTestSetupHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */; };
@@ -511,8 +512,9 @@
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		F3011742234D750800830EE9 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
-		F33BD5A82384DF1B00D121B9 /* StatsReportFromDateDistributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDateDistributor.swift; sourceTree = "<group>"; };
-		F33BD5AA2384DFB500D121B9 /* StatsReportFromDateProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDateProducer.swift; sourceTree = "<group>"; };
+		F33BD5A82384DF1B00D121B9 /* Distributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distributor.swift; sourceTree = "<group>"; };
+		F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProducer.swift; sourceTree = "<group>"; };
+		F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetsForDateTests.swift; sourceTree = "<group>"; };
 		F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDate.swift; sourceTree = "<group>"; };
 		F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceRecordForPersonTests.swift; sourceTree = "<group>"; };
 		F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestSetupHelpers.swift; sourceTree = "<group>"; };
@@ -999,8 +1001,8 @@
 			isa = PBXGroup;
 			children = (
 				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
-				F33BD5A82384DF1B00D121B9 /* StatsReportFromDateDistributor.swift */,
-				F33BD5AA2384DFB500D121B9 /* StatsReportFromDateProducer.swift */,
+				F33BD5A82384DF1B00D121B9 /* Distributor.swift */,
+				F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */,
 			);
 			path = StatsReportFromDate;
 			sourceTree = "<group>";
@@ -1013,6 +1015,7 @@
 				F307AD052346B1680093120F /* XCTestExtensions.swift */,
 				F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */,
 				F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */,
+				F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1486,7 +1489,7 @@
 				DADBDEB91A49262E00EDA8C2 /* AircraftEntity.swift in Sources */,
 				DA1D2F881B069A9E00160AC9 /* BeaconNumberCell.swift in Sources */,
 				DAF5889E1ABFBF4700F2B823 /* FlyingRecords.swift in Sources */,
-				F33BD5AB2384DFB500D121B9 /* StatsReportFromDateProducer.swift in Sources */,
+				F33BD5AB2384DFB500D121B9 /* ReportProducer.swift in Sources */,
 				DAEB43711A586ECA00D387F0 /* NSDecimalNumberExtensions.swift in Sources */,
 				DA301AF61A6CDBEB007AC9A4 /* Airplanes.swift in Sources */,
 				DA6A12301A789AD40066372A /* PilotQualifications.swift in Sources */,
@@ -1530,7 +1533,7 @@
 				DAE503001B01B72F005DC59F /* iBeaconManager.swift in Sources */,
 				DADBDEA91A49078500EDA8C2 /* PowerLicenseImage.swift in Sources */,
 				DA50EE611AE161DB00C4505E /* DataModel.swift in Sources */,
-				F33BD5A92384DF1B00D121B9 /* StatsReportFromDateDistributor.swift in Sources */,
+				F33BD5A92384DF1B00D121B9 /* Distributor.swift in Sources */,
 				DA80B7431A5F59CC005B8545 /* ReportGenerator.swift in Sources */,
 				DA58B6751A5B7CD50091A288 /* TableViewCellStyleAircraft.swift in Sources */,
 				DAD0A0441B5D995C00E964CC /* PlistManagement.swift in Sources */,
@@ -1673,6 +1676,7 @@
 			files = (
 				F33ED8B9237E53890020CEBE /* CoreDataTestSetupHelpers.swift in Sources */,
 				F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */,
+				F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
 				F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */,
 			);

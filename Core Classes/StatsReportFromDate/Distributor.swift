@@ -18,27 +18,40 @@ import func MobileCoreServices.UTTypeCopyPreferredTagWithClass
 import var MobileCoreServices.kUTTagClassFilenameExtension
 import var MobileCoreServices.kUTTagClassMIMEType
 
-class StatsReportFromDateDistributor : NSObject
+
+protocol SubjectProvider
+{
+    func getSubject() -> String
+}
+
+protocol RecipientProvider
+{
+    func getRecipients() -> [String]
+}
+
+protocol RecipientAndSubjectProvider : SubjectProvider, RecipientProvider
+{
+}
+
+class Distributor : NSObject
 {
     private let parentControler : UIViewController?
     private var urls = [URL]()
-    private var param : StatsReportFromDateParameters!
     
-    class EmailDistributor : StatsReportFromDateDistributor, MFMailComposeViewControllerDelegate
+    private class EmailDistributor : Distributor, MFMailComposeViewControllerDelegate
     {
         static private var myself : EmailDistributor?
         static private var picker : MFMailComposeViewController!
         
-        override func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
+        override func distribute(_ urls : [URL], given recipientAndSubjectProvider : RecipientAndSubjectProvider)
         {
             EmailDistributor.myself = self
-            self.param = param
             self.urls.append(contentsOf: urls)
             
             let picker = MFMailComposeViewController()
             picker.mailComposeDelegate = self
-            picker.setSubject(getSubject())
-            picker.setToRecipients(getRecipients())
+            picker.setSubject(recipientAndSubjectProvider.getSubject())
+            picker.setToRecipients(recipientAndSubjectProvider.getRecipients())
             for url in urls
             {
                 if url.pathExtension == "html"
@@ -73,16 +86,6 @@ class StatsReportFromDateDistributor : NSObject
             EmailDistributor.picker = nil
         }
         
-        private func getSubject() -> String
-        {
-            return param.getSubject()
-        }
-        
-        private func getRecipients() -> [String]
-        {
-            return UserDefaults().statsAddressRecipients
-        }
-        
         private func getFileName(for url : URL) -> String
         {
             return url.lastPathComponent
@@ -107,12 +110,12 @@ class StatsReportFromDateDistributor : NSObject
         }
     }
     
-    class ActivityDistributor : StatsReportFromDateDistributor
+    private class ActivityDistributor : Distributor
     {
         static private var myself : ActivityDistributor?
         private var activity : UIActivityViewController!
         
-        override func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
+        override func distribute(_ urls : [URL], given recipientAndSubjectProvider : RecipientAndSubjectProvider)
         {
             activity = UIActivityViewController(activityItems: urls, applicationActivities: nil)
             activity.title = "ACGP ETS - Share Files"
@@ -140,7 +143,7 @@ class StatsReportFromDateDistributor : NSObject
         self.parentControler = viewController
     }
     
-    func distribute(_ urls : [URL], for param : StatsReportFromDateParameters)
+    func distribute(_ urls : [URL], given recipientAndSubjectProvider : RecipientAndSubjectProvider)
     {
         // this function must be overriden by subclass of StatsReportFromDateDistributor
     }
@@ -162,7 +165,14 @@ class StatsReportFromDateDistributor : NSObject
         }
     }
     
-    static func getDistributor(withParentView viewController : UIViewController?) -> StatsReportFromDateDistributor
+    /**
+     The distributor provided depends on whether or not the system can send email.
+     
+     Two possible distributor:
+     1) EmailDistributor
+     2) ActivityDistributor
+     */
+    static func getDistributor(withParentView viewController : UIViewController?) -> Distributor
     {
         if MFMailComposeViewController.canSendMail()
         {
