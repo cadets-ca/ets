@@ -854,7 +854,7 @@
 		DAF618BA16D01BC700543415 /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F33BD5A72384DED400D121B9 /* StatsReportFromDate */,
+				F33BD5A72384DED400D121B9 /* Reports */,
 				DA19D38D1EF70695005A8AD3 /* CloudKitController.swift */,
 				DA4C70061ACA31060024DE40 /* TimesheetsAppDelegate.swift */,
 				DA4C70041ACA243C0024DE40 /* CoreDataController.swift */,
@@ -997,14 +997,14 @@
 			path = "Other Sources";
 			sourceTree = "<group>";
 		};
-		F33BD5A72384DED400D121B9 /* StatsReportFromDate */ = {
+		F33BD5A72384DED400D121B9 /* Reports */ = {
 			isa = PBXGroup;
 			children = (
 				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
 				F33BD5A82384DF1B00D121B9 /* Distributor.swift */,
 				F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */,
 			);
-			path = StatsReportFromDate;
+			path = Reports;
 			sourceTree = "<group>";
 		};
 		F3FDAF832339ACFC002E11EE /* TimesheetsTests */ = {
