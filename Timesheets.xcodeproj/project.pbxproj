@@ -208,6 +208,7 @@
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F3011743234D750800830EE9 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* Formatters.swift */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
+		F33B3F112393744800109B31 /* TimesheetsForDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33B3F102393744800109B31 /* TimesheetsForDate.swift */; };
 		F33BD5A92384DF1B00D121B9 /* Distributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5A82384DF1B00D121B9 /* Distributor.swift */; };
 		F33BD5AB2384DFB500D121B9 /* ReportProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */; };
 		F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */; };
@@ -512,6 +513,7 @@
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		F3011742234D750800830EE9 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
+		F33B3F102393744800109B31 /* TimesheetsForDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetsForDate.swift; sourceTree = "<group>"; };
 		F33BD5A82384DF1B00D121B9 /* Distributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distributor.swift; sourceTree = "<group>"; };
 		F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProducer.swift; sourceTree = "<group>"; };
 		F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetsForDateTests.swift; sourceTree = "<group>"; };
@@ -1003,6 +1005,7 @@
 				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
 				F33BD5A82384DF1B00D121B9 /* Distributor.swift */,
 				F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */,
+				F33B3F102393744800109B31 /* TimesheetsForDate.swift */,
 			);
 			path = Reports;
 			sourceTree = "<group>";
@@ -1548,6 +1551,7 @@
 				DA29E4021A74AC8500FA6A4B /* RecordActions.swift in Sources */,
 				DAF632221A4A5D17003AA1C3 /* Pilot.swift in Sources */,
 				DAE503031B01D884005DC59F /* GlobalConstants.swift in Sources */,
+				F33B3F112393744800109B31 /* TimesheetsForDate.swift in Sources */,
 				DA65A9751A7331E000CCFDAB /* ChangeTime.swift in Sources */,
 				DAAAC15C1ACDEDDE00ECE62B /* GlidingDayCommentEditor.swift in Sources */,
 				DADBDEAF1A490D2100EDA8C2 /* MaintenanceEvent.swift in Sources */,

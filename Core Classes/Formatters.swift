@@ -13,12 +13,14 @@ struct ReportColumn
     var widthPercent : Int? = nil
     var widthPixel : Int? = nil
     var colSpan : Int? = nil
+    var rowSpan : Int? = nil
     var title : String
 }
 
 struct ReportCell
 {
     var rowSpan : Int? = nil
+    var colSpan : Int? = nil
     var value : String = ""
     var isBlack : Bool = false
     var vAlign : VAlign? = nil
@@ -50,6 +52,9 @@ protocol ReportFormatter
     func addTableRow(_ cells : [ReportCell])
     func addTotalRow(_ cells : [ReportCell])
     func endTable()
+    func startPaginatedSection()
+    func startRepeatingPart()
+    func endRepeatingPart(_ todoBeforeNextPage : @escaping (ReportFormatter) -> Void)
     
     func result() -> String
     // TODO: my goal is to valiate which one is best and remove the unwanted one between generateResult(delegate) and generateResult(handler).
@@ -81,6 +86,10 @@ class HtmlFormatter: ReportFormatter
     var isGray = false
     var isAlternatingRowColor = false
     var pageCount = 0
+    
+    private var currentPage = 0
+    private var numberOfPage = 0
+    private var todoBeforeNextPage : ((ReportFormatter) -> Void)!
     
     func addTitle(_ title : String)
     {
@@ -129,22 +138,24 @@ class HtmlFormatter: ReportFormatter
             report += "<tr bgcolor='\(BG_HEADER)'>"
             for column in columns
             {
+                report += "<th"
                 if let widthPercent = column.widthPercent
                 {
-                    report += "<th width ='\(widthPercent)%'>\(column.title)</th>"
+                    report += " width ='\(widthPercent)%'"
                 }
                 else if let widthPixel = column.widthPixel
                 {
-                    report += "<th width='\(widthPixel)'>\(column.title)</th>"
+                    report += " width='\(widthPixel)'"
                 }
-                else if let colSpan = column.colSpan
+                if let colSpan = column.colSpan
                 {
-                    report += "<th colspan='\(colSpan)'>\(column.title)</th>"
+                    report += " colspan='\(colSpan)'"
                 }
-                else
+                if let rowSpan = column.rowSpan
                 {
-                    report += "<th>\(column.title)</th>"
+                    report += " rowspan='\(rowSpan)'"
                 }
+                report += ">\(column.title)</th>"
             }
             report += "</tr>"
         }
@@ -167,9 +178,14 @@ class HtmlFormatter: ReportFormatter
                 {
                     report += " valign='\(vAlign.rawValue)'"
                 }
-                if cell.rowSpan != nil && cell.rowSpan != 1
+                if let rowSpan = cell.rowSpan,
+                    rowSpan != 1
                 {
-                    report += " rowspan ='\(cell.rowSpan!)'"
+                    report += " rowspan='\(cell.rowSpan!)'"
+                }
+                if let colSpan = cell.colSpan
+                {
+                    report += " colspan='\(colSpan)'"
                 }
                 report += ">\(cell.value)</td>"
             }
@@ -197,9 +213,14 @@ class HtmlFormatter: ReportFormatter
                 {
                     report += " valign='\(vAlign.rawValue)'"
                 }
-                if cell.rowSpan != nil && cell.rowSpan != 1
+                if let rowSpan = cell.rowSpan,
+                    rowSpan != 1
                 {
                     report += " rowspan ='\(cell.rowSpan!)'"
+                }
+                if let colSpan = cell.colSpan
+                {
+                    report += " colspan='\(colSpan)'"
                 }
                 report += ">\(cell.value)</th>"
             }
@@ -211,6 +232,25 @@ class HtmlFormatter: ReportFormatter
     func endTable()
     {
         report += "</table>"
+    }
+
+    func startPaginatedSection()
+    {
+        // TODO: create a mecanism to keep what repeat on each page and keep the page numbering
+        // TODO: numbering mecanism will use variable to replace text in cells
+        // TODO: currentPage and numberOfPage
+        currentPage = 1
+        numberOfPage = 1
+    }
+    
+    func startRepeatingPart()
+    {
+        // TODO: remember the portion that need to be repeated on each page.
+    }
+    
+    func endRepeatingPart(_ todoBeforeNextPage : @escaping (ReportFormatter) -> Void)
+    {
+        self.todoBeforeNextPage = todoBeforeNextPage
     }
     
     func result() -> String
@@ -380,7 +420,22 @@ class ExcelFormatter: ReportFormatter
     func endTable()
     {
     }
+
+    func startPaginatedSection()
+    {
+        // Nothing to do, not supported.
+    }
     
+    func startRepeatingPart()
+    {
+        // Nothing to do, not supported.
+    }
+    
+    func endRepeatingPart(_ todoBeforeNextPage : @escaping (ReportFormatter) -> Void)
+    {
+        // Nothing to do, not supported.
+    }
+
     func result() -> String
     {
         return ""

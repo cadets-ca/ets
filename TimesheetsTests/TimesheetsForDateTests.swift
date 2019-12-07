@@ -32,8 +32,10 @@ class TimesheetsForDateTests: XCTestCase {
         // arrange
         let aircraft = helpers.createTowPlane(registration: "123", tailNumber: "123")
         let timesheet = helpers.createTimesheet(aircraft, now)
+        let timesheet2 = helpers.createTimesheet(aircraft, now)
         let towFlight = helpers.createFlight(aircraft, timesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, forMinutes: 10)
-        
+        _ = helpers.createFlight(aircraft, timesheet2, startingOn: Calendar.current.date(byAdding: .hour, value: -2, to: now)!, forMinutes: 10)
+
         let towSolo = helpers.createTowPlane(registration: "ALONE", tailNumber: "8888")
         let towSoloTimesheet = helpers.createTimesheet(towSolo, now)
         var startingOn: Date = Calendar.current.date(byAdding: .hour, value: -11, to: now)!
@@ -66,6 +68,13 @@ class TimesheetsForDateTests: XCTestCase {
         let result = report.generateTimesheetsForDate(now, true)
         //try? result.write(toFile: "timesheets.html", atomically: true, encoding: .utf8)
         attachResultAsHtml(data: result, name: "timesheets.html")
+        
+        let param = TimesheetsForDateParameters(dateOfTimesheets: now, glidingCentre: centre, regionName: "SOUTH", includeChangeLog: true)
+        let timesheetForDate = TimesheetsForDate(param)
+        let formatter = HtmlFormatter()
+        timesheetForDate.generate(with: formatter)
+        let newResult = formatter.result()
+        attachResultAsHtml(data: newResult, name: "newTimesheets.html")
         
         // assert
         

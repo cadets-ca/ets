@@ -477,7 +477,8 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     //MARK: - Exporting Records
     func emailTimesheets(_ overideAlert: Bool,_ includeChanges: Bool = false)
-    {        
+    {
+        // TODO: Currently working on this report!!
         reportTypeBeingGenerated = ReportType.timesheets
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         
