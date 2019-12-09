@@ -82,13 +82,16 @@ class TimesheetsForDateTests: XCTestCase {
         helpers.createGliderFlight(glider, gliderTimesheet, startingOn: winchStartAt, forMinutes: 25, towByFlight: winchFlight)
         
         // act
+        
+        // Old version of the timesheet report...
+        // We are keeping it until we are sure the new is good
         let report = ReportGenerator()
         report.unit = centre.name    // needed to show the current site (Gliding Unit)
         report.regionName = "SOUTH"  // needed to show the region
         let result = report.generateTimesheetsForDate(now, true)
-        //try? result.write(toFile: "timesheets.html", atomically: true, encoding: .utf8)
         attachResultAsHtml(data: result, name: "timesheets.html")
         
+        // new timesheet report.
         let param = TimesheetsForDateParameters(dateOfTimesheets: now, glidingCentre: centre, regionName: "SOUTH", includeChangeLog: true)
         let timesheetForDate = TimesheetsForDate(param)
         let formatter = HtmlFormatter()
@@ -97,7 +100,7 @@ class TimesheetsForDateTests: XCTestCase {
         attachResultAsHtml(data: newResult, name: "newTimesheets.html")
         
         // assert
-        
+        // what should I assert for... ?
     }
 
 }
