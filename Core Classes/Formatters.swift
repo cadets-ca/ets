@@ -339,7 +339,7 @@ class HtmlFormatter: ReportFormatter
         DispatchQueue.global(qos: .background).async {
             let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("\(filename).html")
             do {
-                try self.result().write(to: url, atomically: true, encoding: .utf8)
+                try self.result().write(to: url, atomically: true, encoding: .utf16)
                 DispatchQueue.main.async{ done(url) }
             } catch {
                 DispatchQueue.main.async{ done(nil) }
