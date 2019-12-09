@@ -47,7 +47,7 @@ class TimesheetsForDate : Report
     private var dateToCreateRecords : Date!
     private var currentAircraftRegistration : String!
     private var currentAircraftCommonName : String!
-    private var towplaneOrGlider : VehicleType!
+    private var vehicleType : VehicleType!
     
     private lazy var gliderSequenceList: [String] =
         {
@@ -83,7 +83,8 @@ class TimesheetsForDate : Report
 
     func generate(with formatter: ReportFormatter)
     {
-        // TODO: How to allow for different style in table cells
+        formatter.setReportTitle("Gliding Timesheets")
+
         // TODO: How to include pagination using maximum number of lines in table. Just for the HTML/PDF report though. Don't make sense in other context...
         
         // TODO: must find out what this dateToCreateRecords really used for?
@@ -146,9 +147,9 @@ class TimesheetsForDate : Report
             
             currentAircraftCommonName = fullEntryName
             
-            towplaneOrGlider = timesheet.aircraft.type
+            vehicleType = timesheet.aircraft.type
             
-            startTimesheet(formatter, param.includeChangeLog)
+            startTimesheet(formatter)
             
             for recordBeingExamined in records
             {
@@ -162,14 +163,14 @@ class TimesheetsForDate : Report
 
                 cells.append(ReportCell(value: recordBeingExamined.pilot?.fullName ?? ""))
                 
-                if towplaneOrGlider == .glider
+                if vehicleType == .glider
                 {
                     cells.append(ReportCell(value: recordBeingExamined.flightSequence == "Student Trg" ? "✓" : ""))
                 }
                 
                 cells.append(ReportCell(value: recordBeingExamined.passenger?.fullName ?? ""))
 
-                if towplaneOrGlider == .glider
+                if vehicleType == .glider
                 {
                     cells.append(ReportCell(value: recordBeingExamined.flightSequence == "Student Trg" ? "✓" : ""))
                 }
@@ -177,7 +178,7 @@ class TimesheetsForDate : Report
                 cells.append(contentsOf: [ReportCell(value: recordBeingExamined.timeUp.hoursAndMinutes),
                                           ReportCell(value: recordBeingExamined.timeDown == Date.distantFuture ? "?" : recordBeingExamined.timeDown.hoursAndMinutes),
                                           ReportCell(value: String(fromMinutes: Double(recordBeingExamined.flightLengthInMinutes))),
-                                          ReportCell(value: sequence(recordBeingExamined)),
+                                          ReportCell(value: sequence(recordBeingExamined, vehicleType)),
                                           ReportCell(value: recordBeingExamined.connectedAircraftRecord?.timesheet.aircraft.tailNumber ?? "")])
                 
                 formatter.addTableRow(cells)
@@ -202,11 +203,12 @@ class TimesheetsForDate : Report
             
             //ends the timesheet if all the flights for that aircraft have been printed
             formatter.endTable()
-
+            formatter.endPaginatedSection()
+            
             currentAircraftSequenceHours["TTSNstart"] = timesheet.TTSNinitial.minutesFromHours
             currentAircraftSequenceHours["TTSNend"] = timesheet.TTSNfinal.minutesFromHours
 
-            if towplaneOrGlider == .glider
+            if vehicleType == .glider
             {
                 gliderSequenceHours[currentAircraftCommonName] = currentAircraftSequenceHours
                 gliderSequenceFlights[currentAircraftCommonName] = currentAircraftSequenceFlights
@@ -266,12 +268,12 @@ class TimesheetsForDate : Report
         
         if gliderSequenceHours.count > 0
         {
-            timesheetSummaryForType(formatter, "Glider", withHours: &gliderSequenceHours, andFlights: &gliderSequenceFlights)
+            timesheetSummaryForType(formatter, "Glider", for: .glider, withHours: &gliderSequenceHours, andFlights: &gliderSequenceFlights)
         }
         
         if scoutSequenceHours.count > 0
         {
-            timesheetSummaryForType(formatter, "Towplane", withHours: &scoutSequenceHours, andFlights: &scoutSequenceFlights)
+            timesheetSummaryForType(formatter, "Towplane", for: .towplane, withHours: &scoutSequenceHours, andFlights: &scoutSequenceFlights)
         }
         
         if winchTimesheets.count > 0
@@ -283,23 +285,6 @@ class TimesheetsForDate : Report
         {
             autoSummaryFromTimesheets(formatter, autoTimesheets)
         }
-        /*
-        HTML += "</body></html>"
-        
-        HTML = HTML.replacingOccurrences(of: "Famil", with: "F")
-        HTML = HTML.replacingOccurrences(of: "Proficiency", with: "P")
-        HTML = HTML.replacingOccurrences(of: "Upgrade", with: "U")
-        HTML = HTML.replacingOccurrences(of: "Conversion", with: "C")
-        HTML = HTML.replacingOccurrences(of: "Student Trg", with: "S")
-        HTML = HTML.replacingOccurrences(of: "Transit", with: "✗")
-        HTML = HTML.replacingOccurrences(of: "Maintenance", with: "✗")
-        HTML = HTML.replacingOccurrences(of: "Towing", with: "TOW")
-        HTML = HTML.replacingOccurrences(of: "Fam / PR / Wx", with: "F")
-        HTML = HTML.replacingOccurrences(of: "Tow Course", with: "TPC")
-        HTML = HTML.replacingOccurrences(of: "✓", with: "<center>✓</center>")
-        try! HTML.write(toFile: saveFilePath(), atomically: true, encoding: String.Encoding.unicode)
-        return HTML
-        */
     }
     
     func getSubject() -> String
@@ -307,42 +292,43 @@ class TimesheetsForDate : Report
         return param.getSubject()
     }
     
-    private func startTimesheet(_ formatter: ReportFormatter, _ includeChangeLog: Bool = false, page: Int = 1)
+    private func startTimesheet(_ formatter: ReportFormatter, page: Int = 1)
     {
         formatter.startPaginatedSection()
         formatter.startRepeatingPart()
         timesheetTitle(formatter)
         timesheetHeader(formatter, page: page)
-        timesheetStart(formatter, includeChangeLog)
+        timesheetStart(formatter)
         formatter.endRepeatingPart({formatter in formatter.endTable()})
     }
     
     private func timesheetTitle(_ formatter: ReportFormatter)
     {
-        let type = towplaneOrGlider == .glider ? "GLIDER" : "TOWPLANE"
+        let type = vehicleType == .glider ? "GLIDER" : "TOWPLANE"
         
         formatter.addNewSectionTitle("\(param.regionName) REGION \(type) FLYING TIMES")
     }
     
     private func timesheetHeader(_ formatter: ReportFormatter, page: Int)
     {
-        formatter.startTable([[ReportColumn(title: "A/C Reg: \(currentAircraftRegistration!)"),
-                               ReportColumn(title: "Date: \(dateToCreateRecords.militaryFormatLong)"),
-                               ReportColumn(title: "Sheet: {{currentPage}} of {{numberOfPage}}"),
-                               ReportColumn(title: "Gliding Unit: \(param.unit)")]])
+        formatter.startTable([[ReportColumn(colSpan: 3, title: "A/C Reg: \(currentAircraftRegistration!)"),
+                               ReportColumn(colSpan: 3, title: "Date: \(dateToCreateRecords.militaryFormatLong)"),
+                               ReportColumn(colSpan: 3, title: "Sheet: {{currentPage}} of {{numberOfPage}}"),
+                               ReportColumn(colSpan: 3, title: "Gliding Unit: \(param.unit)")]])
         formatter.endTable()
+        formatter.addBlankLine()
     }
     
-    private func timesheetStart(_ formatter: ReportFormatter, _ includeChangeLog: Bool = false)
+    private func timesheetStart(_ formatter: ReportFormatter)
     {
         var columns = [ReportColumn]()
         
-        if includeChangeLog
+        if param.includeChangeLog
         {
             columns.append(contentsOf: [ReportColumn(title: "Record<br>ID")])
         }
         
-        if towplaneOrGlider == .glider
+        if vehicleType == .glider
         {
             columns.append(contentsOf: [ReportColumn(title: "Pilot"),
                                         ReportColumn(title: "Inst<br>Auth"),
@@ -375,16 +361,15 @@ class TimesheetsForDate : Report
         formatter.endTable()
     }
     
-    private func sequence(_ recordBeingExamined: FlightRecord) -> String
+    private func sequence(_ flight: FlightRecord, _ vehicleType : VehicleType) -> String
     {
-        var text = recordBeingExamined.flightSequence
-        
-        if recordBeingExamined.flightSequence == "Transit"
+        var text = sequenceAbbrev(flight.flightSequence, vehicleType)
+        if flight.flightSequence == "Transit"
         {
-            text += " \(recordBeingExamined.transitRoute)"
+            text += " \(flight.transitRoute)"
         }
         
-        if let connectedRoute = recordBeingExamined.connectedAircraftRecord?.transitRoute, recordBeingExamined.connectedAircraftRecord?.flightSequence == "Transit"
+        if let connectedRoute = flight.connectedAircraftRecord?.transitRoute, flight.connectedAircraftRecord?.flightSequence == "Transit"
         {
             text += " \(connectedRoute)"
         }
@@ -392,10 +377,32 @@ class TimesheetsForDate : Report
         return text
     }
     
-    private func timesheetSummaryForType(_ formatter : ReportFormatter, _ towplaneGlider: String, withHours hours: inout [String: [String: Int]], andFlights flights: inout [String: [String: Int]])
+    private func sequenceAbbrev(_ sequenceName : String, _ vehicleType : VehicleType) -> String
+    {
+        if vehicleType == .glider
+        {
+            if let sequence = GliderSequence(rawValue: sequenceName)
+            {
+                return sequence.abbreviation
+            }
+            else
+            {
+                return sequenceName
+            }
+        }
+        else if let sequence = TowplaneSequence(rawValue: sequenceName)
+        {
+            return sequence.abbreviation
+        }
+            
+        return sequenceName
+    }
+    
+    private func timesheetSummaryForType(_ formatter : ReportFormatter, _ towplaneGlider: String, for vehicleType: VehicleType, withHours hours: inout [String: [String: Int]], andFlights flights: inout [String: [String: Int]])
     {
         //create the summary table and headers
-        formatter.addNewSectionTitle("\(param.regionName) REGION \(towplaneGlider.uppercased()) SUMMARY \(dateToCreateRecords.militaryFormatLong.uppercased())")
+        let vehicleTypeName = vehicleType == .glider ? "Glider" : "Towplane"
+        formatter.addNewSectionTitle("\(param.regionName) REGION \(vehicleTypeName.uppercased()) SUMMARY \(dateToCreateRecords.militaryFormatLong.uppercased())")
         
         let aircraftIdents = Array(hours.keys).sorted(by: numericSearch)
         
@@ -412,7 +419,7 @@ class TimesheetsForDate : Report
         
         if aircraftIdents.count > 1
         {
-            summaryHeaderRow1.append(ReportColumn(colSpan: 2, title: "All \(towplaneGlider)s"))
+            summaryHeaderRow1.append(ReportColumn(colSpan: 2, title: "All \(vehicleTypeName)s"))
             summaryHeaderRow2.append(contentsOf: [ReportColumn(title: "Flights"),
                                          ReportColumn(title: "Hours")])
         }
@@ -421,7 +428,7 @@ class TimesheetsForDate : Report
         
         //create the summary data
         addTotalForAircraftHours(&hours, andFlights: &flights)
-        addTotalForType(towplaneGlider, withHours: &hours, andFlights: &flights)
+        addTotalForType(vehicleTypeName, withHours: &hours, andFlights: &flights)
         
         guard let minutesTotals = hours["Total"] else
         {
@@ -431,18 +438,18 @@ class TimesheetsForDate : Report
             return
         }
         
-        for (sequence, minutes) in minutesTotals
+        for (sequenceKey, minutes) in minutesTotals
         {
-            if (sequence != "Total") && (sequence != "TTSNstart") && (sequence != "TTSNend")
+            if (sequenceKey != "Total") && (sequenceKey != "TTSNstart") && (sequenceKey != "TTSNend")
             {
                 var cells = [ReportCell]()
-                cells.append(ReportCell(value: sequence))
+                cells.append(ReportCell(value: sequenceAbbrev(sequenceKey, vehicleType)))
                 
                 for ident in aircraftIdents
                 {
-                    if let flightValue = flights[ident]?[sequence]
+                    if let flightValue = flights[ident]?[sequenceKey]
                     {
-                        let formattedHours = String(fromMinutes: Double(hours[ident]![sequence]!))
+                        let formattedHours = String(fromMinutes: Double(hours[ident]![sequenceKey]!))
                         cells.append(contentsOf: [ReportCell(value: "\(flightValue)"),
                                                   ReportCell(value: formattedHours.decimalHoursValue)])
                     }
@@ -457,7 +464,7 @@ class TimesheetsForDate : Report
                 if aircraftIdents.count > 1
                 {
                     let formattedHours = String(fromMinutes: Double(minutes))
-                    let flights = flights["Total"]![sequence] ?? 0
+                    let flights = flights["Total"]![sequenceKey] ?? 0
                     cells.append(contentsOf: [ReportCell(value: "\(flights)"),
                                               ReportCell(value: formattedHours.decimalHoursValue)])
                 }

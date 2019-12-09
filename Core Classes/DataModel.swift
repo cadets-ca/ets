@@ -508,13 +508,6 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             presentController(noRecords)
             return
         }
-
-        // TODO: allow for generating report even when email not enabled.
-        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
-        
-        let swiftGenerator = ReportGenerator()
-        swiftGenerator.regionName = UserDefaults.standard.string(forKey: "Region")?.uppercased()
-        swiftGenerator.unit = GC?.name
         
         if !overideAlert
         {
@@ -524,14 +517,19 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
                 return
             }
         }
+
+        // TODO: allow for generating report even when email not enabled.
+        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
+        let param = TimesheetsForDateParameters(
+            dateOfTimesheets: viewPreviousRecords ? dateToViewRecords : Date(),
+            glidingCentre: GC,
+            regionName: UserDefaults.standard.string(forKey: "Region")?.uppercased() ?? "unknown region",
+            includeChangeLog: includeChanges)
         
-        tableText = viewPreviousRecords ?
-            swiftGenerator.generateTimesheetsForDate(dateToViewRecords, includeChanges) :
-            swiftGenerator.generateTimesheetsForDate(Date(), includeChanges)
-        let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
-        let pathForPDF = pathArray.first!.stringByAppendingPathComponent("Timesheets.pdf")
-        
-        PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(tableText!, pathForPDF: pathForPDF, delegate: self, pageSize: CGSize(width: 612,height: 792), margins: UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+        ReportProducer().produce( report: TimesheetsForDate(param), then: {
+            (urls) in
+            Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
+        })
     }
     
     func emailPilotLogs()

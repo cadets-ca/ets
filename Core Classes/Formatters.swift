@@ -8,8 +8,32 @@
 import Foundation
 import ExcelExport
 
+private let VAR_CURRENT_PAGE = "{{currentPage}}"
+private let VAR_NUMBER_OF_PAGE = "{{numberOfPage}}"
+
+fileprivate func replaceCurrentPage(with page : Int, in value : String) -> String
+{
+    var newValue = value
+    if let varRange = newValue.range(of: VAR_CURRENT_PAGE)
+    {
+        newValue.replaceSubrange(varRange, with: "\(page)")
+    }
+    return newValue
+}
+
+fileprivate func replaceNumberOfPage(with numberOfPage : Int, in value : String) -> String
+{
+    var newValue = value
+    if let varRange = newValue.range(of: VAR_NUMBER_OF_PAGE)
+    {
+        newValue.replaceSubrange(varRange, with: "\(numberOfPage)")
+    }
+    return newValue
+}
+
 struct ReportColumn
 {
+    
     var widthPercent : Int? = nil
     var widthPixel : Int? = nil
     var colSpan : Int? = nil
@@ -39,6 +63,7 @@ protocol ReportFormatterDelegate
 
 protocol ReportFormatter
 {
+    func setReportTitle(_ title : String)
     func addTitle(_ title : String)
     func addNewSectionTitle(_ title : String)
     func addBlankLine()
@@ -55,7 +80,8 @@ protocol ReportFormatter
     func startPaginatedSection()
     func startRepeatingPart()
     func endRepeatingPart(_ todoBeforeNextPage : @escaping (ReportFormatter) -> Void)
-    
+    func endPaginatedSection()
+
     func result() -> String
     // TODO: my goal is to valiate which one is best and remove the unwanted one between generateResult(delegate) and generateResult(handler).
     func generateResult(filename : String, _ delegate : ReportFormatterDelegate)
@@ -82,14 +108,26 @@ class HtmlFormatter: ReportFormatter
     let BG_HEADER = "#CCCCCC"
     let BG_FOOTER = "#CCCCCC"
 
-    var report : String = ""
-    var isGray = false
-    var isAlternatingRowColor = false
-    var pageCount = 0
+    private var report : String = ""
+    private var isGray = false
+    private var isAlternatingRowColor = false
+    private var pageCount = 0 // used for page break not on first report page.
     
+    private var title = ""
+    
+    // Following variables are used for paginated section
     private var currentPage = 0
-    private var numberOfPage = 0
+    private var numberOfRowPerPage = 35
+    private var currentNumberOfRow = 0
     private var todoBeforeNextPage : ((ReportFormatter) -> Void)!
+    
+    private var reportBeforePaginatedSection = ""
+    private var repeatingPart = ""
+
+    func setReportTitle(_ title : String)
+    {
+        self.title = title
+    }
     
     func addTitle(_ title : String)
     {
@@ -163,6 +201,8 @@ class HtmlFormatter: ReportFormatter
     
     func addTableRow(_ cells : [ReportCell])
     {
+        pageBreakIfNeeded()
+
         report += isGray ? "<tr bgcolor='\(BG_ALTERNATECOLOR)'>" : "<tr>"
         
         for cell in cells
@@ -193,11 +233,15 @@ class HtmlFormatter: ReportFormatter
         
         report += "</tr>"
         
+        currentNumberOfRow += 1
+        
         isGray = isAlternatingRowColor ? isGray != isAlternatingRowColor : false
     }
     
     func addTotalRow(_ cells : [ReportCell])
     {
+        pageBreakIfNeeded()
+
         report += "<tr bgcolor='\(BG_FOOTER)'>"
         
         for cell in cells
@@ -240,22 +284,37 @@ class HtmlFormatter: ReportFormatter
         // TODO: numbering mecanism will use variable to replace text in cells
         // TODO: currentPage and numberOfPage
         currentPage = 1
-        numberOfPage = 1
+        currentNumberOfRow = 0
     }
     
     func startRepeatingPart()
     {
         // TODO: remember the portion that need to be repeated on each page.
+        reportBeforePaginatedSection = report
+        report = ""
     }
     
     func endRepeatingPart(_ todoBeforeNextPage : @escaping (ReportFormatter) -> Void)
     {
         self.todoBeforeNextPage = todoBeforeNextPage
+        repeatingPart = report
+        
+        // This is the FIRST time we add the repeating part in the report
+        report = replaceCurrentPage(with: currentPage, in: repeatingPart)
+    }
+    
+    func endPaginatedSection()
+    {
+        // The report var contains only the section paginated.
+        // So we first replace all occurences of VAR_NUMBER_OF_PAGE
+        report = report.replacingOccurrences(of: VAR_NUMBER_OF_PAGE, with: "\(currentPage)")
+        // Then we take the section before the paginated section began and append the current paginatedSection (report)
+        report = reportBeforePaginatedSection + report
     }
     
     func result() -> String
     {
-        return "<html><head><STYLE TYPE='text/css'>P.pagebreakhere {page-break-before: always}</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>Stats Report</title></head><body>" +
+        return "<html><head><STYLE TYPE='text/css'>P.pagebreakhere {page-break-before: always}</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>\(self.title)</title></head><body>" +
             report +
         "</body></html>"
     }
@@ -287,6 +346,17 @@ class HtmlFormatter: ReportFormatter
             }
         }
     }
+    
+    private func pageBreakIfNeeded()
+    {
+        if currentNumberOfRow > 0 && (currentNumberOfRow % numberOfRowPerPage) == 0
+        {
+            todoBeforeNextPage(self)
+            currentPage += 1
+            report += replaceCurrentPage(with: currentPage, in: repeatingPart)
+            isGray = false
+        }
+    }
 
 }
 
@@ -296,15 +366,22 @@ class ExcelFormatter: ReportFormatter
     let BG_FILLEDCELL = "#000000"
     let BG_HEADER = "#CCCCCC"
     let BG_FOOTER = "#CCCCCC"
+    let WORKSHEET_TITLE_MAX_LENGTH = 30
     
-    var report : String = ""
     var isGray = false
     var isAlternatingRowColor = false
 
-    var rowsOnCurrentSheet = [ExcelRow]()
-    var titleCurrentSheet : String? = nil
-    var sheets = [ExcelSheet]()
-        
+    private var title = ""
+    private var rowsOnCurrentSheet = [ExcelRow]()
+    private var titleCurrentSheet : String? = nil
+    private var sheets = [ExcelSheet]()
+    private var sheetsTitle : Set<String> = []
+    
+    func setReportTitle(_ title : String)
+    {
+        self.title = title
+    }
+
     func addTitle(_ title: String)
     {
         let cells = [ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])])]
@@ -365,8 +442,12 @@ class ExcelFormatter: ReportFormatter
             var cells = [ExcelCell]()
             for column in columns
             {
-                let colSpan = (column.colSpan ?? 1) - 1
-                cells.append(ExcelCell(fix(column.title), [TextAttribute.backgroundColor(bgColor)], .string, colspan: colSpan))
+                let rowSpan : Int? = (column.rowSpan != nil) ? column.rowSpan! - 1 : nil
+                let colSpan : Int? = (column.colSpan != nil) ? column.colSpan! - 1 : nil
+                var title = fix(column.title)
+                title = replaceCurrentPage(with: 1, in: title)
+                title = replaceNumberOfPage(with: 1, in: title)
+                cells.append(ExcelCell(title, [TextAttribute.backgroundColor(bgColor)], .string, colspan: colSpan, rowspan: rowSpan))
             }
             rowsOnCurrentSheet.append(ExcelRow(cells))
         }
@@ -389,7 +470,8 @@ class ExcelFormatter: ReportFormatter
             
             // TODO: Need to add rowspan as well as colSpan...
             let rowSpan : Int? = (cell.rowSpan != nil) ? cell.rowSpan! - 1 : nil
-            excelCells.append(ExcelCell(fix(cell.value), attribs, .string, colspan: nil, rowspan: rowSpan))
+            let colSpan : Int? = (cell.colSpan != nil) ? cell.colSpan! - 1 : nil
+            excelCells.append(ExcelCell(fix(cell.value), attribs, .string, colspan: colSpan, rowspan: rowSpan))
         }
         rowsOnCurrentSheet.append(ExcelRow(excelCells))
         
@@ -411,8 +493,9 @@ class ExcelFormatter: ReportFormatter
                 attribs.append(TextAttribute.backgroundColor(Color(hex: BG_FOOTER)!))
             }
             
-            // TODO: Need to add rowspan as well as colSpan...
-            excelCells.append(ExcelCell(cell.value, attribs, .string))
+            let rowSpan : Int? = (cell.rowSpan != nil) ? cell.rowSpan! - 1 : nil
+            let colSpan : Int? = (cell.colSpan != nil) ? cell.colSpan! - 1 : nil
+            excelCells.append(ExcelCell(cell.value, attribs, .string, colspan: colSpan, rowspan: rowSpan))
         }
         rowsOnCurrentSheet.append(ExcelRow(excelCells))
     }
@@ -432,6 +515,11 @@ class ExcelFormatter: ReportFormatter
     }
     
     func endRepeatingPart(_ todoBeforeNextPage : @escaping (ReportFormatter) -> Void)
+    {
+        // Nothing to do, not supported.
+    }
+    
+    func endPaginatedSection()
     {
         // Nothing to do, not supported.
     }
@@ -464,17 +552,56 @@ class ExcelFormatter: ReportFormatter
     private func endPreviousSectionAndResetAccumulator()
     {
         if let title = titleCurrentSheet {
-            sheets.append(ExcelSheet(rowsOnCurrentSheet, name: title))
+            sheets.append(ExcelSheet(rowsOnCurrentSheet, name: createUniqueWorksheetTitle(title)))
             
             // clear accumulators
             rowsOnCurrentSheet = [ExcelRow]()
         }
     }
+
+    var firstPartOffset = 20
+    var suffixLength = 7
+    var truncatedInfix = "..."
+    
+    private func createUniqueWorksheetTitle(_ title: String) -> String
+    {
+        var resultTitle = title
+        
+        if title.count >= WORKSHEET_TITLE_MAX_LENGTH
+        {
+            resultTitle = String(title[..<title.index(title.startIndex, offsetBy: firstPartOffset)]) + "..." + title.suffix(suffixLength)
+        }
+        
+        var (inserted, _) = sheetsTitle.insert(resultTitle)
+        var suffixNumber = 1
+        
+        while !inserted
+        {
+            if firstPartOffset > 6
+            {
+                firstPartOffset -= 1
+                suffixLength += 1
+            }
+            else
+            {
+                suffixNumber += 1
+            }
+            resultTitle = String(title[..<title.index(title.startIndex, offsetBy: firstPartOffset)]) + "..." + title.suffix(suffixLength)
+            if suffixNumber > 1
+            {
+                let suffix = "-\(suffixNumber)"
+                resultTitle.replaceSubrange(resultTitle.range(of: resultTitle.suffix(suffix.count), options: .backwards)!, with: suffix)
+            }
+            (inserted, _) = sheetsTitle.insert(resultTitle)
+        }
+        
+        return resultTitle
+    }
     
     private func addSectionTitleToWorksheet(_ title: String)
     {
         rowsOnCurrentSheet.append(ExcelRow([ExcelCell("")]))
-        rowsOnCurrentSheet.append(ExcelRow([ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])])]))
+        rowsOnCurrentSheet.append(ExcelRow([ExcelCell(title, [TextAttribute.font([TextAttribute.FontStyle.bold])], .string, colspan: 10)]))
         rowsOnCurrentSheet.append(ExcelRow([ExcelCell("")]))
     }
     
@@ -485,6 +612,6 @@ class ExcelFormatter: ReportFormatter
     
     private func fix(_ value : String) -> String
     {
-        return value.replacingOccurrences(of: "<br>", with: "&#10;")
+        return value.replacingOccurrences(of: "<br>", with: "&#10;",options: .caseInsensitive)
     }
 }

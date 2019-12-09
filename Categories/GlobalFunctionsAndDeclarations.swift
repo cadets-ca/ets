@@ -56,8 +56,72 @@ enum TowplaneQuals: Int, Comparable {case noScout = 0, towPilot, towCheckPilot, 
 enum TableCellColor{case defaultColor, yellow, red, green, black}
 enum SessionTypes: Double, Comparable {case day = 1, session = 0.5}
 enum RecordSortAttribute: Int, Comparable {case tailNumber = 0, pilot, passenger, connectedAircraft, sequence, timeUp, timeDown, flightTime}
-enum GliderSequence: String, Comparable {case Famil = "Famil", Proficiency = "Proficiency", Upgrade = "Upgrade", Conversion = "Conversion", StudentTrg = "Student Trg", GIC = "GIC", Transit = "Transit", Maintenance = "Maintenance"}
-enum TowplaneSequence: String, Comparable {case Towing = "Towing", FamPRWx = "Fam / PR / Wx", TowCourse = "Tow Course", Transit = "Transit", Maintenance = "Maintenance", Proficiency = "Proficiency", Upgrade = "Upgrade"}
+enum GliderSequence: String, Comparable
+{
+    case Famil = "Famil",
+    Proficiency = "Proficiency",
+    Upgrade = "Upgrade",
+    Conversion = "Conversion",
+    StudentTrg = "Student Trg",
+    GIC = "GIC",
+    Transit = "Transit",
+    Maintenance = "Maintenance"
+    
+    var abbreviation : String {
+        switch self.rawValue
+        {
+            case "Famil":
+                return "F"
+            case "Proficiency":
+                return "P"
+            case "Upgrade":
+                return "U"
+            case "Conversion":
+                return "C"
+            case "Student Trg":
+                return "S"
+            case "GIC":
+                return "GIC"
+            case "Transit":
+                return "✗"
+            case "Maintenance":
+                return "✗"
+            default:
+                return self.rawValue
+        }
+    }
+}
+enum TowplaneSequence: String, Comparable
+{
+    case Towing = "Towing",
+    FamPRWx = "Fam / PR / Wx",
+    TowCourse = "Tow Course",
+    Transit = "Transit",
+    Maintenance = "Maintenance",
+    Proficiency = "Proficiency",
+    Upgrade = "Upgrade"
+    var abbreviation : String {
+        switch self.rawValue
+        {
+            case "Fam / PR / Wx":
+                return "F"
+            case "Towing":
+                return "TOW"
+            case "Tow Course":
+                return "TPC"
+            case "Proficiency":
+                return "P"
+            case "Upgrade":
+                return "U"
+            case "Transit":
+                return "✗"
+            case "Maintenance":
+                return "✗"
+            default:
+                return self.rawValue
+        }
+    }
+}
 enum SignificantDateMode: Int {case gliderAPC = 0, towAPC, birthday, medicalExpiry, fIexpiry, towPilotDate, towCheckPilotDate, towStandardsPilotDate, basicGliderPilotDate, fsfDate, rsfDate, qgiDate, gliderCheckPilotDate, gliderStandardsPilotDate, lcoDate, winchLaunchDate, winchOperatorDate, winchLaunchInstructorDate, winchRetrieveDate, gliderXCountryDate, towXCountryDate, logBookStartDate, logBookEndDate, statsReportStartDate, statsReportEndDate}
 enum GliderQuals: Int, Comparable
     {case noGlider = 0, student, basic, frontSeatFamil, rearSeatFamil, instructor, checkPilot, standardsPilot, level1Cadet = -1, level2Cadet = -2, level3Cadet = -3, level4Cadet = -4}

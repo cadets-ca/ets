@@ -39,9 +39,29 @@ class TimesheetsForDateTests: XCTestCase {
         let towSolo = helpers.createTowPlane(registration: "ALONE", tailNumber: "8888")
         let towSoloTimesheet = helpers.createTimesheet(towSolo, now)
         var startingOn: Date = Calendar.current.date(byAdding: .hour, value: -11, to: now)!
-        for _ in 1...60
+        for i in 1...60
         {
-            _ = helpers.createFlight(towSolo, towSoloTimesheet, startingOn: startingOn, forMinutes: 10 /* 4 hours */)
+            var sequence: TowplaneSequence
+            switch (i % 7)
+            {
+                case 0:
+                    sequence = TowplaneSequence.FamPRWx
+                case 1:
+                    sequence = TowplaneSequence.Maintenance
+                case 2:
+                    sequence = TowplaneSequence.Proficiency
+                case 3:
+                    sequence = TowplaneSequence.TowCourse
+                case 4:
+                    sequence = TowplaneSequence.Towing
+                case 5:
+                    sequence = TowplaneSequence.Transit
+                case 6:
+                    sequence = TowplaneSequence.Upgrade
+                default:
+                    sequence = TowplaneSequence.FamPRWx
+            }
+            _ = helpers.createFlight(towSolo, towSoloTimesheet, startingOn: startingOn, forMinutes: 10 /* 4 hours */, sequence: sequence)
             startingOn = Calendar.current.date(byAdding: .minute, value: 12, to: startingOn)!
         }
         
@@ -53,7 +73,7 @@ class TimesheetsForDateTests: XCTestCase {
         let autoTimesheet = helpers.createTimesheet(auto, now)
         let autoStartAt: Date = Calendar.current.date(byAdding: .hour, value: -2, to: now)!
         let autoFlight = helpers.createFlight(auto, autoTimesheet, startingOn: autoStartAt, forMinutes: 5)
-        helpers.createGliderFlight(glider, gliderTimesheet, startingOn: autoStartAt, forMinutes: 20, towByFlight: autoFlight)
+        helpers.createGliderFlight(glider, gliderTimesheet, startingOn: autoStartAt, forMinutes: 20, sequence: GliderSequence.Proficiency, towByFlight: autoFlight)
 
         let winch = helpers.createWinchTow(registration: "WINCH", tailNumber: "#1")
         let winchTimesheet = helpers.createTimesheet(winch, now)

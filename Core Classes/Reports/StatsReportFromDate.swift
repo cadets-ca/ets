@@ -96,6 +96,8 @@ class StatsReportFromDate : Report
      */
     func generate(with formatter: ReportFormatter)
     {
+        formatter.setReportTitle("Stats Report")
+        
         //Heading and number of glider flights
         guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return}
         let START = Date()
