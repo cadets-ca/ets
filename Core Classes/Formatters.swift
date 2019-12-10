@@ -119,7 +119,7 @@ class HtmlFormatter: ReportFormatter
     private var currentPage = 0
     private var numberOfRowPerPage = 35
     private var currentNumberOfRow = 0
-    private var todoBeforeNextPage : ((ReportFormatter) -> Void)!
+    private var todoBeforeNextPage : ((ReportFormatter) -> Void)?
     
     private var reportBeforePaginatedSection = ""
     private var repeatingPart = ""
@@ -280,16 +280,12 @@ class HtmlFormatter: ReportFormatter
 
     func startPaginatedSection()
     {
-        // TODO: create a mecanism to keep what repeat on each page and keep the page numbering
-        // TODO: numbering mecanism will use variable to replace text in cells
-        // TODO: currentPage and numberOfPage
         currentPage = 1
         currentNumberOfRow = 0
     }
     
     func startRepeatingPart()
     {
-        // TODO: remember the portion that need to be repeated on each page.
         reportBeforePaginatedSection = report
         report = ""
     }
@@ -310,6 +306,10 @@ class HtmlFormatter: ReportFormatter
         report = report.replacingOccurrences(of: VAR_NUMBER_OF_PAGE, with: "\(currentPage)")
         // Then we take the section before the paginated section began and append the current paginatedSection (report)
         report = reportBeforePaginatedSection + report
+        // reset
+        reportBeforePaginatedSection = ""
+        repeatingPart = ""
+        todoBeforeNextPage = nil
     }
     
     func result() -> String
@@ -351,7 +351,7 @@ class HtmlFormatter: ReportFormatter
     {
         if currentNumberOfRow > 0 && (currentNumberOfRow % numberOfRowPerPage) == 0
         {
-            todoBeforeNextPage(self)
+            todoBeforeNextPage?(self)
             currentPage += 1
             report += replaceCurrentPage(with: currentPage, in: repeatingPart)
             isGray = false
