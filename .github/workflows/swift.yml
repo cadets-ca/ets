@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: xcodebuild clean test -project Timesheets.xcodeproj -scheme Timesheets -destination "{ platform=iOS Simulator, id=0E3A39B6-9480-4AD2-869C-CE0930770BF9, OS=13.2.2, name=iPhone 8 }" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      run: xcodebuild clean test -project Timesheets.xcodeproj -scheme Timesheets -destination "platform=iOS Simulator,id=0E3A39B6-9480-4AD2-869C-CE0930770BF9,OS=13.2.2,name=iPhone 8" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
