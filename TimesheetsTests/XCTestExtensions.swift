@@ -40,6 +40,22 @@ extension XCTest {
         }
     }
     
+    func AssertFindOccurences(_ content: String, pattern: String, expectedTimes: Int, file: StaticString = #file, line: UInt = #line)
+    {
+        do
+        {
+            var timesFound = 0
+            let regEx = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            let matches = regEx.matches(in: content, options: [], range: NSRange(location: 0, length: content.count))
+            timesFound = matches.count
+            XCTAssertTrue(timesFound == expectedTimes, "Found \(pattern) \(timesFound) times but was expected \(expectedTimes)", file: file, line: line)
+        }
+        catch let error as NSError
+        {
+            XCTFail("The test is not valid because of an error in the pattern \"\(pattern)\"; \(error.localizedRecoverySuggestion ?? error.description)", file: file, line: line)
+        }
+    }
+    
     func log(_ msg: String, file: StaticString = #file, line: UInt = #line)
     {
         print("#\(line) : \(msg)")

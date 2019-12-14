@@ -39,7 +39,7 @@ class TimesheetsForDateTests: XCTestCase {
         let towSolo = helpers.createTowPlane(registration: "ALONE", tailNumber: "8888")
         let towSoloTimesheet = helpers.createTimesheet(towSolo, now)
         var startingOn: Date = Calendar.current.date(byAdding: .hour, value: -11, to: now)!
-        for i in 1...60
+        for i in 1...90
         {
             var sequence: TowplaneSequence
             switch (i % 7)
@@ -67,8 +67,11 @@ class TimesheetsForDateTests: XCTestCase {
         
         let glider = helpers.createGlider(registration: "GL1", tailNumber: "111")
         let gliderTimesheet = helpers.createTimesheet(glider, now)
-        _ = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, forMinutes: 20, withPilot: pilotJohnDo, towByFlight: towFlight)
-
+        for _ in 1...60
+        {
+            _ = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, forMinutes: 20, withPilot: pilotJohnDo, towByFlight: towFlight)
+        }
+        
         let auto = helpers.createAutoTow()
         let autoTimesheet = helpers.createTimesheet(auto, now)
         let autoStartAt: Date = Calendar.current.date(byAdding: .hour, value: -2, to: now)!
@@ -92,15 +95,37 @@ class TimesheetsForDateTests: XCTestCase {
         attachResultAsHtml(data: result, name: "timesheets.html")
         
         // new timesheet report.
-        let param = TimesheetsForDateParameters(dateOfTimesheets: now, glidingCentre: centre, regionName: "SOUTH", includeChangeLog: true)
+        let param = TimesheetsForDateParameters(dateOfTimesheets: now, glidingCentre: centre, regionName: "SOUTH", includeChangeLog: false)
         let timesheetForDate = TimesheetsForDate(param)
         let formatter = HtmlFormatter()
         timesheetForDate.generate(with: formatter)
         let newResult = formatter.result()
         attachResultAsHtml(data: newResult, name: "newTimesheets.html")
         
+        let expectation = self.expectation(description: "Generate")
+        var rcvdUrl : URL?
+        let excelFormatter = ExcelFormatter()
+        timesheetForDate.generate(with: excelFormatter)
+        excelFormatter.generateResult(filename: "timesheets-excel")
+        {
+            (url) in
+            rcvdUrl = url
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+
         // assert
         // what should I assert for... ?
+        XCTAssert(newResult.contains("2 of 2"), "There should be a section where there is a 2nd page of a 2 pages section.")
+        XCTAssert(newResult.contains("3 of 3"), "There should be a section where there is a 3rd page of a 3 pages section.")
+        // must manually check if the page break happens at the right place. They are all managed by CSS no.
+        if let url = rcvdUrl
+        {
+            attachResult(content: url, name: url.lastPathComponent)
+        }
+        else
+        {
+            XCTFail("Did not received a valid URL from the Excel formatter.")
+        }
     }
-
 }
