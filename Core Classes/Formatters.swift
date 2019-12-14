@@ -13,22 +13,12 @@ private let VAR_NUMBER_OF_PAGE = "{{numberOfPage}}"
 
 fileprivate func replaceCurrentPage(with page : Int, in value : String) -> String
 {
-    var newValue = value
-    if let varRange = newValue.range(of: VAR_CURRENT_PAGE)
-    {
-        newValue.replaceSubrange(varRange, with: "\(page)")
-    }
-    return newValue
+    return value.replacingOccurrences(of: VAR_CURRENT_PAGE, with: "\(page)")
 }
 
 fileprivate func replaceNumberOfPage(with numberOfPage : Int, in value : String) -> String
 {
-    var newValue = value
-    if let varRange = newValue.range(of: VAR_NUMBER_OF_PAGE)
-    {
-        newValue.replaceSubrange(varRange, with: "\(numberOfPage)")
-    }
-    return newValue
+    return value.replacingOccurrences(of: VAR_NUMBER_OF_PAGE, with: "\(numberOfPage)")
 }
 
 struct ReportColumn
@@ -136,9 +126,9 @@ class HtmlFormatter: ReportFormatter
     
     func addNewSectionTitle(_ title : String)
     {
-        report += pageCount == 0 ? "<P>" : "<P CLASS='pagebreakhere'>"
+        report += "<p class='section-title'>"
         report += "<big>\(title)</big><br>"
-        report += "</P>"
+        report += "</p>"
         pageCount += 1        
     }
     
@@ -314,7 +304,7 @@ class HtmlFormatter: ReportFormatter
     
     func result() -> String
     {
-        return "<html><head><STYLE TYPE='text/css'>P.pagebreakhere {page-break-before: always}</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>\(self.title)</title></head><body>" +
+        return "<html><head><STYLE TYPE='text/css'>P.section-title {page-break-before: always} P.section-title:first-child {page-break-before: auto }</STYLE><style type='text/css'>td{font-size:8pt;font-family:Helvetica}</style><style type='text/css'>th{font-size:10pt;font-family:Helvetica}</style><title>\(self.title)</title></head><body>" +
             report +
         "</body></html>"
     }
