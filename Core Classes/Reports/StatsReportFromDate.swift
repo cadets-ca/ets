@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StatsReportFromDateParameters
+struct StatsReportFromDateParameters : RecipientAndSubjectProvider
 {
     let startDate : Date
     let endDate : Date
@@ -23,35 +23,54 @@ struct StatsReportFromDateParameters
         }
         return "\(subjectPrefix)Stats Report \(startDate.militaryFormatShort) to \(endDate.militaryFormatShort)"
     }
+    
+    func getRecipients() -> [String]
+    {
+        return UserDefaults().statsAddressRecipients
+    }
 }
 
-class StatsReportFromDate
+class StatsReportFromDate : Report
 {
-    let startDate : Date
-    let endDate : Date
-    let siteSpecific : Bool
-    let glidingCentre : GlidingCentre!
+    let param : StatsReportFromDateParameters
+    var startDate : Date
+    {
+        return param.startDate
+    }
+    var endDate : Date
+    {
+        return param.endDate
+    }
+    var siteSpecific : Bool
+    {
+        return param.glidingCentre != nil
+    }
+    var glidingCentre : GlidingCentre!
+    {
+        return param.glidingCentre
+    }
     var unit : String {
         return glidingCentre!.name
     }
-    let regionName : String
+    var regionName : String
+    {
+        return param.regionName
+    }
     
     init(_ parameters : StatsReportFromDateParameters)
     {
-        self.startDate = parameters.startDate
-        self.endDate = parameters.endDate
-        self.glidingCentre = parameters.glidingCentre
-        self.siteSpecific = glidingCentre != nil
-        self.regionName = parameters.regionName
+        self.param = parameters
     }
     
     init(_ startDate: Date, toDate endDate: Date, glidingCentre : GlidingCentre?, regionName : String)
     {
-        self.startDate = startDate
-        self.endDate = endDate
-        self.glidingCentre = glidingCentre
-        self.siteSpecific = glidingCentre != nil
-        self.regionName = regionName
+        self.param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: glidingCentre, regionName: regionName)
+    }
+    
+    // MARK: - Report protocol implementation
+    func getSubject() -> String
+    {
+        return param.getSubject()
     }
     
     /**
@@ -77,6 +96,8 @@ class StatsReportFromDate
      */
     func generate(with formatter: ReportFormatter)
     {
+        formatter.setReportTitle("Stats Report")
+        
         //Heading and number of glider flights
         guard let GC = regularFormat && dataModel.viewPreviousRecords ? dataModel.previousRecordsGlidingCentre : dataModel.glidingCentre else{return}
         let START = Date()
@@ -132,7 +153,7 @@ class StatsReportFromDate
         
         formatter.addBlankLine()
         
-        // MARK: - Maintenance portion of report
+        // MARK: Maintenance portion of report
         generateMaintenanceReportWithReportGenerator(formatter, glidingCentre: GC, siteSpecific: siteSpecific)
         let MAINTENANCECOMPLETED = Date()
         // MARK: End Of Maintenance Section
@@ -820,7 +841,6 @@ class StatsReportFromDate
             formatter.addNewSectionTitle("PERSONNEL STATS \(beginningOfReport.militaryFormatShort.uppercased()) TO \(endDate.militaryFormatShort.uppercased())")
         }
         
-        // - TODO: Start table
         formatter.startTable([[ReportColumn(title : ""),
                               ReportColumn(title : "Days Worked"),
                               ReportColumn(title : "PIC Flights"),
@@ -866,13 +886,6 @@ class StatsReportFromDate
             flightRecordRequest.predicate = flightRecordRequestPredicate
             do{flightRecordsInTimePeriod = try Set(dataModel.managedObjectContext.fetch(flightRecordRequest))}
             catch{}
-        }
-        
-        struct StaffStats
-        {
-            var daysWorked = Double(0)
-            var PICflights = 0
-            var dualFlights = 0
         }
         
         var staffCadetStats = StaffStats()
@@ -1167,203 +1180,11 @@ class StatsReportFromDate
         print("The time is spent \(Int(maintenancePercent)) percent for maintenance, \(Int(nationalPercent)) percent for national stats, \(Int(squadronPercent)) percent for squadron stats, and \(Int(personnelPercent)) percent for personnel stats.")
         print("The record loop uses \(Int(recordLoopPercent)) percent of the total time")
         
-        //MARK: - Beginning of Aircraft Usage
+        //MARK: Beginning of Aircraft Usage
         
         let vehicleFetchRequest = AircraftEntity.request
         var vehicles = try! dataModel.managedObjectContext.fetch(vehicleFetchRequest)
         vehicles.sort(by: {numericSearch($0.tailNumber, right: $1.tailNumber)})
-        
-        class GliderData
-        {
-            let glider: AircraftEntity
-            
-            private(set) var transitFlights: Int = 0
-            private(set) var familFlights: Int = 0
-            private(set) var profFlights: Int = 0
-            private(set) var upgradeFlights: Int = 0
-            private(set) var studentFlights: Int = 0
-            
-            private var transitMinutes: Double = 0
-            private var familMinutes: Double = 0
-            private var profMinutes: Double = 0
-            private var upgradeMinutes: Double = 0
-            private var studentMinutes: Double = 0
-            
-            private(set) var transitHours: Decimal = 0
-            private(set) var familHours: Decimal = 0
-            private(set) var profHours: Decimal = 0
-            private(set) var studentHours: Decimal = 0
-            private(set) var upgradeHours: Decimal = 0
-            private(set) var totalHours: Decimal = 0
-            
-            
-            init(glider: AircraftEntity, startDate: Date = Date.distantPast, endDate: Date = Date.distantFuture)
-            {
-                self.glider = glider
-                let flightRecordFetchRequest = FlightRecord.request
-                flightRecordFetchRequest.predicate = NSPredicate(format: "timesheet.aircraft == %@ AND timeUp > %@ AND timeUp < %@", argumentArray: [glider, startDate, endDate])
-                let flights = try! dataModel.managedObjectContext.fetch(flightRecordFetchRequest)
-                
-                for flight in flights
-                {
-                    guard let sequence = GliderSequence(rawValue: flight.flightSequence) else {continue}
-                    switch  sequence
-                    {
-                        case .Famil:
-                            familFlights += 1
-                            familMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Transit:
-                            transitFlights += 1
-                            transitMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Proficiency:
-                            profFlights += 1
-                            profMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Upgrade:
-                            upgradeFlights += 1
-                            upgradeMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .StudentTrg:
-                            studentFlights += 1
-                            studentMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        default:
-                            profFlights += 1
-                            profMinutes += Double(flight.flightLengthInMinutes)
-                    }
-                }
-                
-                let behavior = NSDecimalNumberHandler(roundingMode: .plain, scale: 1, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
-                
-                familHours = Decimal(familMinutes/60)
-                familHours = (familHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                transitHours = Decimal(transitMinutes/60)
-                transitHours = (transitHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                profHours = Decimal(profMinutes/60)
-                profHours = (profHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                studentHours = Decimal(studentMinutes/60)
-                studentHours = (studentHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                upgradeHours = Decimal(upgradeMinutes/60)
-                upgradeHours = (upgradeHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                totalHours = familHours + transitHours + profHours + upgradeHours + studentHours
-            }
-        }
-        
-        class TowplaneData
-        {
-            let towplane: AircraftEntity
-            
-            private(set) var familFlights: Int = 0
-            
-            private var towingMinutes: Double = 0
-            private var transitMinutes: Double = 0
-            private var familMinutes: Double = 0
-            private var profMinutes: Double = 0
-            private var towCourseMinutes: Double = 0
-            private var upgradeMinutes: Double = 0
-            private var maintenanceMinutes: Double = 0
-            
-            private(set) var towingHours: Decimal = 0
-            private(set) var transitHours: Decimal = 0
-            private(set) var familHours: Decimal = 0
-            private(set) var profHours: Decimal = 0
-            private(set) var towCourseHours: Decimal = 0
-            private(set) var upgradeHours: Decimal = 0
-            private(set) var maintenanceHours: Decimal = 0
-            private(set) var totalHours: Decimal = 0
-            
-            init(towplane: AircraftEntity, startDate: Date = Date.distantPast, endDate: Date = Date.distantFuture)
-            {
-                self.towplane = towplane
-                let flightRecordFetchRequest = FlightRecord.request
-                flightRecordFetchRequest.predicate = NSPredicate(format: "timesheet.aircraft == %@ AND timeUp > %@ AND timeUp < %@", argumentArray: [towplane, startDate, endDate])
-                let flights = try! dataModel.managedObjectContext.fetch(flightRecordFetchRequest)
-                
-                for flight in flights
-                {
-                    guard let sequence = TowplaneSequence(rawValue: flight.flightSequence) else {continue}
-                    switch  sequence
-                    {
-                        case .FamPRWx:
-                            familFlights += 1
-                            familMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Transit:
-                            transitMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Proficiency:
-                            profMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Upgrade:
-                            upgradeMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Towing:
-                            towingMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .TowCourse:
-                            towCourseMinutes += Double(flight.flightLengthInMinutes)
-                        
-                        case .Maintenance:
-                            maintenanceMinutes += Double(flight.flightLengthInMinutes)
-                    }
-                }
-                
-                let behavior = NSDecimalNumberHandler(roundingMode: .plain, scale: 1, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
-                
-                familHours = Decimal(familMinutes/60)
-                familHours = (familHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                transitHours = Decimal(transitMinutes/60)
-                transitHours = (transitHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                profHours = Decimal(profMinutes/60)
-                profHours = (profHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                upgradeHours = Decimal(upgradeMinutes/60)
-                upgradeHours = (upgradeHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                towingHours = Decimal(towingMinutes/60)
-                towingHours = (towingHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                towCourseHours = Decimal(towCourseMinutes/60)
-                towCourseHours = (towCourseHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                maintenanceHours = Decimal(maintenanceMinutes/60)
-                maintenanceHours = (maintenanceHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
-                
-                totalHours = familHours + transitHours + profHours + upgradeHours + towingHours + towCourseHours + maintenanceHours
-            }
-        }
-        
-        class WinchData
-        {
-            let winch: AircraftEntity
-            
-            private(set) var flights: Int = 0
-            private(set) var hours: Decimal = 0
-            
-            init(winch: AircraftEntity, startDate: Date = Date.distantPast, endDate: Date = Date.distantFuture)
-            {
-                self.winch = winch
-                let timesheetFetchRequest = AircraftTimesheet.request
-                timesheetFetchRequest.predicate = NSPredicate(format: "aircraft == %@ AND date > %@ AND date < %@", argumentArray: [winch, startDate, endDate])
-                let timesheets = try! dataModel.managedObjectContext.fetch(timesheetFetchRequest)
-                
-                for timesheet in timesheets
-                {
-                    let time = timesheet.TTSNfinal - timesheet.TTSNinitial
-                    hours += time
-                    flights += timesheet.flightRecords.count
-                }
-            }
-        }
         
         var gliders = [GliderData]()
         var towplanes = [TowplaneData]()
@@ -1508,7 +1329,8 @@ class StatsReportFromDate
         }
     }
     
-    func generateMaintenanceReportWithReportGenerator(_ generator : ReportFormatter, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
+    // MARK: - private utility functions
+    private func generateMaintenanceReportWithReportGenerator(_ generator : ReportFormatter, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
     {
         generator.addTitle("MAINTENANCE REPORT")
         let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: Date())!.startOfDay
@@ -1733,7 +1555,8 @@ class StatsReportFromDate
     }
 }
 
-final class GlidingDay
+// MARK: - private utility classes
+fileprivate final class GlidingDay
 {
     var squadronCadetsAttended = [Int: Int]()
     var siteForSquadron = [Int: String]()
@@ -1759,5 +1582,204 @@ final class GlidingDay
     func cadetsFlownInGlider(_ squadron: Int) -> Int
     {
         return squadronCadetsFlownInGlider[squadron] ?? 0
+    }
+}
+
+fileprivate struct StaffStats
+{
+    var daysWorked = Double(0)
+    var PICflights = 0
+    var dualFlights = 0
+}
+
+fileprivate class WinchData
+{
+    let winch: AircraftEntity
+    
+    private(set) var flights: Int = 0
+    private(set) var hours: Decimal = 0
+    
+    init(winch: AircraftEntity, startDate: Date = Date.distantPast, endDate: Date = Date.distantFuture)
+    {
+        self.winch = winch
+        let timesheetFetchRequest = AircraftTimesheet.request
+        timesheetFetchRequest.predicate = NSPredicate(format: "aircraft == %@ AND date > %@ AND date < %@", argumentArray: [winch, startDate, endDate])
+        let timesheets = try! dataModel.managedObjectContext.fetch(timesheetFetchRequest)
+        
+        for timesheet in timesheets
+        {
+            let time = timesheet.TTSNfinal - timesheet.TTSNinitial
+            hours += time
+            flights += timesheet.flightRecords.count
+        }
+    }
+}
+
+fileprivate class TowplaneData
+{
+    let towplane: AircraftEntity
+    
+    private(set) var familFlights: Int = 0
+    
+    private var towingMinutes: Double = 0
+    private var transitMinutes: Double = 0
+    private var familMinutes: Double = 0
+    private var profMinutes: Double = 0
+    private var towCourseMinutes: Double = 0
+    private var upgradeMinutes: Double = 0
+    private var maintenanceMinutes: Double = 0
+    
+    private(set) var towingHours: Decimal = 0
+    private(set) var transitHours: Decimal = 0
+    private(set) var familHours: Decimal = 0
+    private(set) var profHours: Decimal = 0
+    private(set) var towCourseHours: Decimal = 0
+    private(set) var upgradeHours: Decimal = 0
+    private(set) var maintenanceHours: Decimal = 0
+    private(set) var totalHours: Decimal = 0
+    
+    init(towplane: AircraftEntity, startDate: Date = Date.distantPast, endDate: Date = Date.distantFuture)
+    {
+        self.towplane = towplane
+        let flightRecordFetchRequest = FlightRecord.request
+        flightRecordFetchRequest.predicate = NSPredicate(format: "timesheet.aircraft == %@ AND timeUp > %@ AND timeUp < %@", argumentArray: [towplane, startDate, endDate])
+        let flights = try! dataModel.managedObjectContext.fetch(flightRecordFetchRequest)
+        
+        for flight in flights
+        {
+            guard let sequence = TowplaneSequence(rawValue: flight.flightSequence) else {continue}
+            switch  sequence
+            {
+                case .FamPRWx:
+                    familFlights += 1
+                    familMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Transit:
+                    transitMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Proficiency:
+                    profMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Upgrade:
+                    upgradeMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Towing:
+                    towingMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .TowCourse:
+                    towCourseMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Maintenance:
+                    maintenanceMinutes += Double(flight.flightLengthInMinutes)
+            }
+        }
+        
+        let behavior = NSDecimalNumberHandler(roundingMode: .plain, scale: 1, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
+        
+        familHours = Decimal(familMinutes/60)
+        familHours = (familHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        transitHours = Decimal(transitMinutes/60)
+        transitHours = (transitHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        profHours = Decimal(profMinutes/60)
+        profHours = (profHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        upgradeHours = Decimal(upgradeMinutes/60)
+        upgradeHours = (upgradeHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        towingHours = Decimal(towingMinutes/60)
+        towingHours = (towingHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        towCourseHours = Decimal(towCourseMinutes/60)
+        towCourseHours = (towCourseHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        maintenanceHours = Decimal(maintenanceMinutes/60)
+        maintenanceHours = (maintenanceHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        totalHours = familHours + transitHours + profHours + upgradeHours + towingHours + towCourseHours + maintenanceHours
+    }
+}
+
+fileprivate class GliderData
+{
+    let glider: AircraftEntity
+    
+    private(set) var transitFlights: Int = 0
+    private(set) var familFlights: Int = 0
+    private(set) var profFlights: Int = 0
+    private(set) var upgradeFlights: Int = 0
+    private(set) var studentFlights: Int = 0
+    
+    private var transitMinutes: Double = 0
+    private var familMinutes: Double = 0
+    private var profMinutes: Double = 0
+    private var upgradeMinutes: Double = 0
+    private var studentMinutes: Double = 0
+    
+    private(set) var transitHours: Decimal = 0
+    private(set) var familHours: Decimal = 0
+    private(set) var profHours: Decimal = 0
+    private(set) var studentHours: Decimal = 0
+    private(set) var upgradeHours: Decimal = 0
+    private(set) var totalHours: Decimal = 0
+    
+    
+    init(glider: AircraftEntity, startDate: Date = Date.distantPast, endDate: Date = Date.distantFuture)
+    {
+        self.glider = glider
+        let flightRecordFetchRequest = FlightRecord.request
+        flightRecordFetchRequest.predicate = NSPredicate(format: "timesheet.aircraft == %@ AND timeUp > %@ AND timeUp < %@", argumentArray: [glider, startDate, endDate])
+        let flights = try! dataModel.managedObjectContext.fetch(flightRecordFetchRequest)
+        
+        for flight in flights
+        {
+            guard let sequence = GliderSequence(rawValue: flight.flightSequence) else {continue}
+            switch  sequence
+            {
+                case .Famil:
+                    familFlights += 1
+                    familMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Transit:
+                    transitFlights += 1
+                    transitMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Proficiency:
+                    profFlights += 1
+                    profMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .Upgrade:
+                    upgradeFlights += 1
+                    upgradeMinutes += Double(flight.flightLengthInMinutes)
+                
+                case .StudentTrg:
+                    studentFlights += 1
+                    studentMinutes += Double(flight.flightLengthInMinutes)
+                
+                default:
+                    profFlights += 1
+                    profMinutes += Double(flight.flightLengthInMinutes)
+            }
+        }
+        
+        let behavior = NSDecimalNumberHandler(roundingMode: .plain, scale: 1, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
+        
+        familHours = Decimal(familMinutes/60)
+        familHours = (familHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        transitHours = Decimal(transitMinutes/60)
+        transitHours = (transitHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        profHours = Decimal(profMinutes/60)
+        profHours = (profHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        studentHours = Decimal(studentMinutes/60)
+        studentHours = (studentHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        upgradeHours = Decimal(upgradeMinutes/60)
+        upgradeHours = (upgradeHours as NSDecimalNumber).rounding(accordingToBehavior: behavior) as Decimal
+        
+        totalHours = familHours + transitHours + profHours + upgradeHours + studentHours
     }
 }

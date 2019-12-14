@@ -477,7 +477,8 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
     
     //MARK: - Exporting Records
     func emailTimesheets(_ overideAlert: Bool,_ includeChanges: Bool = false)
-    {        
+    {
+        // TODO: Currently working on this report!!
         reportTypeBeingGenerated = ReportType.timesheets
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         
@@ -507,13 +508,6 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             presentController(noRecords)
             return
         }
-
-        // TODO: allow for generating report even when email not enabled.
-        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
-        
-        let swiftGenerator = ReportGenerator()
-        swiftGenerator.regionName = UserDefaults.standard.string(forKey: "Region")?.uppercased()
-        swiftGenerator.unit = GC?.name
         
         if !overideAlert
         {
@@ -523,14 +517,19 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
                 return
             }
         }
+
+        // TODO: allow for generating report even when email not enabled.
+        //guard checkIfCanSendMailAndAlertUserIfNot() else {return}
+        let param = TimesheetsForDateParameters(
+            dateOfTimesheets: viewPreviousRecords ? dateToViewRecords : Date(),
+            glidingCentre: GC,
+            regionName: UserDefaults.standard.string(forKey: "Region")?.uppercased() ?? "unknown region",
+            includeChangeLog: includeChanges)
         
-        tableText = viewPreviousRecords ?
-            swiftGenerator.generateTimesheetsForDate(dateToViewRecords, includeChanges) :
-            swiftGenerator.generateTimesheetsForDate(Date(), includeChanges)
-        let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
-        let pathForPDF = pathArray.first!.stringByAppendingPathComponent("Timesheets.pdf")
-        
-        PDFgenerator = NDHTMLtoPDF.createPDFWithHTML(tableText!, pathForPDF: pathForPDF, delegate: self, pageSize: CGSize(width: 612,height: 792), margins: UIEdgeInsets.init(top: 30, left: 30, bottom: 30, right: 30))
+        ReportProducer().produce( report: TimesheetsForDate(param), then: {
+            (urls) in
+            Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
+        })
     }
     
     func emailPilotLogs()
@@ -633,13 +632,10 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
         let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: GC, regionName: regionName)
 
-        // create the proùxducer
-        let parentViewController = aircraftAreaController?.parent
-        let producer = StatsReportFromDateProducer(param)
-        
-        producer.produce( then: {
-            () in
-            producer.distributeProducts(using: StatsReportFromDateDistributor.getDistributor(withParentView: parentViewController))
+        // produce and distribute the report
+        ReportProducer().produce( report: StatsReportFromDate(param), then: {
+            (urls) in
+            Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
         })
     }
     
@@ -648,15 +644,11 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         // set report parameters
         let regionName = (UserDefaults.standard.string(forKey: "Region")?.uppercased()) ?? "unknown region"
         let param = StatsReportFromDateParameters(startDate: startDate, endDate: endDate, glidingCentre: nil, regionName: regionName)
-
-        // create the producer
-        let parentViewController = aircraftAreaController?.parent
-        let producer = StatsReportFromDateProducer(param)
         
         // produce the report and distribute (email or, if no email available, Activity (share)
-        producer.produce( then: {
-            () in
-            producer.distributeProducts(using: StatsReportFromDateDistributor.getDistributor(withParentView: parentViewController))
+        ReportProducer().produce( report: StatsReportFromDate(param), then: {
+            (urls) in
+            Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
         })
     }
     

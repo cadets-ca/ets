@@ -59,7 +59,7 @@ extension XCTestCase
     {
         if self.isAttachmentAvailable
         {
-            let attachment = XCTAttachment(data: data.data(using: .utf8)!, uniformTypeIdentifier: "html")
+            let attachment = XCTAttachment(data: data.data(using: .utf16)!, uniformTypeIdentifier: "html")
             attachment.name = name
             attachment.lifetime = .keepAlways
             self.add(attachment)
