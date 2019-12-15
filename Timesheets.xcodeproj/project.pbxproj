@@ -856,6 +856,7 @@
 		DAF618BA16D01BC700543415 /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DAE637D41F95A4BA0012430C /* 3 Main View Controllers */,
 				F33BD5A72384DED400D121B9 /* Reports */,
 				DA19D38D1EF70695005A8AD3 /* CloudKitController.swift */,
 				DA4C70061ACA31060024DE40 /* TimesheetsAppDelegate.swift */,
@@ -870,7 +871,6 @@
 				DA05548E1B113F6000F50AB8 /* GPSmanager.swift */,
 				DA58B6721A5B770B0091A288 /* OrientationViewController.swift */,
 				DA4C700E1ACCA7F70024DE40 /* iPadRootViewController.swift */,
-				DAE637D41F95A4BA0012430C /* 3 Main View Controllers */,
 				DAAC7C671A5A364A00B4B41A /* TickerViewController.swift */,
 				DAF1574A1B38C0A800F6030C /* GlidingCentreData.swift */,
 				DA58B6781A5B7E520091A288 /* TableViewCellStylePilot.swift */,
@@ -878,7 +878,6 @@
 				DA58B6761A5B7E3E0091A288 /* TableViewCellStyleRecord.swift */,
 				DA1D2F851B02B35D00160AC9 /* CollectionViewCellStylePilot.swift */,
 				DA1D2F891B0A9B8E00160AC9 /* StatsManager.swift */,
-				F3011742234D750800830EE9 /* Formatters.swift */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -1002,9 +1001,10 @@
 		F33BD5A72384DED400D121B9 /* Reports */ = {
 			isa = PBXGroup;
 			children = (
-				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
+				F3011742234D750800830EE9 /* Formatters.swift */,
 				F33BD5A82384DF1B00D121B9 /* Distributor.swift */,
 				F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */,
+				F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */,
 				F33B3F102393744800109B31 /* TimesheetsForDate.swift */,
 			);
 			path = Reports;

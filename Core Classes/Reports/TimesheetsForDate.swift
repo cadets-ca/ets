@@ -369,7 +369,8 @@ class TimesheetsForDate : Report
             text += " \(flight.transitRoute)"
         }
         
-        if let connectedRoute = flight.connectedAircraftRecord?.transitRoute, flight.connectedAircraftRecord?.flightSequence == "Transit"
+        if let connectedRoute = flight.connectedAircraftRecord?.transitRoute,
+            flight.connectedAircraftRecord?.flightSequence == "Transit"
         {
             text += " \(connectedRoute)"
         }

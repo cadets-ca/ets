@@ -118,7 +118,7 @@ class TimesheetsForDateTests: XCTestCase {
         // what should I assert for... ?
         XCTAssert(newResult.contains("2 of 2"), "There should be a section where there is a 2nd page of a 2 pages section.")
         XCTAssert(newResult.contains("3 of 3"), "There should be a section where there is a 3rd page of a 3 pages section.")
-        // must manually check if the page break happens at the right place. They are all managed by CSS no.
+        // must manually check if the page break happens at the right place. They are all managed by CSS now.
         if let url = rcvdUrl
         {
             attachResult(content: url, name: url.lastPathComponent)
