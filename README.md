@@ -3,10 +3,10 @@
 
 # ACGP ETS
 
-The Air Cadets Gliding Program Electronic Timesheets.
+The Air Cadets Gliding Program Electronic Timesheets mobile application.
 
 
 
 # FTÉ PVVCA _tentativement_
 
-Feuilles de temps électroniques pour le programme de vol à voile des cadets de l'air.
+L'application mobile de Feuilles de temps électroniques pour le programme de vol à voile des cadets de l'air.
