@@ -479,7 +479,7 @@ class TimesheetsForDate : Report
         for ident in aircraftIdents
         {
             let hourText = String(fromMinutes: Double(hours[ident]!["TTSNstart"]!))
-            ttsnStartRow.append(ReportCell(colSpan: 2, value: hourText.decimalHoursValue))
+            ttsnStartRow.append(contentsOf: [ReportCell(value: ""), ReportCell(value: hourText.decimalHoursValue)])
         }
         
         if aircraftIdents.count > 1
@@ -515,7 +515,7 @@ class TimesheetsForDate : Report
         for ident in aircraftIdents
         {
             let hourTotal = String(fromMinutes: Double(hours[ident]!["TTSNend"]!))
-            ttsnEndRow.append(contentsOf: [ReportCell(colSpan: 2, value: hourTotal.decimalHoursValue)])
+            ttsnEndRow.append(contentsOf: [ReportCell(value: ""), ReportCell(value: hourTotal.decimalHoursValue)])
         }
         
         if aircraftIdents.count > 1

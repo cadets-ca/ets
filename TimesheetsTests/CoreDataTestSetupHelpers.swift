@@ -95,7 +95,7 @@ class CoreDataTestSetupHelpers
         return flight
     }
 
-    func createGliderFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: GliderSequence = .StudentTrg, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil, towByFlight towFlight : FlightRecord? = nil)
+    func createGliderFlight(_ aircraft: AircraftEntity, _ timesheet: AircraftTimesheet, startingOn startDate: Date, forMinutes duration: Int16, sequence: GliderSequence = .StudentTrg, withPilot pilot : Pilot? = nil, withPassenger passenger : Pilot? = nil, towByFlight towFlight : FlightRecord? = nil) -> FlightRecord
     {
         let flight = FlightRecord(context: context)
         flight.aircraft = aircraft
@@ -107,6 +107,7 @@ class CoreDataTestSetupHelpers
         flight.timeDown = Calendar.current.date(byAdding: Calendar.Component.minute, value: Int(duration), to: flight.timeUp)!
         flight.flightLengthInMinutes = duration
         flight.connectedAircraftRecord = towFlight
+        return flight
     }
 
     func createTimesheet(_ aircraft : AircraftEntity, _ forDate : Date) -> AircraftTimesheet {
@@ -124,7 +125,8 @@ class CoreDataTestSetupHelpers
         let gliderTimesheet = createTimesheet(glider, takeOffDate)
         let launcherTimesheet = createTimesheet(launcher, takeOffDate)
         let launcherFlight = createFlight(launcher, launcherTimesheet, startingOn: takeOffDate, forMinutes: 20, sequence: .TowCourse)
-        createGliderFlight(glider, gliderTimesheet, startingOn: takeOffDate, forMinutes: 20, sequence: .Famil, withPilot: pilot, towByFlight: launcherFlight)
+        _ = createGliderFlight(glider, gliderTimesheet, startingOn: takeOffDate, forMinutes: 20, sequence: .Famil,
+                               withPilot: pilot, towByFlight: launcherFlight)
         
         launcher.updateTTSN()
         glider.updateTTSN()

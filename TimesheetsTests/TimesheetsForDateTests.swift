@@ -26,7 +26,7 @@ class TimesheetsForDateTests: XCTestCase {
         helpers.rollback()
     }
 
-    func testOldReport() {
+    func testTimesheetsReport() {
         let now = Calendar.current.date(from: DateComponents(year: 2015, month: 11, day: 30, hour: 13, minute: 43))!
         
         // arrange
@@ -69,20 +69,22 @@ class TimesheetsForDateTests: XCTestCase {
         let gliderTimesheet = helpers.createTimesheet(glider, now)
         for _ in 1...60
         {
-            _ = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, forMinutes: 20, withPilot: pilotJohnDo, towByFlight: towFlight)
+            _ = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -1, to: now)!,
+                                           forMinutes: 20, withPilot: pilotJohnDo, towByFlight: towFlight)
         }
         
         let auto = helpers.createAutoTow()
         let autoTimesheet = helpers.createTimesheet(auto, now)
         let autoStartAt: Date = Calendar.current.date(byAdding: .hour, value: -2, to: now)!
         let autoFlight = helpers.createFlight(auto, autoTimesheet, startingOn: autoStartAt, forMinutes: 5)
-        helpers.createGliderFlight(glider, gliderTimesheet, startingOn: autoStartAt, forMinutes: 20, sequence: GliderSequence.Proficiency, towByFlight: autoFlight)
+        _ = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: autoStartAt, forMinutes: 20,
+                                       sequence: GliderSequence.Proficiency, towByFlight: autoFlight)
 
         let winch = helpers.createWinchTow(registration: "WINCH", tailNumber: "#1")
         let winchTimesheet = helpers.createTimesheet(winch, now)
         let winchStartAt: Date = Calendar.current.date(byAdding: .hour, value: -3, to: now)!
         let winchFlight = helpers.createFlight(winch, winchTimesheet, startingOn: winchStartAt, forMinutes: 5)
-        helpers.createGliderFlight(glider, gliderTimesheet, startingOn: winchStartAt, forMinutes: 25, towByFlight: winchFlight)
+        _ = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: winchStartAt, forMinutes: 25, towByFlight: winchFlight)
         
         // act
         
@@ -127,5 +129,61 @@ class TimesheetsForDateTests: XCTestCase {
         {
             XCTFail("Did not received a valid URL from the Excel formatter.")
         }
+    }
+    
+    func testTransitInReport()
+    {
+        // TODO: Need to change the data to make it more realistic!
+        let now = Calendar.current.date(from: DateComponents(year: 2015, month: 11, day: 30, hour: 13, minute: 43))!
+        let transitRoute = "YUL"
+        
+        // Arrange
+        let towplane = helpers.createTowPlane(registration: "TOW", tailNumber: "123")
+        let timesheet = helpers.createTimesheet(towplane, now)
+
+        let towFlight = helpers.createFlight(towplane, timesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, forMinutes: 10, sequence: TowplaneSequence.Towing )
+        towFlight.transitRoute = "XYZ"  // this should not appear anywhere
+        
+        let glider = helpers.createGlider(registration: "GLIDER", tailNumber: "000")
+        let gliderTimesheet = helpers.createTimesheet(glider, now)
+        let connectedFlight = helpers.createGliderFlight(glider, gliderTimesheet, startingOn: Calendar.current.date(byAdding: .hour, value: -3, to: now)!, forMinutes: 120, sequence: GliderSequence.Transit, towByFlight: towFlight)
+        connectedFlight.transitRoute = transitRoute
+        
+        // Act
+        // ... for comparison
+        let report = ReportGenerator()
+        report.unit = centre.name    // needed to show the current site (Gliding Unit)
+        report.regionName = "SOUTH"  // needed to show the region
+        let result = report.generateTimesheetsForDate(now, false)
+        attachResultAsHtml(data: result, name: "oldTimesheets.html")
+
+        // ... used for assert below
+        let param = TimesheetsForDateParameters(dateOfTimesheets: now, glidingCentre: centre, regionName: "SOUTH", includeChangeLog: false)
+        let timesheetForDate = TimesheetsForDate(param)
+        let formatter = HtmlFormatter()
+        timesheetForDate.generate(with: formatter)
+        let newResult = formatter.result()
+        attachResultAsHtml(data: newResult, name: "newTimesheets.html")
+
+        // ... for manual testing purpose
+        let expectation = self.expectation(description: "Generate")
+        let excelFormatter = ExcelFormatter()
+        timesheetForDate.generate(with: excelFormatter)
+        excelFormatter.generateResult({url in
+            if let url = url
+            {
+                self.attachResult(content: url, name: "excelNewTimesheets")
+            }
+            expectation.fulfill() // this expectation fulfilling will let the test complete (see below waitForExpectation)
+        })
+        
+        // Assert
+        let towplaneExpectedSequence = "\(TowplaneSequence.Towing.abbreviation) \(transitRoute)"
+        XCTAssert(newResult.contains(towplaneExpectedSequence), "Was expecting sequence \(towplaneExpectedSequence)... none found.")
+        let gliderExpectedSequence = "\(GliderSequence.Transit.abbreviation) \(transitRoute)"
+        XCTAssert(newResult.contains(gliderExpectedSequence), "Was expecting sequence \(gliderExpectedSequence)... none found.")
+        
+        // necessary to ensure the Excel version is also properly attached to the test result
+        waitForExpectations(timeout: 10, handler: nil)
     }
 }
