@@ -103,14 +103,16 @@ class StatsReportFromDate : Report
         let START = Date()
         let beginningOfReport = startDate
         
-        let now = Date()
+        let now = endDate
         let secondsInFiveDays = -5*24*60*60
         let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
         let secondsInTwelveDays = -12*24*60*60
         let twelveDaysAgo = Date(timeInterval: Double(secondsInTwelveDays), since: now).startOfDay
         
         let gliderFlightsLastFiveDaysrequest = FlightRecord.request
-        let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "\(#keyPath(FlightRecord.timeUp)) > %@ AND \(#keyPath(FlightRecord.timesheet.aircraft.gliderOrTowplane)) == 1", argumentArray: [fiveDaysAgo])
+        // HF : on the following predicate, timeUp > fiveDaysAgo was replaced by timeUp >= fiveDaysAgo and a timeUp <= endDate waas added. It better reflect what is done in other predicate within this report
+        let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "%K >= %@ AND %K <= %@ AND %K == 1",
+                                                             argumentArray: [#keyPath(FlightRecord.timeUp), fiveDaysAgo, #keyPath(FlightRecord.timeUp), endDate, #keyPath(FlightRecord.timesheet.aircraft.gliderOrTowplane)])
         var compoundPredicate: NSCompoundPredicate
         
         if siteSpecific
@@ -1333,7 +1335,7 @@ class StatsReportFromDate : Report
     private func generateMaintenanceReportWithReportGenerator(_ generator : ReportFormatter, glidingCentre GC : GlidingCentre, siteSpecific : Bool)
     {
         generator.addTitle("MAINTENANCE REPORT")
-        let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: Date())!.startOfDay
+        let twelveDaysAgo = Calendar.current.date(byAdding: Calendar.Component.day, value: -12, to: endDate)!.startOfDay
         
         let allVehicleRequest = AircraftEntity.request
         let allAircraft: [AircraftEntity]
@@ -1420,7 +1422,7 @@ class StatsReportFromDate : Report
         for i in -6...0
         {
             comps.day = i
-            let date = Calendar.current.date(byAdding: comps, to:Date())!.startOfDay
+            let date = Calendar.current.date(byAdding: comps, to:endDate)!.startOfDay
             last7Days.append(date)
         }
         

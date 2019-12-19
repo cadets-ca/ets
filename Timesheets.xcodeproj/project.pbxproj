@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		335CEFCF23ABB6C300CE00CF /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335CEFCE23ABB6C300CE00CF /* PredicateTests.swift */; };
 		338DA166228B2A8E001C6CBB /* MasterSiteList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 338DA164228B2A8E001C6CBB /* MasterSiteList.csv */; };
 		338DA167228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk in Resources */ = {isa = PBXBuildFile; fileRef = 338DA165228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk */; };
 		DA03438A1DA7470100B54165 /* AddCadetsIndividually.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */; };
@@ -292,6 +293,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		33265AB2229ECA2700B30EBD /* Sample-prod.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sample-prod.sqlite"; sourceTree = "<group>"; };
+		335CEFCE23ABB6C300CE00CF /* PredicateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateTests.swift; sourceTree = "<group>"; };
 		338DA164228B2A8E001C6CBB /* MasterSiteList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MasterSiteList.csv; sourceTree = "<group>"; };
 		338DA165228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSVtoGlidingCentrePList.awk; sourceTree = "<group>"; };
 		DA0343891DA7470100B54165 /* AddCadetsIndividually.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCadetsIndividually.swift; sourceTree = "<group>"; };
@@ -1019,6 +1021,7 @@
 				F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */,
 				F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */,
 				F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */,
+				335CEFCE23ABB6C300CE00CF /* PredicateTests.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1683,6 +1686,7 @@
 				F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
 				F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */,
+				335CEFCF23ABB6C300CE00CF /* PredicateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
