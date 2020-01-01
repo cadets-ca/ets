@@ -458,7 +458,6 @@ class ExcelFormatter: ReportFormatter
                 attribs.append(TextAttribute.backgroundColor(Color(hex: BG_ALTERNATECOLOR)!))
             }
             
-            // TODO: Need to add rowspan as well as colSpan...
             let rowSpan : Int? = (cell.rowSpan != nil) ? cell.rowSpan! - 1 : nil
             let colSpan : Int? = (cell.colSpan != nil) ? cell.colSpan! - 1 : nil
             excelCells.append(ExcelCell(fix(cell.value), attribs, .string, colspan: colSpan, rowspan: rowSpan))
