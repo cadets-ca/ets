@@ -130,7 +130,7 @@ final class CloudKitControllerTV
                 }
                 
                 if let error = error
-                {print("Error during syncAllPilots query", error)}
+                {print("Error during performInitialFetch query", error)}
             }
             
             database.add(queryOperation)
@@ -209,7 +209,7 @@ final class CloudKitControllerTV
                 }
                 
                 if let error = error
-                {print("Error during syncAllPilots query", error)}
+                {print("Error during performSubsequentFetch query", error)}
             }
             
             database.add(queryOperation)

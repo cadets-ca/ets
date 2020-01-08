@@ -169,8 +169,8 @@ final class CloudKitController
 //        purgeSavedEntityLists()
         
         let createZoneGroup = DispatchGroup()
-        
-        if UserDefaults().createdCustomZone == false
+        printLog("createdCustomZone? \(UserDefaults().createdCustomZone)")
+        if UserDefaults().createdCustomZone == false || !zoneExists()
         {
             createPilotZone(group: createZoneGroup)
         }
@@ -231,6 +231,52 @@ final class CloudKitController
         }
     }
     
+    func zoneExists() -> Bool {
+        printLog("Checking if zone \(zoneID) exists.")
+        var zoneExists = false
+        let group = DispatchGroup()
+        let fetchZoneOp = CKFetchRecordZonesOperation(recordZoneIDs: [zoneID])
+        group.enter()
+        fetchZoneOp.fetchRecordZonesCompletionBlock = { (ids, error) in
+            if let error = error
+            {
+                printLog("Error \(error) trying to find zoneId \(self.zoneID)")
+            }
+            if let ids = ids
+            {
+                printLog("Found zoneId \(ids)!")
+                zoneExists = true
+            }
+            printLog("Leaving ... ")
+            group.leave()
+        }
+        self.privateDB.add(fetchZoneOp)
+        _ = group.wait(timeout: DispatchTime(uptimeNanoseconds: 12000))
+        printLog("Returning from...")
+        return zoneExists
+    }
+    
+    func deleteZone()
+    {
+        printLog("Deleting the zone \(zoneID)")
+        let group = DispatchGroup()
+        group.enter()
+        self.privateDB.delete(withRecordZoneID: zoneID, completionHandler: {(id, error) in
+            if let error = error
+            {
+                printLog("Error \(error) occured while deleting zone \(self.zoneID)")
+            }
+            else
+            {
+                printLog("Zone \(self.zoneID) deleted successfully")
+            }
+            printLog("Leaving ... ")
+            group.leave()
+        })
+        _ = group.wait(timeout: DispatchTime(uptimeNanoseconds: 2000))
+        printLog("Returning from...")
+    }
+    
     func saveBackgroundContext()
     {
         shouldUpdateChangeTimes = false
@@ -260,13 +306,14 @@ final class CloudKitController
     
     func createPilotZone(group: DispatchGroup?)
     {
+        printLog("Creating Zone \(zoneID)")
         let dispatchGroup = group ??  DispatchGroup()
     
         dispatchGroup.enter()
         let customZone = CKRecordZone(zoneID: zoneID)
         let createZoneOperation = CKModifyRecordZonesOperation(recordZonesToSave: [customZone], recordZoneIDsToDelete: [] )
         createZoneOperation.modifyRecordZonesCompletionBlock = { (saved, deleted, error) in
-            if (error == nil) {UserDefaults().createdCustomZone = true; print("Zone created")}
+            if (error == nil) {UserDefaults().createdCustomZone = true; printLog("Zone \(self.zoneID) created")}
             dispatchGroup.leave()
         }
         createZoneOperation.qualityOfService = .userInitiated
@@ -1510,7 +1557,7 @@ final class CloudKitController
             }
             
             if let error = error
-            {print("Error during syncAllPilots query", error)}
+            {printLog("Error during syncAllPilots query : \(error)")}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -1642,7 +1689,7 @@ final class CloudKitController
             }
             
             if let error = error
-            {print("Error during syncAllPilots query", error)}
+            {printLog("Error during syncAttendanceRecords query : \(error)")}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -1768,7 +1815,7 @@ final class CloudKitController
             }
             
             if let error = error
-            {print("Error during syncAllPilots query", error)}
+            {printLog("Error during syncAllVehicles query : \(error)")}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
