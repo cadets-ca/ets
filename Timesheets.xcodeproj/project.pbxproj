@@ -1033,7 +1033,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Timesheets" */;
 			buildPhases = (
-				F340BF3F23BC1D9400CDB4B9 /* Setup com.apple.developer.icloud-container-environment to Production when CONFIGURATION is not Debug */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -1482,24 +1481,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" != \"Debug\" ]; then\ncp -r \"${PROJECT_DIR}/Resources/Sample-prod.sqlite\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Sample.sqlite\"\nfi\n";
-		};
-		F340BF3F23BC1D9400CDB4B9 /* Setup com.apple.developer.icloud-container-environment to Production when CONFIGURATION is not Debug */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Setup com.apple.developer.icloud-container-environment to Production when CONFIGURATION is not Debug";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Change iCloud environment to Development or Production depending on the current CONFIGURATION\n\n# Create a link to the entitlements file for defaults command to work as is. \ncp \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}\" \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}.plist\"\n\nif [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    echo \"Development iCloud container environment\"\n    defaults write \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}\" aps-environment development\n    defaults write \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}\" com.apple.developer.icloud-container-environment Development\n    defaults write \"${PRODUCT_SETTINGS_PATH}\" com.apple.developer.icloud-container-environment Development\nelse\n    echo \"Production iCloud container environment\"\n    defaults write \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}\" aps-environment production\n    defaults write \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}\" com.apple.developer.icloud-container-environment Production\n    defaults write \"${PRODUCT_SETTINGS_PATH}\" com.apple.developer.icloud-container-environment Production\nfi\n\n# Convert plist files back to XML (defaults write seems to write file as a binary plist)\nplutil -convert xml1 \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}.plist\"\nplutil -convert xml1 \"${PRODUCT_SETTINGS_PATH}\"\n\n# Delete the link created at the begining\ncp \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}.plist\" \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}\"\nrm \"${PROJECT_DIR}/${CODE_SIGN_ENTITLEMENTS}.plist\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
