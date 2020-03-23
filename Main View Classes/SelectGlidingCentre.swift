@@ -34,6 +34,12 @@ final class SelectGlidingCentre: UITableViewController
         configure()
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        addOrRemoveDoneButtonGivenTraitCollection(presentingViewController?.traitCollection, controller: self, withDoneButtonAction: "dismiss")
+        super.viewWillAppear(animated)
+    }
+    
     @objc func regionChangeHandler()
     {
         currentGlidingCentre = nil
@@ -68,8 +74,6 @@ final class SelectGlidingCentre: UITableViewController
         
         glidingCentreNames.sort(by: <)
         preferredContentSize = CGSize(width: 320, height: tableView.contentSize.height)
-        tableView.backgroundColor = ((presentingViewController?.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact) || presentingViewController == nil) ? UIColor.groupTableViewBackground : UIColor.clear
-
     }
     
     @objc func dismiss()

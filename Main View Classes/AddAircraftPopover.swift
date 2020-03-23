@@ -58,6 +58,7 @@ final class AddAircraftPopover: UITableViewController
     
     override func viewWillAppear(_ animated: Bool)
     {
+        addOrRemoveDoneButtonGivenTraitCollection(presentingViewController?.traitCollection, controller: self, withDoneButtonAction: "addAircraftDone")
         tableView.layoutIfNeeded()
         preferredContentSize = CGSize(width: 320, height: tableView.contentSize.height)
     }

@@ -196,7 +196,7 @@ final class ChangePassengerPopover : UITableViewController
         cell.textLabel?.text = record.pilot?.fullName
         cell.accessoryType = .none
         
-        cell.textLabel?.textColor = UIColor.black
+        cell.textLabel?.textColor = UIColor.label
         
         if let aircraft = record.pilot?.aircraft
         {

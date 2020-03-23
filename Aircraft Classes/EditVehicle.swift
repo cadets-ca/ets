@@ -88,7 +88,8 @@ final class EditVehicle: UITableViewController, ChangeSignificantDateDelegate
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        
+        addOrRemoveDoneButtonGivenTraitCollection(presentingViewController?.traitCollection, controller: self, withDoneButtonAction: "done")
+
         pilot.textLabel?.text = aircraftBeingEdited.pilot?.fullName
         passenger.textLabel?.text = aircraftBeingEdited.passenger?.fullName
         sequence?.textLabel?.text = aircraftBeingEdited.flightSequence
