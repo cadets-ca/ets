@@ -43,10 +43,16 @@ final class PilotActions : UITableViewController
                 .compact) ? UIColor.groupTableViewBackground : UIColor.clear
         }
     }
-    
+
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(previousTraitCollection, controller: self, withDoneButtonAction: "dismiss")
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

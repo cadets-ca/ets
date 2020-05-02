@@ -27,13 +27,14 @@ final class ChangeVehicle: UITableViewController
     
     override func viewWillAppear(_ animated: Bool)
     {
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "addAircraftDone")
         tableView.layoutIfNeeded()
         preferredContentSize = CGSize(width: 320, height: self.tableView.contentSize.height)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(previousTraitCollection, controller: self, withDoneButtonAction: "addAircraftDone")
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "addAircraftDone")
     }
     
     //MARK: - Utility Methods
