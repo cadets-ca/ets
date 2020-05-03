@@ -106,9 +106,7 @@ class StatsReportFromDate : Report
         let now = endDate
         let secondsInFiveDays = -5*24*60*60
         let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
-        let secondsInTwelveDays = -12*24*60*60
-        let twelveDaysAgo = Date(timeInterval: Double(secondsInTwelveDays), since: now).startOfDay
-        
+
         let gliderFlightsLastFiveDaysrequest = FlightRecord.request
         // HF : on the following predicate, timeUp > fiveDaysAgo was replaced by timeUp >= fiveDaysAgo and a timeUp <= endDate waas added. It better reflect what is done in other predicate within this report
         let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "%K >= %@ AND %K <= %@ AND %K == 1",
@@ -233,7 +231,7 @@ class StatsReportFromDate : Report
                     gliderFlightsBySequence[record.flightSequence] = newCount
                     let previousMinutes = gliderSequenceMinutes[record.flightSequence] ?? 0
                     gliderSequenceMinutes[record.flightSequence] = Int(record.flightLengthInMinutes) + previousMinutes
-                    var glidingDayStats = statsForDay(record.timeUp)
+                    let glidingDayStats = statsForDay(record.timeUp)
                     let newTotal = glidingDayStats.totalGliderFlights + 1
                     glidingDayStats.totalGliderFlights = newTotal
                 
@@ -249,7 +247,7 @@ class StatsReportFromDate : Report
                         if record.flightSequence == "Fam / PR / Wx" && passenger.typeOfParticipant == "cadet"
                         {
                             towFamFlights += 1
-                            var glidingDayStats = statsForDay(record.timeUp)
+                            let glidingDayStats = statsForDay(record.timeUp)
                             let newTotal = glidingDayStats.totalScoutFams + 1
                             glidingDayStats.totalScoutFams = newTotal
                         }
@@ -402,7 +400,6 @@ class StatsReportFromDate : Report
         // Proficiency
         var proficiencyGliderSequence = 0
         var proficiencyGliderHours = NSDecimalNumber(0.0)
-        var proficiencyTowplaneSequence = 0
         var proficiencyTowplaneHours = NSDecimalNumber(0.0)
         if let sequenceTotal = gliderFlightsBySequence["Proficiency"]
         {
@@ -441,7 +438,6 @@ class StatsReportFromDate : Report
         // Upgrade
         var upgradeGliderSequence = 0
         var upgradeGliderHours = NSDecimalNumber(0.0)
-        var upgradeTowplaneSequence = 0
         var upgradeTowplaneHours = NSDecimalNumber(0.0)
         
         if let sequenceTotal = gliderFlightsBySequence["Upgrade"]
@@ -520,7 +516,6 @@ class StatsReportFromDate : Report
         // Transit
         var transitGliderSequence = 0
         var transitGliderHours = NSDecimalNumber(0.0)
-        var transitTowplaneSequence = 0
         var transitTowplaneHours = NSDecimalNumber(0.0)
         
         if let sequenceTotal = gliderFlightsBySequence["Transit"]
@@ -673,7 +668,6 @@ class StatsReportFromDate : Report
         
         for record in cadetRecords
         {
-            let startOfRecordDate = record.timeIn.startOfDay
             let stats = statsForDay(record.timeIn)
             
             let squadronNumber = Int(record.pilot.squadron)
@@ -712,7 +706,7 @@ class StatsReportFromDate : Report
         
         for comment in comments
         {
-            let stats = statsForDay(comment.date)
+            _ = statsForDay(comment.date)
         }
         
         var arrayOfDatesFlownOrWithCadets = Array(flyingDatesDictionary.keys)
@@ -1015,10 +1009,9 @@ class StatsReportFromDate : Report
                             withAlternatingRowColor : true,
                             withInformationText : "Cadets signed in less than 2 days are not shown in this report.")
         
-        var cadetNames = Array(staffCadetAttandance.keys).sorted(by: {(pilot1, pilot2) in
+        let cadetNames = Array(staffCadetAttandance.keys).sorted(by: {(pilot1, pilot2) in
             return pilot1.name < pilot2.name
         })
-        //cadetNames.sort(by: {staffCadetAttandance[$0]! > staffCadetAttandance[$1]!})
         
         for cadet in cadetNames
         {
