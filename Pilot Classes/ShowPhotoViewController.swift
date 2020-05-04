@@ -43,6 +43,7 @@ final class ShowPhotoViewController : UIViewController, UIImagePickerControllerD
     @IBAction func removePhoto()
     {
         let deleteWarning = UIAlertController(title: nil, message: "Are you sure you want to remove this photo? It will be permanently deleted.", preferredStyle: .actionSheet)
+        deleteWarning.popoverPresentationController?.sourceView = self.view
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
         deleteWarning.addAction(cancelButton)
         let deleteButton = UIAlertAction(title: "Remove Photo", style: .destructive, handler: {_ in self.deletePhoto()})

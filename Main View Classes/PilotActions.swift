@@ -82,6 +82,22 @@ final class PilotActions : UITableViewController
     }
     
     //MARK: - UITableViewController Methods
+    private func flightActionSheet(message : String, for cell: UITableViewCell, handler: @escaping ((String) -> Void)) -> Void
+    {
+        let controller = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        controller.popoverPresentationController?.sourceView = cell.contentView // fix #56
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        controller.addAction(cancel)
+
+        for flightName in flightNames
+        {
+            let flightButton = UIAlertAction (title: flightName, style: .default){action in handler(flightName)}
+            controller.addAction(flightButton)
+        }
+
+        self.present(controller, animated: true, completion: nil)
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -89,40 +105,25 @@ final class PilotActions : UITableViewController
         switch cell?.textLabel?.text ?? ""
         {
             case "Sign in Flight":
-                let signInFlight = UIAlertController(title: nil, message: "Which flight do you want to sign in?", preferredStyle: .actionSheet)
-                
-                for flightName in flightNames
-                {
-                    let flightButton = UIAlertAction (title: flightName, style: .default){action in dataModel.signInFlight(flightName)}
-                    signInFlight.addAction(flightButton)
+                flightActionSheet(message: "Which flight do you want to sign in?", for: cell!) {
+                        flightName in  dataModel.signInFlight(flightName)
                 }
-                
-                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                signInFlight.addAction(cancel)
-                present(signInFlight, animated: true, completion: nil)
-            
+
             case "Sign out Flight":
-                let signOutFlight = UIAlertController(title: nil, message: "Which flight do you want to sign out?", preferredStyle: .actionSheet)
-                
-                for flightName in flightNames
-                {
-                    let flightButton = UIAlertAction (title: flightName, style: .default){_ in dataModel.pilotAreaController?.signOutFlight(flightName)}
-                    signOutFlight.addAction(flightButton)
+                flightActionSheet(message: "Which flight do you want to sign out?", for: cell!) {
+                    flightName in dataModel.pilotAreaController?.signOutFlight(flightName)
                 }
-                
-                let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-                signOutFlight.addAction(cancel)
-                present(signOutFlight, animated:true, completion:nil)
 
             case "Sign Out All Squadron Cadets":
                 let clearCadetsAndGuests = UIAlertController(title: nil, message:"All squadron cadets will be signed out and removed from the list. This cannot be undone.", preferredStyle:.actionSheet)
-                
+                clearCadetsAndGuests.popoverPresentationController?.sourceView = cell!.contentView // fix #56
+
                 let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
                 clearCadetsAndGuests.addAction(cancel)
                 
                 let proceed = UIAlertAction(title: "Sign Out Squadron Cadets", style: .destructive){action in dataModel.pilotAreaController?.signOutSquadronCadets()}
-                
                 clearCadetsAndGuests.addAction(proceed)
+                
                 present(clearCadetsAndGuests, animated: true, completion: nil)
 
             default:

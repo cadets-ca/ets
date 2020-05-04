@@ -987,8 +987,7 @@ final class Records: UITableViewController, NSFetchedResultsControllerDelegate, 
             chooseSortSheet.addAction(sortAction)
         }
         
-        let popoverPresentationController = chooseSortSheet.popoverPresentationController
-        popoverPresentationController?.barButtonItem = sortButton
+        chooseSortSheet.popoverPresentationController?.barButtonItem = sortButton
 
         present(chooseSortSheet, animated:true, completion:nil)
     }
