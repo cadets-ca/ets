@@ -50,6 +50,8 @@
 	<false/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>This app uses Bluetooth to enable your device to act as a beacon so the app can automatically record your landing times.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app can use your camera to help you assign photos to your pilots.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>iBeacon ranging is used to automatically land aircraft as they near the timekeeper.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
