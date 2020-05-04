@@ -86,7 +86,8 @@ final class MaintenanceOptions: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        if tableView.cellForRow(at: indexPath) === newTimesheet
+        if let cell = tableView.cellForRow(at: indexPath),
+            cell === newTimesheet
         {
             tableView.deselectRow(at: indexPath, animated:true)
             
@@ -106,8 +107,10 @@ final class MaintenanceOptions: UITableViewController
                 timesheet.date = Date()
                 dataModel.saveContext()
             }
-
             newTimesheetWarning.addAction(newTimesheetAction)
+
+            newTimesheetWarning.popoverPresentationController?.sourceView = cell.contentView // Fix #56
+
             self.present(newTimesheetWarning, animated:true, completion:nil)
         }
     }
