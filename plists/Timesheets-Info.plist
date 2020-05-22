@@ -48,6 +48,8 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app uses Bluetooth to enable your device to act as a beacon so the app can automatically record your landing times.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>This app uses Bluetooth to enable your device to act as a beacon so the app can automatically record your landing times.</string>
 	<key>NSCameraUsageDescription</key>
