@@ -204,7 +204,6 @@
 		DAF632201A4A41C3003AA1C3 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6321F1A4A41C3003AA1C3 /* StringExtensions.swift */; };
 		DAF632221A4A5D17003AA1C3 /* Pilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF632211A4A5D17003AA1C3 /* Pilot.swift */; };
 		DAF758B91F83384E00F829E6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF758B81F83384E00F829E6 /* Reachability.swift */; };
-		DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DAF90E5D13D4060300E8DD93 /* Timesheets.entitlements */; };
 		DAFDAFEF1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDAFEE1ABDDDFA007DAEB7 /* AddCadetsOrGuestsPopover.swift */; };
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F3011743234D750800830EE9 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* Formatters.swift */; };
@@ -1354,7 +1353,6 @@
 				338DA167228B2A8E001C6CBB /* CSVtoGlidingCentrePList.awk in Resources */,
 				DA0DCD741BE1C8E9001DA3F9 /* Glider 9.aiff in Resources */,
 				DA0DCD771BE1C8E9001DA3F9 /* Glider 12.aiff in Resources */,
-				DAF90E5E13D4060300E8DD93 /* Timesheets.entitlements in Resources */,
 				DA0DCD761BE1C8E9001DA3F9 /* Glider 11.aiff in Resources */,
 				DA0DCD7C1BE1C8E9001DA3F9 /* Glider 17.aiff in Resources */,
 				DA0DCD731BE1C8E9001DA3F9 /* Glider 8.aiff in Resources */,
