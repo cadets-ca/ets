@@ -55,8 +55,8 @@ class CoreDataTestSetupHelpers
         pilot.glidingCentre = defaultCentre
         pilot.email = "\(pilot.name.replacingOccurrences(of: " ", with: ""))@hellkitchen.us"
         pilot.address = "13 Anywhere"
-        pilot.aniversaryOfTowAPC = Date().advanced(by: -10)
-        pilot.aniversaryOfGliderAPC = Date().advanced(by: -10)
+        pilot.aniversaryOfTowAPC = Date().addingTimeInterval(-10)
+        pilot.aniversaryOfGliderAPC = Date().addingTimeInterval(-10)
         pilot.birthday = birthday
         pilot.inactive = false
         pilot.highestGliderQual = 3

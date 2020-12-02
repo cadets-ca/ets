@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 let kPaperSizeA4 = CGSize(width: 595,height: 842)
 let kPaperSizeLetter = CGSize(width: 612,height: 792)
@@ -18,13 +19,13 @@ protocol NDHTMLtoPDFDelegate
     func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF)
 }
 
-final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
+final class NDHTMLtoPDF : UIViewController, WKNavigationDelegate
 {
     var delegate: NDHTMLtoPDFDelegate?
     var PDFpath: String?
     var URL: Foundation.URL?
     var HTML: String?
-    var webview: UIWebView?
+    var webview: WKWebView?
     var pageSize: CGSize
     var pageMargins: UIEdgeInsets
     
@@ -73,14 +74,18 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        webview = UIWebView(frame: view.frame)
-        webview?.delegate = self
+
+        // initialize webview
+        webview = WKWebView(frame: view.frame)
+        webview?.navigationDelegate = self
+
+        // add webview to view
         view.addSubview(webview!)
-        
+
+        // start load
         if URL != nil
         {
-            webview?.loadRequest(URLRequest(url: URL!))
+            webview?.load(URLRequest(url: URL!))
         }
         
         else
@@ -88,7 +93,16 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
             webview?.loadHTMLString(HTML!, baseURL:nil)
         }
     }
-    
+
+    func terminateWebTask()
+    {
+        webview?.stopLoading()
+        webview?.navigationDelegate = nil
+        webview?.removeFromSuperview()
+        view.removeFromSuperview()
+        webview = nil
+    }
+
     class func createPDFWithURL(_ URL: Foundation.URL, pathForPDF PDFpath:String, delegate: NDHTMLtoPDFDelegate, pageSize: CGSize, margins pageMargins: UIEdgeInsets) -> NDHTMLtoPDF
     {
         return NDHTMLtoPDF(URL: URL, delegate: delegate, pathForPDF: PDFpath, pageSize: pageSize, margins: pageMargins)
@@ -98,47 +112,39 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
     {
         return NDHTMLtoPDF(HTML: HTML, delegate: delegate, pathForPDF: PDFpath, pageSize: pageSize, margins: pageMargins)
     }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
+
+    // MARK: - WebView - WKWebView
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if webView.isLoading
         {
             return
         }
-        
+
         let render = PDF()
         render.addPrintFormatter(webView.viewPrintFormatter(), startingAtPageAt: 0)
         let printableRect = CGRect(x: pageMargins.left, y: pageMargins.top, width: pageSize.width - pageMargins.left - pageMargins.right,
-        height: pageSize.height - pageMargins.top - pageMargins.bottom)
+                                   height: pageSize.height - pageMargins.top - pageMargins.bottom)
         let paperRect = CGRect(x: 0, y: 0, width: pageSize.width, height: pageSize.height)
-        
+
         render.setValue(NSValue(cgRect: paperRect), forKey: "paperRect")
         render.setValue(NSValue(cgRect: printableRect), forKey: "printableRect")
-        
+
         let pdfData = render.printToPDF()
         let _ = try? pdfData.write(to: Foundation.URL(fileURLWithPath: PDFpath!),  options: [.atomic])
+
         terminateWebTask()
         delegate?.HTMLtoPDFDidSucceed(self)
     }
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error)
-    {
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         if webView.isLoading
         {
             return
         }
-        
+
         terminateWebTask()
         delegate?.HTMLtoPDFDidFail(self)
-    }
-    
-    func terminateWebTask()
-    {
-        webview?.stopLoading()
-        webview?.delegate = nil
-        webview?.removeFromSuperview()
-        view.removeFromSuperview()
-        webview = nil
     }
 }
 
