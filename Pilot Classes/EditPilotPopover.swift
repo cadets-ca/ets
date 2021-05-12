@@ -102,7 +102,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
     {
         if !regularFormat
         {
-            addOrRemoveDoneButtonGivenTraitCollection(previousTraitCollection, controller: self, withDoneButtonAction: "done")
+            addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
         }
     }
     
@@ -184,7 +184,6 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
     {
         super.viewWillAppear(animated)
         addOrRemoveDoneButtonGivenTraitCollection(presentingViewController?.traitCollection, controller: self, withDoneButtonAction: "done")
-        
         title = pilot.name
         if title == ""
         {

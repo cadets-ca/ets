@@ -169,7 +169,6 @@ final class EditRecordPopover : UITableViewController, UITextFieldDelegate, Chan
     {
         super.viewWillAppear(animated)
         addOrRemoveDoneButtonGivenTraitCollection(presentingViewController?.traitCollection, controller: self, withDoneButtonAction: "done")
-
         pilot?.textLabel?.text = record.pilot?.fullName
         passenger?.textLabel?.text = record.passenger?.fullName
         sequence?.textLabel?.text = record.flightSequence
@@ -215,7 +214,7 @@ final class EditRecordPopover : UITableViewController, UITextFieldDelegate, Chan
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(previousTraitCollection, controller: self, withDoneButtonAction: "done")
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
     }
   
     @objc func done()

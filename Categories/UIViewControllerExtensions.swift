@@ -11,7 +11,7 @@ import UIKit
 
 extension UIViewController
 {
-    func addOrRemoveDoneButtonGivenTraitCollection(_ traitCollection: UITraitCollection?, controller: UIViewController, withDoneButtonAction action: String)
+    func addOrRemoveDoneButtonGivenTraitCollection(controller: UIViewController, withDoneButtonAction action: String)
     {
         if let presentingViewController = controller.presentingViewController
         {

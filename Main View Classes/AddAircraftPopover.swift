@@ -65,9 +65,8 @@ final class AddAircraftPopover: UITableViewController
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(previousTraitCollection, controller: self, withDoneButtonAction: "addAircraftDone")
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "addAircraftDone")
     }
-
     
     //MARK: - Utility Methods
     @objc func addAircraftDone()

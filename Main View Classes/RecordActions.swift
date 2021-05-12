@@ -87,7 +87,7 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(previousTraitCollection, controller: self, withDoneButtonAction: "dismiss")
+        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
     }
     
     func dateChanged()
