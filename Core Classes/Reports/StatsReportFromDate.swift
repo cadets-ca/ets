@@ -106,7 +106,6 @@ class StatsReportFromDate : Report
         let now = endDate
         let secondsInFiveDays = -5*24*60*60
         let fiveDaysAgo = Date(timeInterval: Double(secondsInFiveDays), since: now).startOfDay
-
         let gliderFlightsLastFiveDaysrequest = FlightRecord.request
         // HF : on the following predicate, timeUp > fiveDaysAgo was replaced by timeUp >= fiveDaysAgo and a timeUp <= endDate waas added. It better reflect what is done in other predicate within this report
         let gliderFlightsLastFiveDaysPredicate = NSPredicate(format: "%K >= %@ AND %K <= %@ AND %K == 1",
@@ -706,7 +705,7 @@ class StatsReportFromDate : Report
         
         for comment in comments
         {
-            _ = statsForDay(comment.date)
+            let _ = statsForDay(comment.date)
         }
         
         var arrayOfDatesFlownOrWithCadets = Array(flyingDatesDictionary.keys)

@@ -17,14 +17,14 @@ extension UIViewController
         {
             if (presentingViewController.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact)
             {
-                controller.view.backgroundColor = UIColor.groupTableViewBackground
+//                controller.view.backgroundColor = UIColor.groupTableViewBackground
                 let backButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target:controller, action:Selector(action))
                 controller.navigationItem.rightBarButtonItem = backButton
             }
                 
             else
             {
-                controller.view.backgroundColor = UIColor.clear
+//                controller.view.backgroundColor = UIColor.clear
                 controller.navigationItem.rightBarButtonItem = nil
             }
         }
@@ -36,12 +36,12 @@ extension UIViewController
         {
             if (presentingViewController.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact)
             {
-                controller.view.backgroundColor = UIColor.groupTableViewBackground
+//                controller.view.backgroundColor = UIColor.groupTableViewBackground
             }
                 
             else
             {
-                controller.view.backgroundColor = UIColor.clear
+//                controller.view.backgroundColor = UIColor.clear
             }
         }
     }

@@ -52,12 +52,6 @@ final class GlidingDayCommentList : UITableViewController, NSFetchedResultsContr
         }
     }
     
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewWillAppear(animated)
-        tableView.backgroundColor = presentingViewController?.traitCollection.horizontalSizeClass == .compact ? UIColor.groupTableViewBackground : UIColor.clear
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
         adjustBackgroundGivenTraitCollection(previousTraitCollection, controller: self)

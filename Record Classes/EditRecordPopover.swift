@@ -168,9 +168,7 @@ final class EditRecordPopover : UITableViewController, UITextFieldDelegate, Chan
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
-
+        addOrRemoveDoneButtonGivenTraitCollection(presentingViewController?.traitCollection, controller: self, withDoneButtonAction: "done")
         pilot?.textLabel?.text = record.pilot?.fullName
         passenger?.textLabel?.text = record.passenger?.fullName
         sequence?.textLabel?.text = record.flightSequence

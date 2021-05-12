@@ -66,7 +66,6 @@ final class PilotCollectionView : UICollectionViewController
         
         towplaneSectionHeaders = ["None", "Tow Pilot", "Tow Check Pilot", "Tow Standards Pilot"]
         
-        collectionView?.backgroundColor = (presentingViewController?.traitCollection.horizontalSizeClass == .compact) ? UIColor.groupTableViewBackground : UIColor.clear
         setPreferredContentSizeWithSize(presentingViewController!.view.frame.size)
     }
     

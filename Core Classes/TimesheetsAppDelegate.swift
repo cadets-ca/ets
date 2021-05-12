@@ -253,7 +253,6 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
         self.timesheetsDataModel.save()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]){_,_ in }
         self.timesheetsDataModel.performSetup()        
-        application.setMinimumBackgroundFetchInterval(1)
         
         return true
     }

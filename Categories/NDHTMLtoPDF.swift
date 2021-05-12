@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 let kPaperSizeA4 = CGSize(width: 595,height: 842)
 let kPaperSizeLetter = CGSize(width: 612,height: 792)
@@ -18,13 +19,13 @@ protocol NDHTMLtoPDFDelegate
     func HTMLtoPDFDidFail(_ htmlToPDF: NDHTMLtoPDF)
 }
 
-final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
+final class NDHTMLtoPDF : UIViewController, WKNavigationDelegate
 {
     var delegate: NDHTMLtoPDFDelegate?
     var PDFpath: String?
     var URL: Foundation.URL?
     var HTML: String?
-    var webview: UIWebView?
+    var webview: WKWebView?
     var pageSize: CGSize
     var pageMargins: UIEdgeInsets
     
@@ -74,13 +75,13 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
     {
         super.viewDidLoad()
         
-        webview = UIWebView(frame: view.frame)
-        webview?.delegate = self
+        webview = WKWebView(frame: view.frame)
+        webview?.navigationDelegate = self
         view.addSubview(webview!)
         
         if URL != nil
         {
-            webview?.loadRequest(URLRequest(url: URL!))
+            webview?.load(URLRequest(url: URL!))
         }
         
         else
@@ -99,7 +100,7 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
         return NDHTMLtoPDF(HTML: HTML, delegate: delegate, pathForPDF: PDFpath, pageSize: pageSize, margins: pageMargins)
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView)
+    func webViewDidFinishLoad(_ webView: WKWebView)
     {
         if webView.isLoading
         {
@@ -121,7 +122,7 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
         delegate?.HTMLtoPDFDidSucceed(self)
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error)
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
         if webView.isLoading
         {
@@ -135,7 +136,7 @@ final class NDHTMLtoPDF : UIViewController, UIWebViewDelegate
     func terminateWebTask()
     {
         webview?.stopLoading()
-        webview?.delegate = nil
+        webview?.navigationDelegate = nil
         webview?.removeFromSuperview()
         view.removeFromSuperview()
         webview = nil

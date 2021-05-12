@@ -192,7 +192,7 @@ final class SignInPilotFromList: UITableViewController, UISearchBarDelegate
         else
         {
             cell.accessoryType = pilot.signedIn == true ? .checkmark : .none
-            cell.textLabel?.textColor = pilot.inactive == true ? UIColor.red : UIColor.black
+            cell.textLabel?.textColor = pilot.inactive == true ? UIColor.red : UIColor.label
         }
         
         return cell
@@ -200,9 +200,9 @@ final class SignInPilotFromList: UITableViewController, UISearchBarDelegate
     
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {return false}
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        var allowedActions = [UITableViewRowAction]()
+        var allowedActions = [UIContextualAction]()
         rowDisplayingMenu = indexPath
         let pilot = pilotNamesGroupedAlphabeticallyByInitial[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         let pilotHasFlown = ((pilot.dualFlights.count > 0) || (pilot.picFlights.count > 0)) ? true : false
@@ -210,7 +210,7 @@ final class SignInPilotFromList: UITableViewController, UISearchBarDelegate
         switch (pilot.signedIn, pilotHasFlown)
         {
         case (false, true):
-            let archiveButton = UITableViewRowAction(style: .default, title: "Archive"){_,_  in
+            let archiveButton = UIContextualAction(style: .destructive, title: "Archive"){_,_,_  in
                 pilot.inactive = true
                 dataModel.saveContext()
                 self.updateListAfterChangeToPilot(pilot, atIndexPath: indexPath)
@@ -218,7 +218,7 @@ final class SignInPilotFromList: UITableViewController, UISearchBarDelegate
             allowedActions.append(archiveButton)
 
         case (false, false):
-            let deleteButton = UITableViewRowAction(style: .default, title: "Delete"){_,_  in
+            let deleteButton = UIContextualAction(style: .destructive, title: "Delete"){_,_,_  in
                 
                 dataModel.managedObjectContext.delete(pilot)
                 cloudKitController?.deletePilot(pilot)
@@ -231,12 +231,12 @@ final class SignInPilotFromList: UITableViewController, UISearchBarDelegate
             break
         }
         
-        let viewButton = UITableViewRowAction(style: .normal, title: "View Info"){_,_  in
+        let viewButton = UIContextualAction(style: .normal, title: "View Info"){_,_,_  in
             self.performSegue(withIdentifier: "ViewPilotInfoSegue", sender:nil)
         }
         allowedActions.append(viewButton)
 
-        return allowedActions
+        return UISwipeActionsConfiguration(actions: allowedActions)
     }
     
     func updateListAfterChangeToPilot(_ pilot: Pilot, atIndexPath indexPath: IndexPath)

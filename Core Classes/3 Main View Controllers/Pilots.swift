@@ -492,9 +492,9 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
         }
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        var allowedActions = [UITableViewRowAction]()
+        var allowedActions = [UIContextualAction]()
         let record = getAttendanceRecordBasedOnIndexPath(indexPath)
         let pilot = record.pilot!
         
@@ -506,7 +506,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
             
             if picFlightsOnRecordDate.count > 0 || dualFlightsOnRecordDate.count > 0
             {
-                let deleteButton = UITableViewRowAction(style: .default, title: "Delete"){_,_  in
+                let deleteButton = UIContextualAction(style: .destructive, title: "Delete"){_,_,_  in
                     let alertText = "\(pilot.name) flew on \(record.timeIn.militaryFormatShort) so the attendance record for that date cannot be deleted."
                     let cantDeleteRecordAlert = UIAlertController(title: "Unable to Delete Record", message: alertText, preferredStyle: .alert)
                     
@@ -519,7 +519,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
                 
             else
             {
-                let deleteButton = UITableViewRowAction(style: .default, title: "Delete"){_,_  in
+                let deleteButton = UIContextualAction(style: .destructive, title: "Delete"){_,_,_  in
                     cloudKitController?.deleteAttendanceRecord(record)
                     dataModel.managedObjectContext.delete(record)
                     dataModel.saveContext()
@@ -534,7 +534,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
             let cell = tableView.cellForRow(at: indexPath)!
             if (pilot.typeOfParticipant == "cadet") && (cell.accessoryType == .none)
             {
-                let signOutButton = UITableViewRowAction(style: .normal, title: "Sign Out"){_,_  in
+                let signOutButton = UIContextualAction(style: .normal, title: "Sign Out"){_,_,_  in
                     let title = "Sign Out \(pilot.fullName)?"
                     let message = "If you sign out squadron cadets their attendance and flights will still be reflected in the stats, but you cannot sign them back in. Are you sure this cadet is done flying?"
                     
@@ -553,7 +553,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
                 
                 allowedActions.append(signOutButton)
                 
-                let deleteButton = UITableViewRowAction(style: .default, title: "Delete"){_,_  in
+                let deleteButton = UIContextualAction(style: .destructive, title: "Delete"){_,_,_  in
                     let title = "Delete \(pilot.fullName)?"
                     let message = "This will permanently delete \(pilot.name) as if they were never here. If you want \(pilot.name) to remain on the stats, cancel and use the Sign Out command instead."
                 
@@ -586,7 +586,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
             
             else
             {
-                let signOutButton = UITableViewRowAction(style: .normal, title: "Sign Out"){_,_  in
+                let signOutButton = UIContextualAction(style: .normal, title: "Sign Out"){_,_,_  in
                     dataModel.signOutPerson(pilot)
                     dataModel.saveContext()
                 }
@@ -594,7 +594,7 @@ final class PilotsController : UITableViewController, NSFetchedResultsController
             }
         }
         
-        return allowedActions
+        return UISwipeActionsConfiguration(actions: allowedActions)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){}
