@@ -19,16 +19,17 @@ public extension UserDefaults
                 return nil
             }
             
-            guard let token = NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken else {
+            guard let token = try! NSKeyedUnarchiver.unarchivedObject(ofClass: CKServerChangeToken.self, from: data) else {
                 return nil
             }
+
             
             return token
         }
         set {
             if let token = newValue
             {
-                let data = NSKeyedArchiver.archivedData(withRootObject: token)
+                let data = try! NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
                 self.set(data, forKey: "DatabaseChangeToken")
             }
                 
@@ -46,7 +47,7 @@ public extension UserDefaults
                 return nil
             }
             
-            guard let token = NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken else {
+            guard let token = try! NSKeyedUnarchiver.unarchivedObject(ofClass: CKServerChangeToken.self, from: data) else {
                 return nil
             }
             
@@ -55,7 +56,7 @@ public extension UserDefaults
         set {
             if let token = newValue
             {
-                let data = NSKeyedArchiver.archivedData(withRootObject: token)
+                let data = try! NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
                 self.set(data, forKey: "ZoneChangeToken")
             }
                 
@@ -73,7 +74,7 @@ public extension UserDefaults
                 return nil
             }
             
-            guard let token = NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken else {
+            guard let token = try! NSKeyedUnarchiver.unarchivedObject(ofClass: CKServerChangeToken.self, from: data) else {
                 return nil
             }
             
@@ -82,7 +83,7 @@ public extension UserDefaults
         set {
             if let token = newValue
             {
-                let data = NSKeyedArchiver.archivedData(withRootObject: token)
+                let data = try! NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
                 self.set(data, forKey: "sharedDatabaseChangeToken")
             }
                 
@@ -100,7 +101,7 @@ public extension UserDefaults
                 return nil
             }
             
-            guard let token = NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken else {
+            guard let token = try! NSKeyedUnarchiver.unarchivedObject(ofClass: CKServerChangeToken.self, from: data) else {
                 return nil
             }
             
@@ -109,7 +110,7 @@ public extension UserDefaults
         set {
             if let token = newValue
             {
-                let data = NSKeyedArchiver.archivedData(withRootObject: token)
+                let data = try! NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
                 self.set(data, forKey: "sharedZoneChangeToken")
             }
                 

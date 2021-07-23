@@ -19,9 +19,7 @@ final class GlidingDayCommentEditor: UIViewController, UITextViewDelegate
     {
         super.viewDidLoad()
         datePicker.date = commentBeingEdited.date as Date
-        textViewer.text = commentBeingEdited.comment
-        
-        view.backgroundColor = presentingViewController?.traitCollection.horizontalSizeClass == .compact ? UIColor.groupTableViewBackground : UIColor.clear
+        textViewer.text = commentBeingEdited.comment        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)

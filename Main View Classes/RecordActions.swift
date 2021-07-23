@@ -51,8 +51,7 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
     
     override func viewWillAppear(_ animated: Bool)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
-
+        addOrRemoveDoneButtonGivenTraitCollection( controller: self, withDoneButtonAction: "dismiss")
         viewPreviousRecordsCell?.isHidden = false
         
         if dataModel.viewPreviousRecords == true
@@ -82,9 +81,7 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
         startDateLabel?.text = statsReportStartDate.militaryFormatShort
         let endDateLabel = endDateCell.viewWithTag(1) as? UILabel
         endDateLabel?.text = statsReportEndDate.militaryFormatShort
-        
-        tableView.backgroundColor = (presentingViewController?.traitCollection.horizontalSizeClass == .compact) ? UIColor.groupTableViewBackground : UIColor.clear
-        
+                
         super.viewWillAppear(animated)
     }
 
@@ -249,14 +246,14 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
         }
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        var allowedActions = [UITableViewRowAction]()
+        var allowedActions = [UIContextualAction]()
         if tableView.cellForRow(at: indexPath) == funStatsCell
         {
-            guard let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ca.cadets.Timesheets") else {return allowedActions}
+            guard let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ca.cadets.Timesheets") else {return nil}
 
-            let exportDB = UITableViewRowAction(style: .normal, title: "Export Database"){_,_  in
+            let exportDB = UIContextualAction(style: .normal, title: "Export Database"){_,_,_   in
                 let path = groupURL.appendingPathComponent("Timesheets.sqlite")
                 let vc = UIActivityViewController(activityItems: [path], applicationActivities: nil)
                 self.present(vc, animated:true, completion:nil)
@@ -267,14 +264,15 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
         
         if tableView.cellForRow(at: indexPath) == printTimesheetsCell
         {
-            let emailTimesheetsWithChangeLog = UITableViewRowAction(style: .normal, title: "Include Change Log"){_,_  in
+            let emailTimesheetsWithChangeLog = UIContextualAction(style: .normal, title: "Include Change Log"){_,_,_  in
                 dataModel.emailTimesheets(false, true)
             }
             
             allowedActions.append(emailTimesheetsWithChangeLog)
         }
         
-        return allowedActions
+        return UISwipeActionsConfiguration(actions: allowedActions)
+
     }
     
     func itemTitle(for csc: UICloudSharingController) -> String?

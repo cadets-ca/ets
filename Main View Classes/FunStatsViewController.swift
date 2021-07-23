@@ -212,9 +212,7 @@ final class FunStatsViewController : UITableViewController
         
         updateInfo()
         numberOfGlidingCentresFlyingThisWeekend = glidingCentresActiveLastFiveDays.count
-        numberOfGlidingCentresInRegion = glidingCentresActiveThisSeason.count
-        
-        tableView.backgroundColor = presentingViewController?.traitCollection.horizontalSizeClass == .compact ? UIColor.groupTableViewBackground : UIColor.clear
+        numberOfGlidingCentresInRegion = glidingCentresActiveThisSeason.count        
     }
     
     func updateInfo()

@@ -37,17 +37,12 @@ final class PilotActions : UITableViewController
 
         tableView.layoutIfNeeded()
         preferredContentSize = CGSize(width: 320, height: tableView.contentSize.height)
-        if let presentingViewController = presentingViewController
-        {
-            tableView.backgroundColor = (presentingViewController.traitCollection.horizontalSizeClass ==
-                .compact) ? UIColor.groupTableViewBackground : UIColor.clear
-        }
     }
-
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
+        addOrRemoveDoneButtonGivenTraitCollection( controller: self, withDoneButtonAction: "dismiss")
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
