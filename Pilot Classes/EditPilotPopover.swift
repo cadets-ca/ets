@@ -102,7 +102,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
     {
         if !regularFormat
         {
-            addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
+            setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "done")
         }
     }
     
@@ -183,7 +183,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        addOrRemoveDoneButtonGivenTraitCollection( controller: self, withDoneButtonAction: "done")
+        setControllerViewBackgroundColorAndBackButton( controller: self, withDoneButtonAction: "done")
         title = pilot.name
         if title == ""
         {

@@ -42,12 +42,12 @@ final class PilotActions : UITableViewController
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        addOrRemoveDoneButtonGivenTraitCollection( controller: self, withDoneButtonAction: "dismiss")
+        setControllerViewBackgroundColorAndBackButton( controller: self, withDoneButtonAction: "dismiss")
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
+        setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "dismiss")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

@@ -51,7 +51,7 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
     
     override func viewWillAppear(_ animated: Bool)
     {
-        addOrRemoveDoneButtonGivenTraitCollection( controller: self, withDoneButtonAction: "dismiss")
+        setControllerViewBackgroundColorAndBackButton( controller: self, withDoneButtonAction: "dismiss")
         viewPreviousRecordsCell?.isHidden = false
         
         if dataModel.viewPreviousRecords == true
@@ -87,7 +87,7 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
+        setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "dismiss")
     }
     
     func dateChanged()

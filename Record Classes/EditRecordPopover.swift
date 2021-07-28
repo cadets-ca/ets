@@ -169,7 +169,7 @@ final class EditRecordPopover : UITableViewController, UITextFieldDelegate, Chan
     {
         super.viewWillAppear(animated)
 
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
+        setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "done")
 
         pilot?.textLabel?.text = record.pilot?.fullName
         passenger?.textLabel?.text = record.passenger?.fullName
@@ -216,7 +216,7 @@ final class EditRecordPopover : UITableViewController, UITextFieldDelegate, Chan
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
+        setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "done")
     }
   
     @objc func done()
