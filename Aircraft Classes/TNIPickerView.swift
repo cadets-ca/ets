@@ -30,6 +30,10 @@ final class TNIPickerView : UIViewController, UIPickerViewDataSource, UIPickerVi
     private var currentStepperValue = 0
 
     //MARK: - UIViewController Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -105,7 +109,7 @@ final class TNIPickerView : UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        adjustBackgroundGivenTraitCollection(previousTraitCollection, controller: self)
+        //adjustBackgroundGivenTraitCollection(previousTraitCollection, controller: self)
     }
     
     @IBAction func saveButtonPushed()

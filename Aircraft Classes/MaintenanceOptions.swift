@@ -59,11 +59,6 @@ final class MaintenanceOptions: UITableViewController
         TTNI.textLabel?.text = aircraftBeingEdited.TTNI.stringWithDecimal
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
-    {
-        adjustBackgroundGivenTraitCollection(previousTraitCollection, controller: self)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let TNIPicker = segue.destination as? TNIPickerView
