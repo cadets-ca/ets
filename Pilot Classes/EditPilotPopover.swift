@@ -102,7 +102,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
     {
         if !regularFormat
         {
-            addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
+            setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "done")
         }
     }
     
@@ -183,9 +183,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
-
+        setControllerViewBackgroundColorAndBackButton( controller: self, withDoneButtonAction: "done")
         title = pilot.name
         if title == ""
         {
@@ -262,7 +260,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
             else
             {
                 let sixMonths = Double(6*30*24*60*60)
-                FIexpiryDate?.textColor = (pilot.fiExpiry.timeIntervalSinceNow < sixMonths) ? UIColor.orange : UIColor.black
+                FIexpiryDate?.textColor = (pilot.fiExpiry.timeIntervalSinceNow < sixMonths) ? UIColor.orange : UIColor.label
             }
         }
             
@@ -318,7 +316,7 @@ final class EditPilotPopover : UITableViewController, UITextFieldDelegate, UIIma
             else
             {
                 let sixMonths = Double(6*30*24*60*60)
-                medicalExpiryDate?.textColor = (powerMedicalExpiry.timeIntervalSinceNow < sixMonths) ? UIColor.orange : UIColor.black
+                medicalExpiryDate?.textColor = (powerMedicalExpiry.timeIntervalSinceNow < sixMonths) ? UIColor.orange : UIColor.label
             }
         }
             

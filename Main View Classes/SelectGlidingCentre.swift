@@ -26,12 +26,18 @@ final class SelectGlidingCentre: UITableViewController
     {
         NotificationCenter.default.addObserver(self, selector: #selector(self.regionChangeHandler), name: regionChangedNotification, object: nil)
 
-//        if !regularFormat
-//        {
-            tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
-//        }
+        tableView.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.7098039216, blue: 0.8196078431, alpha: 1)
         
         configure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            setControllerViewBackgroundColorAndBackButton( controller: self, withDoneButtonAction: "dismiss")
+        }
+        super.viewWillAppear(animated)
     }
     
     @objc func regionChangeHandler()
@@ -68,8 +74,6 @@ final class SelectGlidingCentre: UITableViewController
         
         glidingCentreNames.sort(by: <)
         preferredContentSize = CGSize(width: 320, height: tableView.contentSize.height)
-        tableView.backgroundColor = ((presentingViewController?.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact) || presentingViewController == nil) ? UIColor.groupTableViewBackground : UIColor.clear
-
     }
     
     @objc func dismiss()
@@ -89,7 +93,10 @@ final class SelectGlidingCentre: UITableViewController
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "dismiss")
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "dismiss")
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)

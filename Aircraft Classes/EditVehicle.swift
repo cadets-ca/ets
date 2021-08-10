@@ -89,7 +89,7 @@ final class EditVehicle: UITableViewController, ChangeSignificantDateDelegate
     {
         super.viewWillAppear(animated)
 
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
+        setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "done")
 
         pilot.textLabel?.text = aircraftBeingEdited.pilot?.fullName
         passenger.textLabel?.text = aircraftBeingEdited.passenger?.fullName
@@ -116,7 +116,7 @@ final class EditVehicle: UITableViewController, ChangeSignificantDateDelegate
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
     {
-        addOrRemoveDoneButtonGivenTraitCollection(controller: self, withDoneButtonAction: "done")
+        setControllerViewBackgroundColorAndBackButton(controller: self, withDoneButtonAction: "done")
     }
     
     @objc func done()

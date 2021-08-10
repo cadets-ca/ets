@@ -11,23 +11,16 @@ import UIKit
 
 extension UIViewController
 {
-    func addOrRemoveDoneButtonGivenTraitCollection(controller: UIViewController, withDoneButtonAction action: String)
+    // TODO: this method does not seem to do much. Need to clarify reason for existance and possibly extract code (in
+    //          the StoryBoard??).
+    //       The only place that seem to need to display or hide (as the previous name implied) is in the gliding
+    //          centre selection window where there is no need for a back or done button on the iPhone, while it is
+    //          required on the iPad.
+    func setControllerViewBackgroundColorAndBackButton(controller: UIViewController, withDoneButtonAction action: String)
     {
-        if let presentingViewController = controller.presentingViewController
-        {
-            if (presentingViewController.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact)
-            {
-                controller.view.backgroundColor = UIColor.groupTableViewBackground
-                let backButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target:controller, action:Selector(action))
-                controller.navigationItem.rightBarButtonItem = backButton
-            }
-                
-            else
-            {
-                controller.view.backgroundColor = UIColor.clear
-                controller.navigationItem.rightBarButtonItem = nil
-            }
-        }
+        controller.view.backgroundColor = UIColor.systemGroupedBackground
+        let backButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target:controller, action:Selector(action))
+        controller.navigationItem.rightBarButtonItem = backButton
     }
     
     func adjustBackgroundGivenTraitCollection(_ traitCollection: UITraitCollection?, controller: UIViewController)
@@ -36,12 +29,12 @@ extension UIViewController
         {
             if (presentingViewController.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact)
             {
-                controller.view.backgroundColor = UIColor.groupTableViewBackground
+//                controller.view.backgroundColor = UIColor.groupTableViewBackground
             }
                 
             else
             {
-                controller.view.backgroundColor = UIColor.clear
+//                controller.view.backgroundColor = UIColor.clear
             }
         }
     }
