@@ -99,40 +99,35 @@ final class NDHTMLtoPDF : UIViewController, WKNavigationDelegate
     {
         return NDHTMLtoPDF(HTML: HTML, delegate: delegate, pathForPDF: PDFpath, pageSize: pageSize, margins: pageMargins)
     }
-    
-    func webViewDidFinishLoad(_ webView: WKWebView)
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
-        if webView.isLoading
-        {
-            return
-        }
-        
-        let render = PDF()
-        render.addPrintFormatter(webView.viewPrintFormatter(), startingAtPageAt: 0)
-        let printableRect = CGRect(x: pageMargins.left, y: pageMargins.top, width: pageSize.width - pageMargins.left - pageMargins.right,
-        height: pageSize.height - pageMargins.top - pageMargins.bottom)
-        let paperRect = CGRect(x: 0, y: 0, width: pageSize.width, height: pageSize.height)
-        
-        render.setValue(NSValue(cgRect: paperRect), forKey: "paperRect")
-        render.setValue(NSValue(cgRect: printableRect), forKey: "printableRect")
-        
-        let pdfData = render.printToPDF()
-        let _ = try? pdfData.write(to: Foundation.URL(fileURLWithPath: PDFpath!),  options: [.atomic])
+        renderPDF(webView)
         terminateWebTask()
         delegate?.HTMLtoPDFDidSucceed(self)
     }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error)
     {
-        if webView.isLoading
-        {
-            return
-        }
-        
         terminateWebTask()
         delegate?.HTMLtoPDFDidFail(self)
     }
-    
+
+    func renderPDF(_ webView: WKWebView)
+    {
+        let render = PDF()
+        render.addPrintFormatter(webView.viewPrintFormatter(), startingAtPageAt: 0)
+        let printableRect = CGRect(x: pageMargins.left, y: pageMargins.top, width: pageSize.width - pageMargins.left - pageMargins.right,
+                                   height: pageSize.height - pageMargins.top - pageMargins.bottom)
+        let paperRect = CGRect(x: 0, y: 0, width: pageSize.width, height: pageSize.height)
+
+        render.setValue(NSValue(cgRect: paperRect), forKey: "paperRect")
+        render.setValue(NSValue(cgRect: printableRect), forKey: "printableRect")
+
+        let pdfData = render.printToPDF()
+        let _ = try? pdfData.write(to: Foundation.URL(fileURLWithPath: PDFpath!),  options: [.atomic])
+    }
+
     func terminateWebTask()
     {
         webview?.stopLoading()
