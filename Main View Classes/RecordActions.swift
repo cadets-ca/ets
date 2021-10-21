@@ -253,9 +253,10 @@ final class RecordActions : UITableViewController, ChangeSignificantDateDelegate
         {
             guard let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ca.cadets.Timesheets") else {return nil}
 
-            let exportDB = UIContextualAction(style: .normal, title: "Export Database"){_,_,_   in
+            let exportDB = UIContextualAction(style: .normal, title: "Export Database"){action,sourceView,_   in
                 let path = groupURL.appendingPathComponent("Timesheets.sqlite")
                 let vc = UIActivityViewController(activityItems: [path], applicationActivities: nil)
+                vc.popoverPresentationController?.sourceView = sourceView
                 self.present(vc, animated:true, completion:nil)
             }
 
