@@ -137,7 +137,7 @@ final class CloudKitController
             setRootObject()
             return
         }
-        
+        printLog("Starting uploadPendingChanges...")
         uploadPilotChanges(nil)
         uploadAttendanceRecordChanges(nil)
         uploadVehicleChanges(nil)
@@ -151,6 +151,7 @@ final class CloudKitController
         deleteTimesheet(nil)
         deleteMaintenanceIssue(nil)
         deleteFlightRecord(nil)
+        printLog("Done uploadPendingChanges.")
     }
     
     init()
@@ -196,7 +197,7 @@ final class CloudKitController
                     {
                         if let _ = subscriptionObject as? CKDatabaseSubscription
                         {
-                            print("Private DB Subscription found")
+                            printLog("Private DB Subscription found")
                             DBsubscriptionFound = true
                             break
                         }
@@ -204,7 +205,7 @@ final class CloudKitController
                     
                     if DBsubscriptionFound == false
                     {
-                        print("DB Subscription not found, will attempt to create")
+                        printLog("DB Subscription not found, will attempt to create")
                         let createSubscriptionOperation = self.createDatabaseSubscriptionOperation(subscriptionId: self.privateSubscriptionId)
                         createSubscriptionOperation.modifySubscriptionsCompletionBlock = { (subscriptions, deletedIds, error) in
                             if error == nil {UserDefaults().subscribedToPrivateChanges = true}
@@ -240,7 +241,7 @@ final class CloudKitController
         fetchZoneOp.fetchRecordZonesCompletionBlock = { (ids, error) in
             if let error = error
             {
-                printLog("Error \(error) trying to find zoneId \(self.zoneID)")
+                printError("Trying to find zoneId \(self.zoneID)", error)
             }
             if let ids = ids
             {
@@ -264,7 +265,7 @@ final class CloudKitController
         self.privateDB.delete(withRecordZoneID: zoneID, completionHandler: {(id, error) in
             if let error = error
             {
-                printLog("Error \(error) occured while deleting zone \(self.zoneID)")
+                printError("While deleting zone \(self.zoneID)", error)
             }
             else
             {
@@ -288,13 +289,13 @@ final class CloudKitController
             
         catch let error as NSError
         {
-            print("Unresolved error \(error), \(error.userInfo)")
+            printError("Unresolved error \(error.userInfo)", error)
             abort()
         }
             
         catch
         {
-            print("Unknown Error")
+            printError("Unknown Error;", error)
             abort()
         }
         
@@ -353,7 +354,7 @@ final class CloudKitController
 
             if database == self.privateDB
             {
-                print("There goes the private zone")
+                printLog("There goes the private zone")
                 UserDefaults().zoneChangeToken = nil
                 UserDefaults().createdCustomZone = false
                 self.createPilotZone(group: nil)
@@ -361,7 +362,7 @@ final class CloudKitController
                 
             else
             {
-                print("There goes shared zone")
+                printLog("There goes shared zone")
                 ~>{self.toggleSharingTo(state: false)}
                 UserDefaults().sharedZoneChangeToken = nil
 
@@ -383,7 +384,7 @@ final class CloudKitController
         operation.fetchDatabaseChangesCompletionBlock = { (token, moreComing, error) in
             if let error = error
             {
-                print("Error during fetch shared database changes operation", error)
+                printLog("Error during fetch shared database changes operation \(error)")
                 return
             }
             
@@ -526,7 +527,7 @@ final class CloudKitController
 
             if let error = error
             {
-                print("Error fetching zone changes for \(databaseTokenKey) database:", error)
+                printLog("Error fetching zone changes for \(databaseTokenKey) database: \(error).")
                 UserDefaults().createdCustomZone = false
                 self.purgeSavedEntityLists()
 
@@ -556,7 +557,7 @@ final class CloudKitController
         operation.fetchRecordZoneChangesCompletionBlock = { (error) in
             if let error = error
             {
-                print("Error fetching zone changes for \(databaseTokenKey) database:", error)
+                printError("Error fetching zone changes for \(databaseTokenKey) database.", error)
             }
             completion()
         }
@@ -628,14 +629,14 @@ final class CloudKitController
             {
                 if error.errorCode == 11
                 {
-                    print("Region record isn't on the server yet. Will try to make one.")
+                    printLog("Region record isn't on the server yet. Will try to make one.")
                     
                     let regionCK = CKRecord(recordType: CloudKitRecordType.Region.rawValue, recordID: rootRecordID)
                     self.privateDB.save(regionCK, completionHandler:
                         {(record, error) in
                             if let error2 = error as? CKError
                             {
-                                print(error2.localizedDescription)
+                                printLog(error2.localizedDescription)
                             }
                                 
                             else
@@ -666,7 +667,7 @@ final class CloudKitController
             {
                 if error.errorCode == 11
                 {
-                    print("Share isn't on the server yet. Will try to make one.")
+                    printLog("Share isn't on the server yet. Will try to make one.")
                     
                     let share = CKShare(rootRecord: self.rootObject!, shareID: rootShareID)
                     share.publicPermission = .readOnly
@@ -679,7 +680,7 @@ final class CloudKitController
                         records, recordIDs, error in
                         if let error = error
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                         }
     
                         if let record = records?.first as? CKShare
@@ -718,13 +719,13 @@ final class CloudKitController
                         {
                             if error.errorCode == 11
                             {
-                                print("Share not found.")
+                                printLog("Share not found.")
                             }
                         }
                         
                         if let record = record as? CKShare
                         {
-                            print("Share found.")
+                            printLog("Share found.")
                             self.remoteShare = record
                         }
                     }
@@ -784,7 +785,7 @@ final class CloudKitController
                         {
                             if let _ = subscriptionObject as? CKDatabaseSubscription
                             {
-                                print("Shared DB Subscription found")
+                                printLog("Shared DB Subscription found")
                                 DBsubscriptionFound = true
                                 break
                             }
@@ -792,7 +793,7 @@ final class CloudKitController
                         
                         if DBsubscriptionFound == false
                         {
-                            print("DB Subscription not found, will attempt to create")
+                            printLog("DB Subscription not found, will attempt to create")
                             let createSubscriptionOperation = self.createDatabaseSubscriptionOperation(subscriptionId: self.sharedSubscriptionId)
                             createSubscriptionOperation.modifySubscriptionsCompletionBlock = { (subscriptions, deletedIds, error) in
                                 if error == nil {UserDefaults().subscribedToPrivateChanges = true}
@@ -827,21 +828,17 @@ final class CloudKitController
         {
             return
         }
-        
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil
-            })
-        }
-        
+
+        let task = createBackgroundUploadTask("PilotChanges")
+
         let changedPilotsCopy = changedPilots
         changedPilots.removeAll()
         UserDefaults().pilotsToBeUploaded = changedPilots
         recordsInProcessing += changedPilotsCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
         
-        %>{for objectID in changedPilotsCopy
+        %>{
+            for objectID in changedPilotsCopy
             {
                 guard let changedPilot = backgroundContext.object(with: objectID) as? Pilot else {continue}
                 backgroundContext.refresh(changedPilot, mergeChanges: false)
@@ -870,44 +867,49 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Pilot record isn't on the server yet. Will try to make one.")
+                            printError("Pilot record isn't on the server yet. Will try to make one.", error)
                             
-                            %>{let pilotRecordToSave = self.createPilotRecordFrom(changedPilot)
+                            %>{
+                                let pilotRecordToSave = self.createPilotRecordFrom(changedPilot)
                                 self.uploadRecord(record: pilotRecordToSave, withID: objectID)
                             }
                         }
                         
                         else
                         {
-                            print(error.localizedDescription)
-                            ~>{self.changedPilots.insert(objectID)
+                            printError("CloudKit error \(error.errorCode), saving the objectId to process later?", error)
+
+                            ~>{
+                                self.changedPilots.insert(objectID)
                                 UserDefaults().pilotsToBeUploaded = self.changedPilots
                                 self.uploadRecord(record: nil, withID: nil)
                             }
-
                         }
                     }
-                        
+                    else if let error = error
+                    {
+                        printError("Unprocessed error during privateDB.fetch", error)
+                    }
                     else
                     {
-                        %>{let changeTime = record?["recordChangeTime"] as? Date ?? Date.distantPast
+                        %>{
+                            let changeTime = record?["recordChangeTime"] as? Date ?? Date.distantPast
                             if changeTime < changedPilot.recordChangeTime
                             {
                                 _ = self.createPilotRecordFrom(changedPilot, withExistingRecord: record)
                                 self.uploadRecord(record: record!, withID: objectID)
-
-                                //                record?["photoThumbnailImage"] = CKAsset(fileURL: imageURL)
                             }
-                            
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
+
+            self.endBackgroundUploadTask(task)
         }
     }
     
@@ -924,20 +926,17 @@ final class CloudKitController
             return
         }
         
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil})
-        }
-        
+        let task = createBackgroundUploadTask("Attendance")
+
         let changedAttendanceRecordsCopy = changedAttendanceRecords
         changedAttendanceRecords.removeAll()
         UserDefaults().attendanceRecordsToBeUploaded = changedAttendanceRecords
         recordsInProcessing += changedAttendanceRecordsCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
 
         for objectID in changedAttendanceRecordsCopy
-            {%>{
+        {
+            %>{
                 guard let changedRecord = backgroundContext.object(with: objectID) as? AttendanceRecord else {return}
                 backgroundContext.refresh(changedRecord, mergeChanges: false)
                 let changedRecordID = CKRecord.ID(recordName: String(changedRecord.recordID.timeIntervalSince1970), zoneID: self.zoneID)
@@ -949,7 +948,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Attendance record isn't on the server yet. Will try to make one.")
+                            printLog("Attendance record isn't on the server yet. Will try to make one.")
                             
                             %>{let attendanceRecordToSave = self.createAttendanceRecordRecordFrom(changedRecord)
                                 self.uploadRecord(record: attendanceRecordToSave, withID: objectID)
@@ -958,7 +957,7 @@ final class CloudKitController
                             
                         else
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                             ~>{self.changedAttendanceRecords.insert(objectID)
                                 UserDefaults().attendanceRecordsToBeUploaded = self.changedAttendanceRecords
                                 self.uploadRecord(record: nil, withID: nil)
@@ -978,13 +977,15 @@ final class CloudKitController
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
         }
+
+        endBackgroundUploadTask(task)
     }
     
     func uploadFlightRecordChanges(_ recentlyChangedRecord: FlightRecord?)
@@ -1000,20 +1001,17 @@ final class CloudKitController
             return
         }
         
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil})
-        }
+        let task = createBackgroundUploadTask("Flight")
 
         let changedFlightRecordsCopy = changedFlightRecords
         changedFlightRecords.removeAll()
         UserDefaults().flightRecordsToBeUploaded = changedFlightRecords
         recordsInProcessing += changedFlightRecordsCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
 
         for objectID in changedFlightRecordsCopy
-        {%>{
+        {
+            %>{
                 guard let changedRecord = backgroundContext.object(with: objectID) as? FlightRecord else {return}
                 backgroundContext.refresh(changedRecord, mergeChanges: false)
                 let changedRecordID = CKRecord.ID(recordName: String(changedRecord.recordID.timeIntervalSince1970), zoneID: self.zoneID)
@@ -1025,7 +1023,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Flight record isn't on the server yet. Will try to make one.")
+                            printLog("Flight record isn't on the server yet. Will try to make one.")
                             
                             %>{let flightRecordToSave = self.createFlightRecordRecordFrom(changedRecord)
                                 self.uploadRecord(record: flightRecordToSave, withID: objectID)
@@ -1034,7 +1032,7 @@ final class CloudKitController
                             
                         else
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                             ~>{self.changedFlightRecords.insert(objectID)
                                 UserDefaults().flightRecordsToBeUploaded = self.changedFlightRecords
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1054,13 +1052,15 @@ final class CloudKitController
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
         }
+
+        endBackgroundUploadTask(task)
     }
 
     func uploadTimesheetChanges(_ recentlyChangedRecord: AircraftTimesheet?)
@@ -1076,20 +1076,17 @@ final class CloudKitController
             return
         }
         
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil})
-        }
+        let task = createBackgroundUploadTask("Timesheet")
 
         let changedTimesheetsCopy = changedTimesheets
         changedTimesheets.removeAll()
         UserDefaults().timesheetsToBeUploaded = changedTimesheets
         recordsInProcessing += changedTimesheetsCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
 
         for objectID in changedTimesheetsCopy
-        {%>{
+        {
+            %>{
                 guard let changedTimesheet = backgroundContext.object(with: objectID) as? AircraftTimesheet else {return}
                 backgroundContext.refresh(changedTimesheet, mergeChanges: false)
                 let changedRecordID = CKRecord.ID(recordName: String(changedTimesheet.recordID.timeIntervalSince1970), zoneID: self.zoneID)
@@ -1101,7 +1098,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Timesheet isn't on the server yet. Will try to make one.")
+                            printLog("Timesheet isn't on the server yet. Will try to make one.")
                             
                             %>{let timesheetToSave = self.createTimesheetRecordFrom(changedTimesheet)
                                 self.uploadRecord(record: timesheetToSave, withID: objectID)
@@ -1110,7 +1107,7 @@ final class CloudKitController
                             
                         else
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                             ~>{self.changedTimesheets.insert(objectID)
                                 UserDefaults().timesheetsToBeUploaded = self.changedTimesheets
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1131,13 +1128,15 @@ final class CloudKitController
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
         }
+
+        endBackgroundUploadTask(task)
     }
 
     func uploadMaintenanceChanges(_ recentlyChangedRecord: MaintenanceEvent?)
@@ -1152,21 +1151,18 @@ final class CloudKitController
         {
             return
         }
-        
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil})
-        }
-        
+
+        let task = createBackgroundUploadTask("Maintenance")
+
         let changedMaintenanceIssuesCopy = changedMaintenanceIssues
         changedMaintenanceIssues.removeAll()
         UserDefaults().maintenanceIssuesToBeUploaded = changedMaintenanceIssues
         recordsInProcessing += changedMaintenanceIssuesCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
         
         for objectID in changedMaintenanceIssuesCopy
-        {%>{
+        {
+            %>{
                 guard let changedIssue = backgroundContext.object(with: objectID) as? MaintenanceEvent else {return}
                 backgroundContext.refresh(changedIssue, mergeChanges: false)
                 let changedRecordID = CKRecord.ID(recordName: String(changedIssue.recordID.timeIntervalSince1970), zoneID: self.zoneID)
@@ -1178,7 +1174,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Maintenance issue isn't on the server yet. Will try to make one.")
+                            printLog("Maintenance issue isn't on the server yet. Will try to make one.")
                             
                             %>{let issueToSave = self.createMaintenanceIssueRecordFrom(changedIssue)
                                 self.uploadRecord(record: issueToSave, withID: objectID)
@@ -1187,7 +1183,7 @@ final class CloudKitController
                             
                         else
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                             ~>{self.changedMaintenanceIssues.insert(objectID)
                                 UserDefaults().maintenanceIssuesToBeUploaded = self.changedMaintenanceIssues
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1208,13 +1204,15 @@ final class CloudKitController
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
         }
+
+        endBackgroundUploadTask(task)
     }
 
     
@@ -1230,21 +1228,18 @@ final class CloudKitController
         {
             return
         }
-        
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil})
-        }
-        
+
+        let task = createBackgroundUploadTask("Comment")
+
         let changedCommentsCopy = changedGlidingDayComments
         changedGlidingDayComments.removeAll()
         UserDefaults().commentsToBeUploaded = changedGlidingDayComments
         recordsInProcessing += changedCommentsCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
         
         for objectID in changedCommentsCopy
-        {%>{
+        {
+            %>{
                 guard let changedComment = backgroundContext.object(with: objectID) as? GlidingDayComment else {return}
                 backgroundContext.refresh(changedComment, mergeChanges: false)
                 let changedRecordID = CKRecord.ID(recordName: String(changedComment.recordID.timeIntervalSince1970), zoneID: self.zoneID)
@@ -1256,7 +1251,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Comment isn't on the server yet. Will try to make one.")
+                            printLog("Comment isn't on the server yet. Will try to make one.")
                             
                             %>{let commentToSave = self.createGlidingDayCommentRecordFrom(changedComment)
                                 self.uploadRecord(record: commentToSave, withID: objectID)
@@ -1265,7 +1260,7 @@ final class CloudKitController
                             
                         else
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                             ~>{self.changedGlidingDayComments.insert(objectID)
                                 UserDefaults().commentsToBeUploaded = self.changedGlidingDayComments
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1286,13 +1281,15 @@ final class CloudKitController
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
         }
+
+        endBackgroundUploadTask(task)
     }
     
     func uploadVehicleChanges(_ recentlyChangedAircraft: AircraftEntity?)
@@ -1307,21 +1304,18 @@ final class CloudKitController
         {
             return
         }
-        
-        if backgroundUploadTask == nil
-        {
-            backgroundUploadTask = UIApplication.shared.beginBackgroundTask(withName: "Upload to iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(self.backgroundUploadTask!)
-                self.backgroundUploadTask = nil})
-        }
-        
+
+        let task = createBackgroundUploadTask("Vehicle")
+
         let changedVehiclesCopy = changedAircraftEntities
         changedAircraftEntities.removeAll()
         UserDefaults().aircraftEntitiesToBeUploaded = changedAircraftEntities
         recordsInProcessing += changedVehiclesCopy.count
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
 
         for objectID in changedVehiclesCopy
-        {%>{
+        {
+            %>{
                 guard let changedAircraftEntity = backgroundContext.object(with: objectID) as? AircraftEntity else {return}
                 backgroundContext.refresh(changedAircraftEntity, mergeChanges: false)
                 let changedVehicleID = CKRecord.ID(recordName: String(self.regionName + changedAircraftEntity.registration), zoneID: self.zoneID)
@@ -1333,7 +1327,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            print("Vehicle isn't on the server yet. Will try to make one.")
+                            printLog("Vehicle isn't on the server yet. Will try to make one.")
                             
                             %>{
                                 if Date() - changedAircraftEntity.remoteChangeTime > 300
@@ -1346,7 +1340,7 @@ final class CloudKitController
                             
                         else
                         {
-                            print(error.localizedDescription)
+                            printLog(error.localizedDescription)
                             ~>{self.changedAircraftEntities.insert(objectID)
                                 UserDefaults().aircraftEntitiesToBeUploaded = self.changedAircraftEntities
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1367,19 +1361,21 @@ final class CloudKitController
                             else
                             {
                                 self.recordsInProcessing -= 1
-                                print("There are \(self.recordsInProcessing) records in processing")
+                                printLog("There are \(self.recordsInProcessing) records in processing")
                             }
                         }
                     }
                 }
             }
         }
+
+        endBackgroundUploadTask(task)
     }
     
     func uploadRecord(record: CKRecord?, withID: NSManagedObjectID?)
     {
         recordsInProcessing -= 1
-        print("There are \(recordsInProcessing) records in processing")
+        printLog("There are \(recordsInProcessing) records in processing")
 
         if let record = record
         {
@@ -1426,40 +1422,33 @@ final class CloudKitController
             let modifyOperation = CKModifyRecordsOperation(recordsToSave: recordsPendingUpload, recordIDsToDelete: nil)
             modifyOperation.isAtomic = false
             modifyOperation.savePolicy = .allKeys
-            modifyOperation.completionBlock = {() in print("Modify Operation Complete")}
+            modifyOperation.completionBlock = {() in printLog("Modify Operation Complete")}
             modifyOperation.perRecordCompletionBlock = {(record, error) in
-                if let error = error
+                if let cloudKitError = error as? CKError
                 {
-                    if let cloudKitError = error as? CKError
-                    {
-                        %>{self.saveObjectForFutureUpload(ID: withID)}
-                        print(cloudKitError.localizedDescription)
+                    %>{
+                        self.saveObjectForFutureUpload(ID: withID)
                     }
+                    printError("CloudKit Error \(cloudKitError.errorCode) on record completion", cloudKitError)
                 }
-                    
+                else if let error = error
+                {
+                    printError("Unknown error on record completion", error)
+                }
                 else
                 {
-                    print("I guess a record was updated?")
+                    printLog("I guess a record was updated?")
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printError("During modifyRecords for upload records", error)
                 }
-                    
-                else
-                {
-                    print("Let the good times roll")
-                    ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
-                    
-                    if let task = self.backgroundUploadTask
-                    {
-                        UIApplication.shared.endBackgroundTask(task)
-                        self.backgroundUploadTask = nil
-                    }
-                }
+
+                printLog("Let the good times roll")
+                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
             }
             
             modifyOperation.queuePriority = .normal
@@ -1517,7 +1506,11 @@ final class CloudKitController
     /// Backs up all changes to the current gliding center from the current year. Obtains all changes from other gliding centers from the CloudKit server for the current year.
     func backupDatabase()
     {
-        %>{self.syncAllPilots()}
+        let task = createBackgroundUploadTask("Backup Database")
+        %>{
+            self.syncAllPilots()
+            self.endBackgroundUploadTask(task)
+        }
     }
     
     func syncAllPilots()
@@ -1557,7 +1550,9 @@ final class CloudKitController
             }
             
             if let error = error
-            {printLog("Error during syncAllPilots query : \(error)")}
+            {
+                printError("Error during syncAllPilots query.", error)
+            }
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -1566,8 +1561,8 @@ final class CloudKitController
     
     func processPilots(allPilots: [Pilot], records: [CKRecord])
     {
-        print("There are \(allPilots.count) local pilots")
-        print("There are \(records.count) remote pilots")
+        printLog("There are \(allPilots.count) local pilots modified since \(backupStartDate).")
+        printLog("There are \(records.count) remote pilots modified since \(backupStartDate).")
 
         var allPilotsSet = Set<Pilot>(allPilots)
         
@@ -1591,7 +1586,7 @@ final class CloudKitController
             {
                 newRecords.append(createPilotRecordFrom(pilot))
                 count -= 1
-                print("There are \(count) pilots left to process")
+                printLog("There are \(count) pilots left to process")
             }
         }
         
@@ -1619,22 +1614,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printError("For pilot record.", error)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printError("While modifyRecords for pilots.", error)
                 }
                     
                 else
                 {
-                    print("A modify pilots operation was completed")
+                    printLog("A modify pilots operation was completed")
                     if isFinalModifyOperation
                     {
-                        print("Modifying pilots complete")
+                        printLog("Modifying pilots complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -1689,7 +1684,9 @@ final class CloudKitController
             }
             
             if let error = error
-            {printLog("Error during syncAttendanceRecords query : \(error)")}
+            {
+                printError("Error during syncAttendanceRecords query.", error)
+            }
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -1699,8 +1696,8 @@ final class CloudKitController
     
     func processAttendanceRecords(allAttendanceRecords: [AttendanceRecord], records: [CKRecord])
     {
-        print("There are \(allAttendanceRecords.count) local attendance records for the last 180 days")
-        print("There are \(records.count) remote attendance records for the last 180 days")
+        printLog("There are \(allAttendanceRecords.count) local attendance records for the last 180 days")
+        printLog("There are \(records.count) remote attendance records for the last 180 days")
         
         var allAttendanceRecordsSet = Set<AttendanceRecord>(allAttendanceRecords)
         
@@ -1724,7 +1721,7 @@ final class CloudKitController
             {
                 newRecords.append(createAttendanceRecordRecordFrom(attendanceRecord))
                 count -= 1
-                print("There are \(count) attendance records left to process")
+                printLog("There are \(count) attendance records left to process")
             }
         }
         
@@ -1752,22 +1749,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
                     
                 else
                 {
-                    print("A modify attendance operation was completed")
+                    printLog("A modify attendance operation was completed")
                     if isFinalModifyOperation
                     {
-                        print("Modifying attendance records complete")
+                        printLog("Modifying attendance records complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -1815,7 +1812,9 @@ final class CloudKitController
             }
             
             if let error = error
-            {printLog("Error during syncAllVehicles query : \(error)")}
+            {
+                printError("Error during syncAllVehicles query", error)
+            }
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -1825,8 +1824,8 @@ final class CloudKitController
     
     func processVehicleRecords(allVehicleRecords: [AircraftEntity], records: [CKRecord])
     {
-        print("There are \(allVehicleRecords.count) local vehicles")
-        print("There are \(records.count) remote vehicles")
+        printLog("There are \(allVehicleRecords.count) local vehicles")
+        printLog("There are \(records.count) remote vehicles")
         
         var allVehicleRecordsSet = Set<AircraftEntity>(allVehicleRecords)
         
@@ -1850,7 +1849,7 @@ final class CloudKitController
             {
                 newRecords.append(createVehicleRecordFrom(vehicleRecord))
                 count -= 1
-                print("There are \(count) vehicles left to process")
+                printLog("There are \(count) vehicles left to process")
             }
         }
         
@@ -1878,22 +1877,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
                     
                 else
                 {
-                    print("A modify vehicles operation was completed")
+                    printLog("A modify vehicles operation was completed")
                     if isFinalModifyOperation
                     {
-                        print("Modifying vehicles complete")
+                        printLog("Modifying vehicles complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -1928,10 +1927,17 @@ final class CloudKitController
         queryOperation.recordFetchedBlock = {(record) in
             records.append(record)
         }
-        
+
         queryOperation.queryCompletionBlock = {[weak self](cursor: CKQueryOperation.Cursor?, error: Error?) in
+
+            if let error = error
+            {
+                printError("Error during syncTimesheets query", error)
+            }
+
             if let cursor = cursor
             {
+                printLog("Adding newQueryOperation")
                 let newQueryOperation = CKQueryOperation(cursor: cursor)
                 newQueryOperation.zoneID = self?.zoneID
                 
@@ -1940,53 +1946,60 @@ final class CloudKitController
                 queryOperation = newQueryOperation
                 self!.privateDB.add(newQueryOperation)
             }
-                
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processTimesheetRecords(allTimesheetRecords: allTimesheetRecords, records: records)}
+                ~>{
+                    UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})
+                }
+                %>{
+                    self?.processTimesheetRecords(allTimesheetRecords: allTimesheetRecords, records: records)
+                }
             }
-            
-            if let error = error
-            {print("Error during syncTimesheets query", error)}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+        printLog("Adding queryOperation \(queryOperation.query.debugDescription) to privateDB \(privateDB.debugDescription)")
         privateDB.add(queryOperation)
-        
+
     }
     
     func processTimesheetRecords(allTimesheetRecords: [AircraftTimesheet], records: [CKRecord])
     {
-        print("There are \(allTimesheetRecords.count) local timesheet records for the last 180 days")
-        print("There are \(records.count) remote timesheet records for the last 180 days")
+        printLog("There are \(allTimesheetRecords.count) local timesheet records for the last 180 days")
+        printLog("There are \(records.count) remote timesheet records for the last 180 days")
         
         var allTimesheetRecordsSet = Set<AircraftTimesheet>(allTimesheetRecords)
-        
+
+        printLog("Before remove up to date records from local : \(allTimesheetRecordsSet.count).")
         for record in records
         {
             let timesheetRecord = self.updateTimesheetToMatchRecord(record)
             let dateModifiedInCloud = record["recordChangeTime"] as! Date
+            printLog("\(timesheetRecord.recordChangeTime) <= \(dateModifiedInCloud) == \(timesheetRecord.recordChangeTime <= dateModifiedInCloud); do record in cloud has a parent? \(record.parent != nil)")
             if timesheetRecord.recordChangeTime <= dateModifiedInCloud, record.parent != nil
             {
+                printLog("Removing timesheetRecord from local.")
                 allTimesheetRecordsSet.remove(timesheetRecord)
             }
         }
-        
+        printLog("After remove up to date records from local : \(allTimesheetRecordsSet.count).")
+
         var count = allTimesheetRecordsSet.count
-        
+
         var newRecords = [CKRecord]()
-        
+
+        printLog("Are we viewingSharedDatabase? \(UserDefaults().viewSharedDatabase)")
         if UserDefaults().viewSharedDatabase == false
         {
             for timesheetRecord in allTimesheetRecordsSet
             {
                 newRecords.append(createTimesheetRecordFrom(timesheetRecord))
                 count -= 1
-                print("There are \(count) timesheets left to process")
+                printLog("There are \(count) timesheets left to process")
             }
         }
-        
+
+        printLog("Setting up newRecords into portionedArray (block of 100)")
         var portionedArray = [[CKRecord]]()
         
         while newRecords.count > 100
@@ -2001,7 +2014,8 @@ final class CloudKitController
         {
             ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
         }
-        
+
+        printLog("Processing portionedArray; \(portionedArray.count) block to process.")
         for array in portionedArray
         {
             let isFinalModifyOperation = array == portionedArray.last! ? true : false
@@ -2011,22 +2025,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printError("Error occured during perRecordCompletionBlock", error)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printError("Error occured during modifyRecordsCompletionBlock", error)
                 }
                     
                 else
                 {
-                    print("A modify flight timesheets operation was completed")
+                    printLog("A modify flight timesheets operation was completed for \(saved?.count ?? 0) records.")
                     if isFinalModifyOperation
                     {
-                        print("Modifying timesheet records complete")
+                        printLog("Modifying timesheet records complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -2081,7 +2095,7 @@ final class CloudKitController
             }
             
             if let error = error
-            {print("Error during syncFlightRecords query", error)}
+            {printLog("Error during syncFlightRecords query: \(error)")}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -2091,8 +2105,8 @@ final class CloudKitController
     
     func processFlightRecords(allFlightRecords: [FlightRecord], records: [CKRecord])
     {
-        print("There are \(allFlightRecords.count) local flight records for the last 180 days")
-        print("There are \(records.count) remote flight records for the last 180 days")
+        printLog("There are \(allFlightRecords.count) local flight records for the last 180 days")
+        printLog("There are \(records.count) remote flight records for the last 180 days")
         
         var allFlightRecordsSet = Set<FlightRecord>(allFlightRecords)
         
@@ -2118,7 +2132,7 @@ final class CloudKitController
             {
                 newRecords.append(createFlightRecordRecordFrom(flightRecord))
                 count -= 1
-                print("There are \(count) flight records left to process")
+                printLog("There are \(count) flight records left to process")
             }
         }
         
@@ -2146,22 +2160,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
                     
                 else
                 {
-                    print("A modify flight records operation was completed")
+                    printLog("A modify flight records operation was completed")
                     if isFinalModifyOperation
                     {
-                        print("Modifying flight records complete")
+                        printLog("Modifying flight records complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -2216,7 +2230,7 @@ final class CloudKitController
             }
             
             if let error = error
-            {print("Error during sync comments query", error)}
+            {printLog("Error during sync comments query: \(error)")}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -2226,8 +2240,8 @@ final class CloudKitController
     
     func processCommentRecords(allCommentRecords: [GlidingDayComment], records: [CKRecord])
     {
-        print("There are \(allCommentRecords.count) local comments for the last 180 days")
-        print("There are \(records.count) remote comments for the last 180 days")
+        printLog("There are \(allCommentRecords.count) local comments for the last 180 days")
+        printLog("There are \(records.count) remote comments for the last 180 days")
         
         var allCommentRecordsSet = Set<GlidingDayComment>(allCommentRecords)
         
@@ -2251,7 +2265,7 @@ final class CloudKitController
             {
                 newRecords.append(createGlidingDayCommentRecordFrom(commentRecord))
                 count -= 1
-                print("There are \(count) comments left to process")
+                printLog("There are \(count) comments left to process")
             }
         }
         
@@ -2279,22 +2293,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
                     
                 else
                 {
-                    print("A modify comments operation was completed")
+                    printLog("A modify comments operation was completed")
                     if isFinalModifyOperation
                     {
-                        print("Modifying comments complete")
+                        printLog("Modifying comments complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -2344,7 +2358,7 @@ final class CloudKitController
             }
             
             if let error = error
-            {print("Error during sync all issues query", error)}
+            {printLog("Error during sync all issues query: \(error)")}
         }
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
@@ -2353,8 +2367,8 @@ final class CloudKitController
     
     func processMaintenanceIssues(allIssues: [MaintenanceEvent], records: [CKRecord])
     {
-        print("There are \(allIssues.count) local issues")
-        print("There are \(records.count) remote issues")
+        printLog("There are \(allIssues.count) local issues")
+        printLog("There are \(records.count) remote issues")
         
         var allIssuesSet = Set(allIssues)
         
@@ -2377,7 +2391,7 @@ final class CloudKitController
             {
                 newRecords.append(createMaintenanceIssueRecordFrom(issue))
                 count -= 1
-                print("There are \(count) issues left to process")
+                printLog("There are \(count) issues left to process")
             }
         }
         
@@ -2405,22 +2419,22 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    print(error)
+                    printLog(error.localizedDescription)
                 }
                     
                 else
                 {
-                    print("A modify issues operation was completed")
+                    printLog("A modify issues operation was completed")
                     if isFinalModifyOperation
                     {
-                        print("Modifying issues complete")
+                        printLog("Modifying issues complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
                 }
@@ -3356,7 +3370,7 @@ final class CloudKitController
         
         if matchingRecords.count > 1
         {
-            print("Delete attendance record aborted, multiple records with similar ID")
+            printLog("Delete attendance record aborted, multiple records with similar ID")
             return
         }
         
@@ -3380,7 +3394,7 @@ final class CloudKitController
         
         if matchingRecords.count > 1
         {
-            print("Delete pilot aborted, multiple records with similar ID")
+            printLog("Delete pilot aborted, multiple records with similar ID")
             return
         }
         
@@ -3404,7 +3418,7 @@ final class CloudKitController
         
         if matchingRecords.count > 1
         {
-            print("Delete attendance record aborted, multiple records with similar ID")
+            printLog("Delete attendance record aborted, multiple records with similar ID")
             return
         }
         
@@ -3428,7 +3442,7 @@ final class CloudKitController
         
         if matchingRecords.count > 1
         {
-            print("Delete timesheet aborted, multiple records with similar ID")
+            printLog("Delete timesheet aborted, multiple records with similar ID")
             return
         }
         
@@ -3436,7 +3450,7 @@ final class CloudKitController
         {
             if timesheet.flightRecords.count > 0
             {
-                print("Delete timesheet aborted, timesheet has records")
+                printLog("Delete timesheet aborted, timesheet has records")
                 return
             }
             
@@ -3458,7 +3472,7 @@ final class CloudKitController
         
         if matchingRecords.count > 1
         {
-            print("Delete comment record aborted, multiple records with similar ID")
+            printLog("Delete comment record aborted, multiple records with similar ID")
             return
         }
         
@@ -3482,7 +3496,7 @@ final class CloudKitController
         
         if matchingRecords.count > 1
         {
-            print("Delete maintenance record aborted, multiple records with similar ID")
+            printLog("Delete maintenance record aborted, multiple records with similar ID")
             return
         }
         
@@ -3524,8 +3538,8 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        print("Attendance record didn't get deleted.")
-                        print(error.localizedDescription)
+                        printLog("Attendance record didn't get deleted.")
+                        printLog(error.localizedDescription)
 
                         ~>{self.deletedAttendanceRecords.insert(objectID)
                             UserDefaults().attendanceRecordsToBeDeleted = self.deletedAttendanceRecords}
@@ -3565,8 +3579,8 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        print("Flight record didn't get deleted.")
-                        print(error.localizedDescription)
+                        printLog("Flight record didn't get deleted.")
+                        printLog(error.localizedDescription)
                         
                         ~>{self.deletedFlightRecords.insert(objectID)
                             UserDefaults().flightRecordsToBeDeleted = self.deletedFlightRecords}
@@ -3606,8 +3620,8 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        print("Pilot didn't get deleted.")
-                        print(error.localizedDescription)
+                        printLog("Pilot didn't get deleted.")
+                        printLog(error.localizedDescription)
                         
                         ~>{self.deletedPilots.insert(objectID)
                             UserDefaults().pilotsToBeDeleted = self.deletedPilots}
@@ -3647,8 +3661,8 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        print("Timesheet record didn't get deleted.")
-                        print(error.localizedDescription)
+                        printLog("Timesheet record didn't get deleted.")
+                        printLog(error.localizedDescription)
                         
                         ~>{self.deletedTimesheets.insert(objectID)
                             UserDefaults().timesheetsToBeDeleted = self.deletedTimesheets}
@@ -3688,8 +3702,8 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        print("Comment record didn't get deleted.")
-                        print(error.localizedDescription)
+                        printLog("Comment record didn't get deleted.")
+                        printLog(error.localizedDescription)
                         
                         ~>{self.deletedComments.insert(objectID)
                             UserDefaults().commentsToBeDeleted = self.deletedComments}
@@ -3728,8 +3742,8 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        print("Maintenance record didn't get deleted.")
-                        print(error.localizedDescription)
+                        printLog("Maintenance record didn't get deleted.")
+                        printLog(error.localizedDescription)
                         
                         ~>{self.deletedMaintenanceIssues.insert(objectID)
                             UserDefaults().maintenanceIssuesToBeDeleted = self.deletedMaintenanceIssues}
@@ -3737,5 +3751,18 @@ final class CloudKitController
                 }
             }
         }
+    }
+
+    func createBackgroundUploadTask(_ name : String, _ file : String = #file, _ function : String = #function, _ line : Int = #line) -> UIBackgroundTaskIdentifier
+    {
+        let task = UIApplication.shared.beginBackgroundTask(withName: name)
+        printDebug("Starting backgroundUploadTask \(name) : \(task)", file, function, line)
+        return task
+    }
+
+    func endBackgroundUploadTask(_ task : UIBackgroundTaskIdentifier, _ file : String = #file, _ function : String = #function, _ line : Int = #line)
+    {
+        printDebug("Ending the backgroundUploadTask \(task)", file, function, line)
+        UIApplication.shared.endBackgroundTask(task)
     }
 }
