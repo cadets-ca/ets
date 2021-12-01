@@ -280,6 +280,8 @@ final class CloudKitController
     
     func saveBackgroundContext()
     {
+        printLog("saveBackgroundContext")
+
         shouldUpdateChangeTimes = false
         
         do
@@ -829,7 +831,7 @@ final class CloudKitController
             return
         }
 
-        let task = createBackgroundUploadTask("PilotChanges")
+        let task = createBackgroundTask("PilotChanges")
 
         let changedPilotsCopy = changedPilots
         changedPilots.removeAll()
@@ -909,7 +911,7 @@ final class CloudKitController
                 }
             }
 
-            self.endBackgroundUploadTask(task)
+            self.endBackgroundTask(task)
         }
     }
     
@@ -926,7 +928,7 @@ final class CloudKitController
             return
         }
         
-        let task = createBackgroundUploadTask("Attendance")
+        let task = createBackgroundTask("Attendance")
 
         let changedAttendanceRecordsCopy = changedAttendanceRecords
         changedAttendanceRecords.removeAll()
@@ -985,7 +987,7 @@ final class CloudKitController
             }
         }
 
-        endBackgroundUploadTask(task)
+        endBackgroundTask(task)
     }
     
     func uploadFlightRecordChanges(_ recentlyChangedRecord: FlightRecord?)
@@ -1001,7 +1003,7 @@ final class CloudKitController
             return
         }
         
-        let task = createBackgroundUploadTask("Flight")
+        let task = createBackgroundTask("Flight")
 
         let changedFlightRecordsCopy = changedFlightRecords
         changedFlightRecords.removeAll()
@@ -1060,7 +1062,7 @@ final class CloudKitController
             }
         }
 
-        endBackgroundUploadTask(task)
+        endBackgroundTask(task)
     }
 
     func uploadTimesheetChanges(_ recentlyChangedRecord: AircraftTimesheet?)
@@ -1076,7 +1078,7 @@ final class CloudKitController
             return
         }
         
-        let task = createBackgroundUploadTask("Timesheet")
+        let task = createBackgroundTask("Timesheet")
 
         let changedTimesheetsCopy = changedTimesheets
         changedTimesheets.removeAll()
@@ -1136,7 +1138,7 @@ final class CloudKitController
             }
         }
 
-        endBackgroundUploadTask(task)
+        endBackgroundTask(task)
     }
 
     func uploadMaintenanceChanges(_ recentlyChangedRecord: MaintenanceEvent?)
@@ -1152,7 +1154,7 @@ final class CloudKitController
             return
         }
 
-        let task = createBackgroundUploadTask("Maintenance")
+        let task = createBackgroundTask("Maintenance")
 
         let changedMaintenanceIssuesCopy = changedMaintenanceIssues
         changedMaintenanceIssues.removeAll()
@@ -1212,7 +1214,7 @@ final class CloudKitController
             }
         }
 
-        endBackgroundUploadTask(task)
+        endBackgroundTask(task)
     }
 
     
@@ -1229,7 +1231,7 @@ final class CloudKitController
             return
         }
 
-        let task = createBackgroundUploadTask("Comment")
+        let task = createBackgroundTask("Comment")
 
         let changedCommentsCopy = changedGlidingDayComments
         changedGlidingDayComments.removeAll()
@@ -1289,7 +1291,7 @@ final class CloudKitController
             }
         }
 
-        endBackgroundUploadTask(task)
+        endBackgroundTask(task)
     }
     
     func uploadVehicleChanges(_ recentlyChangedAircraft: AircraftEntity?)
@@ -1305,7 +1307,7 @@ final class CloudKitController
             return
         }
 
-        let task = createBackgroundUploadTask("Vehicle")
+        let task = createBackgroundTask("Vehicle")
 
         let changedVehiclesCopy = changedAircraftEntities
         changedAircraftEntities.removeAll()
@@ -1369,7 +1371,7 @@ final class CloudKitController
             }
         }
 
-        endBackgroundUploadTask(task)
+        endBackgroundTask(task)
     }
     
     func uploadRecord(record: CKRecord?, withID: NSManagedObjectID?)
@@ -1502,18 +1504,21 @@ final class CloudKitController
 
     
     //MARK: - Methods meant to backup and confirm the integrity of the database
-    
+    var BackupDatabaseTask : UIBackgroundTaskIdentifier?
+
     /// Backs up all changes to the current gliding center from the current year. Obtains all changes from other gliding centers from the CloudKit server for the current year.
     func backupDatabase()
     {
-        let task = createBackgroundUploadTask("Backup Database")
+        let task = createBackgroundTask("Backup Database")
         %>{
-            self.syncAllPilots()
-            self.endBackgroundUploadTask(task)
+            self.syncAllPilots() {
+                self.saveBackgroundContext()
+                self.endBackgroundTask(task)
+            }
         }
     }
     
-    func syncAllPilots()
+    func syncAllPilots(closure: @escaping () -> ())
     {
         let pilotRequest = Pilot.request
         let predicate = NSPredicate(format: "%K > %@", argumentArray: [#keyPath(Pilot.recordChangeTime), backupStartDate])
@@ -1546,7 +1551,9 @@ final class CloudKitController
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processPilots(allPilots: allPilots, records: records)}
+                self?.processPilots(allPilots: allPilots, records: records) {
+                    closure()
+                }
             }
             
             if let error = error
@@ -1559,7 +1566,7 @@ final class CloudKitController
         privateDB.add(queryOperation)
     }
     
-    func processPilots(allPilots: [Pilot], records: [CKRecord])
+    func processPilots(allPilots: [Pilot], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allPilots.count) local pilots modified since \(backupStartDate).")
         printLog("There are \(records.count) remote pilots modified since \(backupStartDate).")
@@ -1640,10 +1647,12 @@ final class CloudKitController
         }
         
         saveBackgroundContext()
-        %>{self.syncAttendanceRecords()}
+        self.syncAttendanceRecords() {
+            closure()
+        }
     }
     
-    func syncAttendanceRecords()
+    func syncAttendanceRecords(closure: @escaping () -> ())
     {
         let attendanceRequest = AttendanceRecord.request
         var glidingSiteName = ""
@@ -1680,7 +1689,9 @@ final class CloudKitController
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processAttendanceRecords(allAttendanceRecords: allAttendanceRecords, records: records)}
+                self?.processAttendanceRecords(allAttendanceRecords: allAttendanceRecords, records: records) {
+                    closure()
+                }
             }
             
             if let error = error
@@ -1694,7 +1705,7 @@ final class CloudKitController
         
     }
     
-    func processAttendanceRecords(allAttendanceRecords: [AttendanceRecord], records: [CKRecord])
+    func processAttendanceRecords(allAttendanceRecords: [AttendanceRecord], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allAttendanceRecords.count) local attendance records for the last 180 days")
         printLog("There are \(records.count) remote attendance records for the last 180 days")
@@ -1756,7 +1767,7 @@ final class CloudKitController
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    printLog(error.localizedDescription)
+                    printError("Error during update to attendance records.", error)
                 }
                     
                 else
@@ -1775,10 +1786,12 @@ final class CloudKitController
         }
         
         saveBackgroundContext()
-        %>{self.syncAllVehicles()}
+        self.syncAllVehicles() {
+            closure()
+        }
     }
     
-    func syncAllVehicles()
+    func syncAllVehicles(closure: @escaping () -> ())
     {
         let vehicleRequest = AircraftEntity.request
         let allVehicleRecords = try! backgroundContext.fetch(vehicleRequest)
@@ -1808,7 +1821,9 @@ final class CloudKitController
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processVehicleRecords(allVehicleRecords: allVehicleRecords, records: records)}
+                self?.processVehicleRecords(allVehicleRecords: allVehicleRecords, records: records) {
+                    closure()
+                }
             }
             
             if let error = error
@@ -1819,10 +1834,9 @@ final class CloudKitController
         
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
         privateDB.add(queryOperation)
-        
     }
     
-    func processVehicleRecords(allVehicleRecords: [AircraftEntity], records: [CKRecord])
+    func processVehicleRecords(allVehicleRecords: [AircraftEntity], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allVehicleRecords.count) local vehicles")
         printLog("There are \(records.count) remote vehicles")
@@ -1903,10 +1917,12 @@ final class CloudKitController
         }
         
         saveBackgroundContext()
-        %>{self.syncTimesheets()}
+        self.syncTimesheets() {
+            closure()
+        }
     }
     
-    func syncTimesheets()
+    func syncTimesheets(closure: @escaping () -> ())
     {
         let timesheetRequest = AircraftTimesheet.request
         var glidingSiteName = ""
@@ -1951,8 +1967,8 @@ final class CloudKitController
                 ~>{
                     UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})
                 }
-                %>{
-                    self?.processTimesheetRecords(allTimesheetRecords: allTimesheetRecords, records: records)
+                self?.processTimesheetRecords(allTimesheetRecords: allTimesheetRecords, records: records) {
+                    closure()
                 }
             }
         }
@@ -1963,7 +1979,7 @@ final class CloudKitController
 
     }
     
-    func processTimesheetRecords(allTimesheetRecords: [AircraftTimesheet], records: [CKRecord])
+    func processTimesheetRecords(allTimesheetRecords: [AircraftTimesheet], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allTimesheetRecords.count) local timesheet records for the last 180 days")
         printLog("There are \(records.count) remote timesheet records for the last 180 days")
@@ -2051,10 +2067,12 @@ final class CloudKitController
         }
         
         saveBackgroundContext()
-        %>{self.syncFlightRecords()}
+        self.syncFlightRecords() {
+            closure()
+        }
     }
 
-    func syncFlightRecords()
+    func syncFlightRecords(closure: @escaping () -> ())
     {
         let flightRecordRequest = FlightRecord.request
         var glidingSiteName = ""
@@ -2091,7 +2109,9 @@ final class CloudKitController
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processFlightRecords(allFlightRecords: allFlightRecords, records: records)}
+                self?.processFlightRecords(allFlightRecords: allFlightRecords, records: records) {
+                    closure()
+                }
             }
             
             if let error = error
@@ -2103,7 +2123,7 @@ final class CloudKitController
         
     }
     
-    func processFlightRecords(allFlightRecords: [FlightRecord], records: [CKRecord])
+    func processFlightRecords(allFlightRecords: [FlightRecord], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allFlightRecords.count) local flight records for the last 180 days")
         printLog("There are \(records.count) remote flight records for the last 180 days")
@@ -2186,10 +2206,12 @@ final class CloudKitController
         }
         
         saveBackgroundContext()
-        %>{self.syncComments()}
+        self.syncComments() {
+            closure()
+        }
     }
     
-    func syncComments()
+    func syncComments(closure: @escaping () -> ())
     {
         let commentRequest = GlidingDayComment.request
         var glidingSiteName = ""
@@ -2226,7 +2248,9 @@ final class CloudKitController
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processCommentRecords(allCommentRecords: allCommentRecords, records: records)}
+                self?.processCommentRecords(allCommentRecords: allCommentRecords, records: records) {
+                    closure()
+                }
             }
             
             if let error = error
@@ -2238,7 +2262,7 @@ final class CloudKitController
         
     }
     
-    func processCommentRecords(allCommentRecords: [GlidingDayComment], records: [CKRecord])
+    func processCommentRecords(allCommentRecords: [GlidingDayComment], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allCommentRecords.count) local comments for the last 180 days")
         printLog("There are \(records.count) remote comments for the last 180 days")
@@ -2319,10 +2343,12 @@ final class CloudKitController
         }
         
         saveBackgroundContext()
-        %>{self.syncAllMaintenanceIssues()}
+        self.syncAllMaintenanceIssues() {
+            closure()
+        }
     }
 
-    func syncAllMaintenanceIssues()
+    func syncAllMaintenanceIssues(closure: @escaping () -> ())
     {
         let issueRequest = MaintenanceEvent.request
         let predicate = NSPredicate(format: "%K > %@", argumentArray: [#keyPath(MaintenanceEvent.recordChangeTime), backupStartDate])
@@ -2354,7 +2380,9 @@ final class CloudKitController
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                %>{self?.processMaintenanceIssues(allIssues: allIssues, records: records)}
+                self?.processMaintenanceIssues(allIssues: allIssues, records: records) {
+                    closure()
+                }
             }
             
             if let error = error
@@ -2365,7 +2393,7 @@ final class CloudKitController
         privateDB.add(queryOperation)
     }
     
-    func processMaintenanceIssues(allIssues: [MaintenanceEvent], records: [CKRecord])
+    func processMaintenanceIssues(allIssues: [MaintenanceEvent], records: [CKRecord], closure: @escaping () -> ())
     {
         printLog("There are \(allIssues.count) local issues")
         printLog("There are \(records.count) remote issues")
@@ -2437,6 +2465,8 @@ final class CloudKitController
                         printLog("Modifying issues complete")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
+
+                    closure()
                 }
             }
             
@@ -2444,7 +2474,8 @@ final class CloudKitController
             privateDB.add(modifyOperation)
         }
         
-        saveBackgroundContext()
+//        saveBackgroundContext()
+//        closure()
     }
     
     //MARK: - Methods that generate a NSManagedObject based on a CKRecord
@@ -3753,14 +3784,14 @@ final class CloudKitController
         }
     }
 
-    func createBackgroundUploadTask(_ name : String, _ file : String = #file, _ function : String = #function, _ line : Int = #line) -> UIBackgroundTaskIdentifier
+    func createBackgroundTask(_ name : String, _ file : String = #file, _ function : String = #function, _ line : Int = #line) -> UIBackgroundTaskIdentifier
     {
         let task = UIApplication.shared.beginBackgroundTask(withName: name)
         printDebug("Starting backgroundUploadTask \(name) : \(task)", file, function, line)
         return task
     }
 
-    func endBackgroundUploadTask(_ task : UIBackgroundTaskIdentifier, _ file : String = #file, _ function : String = #function, _ line : Int = #line)
+    func endBackgroundTask(_ task : UIBackgroundTaskIdentifier, _ file : String = #file, _ function : String = #function, _ line : Int = #line)
     {
         printDebug("Ending the backgroundUploadTask \(task)", file, function, line)
         UIApplication.shared.endBackgroundTask(task)
