@@ -209,6 +209,7 @@
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F3011743234D750800830EE9 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* Formatters.swift */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
+		F322A5CE278615EC00D30665 /* CloudKitControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */; };
 		F33B3F112393744800109B31 /* TimesheetsForDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33B3F102393744800109B31 /* TimesheetsForDate.swift */; };
 		F33BD5A92384DF1B00D121B9 /* Distributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5A82384DF1B00D121B9 /* Distributor.swift */; };
 		F33BD5AB2384DFB500D121B9 /* ReportProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */; };
@@ -515,6 +516,7 @@
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		F3011742234D750800830EE9 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
+		F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitControllerTests.swift; sourceTree = "<group>"; };
 		F33B3F102393744800109B31 /* TimesheetsForDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetsForDate.swift; sourceTree = "<group>"; };
 		F33BD5A82384DF1B00D121B9 /* Distributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distributor.swift; sourceTree = "<group>"; };
 		F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProducer.swift; sourceTree = "<group>"; };
@@ -1022,6 +1024,7 @@
 				F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */,
 				F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */,
 				335CEFCE23ABB6C300CE00CF /* PredicateTests.swift */,
+				F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1686,6 +1689,7 @@
 				F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */,
 				F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
+				F322A5CE278615EC00D30665 /* CloudKitControllerTests.swift in Sources */,
 				F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */,
 				335CEFCF23ABB6C300CE00CF /* PredicateTests.swift in Sources */,
 			);

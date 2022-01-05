@@ -67,8 +67,18 @@ final class CloudKitController
     var backgroundUploadTask: UIBackgroundTaskIdentifier?
     var backgroundDownloadTask: UIBackgroundTaskIdentifier?
 
-    lazy var backupStartDate = Date.startOfYear
-    
+    // the backup start date is the begining of the year OR the year before (up to March)
+    lazy var backupStartDate : Date =
+    {
+        () -> Date in
+        printDebug("Called the backupStartDate initializer...")
+        var components = gregorian.dateComponents([.year,.month], from: Date())
+        components.year = (components.month! < 4 ? components.year! - 1 : components.year)
+        components.month = 1
+        components.day = 1
+        return gregorian.date(from: components) ?? Date()
+    }()
+
     let localURL: URL =
     {
         let applicationDocumentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? ""
@@ -76,7 +86,39 @@ final class CloudKitController
         
         return URL(fileURLWithPath: storePath)
     }()
-    
+
+    class func partitionArray<T>(_ newRecords : [T], by size: Int = 100) -> [[T]]
+    {
+        var portionedArray = [[T]]()
+
+        for startIndex in stride(from: 0, to: newRecords.count, by: size)
+        {
+            portionedArray.append(Array(newRecords[startIndex..<min(startIndex + size, newRecords.count)]))
+        }
+
+        return portionedArray
+    }
+
+    func showUploadProgress()
+    {
+        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+    }
+
+    func hideUploadProgress()
+    {
+        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+    }
+
+    func showDownloadProgress()
+    {
+        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+    }
+
+    func hideDownloadProgress()
+    {
+        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+    }
+
     func createDatabaseSubscriptionOperation(subscriptionId: String) -> CKModifySubscriptionsOperation
     {
         let subscription = CKDatabaseSubscription.init(subscriptionID: subscriptionId)
@@ -330,10 +372,10 @@ final class CloudKitController
         switch databaseScope
         {
         case .private:
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+            showDownloadProgress()
             fetchDatabaseChanges(database: privateDB, databaseTokenKey: "private", completion: completion)
         case .shared:
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+            showDownloadProgress()
             fetchDatabaseChanges(database: sharedDB, databaseTokenKey: "shared", completion: completion)
         case .public:
             fatalError()
@@ -416,7 +458,7 @@ final class CloudKitController
                 }
             }
             
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+            self.hideDownloadProgress()
         }
         operation.qualityOfService = .userInitiated
         
@@ -525,7 +567,7 @@ final class CloudKitController
         operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
         
             self.processRemoteChanges()
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+            self.hideDownloadProgress()
 
             if let error = error
             {
@@ -818,7 +860,7 @@ final class CloudKitController
             UserDefaults().subscribedToSharedChanges = false
         }
     }
-    
+
     //MARK: - Methods that are called when a NSManagedObject instance is changed
     
     func uploadPilotChanges(_ recentlyChangedPilot: Pilot?)
@@ -826,7 +868,7 @@ final class CloudKitController
         if let objectID = recentlyChangedPilot?.objectID
         {
             changedPilots.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         if networkReachable == false
@@ -925,7 +967,7 @@ final class CloudKitController
         if let objectID = recentlyChangedRecord?.objectID
         {
             changedAttendanceRecords.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         if networkReachable == false
@@ -1000,7 +1042,7 @@ final class CloudKitController
         if let objectID = recentlyChangedRecord?.objectID
         {
             changedFlightRecords.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         if networkReachable == false
@@ -1075,7 +1117,7 @@ final class CloudKitController
         if let objectID = recentlyChangedRecord?.objectID
         {
             changedTimesheets.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         if networkReachable == false
@@ -1151,7 +1193,7 @@ final class CloudKitController
         if let objectID = recentlyChangedRecord?.objectID
         {
             changedMaintenanceIssues.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         if networkReachable == false
@@ -1228,7 +1270,7 @@ final class CloudKitController
         if let objectID = recentlyChangedRecord?.objectID
         {
             changedGlidingDayComments.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         if networkReachable == false
@@ -1304,7 +1346,7 @@ final class CloudKitController
         if let objectID = recentlyChangedAircraft?.objectID
         {
             changedAircraftEntities.insert(objectID)
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
 
         if networkReachable == false
@@ -1455,7 +1497,7 @@ final class CloudKitController
                 }
 
                 printLog("Let the good times roll")
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                self.hideUploadProgress()
             }
             
             modifyOperation.queuePriority = .normal
@@ -1465,7 +1507,7 @@ final class CloudKitController
         
         else if recordsInProcessing == 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+            self.hideUploadProgress()
         }
     }
     
@@ -1554,7 +1596,7 @@ final class CloudKitController
             }
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+                self?.hideDownloadProgress()
                 self?.processPilots(localPilots: allPilots, remotePilots: records) {
                     closure()
                 }
@@ -1565,10 +1607,8 @@ final class CloudKitController
                 printError("Error during syncAllPilots query.", error)
             }
         }
-        
-        ~>{
-            UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})
-        }
+
+        showDownloadProgress()
         privateDB.add(queryOperation)
     }
     
@@ -1605,20 +1645,12 @@ final class CloudKitController
         }
 
         // Split cloud records in batches
-        var batchArray = [[CKRecord]]()
         printLog("There are \(newRecords.count) pilots to upload.")
+        let batchArray = CloudKitController.partitionArray(newRecords)
 
-        while newRecords.count > 100
-        {
-            batchArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        batchArray.append(newRecords)
-        
         if batchArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
 
         // process each batch of pilots.
@@ -1647,7 +1679,7 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("The last modify pilots operation completed (\(idx+1) of \(batchArray.count))")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
                     }
                     else
                     {
@@ -1702,7 +1734,7 @@ final class CloudKitController
                 
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+                self?.hideDownloadProgress()
                 self?.processAttendanceRecords(allAttendanceRecords: allAttendanceRecords, records: records) {
                     closure()
                 }
@@ -1713,16 +1745,15 @@ final class CloudKitController
                 printError("Error during syncAttendanceRecords query.", error)
             }
         }
-        
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+
+        showDownloadProgress()
         privateDB.add(queryOperation)
-        
     }
     
     func processAttendanceRecords(allAttendanceRecords: [AttendanceRecord], records: [CKRecord], closure: @escaping () -> ())
     {
-        printLog("There are \(allAttendanceRecords.count) local attendance records for the last 180 days")
-        printLog("There are \(records.count) remote attendance records for the last 180 days")
+        printLog("There are \(allAttendanceRecords.count) local attendance records since \(backupStartDate)")
+        printLog("There are \(records.count) remote attendance records since \(backupStartDate)")
         
         var allAttendanceRecordsSet = Set<AttendanceRecord>(allAttendanceRecords)
         
@@ -1746,23 +1777,16 @@ final class CloudKitController
             {
                 newRecords.append(createAttendanceRecordRecordFrom(attendanceRecord))
                 count -= 1
-                printLog("There are \(count) attendance records left to process")
             }
         }
-        
-        var portionedArray = [[CKRecord]]()
-        
-        while newRecords.count > 100
-        {
-            portionedArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        portionedArray.append(newRecords)
-        
+
+        printLog("There are \(count) attendance records left to process")
+
+        let portionedArray = CloudKitController.partitionArray(newRecords)
+
         if portionedArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         for array in portionedArray
@@ -1790,7 +1814,7 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("Modifying attendance records complete")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
                     }
                 }
             }
@@ -1834,7 +1858,7 @@ final class CloudKitController
                 
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+                self?.hideDownloadProgress()
                 self?.processVehicleRecords(allVehicleRecords: allVehicleRecords, records: records) {
                     closure()
                 }
@@ -1846,7 +1870,7 @@ final class CloudKitController
             }
         }
         
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+        showDownloadProgress()
         privateDB.add(queryOperation)
     }
     
@@ -1877,23 +1901,16 @@ final class CloudKitController
             {
                 newRecords.append(createVehicleRecordFrom(vehicleRecord))
                 count -= 1
-                printLog("There are \(count) vehicles left to process")
             }
         }
-        
-        var portionedArray = [[CKRecord]]()
-        
-        while newRecords.count > 100
-        {
-            portionedArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        portionedArray.append(newRecords)
-        
+
+        printLog("There are \(count) vehicles left to process")
+
+        let portionedArray = CloudKitController.partitionArray(newRecords)
+
         if portionedArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         for array in portionedArray
@@ -1921,7 +1938,7 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("Modifying vehicles complete")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
                     }
                 }
             }
@@ -1978,25 +1995,22 @@ final class CloudKitController
             }
             else
             {
-                ~>{
-                    UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})
-                }
+                self?.hideDownloadProgress()
                 self?.processTimesheetRecords(allTimesheetRecords: allTimesheetRecords, records: records) {
                     closure()
                 }
             }
         }
         
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+        showDownloadProgress()
         printLog("Adding queryOperation \(queryOperation.query.debugDescription) to privateDB \(privateDB.debugDescription)")
         privateDB.add(queryOperation)
-
     }
     
     func processTimesheetRecords(allTimesheetRecords: [AircraftTimesheet], records: [CKRecord], closure: @escaping () -> ())
     {
-        printLog("There are \(allTimesheetRecords.count) local timesheet records for the last 180 days")
-        printLog("There are \(records.count) remote timesheet records for the last 180 days")
+        printLog("There are \(allTimesheetRecords.count) local timesheet records since \(backupStartDate)")
+        printLog("There are \(records.count) remote timesheet records since \(backupStartDate)")
         
         var allTimesheetRecordsSet = Set<AircraftTimesheet>(allTimesheetRecords)
 
@@ -2025,24 +2039,16 @@ final class CloudKitController
             {
                 newRecords.append(createTimesheetRecordFrom(timesheetRecord))
                 count -= 1
-                printLog("There are \(count) timesheets left to process")
             }
         }
 
+        printLog("There are \(count) timesheets left to process")
         printLog("Setting up newRecords into portionedArray (block of 100)")
-        var portionedArray = [[CKRecord]]()
-        
-        while newRecords.count > 100
-        {
-            portionedArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        portionedArray.append(newRecords)
-        
+        let portionedArray = CloudKitController.partitionArray(newRecords)
+
         if portionedArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
 
         printLog("Processing portionedArray; \(portionedArray.count) block to process.")
@@ -2071,7 +2077,7 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("Modifying timesheet records complete")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
                     }
                 }
             }
@@ -2122,7 +2128,7 @@ final class CloudKitController
                 
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+                self?.hideDownloadProgress()
                 self?.processFlightRecords(allFlightRecords: allFlightRecords, records: records) {
                     closure()
                 }
@@ -2132,15 +2138,14 @@ final class CloudKitController
             {printLog("Error during syncFlightRecords query: \(error)")}
         }
         
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+        showDownloadProgress()
         privateDB.add(queryOperation)
-        
     }
-    
+
     func processFlightRecords(allFlightRecords: [FlightRecord], records: [CKRecord], closure: @escaping () -> ())
     {
-        printLog("There are \(allFlightRecords.count) local flight records for the last 180 days")
-        printLog("There are \(records.count) remote flight records for the last 180 days")
+        printLog("There are \(allFlightRecords.count) local flight records since \(backupStartDate)")
+        printLog("There are \(records.count) remote flight records since \(backupStartDate)")
         
         var allFlightRecordsSet = Set<FlightRecord>(allFlightRecords)
         
@@ -2166,23 +2171,15 @@ final class CloudKitController
             {
                 newRecords.append(createFlightRecordRecordFrom(flightRecord))
                 count -= 1
-                printLog("There are \(count) flight records left to process")
             }
         }
-        
-        var portionedArray = [[CKRecord]]()
-        
-        while newRecords.count > 100
-        {
-            portionedArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        portionedArray.append(newRecords)
-        
+        printLog("There are \(count) flight records left to process")
+
+        let portionedArray = CloudKitController.partitionArray(newRecords)
+
         if portionedArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         for array in portionedArray
@@ -2194,14 +2191,14 @@ final class CloudKitController
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    printLog(error.localizedDescription)
+                    printError("Error on perRecordCompletionBlock during processFlightRecords", error)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    printLog(error.localizedDescription)
+                    printError("Error on modifyRecordsCompletionBlock during processFlightRecords", error)
                 }
                     
                 else
@@ -2210,7 +2207,7 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("Modifying flight records complete")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
                     }
                 }
             }
@@ -2261,7 +2258,7 @@ final class CloudKitController
                 
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+                self?.hideDownloadProgress()
                 self?.processCommentRecords(allCommentRecords: allCommentRecords, records: records) {
                     closure()
                 }
@@ -2270,16 +2267,15 @@ final class CloudKitController
             if let error = error
             {printLog("Error during sync comments query: \(error)")}
         }
-        
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+
+        showDownloadProgress()
         privateDB.add(queryOperation)
-        
     }
     
     func processCommentRecords(allCommentRecords: [GlidingDayComment], records: [CKRecord], closure: @escaping () -> ())
     {
-        printLog("There are \(allCommentRecords.count) local comments for the last 180 days")
-        printLog("There are \(records.count) remote comments for the last 180 days")
+        printLog("There are \(allCommentRecords.count) local comments since \(backupStartDate)")
+        printLog("There are \(records.count) remote comments since \(backupStartDate)")
         
         var allCommentRecordsSet = Set<GlidingDayComment>(allCommentRecords)
         
@@ -2303,23 +2299,15 @@ final class CloudKitController
             {
                 newRecords.append(createGlidingDayCommentRecordFrom(commentRecord))
                 count -= 1
-                printLog("There are \(count) comments left to process")
             }
         }
-        
-        var portionedArray = [[CKRecord]]()
-        
-        while newRecords.count > 100
-        {
-            portionedArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        portionedArray.append(newRecords)
-        
+        printLog("There are \(count) comments left to process")
+
+        let portionedArray = CloudKitController.partitionArray(newRecords)
+
         if portionedArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
         }
         
         for array in portionedArray
@@ -2347,7 +2335,7 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("Modifying comments complete")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
                     }
                 }
             }
@@ -2393,7 +2381,7 @@ final class CloudKitController
                 
             else
             {
-                ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
+                self?.hideDownloadProgress()
                 self?.processMaintenanceIssues(allIssues: allIssues, records: records) {
                     closure()
                 }
@@ -2403,7 +2391,7 @@ final class CloudKitController
             {printLog("Error during sync all issues query: \(error)")}
         }
         
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+        showDownloadProgress()
         privateDB.add(queryOperation)
     }
     
@@ -2437,19 +2425,16 @@ final class CloudKitController
             printLog("There are \(count) issues left to process")
         }
         
-        var batchArray = [[CKRecord]]()
-        
-        while newRecords.count > 100
-        {
-            batchArray.append(Array(newRecords[0...99]))
-            newRecords.removeSubrange(0...99)
-        }
-        
-        batchArray.append(newRecords)
-        
+        let batchArray = CloudKitController.partitionArray(newRecords)
+
         if batchArray.count > 0
         {
-            ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
+            showUploadProgress()
+        }
+        else
+        {
+            // if there nothing else to process... we must call the closure here. Otherwise, it will be called later.
+            closure()
         }
 
         for (idx,batch) in batchArray.enumerated()
@@ -2476,15 +2461,15 @@ final class CloudKitController
                     if isFinalModifyOperation
                     {
                         printLog("The last maintenance issues operation completed (\(idx+1) of \(batchArray.count), batchSize= \(batch.count))")
-                        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                        self.hideUploadProgress()
+                        // This is the last opportunity to call the closure to save background context and end background task.
+                        closure()
                     }
                     else
                     {
                         printLog("A modify maintenance operation was completed (\(idx+1) of \(batchArray.count), batchSize= \(batch.count)")
                     }
                 }
-
-                closure()
             }
             
             modifyOperation.queuePriority = .veryHigh
