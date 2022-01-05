@@ -278,9 +278,9 @@ final class CloudKitController
         printLog("Returning from...")
     }
     
-    func saveBackgroundContext()
+    func saveBackgroundContext(_ file : String = #file, _ function : String = #function, _ line : Int = #line)
     {
-        printLog("saveBackgroundContext")
+        printLog("saveBackgroundContext from", file, function, line)
 
         shouldUpdateChangeTimes = false
         
@@ -569,6 +569,7 @@ final class CloudKitController
     
     func processRemoteChanges()
     {
+        printLog("Start of processRemoteChanges")
         for record in pilotsRecordsRemotelyUpdated
         {
             %>{_ = self.updatePilotToMatchRecord(record)}
@@ -610,12 +611,14 @@ final class CloudKitController
             %>{_ = self.updateMaintenanceIssueToMatchRecord(record)}
         }
         MaintenanceIssuesRemotelyUpdated.removeAll()
-        
+
+        printDebug("End of processRemoteChanges before endBackgroundTask(backgroundDownloadTask: \(String(describing: backgroundDownloadTask))")
         if let backgroundDownloadTask = backgroundDownloadTask
         {
             UIApplication.shared.endBackgroundTask(backgroundDownloadTask)
             self.backgroundDownloadTask = nil
         }
+
     }
     
     //MARK: - Configuring Sharing
@@ -898,11 +901,13 @@ final class CloudKitController
                             let changeTime = record?["recordChangeTime"] as? Date ?? Date.distantPast
                             if changeTime < changedPilot.recordChangeTime
                             {
+                                // update the cloud copy
                                 _ = self.createPilotRecordFrom(changedPilot, withExistingRecord: record)
                                 self.uploadRecord(record: record!, withID: objectID)
                             }
                             else
                             {
+                                // ignore the local copy because the cloud copy is newer.
                                 self.recordsInProcessing -= 1
                                 printLog("There are \(self.recordsInProcessing) records in processing")
                             }
@@ -1547,11 +1552,10 @@ final class CloudKitController
                 queryOperation = newQueryOperation
                 self!.privateDB.add(newQueryOperation)
             }
-
             else
             {
                 ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
-                self?.processPilots(allPilots: allPilots, records: records) {
+                self?.processPilots(localPilots: allPilots, remotePilots: records) {
                     closure()
                 }
             }
@@ -1562,82 +1566,92 @@ final class CloudKitController
             }
         }
         
-        ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})}
+        ~>{
+            UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 1})
+        }
         privateDB.add(queryOperation)
     }
     
-    func processPilots(allPilots: [Pilot], records: [CKRecord], closure: @escaping () -> ())
+    func processPilots(localPilots: [Pilot], remotePilots: [CKRecord], closure: @escaping () -> ())
     {
-        printLog("There are \(allPilots.count) local pilots modified since \(backupStartDate).")
-        printLog("There are \(records.count) remote pilots modified since \(backupStartDate).")
+        printLog("There are \(localPilots.count) local pilots modified since \(backupStartDate).")
+        printLog("There are \(remotePilots.count) remote pilots modified since \(backupStartDate).")
 
-        var allPilotsSet = Set<Pilot>(allPilots)
+        // remove pilot already in cloud
+        var localPilotsSet = Set<Pilot>(localPilots)
         
-        for record in records
+        for remotePilot in remotePilots
         {
-            let pilot = self.updatePilotToMatchRecord(record)
-            let dateModifiedInCloud = record["recordChangeTime"] as! Date
-            if pilot.recordChangeTime <= dateModifiedInCloud, record.parent != nil
+            let localPilot = self.updatePilotToMatchRecord(remotePilot)
+            let dateModifiedInCloud = remotePilot["recordChangeTime"] as! Date
+            if localPilot.recordChangeTime <= dateModifiedInCloud, remotePilot.parent != nil
             {
-                allPilotsSet.remove(pilot)
+                localPilotsSet.remove(localPilot)
             }
         }
-        
-        var count = allPilotsSet.count
-        
+
+        // if need to update cloud, prepare record to upload
+        var count = localPilotsSet.count
         var newRecords = [CKRecord]()
-        
+        printLog("There are \(count) pilots left to process.")
+
         if UserDefaults().viewSharedDatabase == false
         {
-            for pilot in allPilotsSet
+            for localPilot in localPilotsSet
             {
-                newRecords.append(createPilotRecordFrom(pilot))
+                newRecords.append(createPilotRecordFrom(localPilot))
                 count -= 1
-                printLog("There are \(count) pilots left to process")
             }
         }
-        
-        var portionedArray = [[CKRecord]]()
-        
+
+        // Split cloud records in batches
+        var batchArray = [[CKRecord]]()
+        printLog("There are \(newRecords.count) pilots to upload.")
+
         while newRecords.count > 100
         {
-            portionedArray.append(Array(newRecords[0...99]))
+            batchArray.append(Array(newRecords[0...99]))
             newRecords.removeSubrange(0...99)
         }
         
-        portionedArray.append(newRecords)
+        batchArray.append(newRecords)
         
-        if portionedArray.count > 0
+        if batchArray.count > 0
         {
             ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
         }
-        
-        for array in portionedArray
+
+        // process each batch of pilots.
+        printLog("There are \(batchArray.count) batch of pilots to process.")
+        for (idx,batch) in batchArray.enumerated()
         {
-            let isFinalModifyOperation = array == portionedArray.last! ? true : false
-            let modifyOperation = CKModifyRecordsOperation(recordsToSave: array, recordIDsToDelete: nil)
+            let isFinalModifyOperation = batch == batchArray.last! ? true : false
+            let modifyOperation = CKModifyRecordsOperation(recordsToSave: batch, recordIDsToDelete: nil)
             modifyOperation.savePolicy = .allKeys
             modifyOperation.isAtomic = false
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    printError("For pilot record.", error)
+                    printError("Error for pilot record.", error)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    printError("While modifyRecords for pilots.", error)
+                    printError("While modifyRecords for pilots (\(idx+1) of \(batchArray.count))", error)
                 }
                     
                 else
                 {
-                    printLog("A modify pilots operation was completed")
                     if isFinalModifyOperation
                     {
-                        printLog("Modifying pilots complete")
+                        printLog("The last modify pilots operation completed (\(idx+1) of \(batchArray.count))")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
+                    }
+                    else
+                    {
+                        printLog("A modify pilots operation was completed (\(idx+1) of \(batchArray.count))")
                     }
                 }
             }
@@ -2398,7 +2412,7 @@ final class CloudKitController
         printLog("There are \(allIssues.count) local issues")
         printLog("There are \(records.count) remote issues")
         
-        var allIssuesSet = Set(allIssues)
+        var localIssues = Set(allIssues)
         
         for record in records
         {
@@ -2406,76 +2420,76 @@ final class CloudKitController
             let dateModifiedInCloud = record["recordChangeTime"] as! Date
             if issue.recordChangeTime <= dateModifiedInCloud, record.parent != nil
             {
-                allIssuesSet.remove(issue)
+                localIssues.remove(issue)
             }
         }
         
-        var count = allIssuesSet.count
+        var count = localIssues.count
         var newRecords = [CKRecord]()
         
         if UserDefaults().viewSharedDatabase == false
         {
-            for issue in allIssuesSet
+            for issue in localIssues
             {
                 newRecords.append(createMaintenanceIssueRecordFrom(issue))
                 count -= 1
-                printLog("There are \(count) issues left to process")
             }
+            printLog("There are \(count) issues left to process")
         }
         
-        var portionedArray = [[CKRecord]]()
+        var batchArray = [[CKRecord]]()
         
         while newRecords.count > 100
         {
-            portionedArray.append(Array(newRecords[0...99]))
+            batchArray.append(Array(newRecords[0...99]))
             newRecords.removeSubrange(0...99)
         }
         
-        portionedArray.append(newRecords)
+        batchArray.append(newRecords)
         
-        if portionedArray.count > 0
+        if batchArray.count > 0
         {
             ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 1})}
         }
-        
-        for array in portionedArray
+
+        for (idx,batch) in batchArray.enumerated()
         {
-            let isFinalModifyOperation = array == portionedArray.last! ? true : false
-            let modifyOperation = CKModifyRecordsOperation(recordsToSave: array, recordIDsToDelete: nil)
+            let isFinalModifyOperation = batch == batchArray.last! ? true : false
+            let modifyOperation = CKModifyRecordsOperation(recordsToSave: batch, recordIDsToDelete: nil)
             modifyOperation.isAtomic = false
             modifyOperation.savePolicy = .allKeys
             modifyOperation.perRecordCompletionBlock = {(record, error) in
                 if let error = error
                 {
-                    printLog(error.localizedDescription)
+                    printError("Error during maintenance issue update", error)
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    printLog(error.localizedDescription)
+                    printError("Error during maintenance issues update (\(idx) of \(batchArray.count))", error)
                 }
                     
                 else
                 {
-                    printLog("A modify issues operation was completed")
                     if isFinalModifyOperation
                     {
-                        printLog("Modifying issues complete")
+                        printLog("The last maintenance issues operation completed (\(idx+1) of \(batchArray.count), batchSize= \(batch.count))")
                         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.uploadsInProgress?.alpha = 0})}
                     }
-
-                    closure()
+                    else
+                    {
+                        printLog("A modify maintenance operation was completed (\(idx+1) of \(batchArray.count), batchSize= \(batch.count)")
+                    }
                 }
+
+                closure()
             }
             
             modifyOperation.queuePriority = .veryHigh
             privateDB.add(modifyOperation)
         }
-        
-//        saveBackgroundContext()
-//        closure()
     }
     
     //MARK: - Methods that generate a NSManagedObject based on a CKRecord
