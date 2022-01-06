@@ -119,21 +119,6 @@ final class CloudKitController
         ~>{UIView.animate(withDuration: 0.2, animations: {dataModel.downloadsInProgress?.alpha = 0})}
     }
 
-    func createDatabaseSubscriptionOperation(subscriptionId: String) -> CKModifySubscriptionsOperation
-    {
-        let subscription = CKDatabaseSubscription.init(subscriptionID: subscriptionId)
-        
-        let notificationInfo = CKSubscription.NotificationInfo()
-        // send a silent notification
-        notificationInfo.shouldSendContentAvailable = true
-        subscription.notificationInfo = notificationInfo
-        
-        let operation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription], subscriptionIDsToDelete: [])
-        operation.qualityOfService = .utility
-        
-        return operation
-    }
-    
     func purgeSavedEntityLists()
     {
         UserDefaults().attendanceRecordsToBeUploaded = nil
@@ -195,7 +180,7 @@ final class CloudKitController
         deleteFlightRecord(nil)
         printLog("Done uploadPendingChanges.")
     }
-    
+
     init()
     {
         if let reachability = reachability
@@ -220,14 +205,8 @@ final class CloudKitController
         
         if UserDefaults().subscribedToPrivateChanges == false
         {
-            let createSubscriptionOperation = createDatabaseSubscriptionOperation(subscriptionId: privateSubscriptionId)
-            createSubscriptionOperation.modifySubscriptionsCompletionBlock = { (subscriptions, deletedIds, error) in
-                if error == nil {UserDefaults().subscribedToPrivateChanges = true}
-                // else custom error handling
-            }
-            self.privateDB.add(createSubscriptionOperation)
+            initiatePrivateDatabaseSubscription()
         }
-        
         else
         {
             privateDB.fetchAllSubscriptions(completionHandler: {subscriptions, error in
@@ -239,7 +218,7 @@ final class CloudKitController
                     {
                         if let _ = subscriptionObject as? CKDatabaseSubscription
                         {
-                            printLog("Private DB Subscription found")
+                            printDebug("Private DB Subscription found")
                             DBsubscriptionFound = true
                             break
                         }
@@ -247,14 +226,13 @@ final class CloudKitController
                     
                     if DBsubscriptionFound == false
                     {
-                        printLog("DB Subscription not found, will attempt to create")
-                        let createSubscriptionOperation = self.createDatabaseSubscriptionOperation(subscriptionId: self.privateSubscriptionId)
-                        createSubscriptionOperation.modifySubscriptionsCompletionBlock = { (subscriptions, deletedIds, error) in
-                            if error == nil {UserDefaults().subscribedToPrivateChanges = true}
-                            // else custom error handling
-                        }
-                        self.privateDB.add(createSubscriptionOperation)
+                        printDebug("DB Subscription not found, will attempt to create")
+                        self.initiatePrivateDatabaseSubscription()
                     }
+                }
+                else if let error = error
+                {
+                    printError("Error during fetchAllSubscriptions", error)
                 }
             })
         }
@@ -264,11 +242,13 @@ final class CloudKitController
         {
             if UserDefaults().createdCustomZone && UserDefaults().viewSharedDatabase == false
             {
+                printDebug("Fetch changes from private database.")
                 self.fetchChanges(in: .private) {}
             }
             
             if UserDefaults().viewSharedDatabase == true
             {
+                printDebug("Fetch changes from shared database.")
                 self.fetchChanges(in: .shared) {}
             }
         }
@@ -294,8 +274,8 @@ final class CloudKitController
             group.leave()
         }
         self.privateDB.add(fetchZoneOp)
-        _ = group.wait(timeout: DispatchTime(uptimeNanoseconds: 12000))
-        printLog("Returning from...")
+        _ = group.wait(timeout: .now() + 4)
+        printLog("Returning \(zoneExists)")
         return zoneExists
     }
     
@@ -316,10 +296,42 @@ final class CloudKitController
             printLog("Leaving ... ")
             group.leave()
         })
-        _ = group.wait(timeout: DispatchTime(uptimeNanoseconds: 2000))
+        group.wait()
         printLog("Returning from...")
     }
-    
+
+    func initiatePrivateDatabaseSubscription()
+    {
+        let createSubscriptionOperation = createDatabaseSubscriptionOperation(subscriptionId: privateSubscriptionId)
+        createSubscriptionOperation.modifySubscriptionsCompletionBlock = { (subscriptions, deletedIds, error) in
+            if error == nil
+            {
+                UserDefaults().subscribedToPrivateChanges = true
+                printDebug("Subscribed to private changes (subscriptions=\(String(describing: subscriptions)), deletedIds=\(String(describing: deletedIds))")
+            }
+            else
+            {
+                printError("Error subscribing to privateDB", error)
+            }
+        }
+        self.privateDB.add(createSubscriptionOperation)
+    }
+
+    func createDatabaseSubscriptionOperation(subscriptionId: String) -> CKModifySubscriptionsOperation
+    {
+        let subscription = CKDatabaseSubscription.init(subscriptionID: subscriptionId)
+
+        let notificationInfo = CKSubscription.NotificationInfo()
+        // send a silent notification
+        notificationInfo.shouldSendContentAvailable = true
+        subscription.notificationInfo = notificationInfo
+
+        let operation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription], subscriptionIDsToDelete: [])
+        operation.qualityOfService = .utility
+
+        return operation
+    }
+
     func saveBackgroundContext(_ file : String = #file, _ function : String = #function, _ line : Int = #line)
     {
         printLog("saveBackgroundContext from", file, function, line)
@@ -357,8 +369,16 @@ final class CloudKitController
         dispatchGroup.enter()
         let customZone = CKRecordZone(zoneID: zoneID)
         let createZoneOperation = CKModifyRecordZonesOperation(recordZonesToSave: [customZone], recordZoneIDsToDelete: [] )
-        createZoneOperation.modifyRecordZonesCompletionBlock = { (saved, deleted, error) in
-            if (error == nil) {UserDefaults().createdCustomZone = true; printLog("Zone \(self.zoneID) created")}
+        createZoneOperation.modifyRecordZonesCompletionBlock = { [self] (saved, deleted, error) in
+            if (error == nil)
+            {
+                UserDefaults().createdCustomZone = true;
+                printLog("Zone \(self.zoneID) created")
+            }
+            else
+            {
+                printError("Error creating zone \(zoneID)", error)
+            }
             dispatchGroup.leave()
         }
         createZoneOperation.qualityOfService = .userInitiated
@@ -390,6 +410,7 @@ final class CloudKitController
         let operation = database == privateDB ? CKFetchDatabaseChangesOperation(previousServerChangeToken: UserDefaults().databaseChangeToken) : CKFetchDatabaseChangesOperation(previousServerChangeToken: UserDefaults().sharedDatabaseChangeToken)
         
         operation.recordZoneWithIDChangedBlock = {(zoneID) in
+            printDebug("recordZoneWithIDChangedBlock \(zoneID)")
             changedZoneIDs.append(zoneID)
         }
         
@@ -428,7 +449,7 @@ final class CloudKitController
         operation.fetchDatabaseChangesCompletionBlock = { (token, moreComing, error) in
             if let error = error
             {
-                printLog("Error during fetch shared database changes operation \(error)")
+                printError("Error during fetch shared database changes operation", error)
                 return
             }
             
@@ -468,18 +489,20 @@ final class CloudKitController
     
     func fetchZoneChanges(database: CKDatabase, databaseTokenKey: String, zoneIDs: [CKRecordZone.ID], completion: @escaping () -> Void)
     {
+        printDebug("fetchZoneChanges for \(databaseTokenKey) and \(zoneIDs)")
         // Look up the previous change token for each zone
-        var optionsByRecordZoneID = [CKRecordZone.ID: CKFetchRecordZoneChangesOperation.ZoneOptions]()
+        var configurationsByRecordZoneID = [CKRecordZone.ID: CKFetchRecordZoneChangesOperation.ZoneConfiguration]()
         for zoneID in zoneIDs
         {
-            let options = CKFetchRecordZoneChangesOperation.ZoneOptions()
+            let options = CKFetchRecordZoneChangesOperation.ZoneConfiguration()
             options.previousServerChangeToken = database == privateDB ? UserDefaults().zoneChangeToken : UserDefaults().sharedZoneChangeToken
-            optionsByRecordZoneID[zoneID] = options
+            configurationsByRecordZoneID[zoneID] = options
         }
-        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: zoneIDs, optionsByRecordZoneID: optionsByRecordZoneID)
+        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: zoneIDs, configurationsByRecordZoneID: configurationsByRecordZoneID)
         
         operation.recordChangedBlock = {(record) in
             %>{
+                printDebug("Record of type \(record.recordType) changed")
                 if record.recordType == CloudKitRecordType.Pilot.rawValue
                 {
                     ~>{self.pilotsRecordsRemotelyUpdated.insert(record)}
@@ -519,6 +542,7 @@ final class CloudKitController
         
         operation.recordWithIDWasDeletedBlock = {(recordId, type) in
             %>{
+                printDebug("Record of type \(type) with id \(recordId) deleted")
                 if type == CloudKitRecordType.Attendance.rawValue
                 {
                     self.deleteAttendanceRecordWithID(recordId)
@@ -580,7 +604,6 @@ final class CloudKitController
                 {
                     UserDefaults().zoneChangeToken = nil
                 }
-                    
                 else
                 {
                     UserDefaults().sharedZoneChangeToken = nil
@@ -591,7 +614,6 @@ final class CloudKitController
             {
                 UserDefaults().zoneChangeToken = changeToken
             }
-                
             else
             {
                 UserDefaults().sharedZoneChangeToken = changeToken

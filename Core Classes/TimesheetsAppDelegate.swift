@@ -281,12 +281,19 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
 
             if cloudKitController.backgroundDownloadTask == nil
             {
-                cloudKitController.backgroundDownloadTask = UIApplication.shared.beginBackgroundTask(withName: "Download from iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(cloudKitController.backgroundDownloadTask!)
-                    cloudKitController.backgroundDownloadTask = nil
-                })
+                cloudKitController.backgroundDownloadTask = UIApplication.shared.beginBackgroundTask(withName: "Download from iCloud", expirationHandler: {
+                        UIApplication.shared.endBackgroundTask(cloudKitController.backgroundDownloadTask!)
+                        cloudKitController.backgroundDownloadTask = nil
+                    })
             }
                 
-            cloudKitController.fetchChanges(in: notification.databaseScope) {completionHandler(.newData)}
+            cloudKitController.fetchChanges(in: notification.databaseScope) {
+                if let backgroundTask = cloudKitController.backgroundDownloadTask
+                {
+                    UIApplication.shared.endBackgroundTask(backgroundTask)
+                }
+                completionHandler(.newData)
+            }
             
         case .query:
             printLog("Received query notification!")
