@@ -489,7 +489,7 @@ final class CloudKitController
     
     func fetchZoneChanges(database: CKDatabase, databaseTokenKey: String, zoneIDs: [CKRecordZone.ID], completion: @escaping () -> Void)
     {
-        printDebug("fetchZoneChanges for \(databaseTokenKey) and \(zoneIDs)")
+        printDebug("fetchZoneChanges for \(databaseTokenKey) and \(zoneIDs) using change token \(String(describing: UserDefaults().zoneChangeToken))")
         // Look up the previous change token for each zone
         var configurationsByRecordZoneID = [CKRecordZone.ID: CKFetchRecordZoneChangesOperation.ZoneConfiguration]()
         for zoneID in zoneIDs
@@ -577,6 +577,9 @@ final class CloudKitController
         
         operation.recordZoneChangeTokensUpdatedBlock = { (zoneId, token, data) in
             // Flush record changes and deletions for this zone to disk
+            printDebug("Change token update for zone \(zoneId) - new change token: \(String(describing: token)), " +
+                       "previous change token according to iCloud: \(String(describing: data)), " +
+                       "previous change token according to me: \(String(describing: UserDefaults().zoneChangeToken))")
             if database == self.privateDB
             {
                 UserDefaults().zoneChangeToken = token
@@ -2036,19 +2039,19 @@ final class CloudKitController
         
         var allTimesheetRecordsSet = Set<AircraftTimesheet>(allTimesheetRecords)
 
-        printLog("Before remove up to date records from local : \(allTimesheetRecordsSet.count).")
+        printDebug("Before removing up to date records from local : \(allTimesheetRecordsSet.count).")
         for record in records
         {
             let timesheetRecord = self.updateTimesheetToMatchRecord(record)
             let dateModifiedInCloud = record["recordChangeTime"] as! Date
-            printLog("\(timesheetRecord.recordChangeTime) <= \(dateModifiedInCloud) == \(timesheetRecord.recordChangeTime <= dateModifiedInCloud); do record in cloud has a parent? \(record.parent != nil)")
+            printDebug("Local timesheet change Time (\(timesheetRecord.recordChangeTime)) <= cloud timesheet change time (\(dateModifiedInCloud)) == \(timesheetRecord.recordChangeTime <= dateModifiedInCloud); do record in cloud has a parent? \(record.parent != nil)")
             if timesheetRecord.recordChangeTime <= dateModifiedInCloud, record.parent != nil
             {
-                printLog("Removing timesheetRecord from local.")
+                printDebug("... removing timesheetRecord from local.")
                 allTimesheetRecordsSet.remove(timesheetRecord)
             }
         }
-        printLog("After remove up to date records from local : \(allTimesheetRecordsSet.count).")
+        printDebug("After removed up to date records from local : \(allTimesheetRecordsSet.count).")
 
         var count = allTimesheetRecordsSet.count
 
@@ -2757,7 +2760,7 @@ final class CloudKitController
             
             if timesheet.recordChangeTime >= changeTime
             {
-                return timesheet
+                return timesheet    // the timesheet is up to date with the cloud... simply return!!!
             }
         }
         

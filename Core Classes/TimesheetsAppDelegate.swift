@@ -207,7 +207,7 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
         Date.updateFormatters()
     }
     
-    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool
+    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool
     {
         return true
     }
@@ -259,12 +259,12 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
     {
-        printLog("Not registered")
+        printError("Not registered", error)
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
-        printLog("registered")
+        printLog("Registered")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
