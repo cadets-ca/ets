@@ -1401,7 +1401,7 @@ final class CloudKitController
                     {
                         if error.errorCode == 11
                         {
-                            printLog("Vehicle isn't on the server yet. Will try to make one.")
+                            printError("Vehicle isn't on the server yet. Will try to make one.", error)
                             
                             %>{
                                 if Date() - changedAircraftEntity.remoteChangeTime > 300
@@ -1414,7 +1414,7 @@ final class CloudKitController
                             
                         else
                         {
-                            printLog(error.localizedDescription)
+                            printError("Error while fetching vehicule from the server", error)
                             ~>{self.changedAircraftEntities.insert(objectID)
                                 UserDefaults().aircraftEntitiesToBeUploaded = self.changedAircraftEntities
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1511,17 +1511,17 @@ final class CloudKitController
                 }
                 else
                 {
-                    printLog("I guess a record was updated?")
+                    printLog("Record with ID \(record.recordID) updated")
                 }
             }
             
             modifyOperation.modifyRecordsCompletionBlock = {(saved, deleted, error) in
                 if let error = error
                 {
-                    printError("During modifyRecords for upload records", error)
+                    printError("During modifyOperation in uploadRecord.", error)
                 }
 
-                printLog("Let the good times roll")
+                printLog("Batch of records updated : saved = \(saved?.count ?? 0), deleted = \(deleted?.count ?? 0)")
                 self.hideUploadProgress()
             }
             
