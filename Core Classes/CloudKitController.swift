@@ -1399,7 +1399,7 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
                             printError("Vehicle isn't on the server yet. Will try to make one.", error)
                             
