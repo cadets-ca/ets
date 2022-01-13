@@ -699,7 +699,7 @@ final class CloudKitController
             (record, error) in
             if let error = error as? CKError
             {
-                if error.errorCode == 11
+                if error.code == .unknownItem
                 {
                     printLog("Region record isn't on the server yet. Will try to make one.")
                     
@@ -708,7 +708,7 @@ final class CloudKitController
                         {(record, error) in
                             if let error2 = error as? CKError
                             {
-                                printLog(error2.localizedDescription)
+                                printError("Error \(error2.code) (\(error2.errorCode)) while saving region to privateDB", error2)
                             }
                                 
                             else
@@ -737,7 +737,7 @@ final class CloudKitController
             (record, error) in
             if let error = error as? CKError
             {
-                if error.errorCode == 11
+                if error.code == .unknownItem
                 {
                     printLog("Share isn't on the server yet. Will try to make one.")
                     
@@ -752,7 +752,7 @@ final class CloudKitController
                         records, recordIDs, error in
                         if let error = error
                         {
-                            printLog(error.localizedDescription)
+                            printError("Error while updating rootShare \(rootShareID)", error)
                         }
     
                         if let record = records?.first as? CKShare
@@ -789,9 +789,13 @@ final class CloudKitController
                         (record, error) in
                         if let error = error as? CKError
                         {
-                            if error.errorCode == 11
+                            if error.code == .unknownItem
                             {
                                 printLog("Share not found.")
+                            }
+                            else
+                            {
+                                printError("Error \(error.code) (\(error.errorCode)) while fetching remoteShareID: \(remoteShareID)", error)
                             }
                         }
                         
@@ -937,7 +941,7 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
                             printError("Pilot record isn't on the server yet. Will try to make one.", error)
                             
@@ -949,7 +953,7 @@ final class CloudKitController
                         
                         else
                         {
-                            printError("CloudKit error \(error.errorCode), saving the objectId to process later?", error)
+                            printError("CloudKit error \(error.code) (\(error.errorCode)), saving the objectId to process later?", error)
 
                             ~>{
                                 self.changedPilots.insert(objectID)
@@ -960,7 +964,7 @@ final class CloudKitController
                     }
                     else if let error = error
                     {
-                        printError("Unprocessed error during privateDB.fetch", error)
+                        printError("Unprocessed error during fetchingPilot", error)
                     }
                     else
                     {
@@ -1020,18 +1024,19 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
-                            printLog("Attendance record isn't on the server yet. Will try to make one.")
+                            printError("Attendance record isn't on the server yet. Will try to make one.", error)
                             
-                            %>{let attendanceRecordToSave = self.createAttendanceRecordRecordFrom(changedRecord)
+                            %>{
+                                let attendanceRecordToSave = self.createAttendanceRecordRecordFrom(changedRecord)
                                 self.uploadRecord(record: attendanceRecordToSave, withID: objectID)
                             }
                         }
                             
                         else
                         {
-                            printLog(error.localizedDescription)
+                            printError(error.localizedDescription)
                             ~>{self.changedAttendanceRecords.insert(objectID)
                                 UserDefaults().attendanceRecordsToBeUploaded = self.changedAttendanceRecords
                                 self.uploadRecord(record: nil, withID: nil)
@@ -1095,19 +1100,21 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
                             printLog("Flight record isn't on the server yet. Will try to make one.")
                             
-                            %>{let flightRecordToSave = self.createFlightRecordRecordFrom(changedRecord)
+                            %>{
+                                let flightRecordToSave = self.createFlightRecordRecordFrom(changedRecord)
                                 self.uploadRecord(record: flightRecordToSave, withID: objectID)
                             }
                         }
                             
                         else
                         {
-                            printLog(error.localizedDescription)
-                            ~>{self.changedFlightRecords.insert(objectID)
+                            printError("Error \(error.code) (\(error.errorCode)) fetching Flight record \(changedRecordID).", error)
+                            ~>{
+                                self.changedFlightRecords.insert(objectID)
                                 UserDefaults().flightRecordsToBeUploaded = self.changedFlightRecords
                                 self.uploadRecord(record: nil, withID: nil)
                             }
@@ -1116,7 +1123,8 @@ final class CloudKitController
                         
                     else
                     {
-                        %>{let changeTime = record?["recordChangeTime"] as? Date ?? Date.distantPast
+                        %>{
+                            let changeTime = record?["recordChangeTime"] as? Date ?? Date.distantPast
                             if changeTime < changedRecord.recordChangeTime
                             {
                                 _ = self.createFlightRecordRecordFrom(changedRecord, withExistingRecord: record)
@@ -1170,19 +1178,21 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
                             printLog("Timesheet isn't on the server yet. Will try to make one.")
                             
-                            %>{let timesheetToSave = self.createTimesheetRecordFrom(changedTimesheet)
+                            %>{
+                                let timesheetToSave = self.createTimesheetRecordFrom(changedTimesheet)
                                 self.uploadRecord(record: timesheetToSave, withID: objectID)
                             }
                         }
                             
                         else
                         {
-                            printLog(error.localizedDescription)
-                            ~>{self.changedTimesheets.insert(objectID)
+                            printError("Error \(error.code) (\(error.errorCode)) while fetching Timesheet \(changedRecordID)", error)
+                            ~>{
+                                self.changedTimesheets.insert(objectID)
                                 UserDefaults().timesheetsToBeUploaded = self.changedTimesheets
                                 self.uploadRecord(record: nil, withID: nil)
                             }
@@ -1246,19 +1256,21 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
                             printLog("Maintenance issue isn't on the server yet. Will try to make one.")
                             
-                            %>{let issueToSave = self.createMaintenanceIssueRecordFrom(changedIssue)
+                            %>{
+                                let issueToSave = self.createMaintenanceIssueRecordFrom(changedIssue)
                                 self.uploadRecord(record: issueToSave, withID: objectID)
                             }
                         }
                             
                         else
                         {
-                            printLog(error.localizedDescription)
-                            ~>{self.changedMaintenanceIssues.insert(objectID)
+                            printError("Error \(error.code) (\(error.errorCode)) while fetching Maintenance Issue \(changedRecordID)", error)
+                            ~>{
+                                self.changedMaintenanceIssues.insert(objectID)
                                 UserDefaults().maintenanceIssuesToBeUploaded = self.changedMaintenanceIssues
                                 self.uploadRecord(record: nil, withID: nil)
                             }
@@ -1323,19 +1335,21 @@ final class CloudKitController
                     (record, error) in
                     if let error = error as? CKError
                     {
-                        if error.errorCode == 11
+                        if error.code == .unknownItem
                         {
                             printLog("Comment isn't on the server yet. Will try to make one.")
                             
-                            %>{let commentToSave = self.createGlidingDayCommentRecordFrom(changedComment)
+                            %>{
+                                let commentToSave = self.createGlidingDayCommentRecordFrom(changedComment)
                                 self.uploadRecord(record: commentToSave, withID: objectID)
                             }
                         }
                             
                         else
                         {
-                            printLog(error.localizedDescription)
-                            ~>{self.changedGlidingDayComments.insert(objectID)
+                            printError("Error \(error.code) (\(error.errorCode)) while fetching comment \(changedRecordID)", error)
+                            ~>{
+                                self.changedGlidingDayComments.insert(objectID)
                                 UserDefaults().commentsToBeUploaded = self.changedGlidingDayComments
                                 self.uploadRecord(record: nil, withID: nil)
                             }
@@ -1415,7 +1429,8 @@ final class CloudKitController
                         else
                         {
                             printError("Error while fetching vehicule from the server", error)
-                            ~>{self.changedAircraftEntities.insert(objectID)
+                            ~>{
+                                self.changedAircraftEntities.insert(objectID)
                                 UserDefaults().aircraftEntitiesToBeUploaded = self.changedAircraftEntities
                                 self.uploadRecord(record: nil, withID: nil)
                             }
@@ -1503,7 +1518,7 @@ final class CloudKitController
                     %>{
                         self.saveObjectForFutureUpload(ID: withID)
                     }
-                    printError("CloudKit Error \(cloudKitError.errorCode) on record completion", cloudKitError)
+                    printError("CloudKit Error \(cloudKitError.code) (\(cloudKitError.errorCode)) on record completion", cloudKitError)
                 }
                 else if let error = error
                 {
@@ -2621,15 +2636,16 @@ final class CloudKitController
         
         vehicle.recordChangeTime = record["recordChangeTime"] as? Date ?? Date.distantPast
         vehicle.gliderOrTowplane = record["gliderOrTowplane"] as? Int16 ?? 0
-//        vehicle.inTheAir = record["inTheAir"] as? Bool ?? false
+        vehicle.inTheAir = record["inTheAir"] as? Bool ?? false
         vehicle.inTheAir = false
 
-//        vehicle.flightSequence = record["flightSequence"] as? String ?? "Proficiency"
+        vehicle.flightSequence = record["flightSequence"] as? String ?? "Proficiency"
         vehicle.registration = record["registration"] as? String ?? ""
         vehicle.tailNumber = record["tailNumber"] as? String ?? ""
         vehicle.timeToNextInspection = Decimal(string: record["TTNI"] as? String ?? "0.0")! as NSDecimalNumber
         vehicle.remoteChangeTime = Date()
-        
+        vehicle.glidingCentre = dataModel.getGlidingCentre(forName : record["glidingCentre"] as? String ?? "", using : backgroundContext)
+
         //These are shut down to prevent remote syncs from breaking things. Should fix this
         
 //        vehicle.sectionIndex = record["sectionIndex"] as? Int16 ?? 0

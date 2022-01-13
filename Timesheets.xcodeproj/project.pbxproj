@@ -218,6 +218,7 @@
 		F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */; };
 		F33ED8B9237E53890020CEBE /* CoreDataTestSetupHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */; };
 		F37978462336F9F1006F69DA /* ExcelExport in Frameworks */ = {isa = PBXBuildFile; productRef = F37978452336F9F1006F69DA /* ExcelExport */; };
+		F3CF1716278F22960068E624 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CF1715278F22960068E624 /* DataModelTests.swift */; };
 		F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -524,6 +525,7 @@
 		F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDate.swift; sourceTree = "<group>"; };
 		F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceRecordForPersonTests.swift; sourceTree = "<group>"; };
 		F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestSetupHelpers.swift; sourceTree = "<group>"; };
+		F3CF1715278F22960068E624 /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGeneratorTests.swift; sourceTree = "<group>"; };
 		F3FDAF862339ACFC002E11EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1025,6 +1027,7 @@
 				F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */,
 				335CEFCE23ABB6C300CE00CF /* PredicateTests.swift */,
 				F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */,
+				F3CF1715278F22960068E624 /* DataModelTests.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1690,6 +1693,7 @@
 				F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
 				F322A5CE278615EC00D30665 /* CloudKitControllerTests.swift in Sources */,
+				F3CF1716278F22960068E624 /* DataModelTests.swift in Sources */,
 				F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */,
 				335CEFCF23ABB6C300CE00CF /* PredicateTests.swift in Sources */,
 			);
