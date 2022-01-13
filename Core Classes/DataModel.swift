@@ -1456,6 +1456,11 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             return glidingCentre!
         }
 
+        return getFirstGlidingCentre(using : context)
+    }
+
+    func getFirstGlidingCentre(using context : NSManagedObjectContext) -> GlidingCentre
+    {
         let request = GlidingCentre.request
         request.sortDescriptors = [NSSortDescriptor(key:"name", ascending: true)]
         let gcs = try! context.fetch(request)

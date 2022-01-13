@@ -33,23 +33,31 @@ class DataModelTests: XCTestCase {
         XCTAssertEqual(gc.name, "XYZ")
     }
 
-    func testGetExistingGlidingCentre() throws {
+    func testGetExistingGlidingCentreReturnTheOneWeCreatedInSetup() throws {
         let gc = dataModel.getGlidingCentre(forName : "Test1")
 
+        // A gliging centre does not have much to check if it is indeed what we are looking. That's why, in the
+        // setup method above, we attached a pilot to the center, so we can check both the name and the attached pilot
+        // in our assertion.
         XCTAssertEqual(gc.name, "Test1")
         XCTAssertEqual(gc.pilots.first, pilotOnGlidingCentreTest1, "Gliding Centre Test1 is the one having 1 pilot")
     }
 
-    func testGetEmptyGlidingCentre() throws {
+    func testGetEmptyGlidingCentreReturnTheFirstGlidingCentre() throws {
+        // This test is to confirm we get the gliding centre identified as the first gliding centre when
+        // we have no names. The getGlidingCentre [should] guarantee the gliding centre return in that circumtance
+        // is the same as what is returned by getFirstGlidingCentre (what ever that gliging centre is).
         let gc = dataModel.getGlidingCentre(forName: "")
 
-        XCTAssertEqual(gc.name, "Gimli", "The default gliding centre is the first in ascending name order. In our test Gimli comes before Test1")
+        XCTAssertEqual(gc.name, dataModel.getFirstGlidingCentre(using: dataModel.managedObjectContext).name, "The default gliding centre is the first in ascending name order. In our test Gimli comes before Test1")
     }
 
     func testGetAllGlidingCentre() throws {
+        // The method getGlidingCentres is there mainly for validation purpose (not a best practice but given the
+        // situation, the best I could come up with).
         let gcs = dataModel.getGlidingCentres()
 
-        XCTAssertEqual(gcs.count, 2, "If the numbre of Gliding Centres is not 2, that means there have been changes to the data. The two Gliding Centres should be Gimli and Test1. Need investigation: \(gcs)")
+        XCTAssertTrue(gcs.contains(where: { (gc) in gc.name == "Test1"}))
     }
 
 }
