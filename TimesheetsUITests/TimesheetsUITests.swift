@@ -45,7 +45,6 @@ class TimesheetsUITests: XCTestCase
 
         init() {
             app = XCUIApplication()
-            
         }
 
         func launch() -> ETS {
