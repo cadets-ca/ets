@@ -1451,7 +1451,7 @@ final class Airplanes : UITableViewController, NSFetchedResultsControllerDelegat
             
         catch let error as NSError
         {
-            print("\(error.localizedDescription)")
+            printError("While fetching record for \(request.predicate.debugDescription)", error)
         }
         
         return Int(abs(shiftStart.timeIntervalSinceNow))

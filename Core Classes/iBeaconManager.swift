@@ -65,7 +65,7 @@ final class iBeaconManager : NSObject, CLLocationManagerDelegate, CBPeripheralMa
             
             for aircraft in dataModel.aircraftAreaController?.fetchController.fetchedObjects ?? [AircraftEntity]()
             {
-                let aircraftRegion = CLBeaconRegion(proximityUUID: timesheetsUUID, major: CLBeaconMajorValue(aircraft.beaconNumber), identifier: aircraft.tailNumber)
+                let aircraftRegion = CLBeaconRegion(uuid: timesheetsUUID, major: CLBeaconMajorValue(aircraft.beaconNumber), identifier: aircraft.tailNumber)
                 aircraftRegion.notifyEntryStateOnDisplay = true
                 aircraftRegion.notifyOnEntry = true
                 aircraftRegion.notifyOnExit = true
@@ -80,8 +80,10 @@ final class iBeaconManager : NSObject, CLLocationManagerDelegate, CBPeripheralMa
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion)
     {
         guard let region = region as? CLBeaconRegion else {return}
-        locationManager.startRangingBeacons(in: region)
-        
+
+        let constraints = CLBeaconIdentityConstraint(uuid: region.uuid)
+        locationManager.startRangingBeacons(satisfying: constraints)
+
         locationManager.requestState(for: region)
     }
     
@@ -89,7 +91,8 @@ final class iBeaconManager : NSObject, CLLocationManagerDelegate, CBPeripheralMa
     {
         guard let region = region as? CLBeaconRegion else {return}
 
-        locationManager.startRangingBeacons(in: region)
+        let constraints = CLBeaconIdentityConstraint(uuid: region.uuid)
+        locationManager.startRangingBeacons(satisfying: constraints)
         
         let beaconValue = Int16(region.major!.intValue)
 
@@ -108,7 +111,9 @@ final class iBeaconManager : NSObject, CLLocationManagerDelegate, CBPeripheralMa
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion)
     {
         guard let region = region as? CLBeaconRegion else {return}
-        locationManager.stopRangingBeacons(in: region)
+
+        let constraints = CLBeaconIdentityConstraint(uuid: region.uuid)
+        locationManager.stopRangingBeacons(satisfying: constraints)
         
         let beaconValue = Int16(region.major!.intValue)
         indicesOfNearbyAircraft.remove(beaconValue)
@@ -144,7 +149,7 @@ final class iBeaconManager : NSObject, CLLocationManagerDelegate, CBPeripheralMa
     func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error)
     {
         print("ranging failed \(error.localizedDescription)")
-        print("Region UUID \(region.proximityUUID.uuidString)")
+        print("Region UUID \(region.uuid.uuidString)")
     }
     
     func beginBeaconBroadcast()
@@ -161,7 +166,7 @@ final class iBeaconManager : NSObject, CLLocationManagerDelegate, CBPeripheralMa
 
         if peripheral.state == .poweredOn
         {
-            let broadcastRegion = CLBeaconRegion(proximityUUID: timesheetsUUID, major: broadcastMajorNumber, minor: CLBeaconMinorValue(1), identifier: "Timesheets")
+            let broadcastRegion = CLBeaconRegion(uuid: timesheetsUUID, major: broadcastMajorNumber, minor: CLBeaconMinorValue(1), identifier: "Timesheets")
             if let peripheralData = NSDictionary(dictionary: broadcastRegion.peripheralData(withMeasuredPower: nil)) as? [String: AnyObject]
             {
                 peripheralManager?.startAdvertising(peripheralData)

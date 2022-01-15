@@ -310,17 +310,48 @@ let logDateFormatter : DateFormatter =
 {
     let formatter = DateFormatter()
     formatter.timeZone = TimeZone.current
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     return formatter
 }()
 
 func printLog(_ message : String, _ file : String = #file, _ function : String = #function, _ line : Int = #line)
 {
-    var startIndex = file.startIndex
-    if let start = file.lastIndex(of: "/")
-    {
-        startIndex = file.index(after: start)
-    }
+    let moment = logDateFormatter.string(from: Date())
+    let filename = filenameFromFileLiteral(file)
+    print("\(moment) : 📒 : \(message) @ \(filename).\(function)#\(line)")
+}
 
-    print("\(logDateFormatter.string(from: Date())) : \(file[startIndex...]).\(function)#\(line) : \(message)")
+func printDebug(_ message : String, _ file : String = #file, _ function : String = #function, _ line : Int = #line)
+{
+    let moment = logDateFormatter.string(from: Date())
+    let filename = filenameFromFileLiteral(file)
+    print("\(moment) : 📘 : \(message) @ \(filename).\(function)#\(line)")
+}
+
+func printError(_ message : String, _ error : Error? = nil , _ file : String = #file, _ function : String = #function, _ line : Int = #line)
+{
+    let moment = logDateFormatter.string(from: Date())
+    let filename = filenameFromFileLiteral(file)
+
+    if let error = error
+    {
+        print("\(moment) : 📕 : \(message) : Error \(error) @ \(filename).\(function)#\(line)")
+    } else {
+        print("\(moment) : 📕 : \(message) @ \(filename).\(function)#\(line)")
+    }
+}
+
+func filenameFromFileLiteral(_ file : String) -> String
+{
+    var startIndex = file.startIndex
+    if let index = file.lastIndex(of: "/")
+    {
+        startIndex = file.index(after: index)
+    }
+    var endIndex = file.endIndex
+    if let index = file.lastIndex(of: ".")
+    {
+        endIndex = file.index(before: index)
+    }
+    return String(file[startIndex...endIndex])
 }

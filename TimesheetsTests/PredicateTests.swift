@@ -5,7 +5,7 @@
 //  Created by Ferland JCH Hugues on 2019-12-19.
 //
 
-import Timesheets
+@testable import Timesheets
 import Foundation
 import XCTest
 
