@@ -179,7 +179,7 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
         var numberOfFlightsInMergedDB = 0
         mainQueue.sync{numberOfFlightsInMergedDB = try! self.timesheetsDataModel.managedObjectContext.count(for: request)}
         
-        print("Prior to import there are \(numberOfFlightsInOldDB) gliding day comments. After import there are \(numberOfFlightsInMergedDB)")
+        printLog("Prior to import there are \(numberOfFlightsInOldDB) gliding day comments. After import there are \(numberOfFlightsInMergedDB)")
         
         timesheetsDataModel.glidingCentre = nil
         
@@ -207,7 +207,7 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
         Date.updateFormatters()
     }
     
-    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool
+    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool
     {
         return true
     }
@@ -259,12 +259,12 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
     {
-        print("Not registered")
+        printError("Not registered", error)
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
-        print("registered")
+        printLog("Registered")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
@@ -275,32 +275,39 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
         switch note.notificationType
         {
         case .database:
-            print("Received database notification!")
+            printLog("Received database notification!")
             guard let notification = note as? CKDatabaseNotification else {completionHandler(.newData); return}
             guard let cloudKitController = cloudKitController else {completionHandler(.newData); return}
 
             if cloudKitController.backgroundDownloadTask == nil
             {
-                cloudKitController.backgroundDownloadTask = UIApplication.shared.beginBackgroundTask(withName: "Download from iCloud", expirationHandler: {UIApplication.shared.endBackgroundTask(cloudKitController.backgroundDownloadTask!)
-                    cloudKitController.backgroundDownloadTask = nil
-                })
+                cloudKitController.backgroundDownloadTask = UIApplication.shared.beginBackgroundTask(withName: "Download from iCloud", expirationHandler: {
+                        UIApplication.shared.endBackgroundTask(cloudKitController.backgroundDownloadTask!)
+                        cloudKitController.backgroundDownloadTask = nil
+                    })
             }
                 
-            cloudKitController.fetchChanges(in: notification.databaseScope) {completionHandler(.newData)}
+            cloudKitController.fetchChanges(in: notification.databaseScope) {
+                if let backgroundTask = cloudKitController.backgroundDownloadTask
+                {
+                    UIApplication.shared.endBackgroundTask(backgroundTask)
+                }
+                completionHandler(.newData)
+            }
             
         case .query:
-            print("Received query notification!")
+            printLog("Received query notification!")
             completionHandler(.newData)
             
         default:
-            print("Received strange notification!")
+            printLog("Received strange notification!")
             completionHandler(.newData)
         }
     }
     
     func application(_ application: UIApplication, userDidAcceptCloudKitShareWith cloudKitShareMetadata: CKShare.Metadata)
     {
-        print("Share Accepted")
+        printLog("Share Accepted")
         
         let acceptSharesOperation = CKAcceptSharesOperation(shareMetadatas: [cloudKitShareMetadata])
         
@@ -309,7 +316,7 @@ final class TimesheetsAppDelegate: UIResponder, UIApplicationDelegate
                 metadata, share, error in
                 if let error = error
                 {
-                    print(error.localizedDescription)
+                    printError("Error captured in perShareCompletionBlock", error)
                 }
             
                 ~>{self.cloudKitController?.toggleSharingTo(state: true)}

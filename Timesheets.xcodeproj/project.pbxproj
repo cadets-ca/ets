@@ -209,6 +209,7 @@
 		DAFE05501A65F96800E5EF2F /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */; };
 		F3011743234D750800830EE9 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3011742234D750800830EE9 /* Formatters.swift */; };
 		F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307AD052346B1680093120F /* XCTestExtensions.swift */; };
+		F322A5CE278615EC00D30665 /* CloudKitControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */; };
 		F33B3F112393744800109B31 /* TimesheetsForDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33B3F102393744800109B31 /* TimesheetsForDate.swift */; };
 		F33BD5A92384DF1B00D121B9 /* Distributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5A82384DF1B00D121B9 /* Distributor.swift */; };
 		F33BD5AB2384DFB500D121B9 /* ReportProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */; };
@@ -217,6 +218,7 @@
 		F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */; };
 		F33ED8B9237E53890020CEBE /* CoreDataTestSetupHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */; };
 		F37978462336F9F1006F69DA /* ExcelExport in Frameworks */ = {isa = PBXBuildFile; productRef = F37978452336F9F1006F69DA /* ExcelExport */; };
+		F3CF1716278F22960068E624 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CF1715278F22960068E624 /* DataModelTests.swift */; };
 		F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -515,6 +517,7 @@
 		DAFE054F1A65F96800E5EF2F /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		F3011742234D750800830EE9 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F307AD052346B1680093120F /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
+		F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitControllerTests.swift; sourceTree = "<group>"; };
 		F33B3F102393744800109B31 /* TimesheetsForDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetsForDate.swift; sourceTree = "<group>"; };
 		F33BD5A82384DF1B00D121B9 /* Distributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distributor.swift; sourceTree = "<group>"; };
 		F33BD5AA2384DFB500D121B9 /* ReportProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProducer.swift; sourceTree = "<group>"; };
@@ -522,6 +525,7 @@
 		F33ED8B4237E38DC0020CEBE /* StatsReportFromDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsReportFromDate.swift; sourceTree = "<group>"; };
 		F33ED8B6237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceRecordForPersonTests.swift; sourceTree = "<group>"; };
 		F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestSetupHelpers.swift; sourceTree = "<group>"; };
+		F3CF1715278F22960068E624 /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		F3FDAF822339ACFC002E11EE /* TimesheetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimesheetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FDAF842339ACFC002E11EE /* ReportGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportGeneratorTests.swift; sourceTree = "<group>"; };
 		F3FDAF862339ACFC002E11EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1022,6 +1026,8 @@
 				F33ED8B8237E53890020CEBE /* CoreDataTestSetupHelpers.swift */,
 				F33E6265238A16B400E555D8 /* TimesheetsForDateTests.swift */,
 				335CEFCE23ABB6C300CE00CF /* PredicateTests.swift */,
+				F322A5CD278615EC00D30665 /* CloudKitControllerTests.swift */,
+				F3CF1715278F22960068E624 /* DataModelTests.swift */,
 			);
 			path = TimesheetsTests;
 			sourceTree = "<group>";
@@ -1686,6 +1692,8 @@
 				F307AD062346B1680093120F /* XCTestExtensions.swift in Sources */,
 				F33E6266238A16B400E555D8 /* TimesheetsForDateTests.swift in Sources */,
 				F3FDAF852339ACFC002E11EE /* ReportGeneratorTests.swift in Sources */,
+				F322A5CE278615EC00D30665 /* CloudKitControllerTests.swift in Sources */,
+				F3CF1716278F22960068E624 /* DataModelTests.swift in Sources */,
 				F33ED8B7237E4EA20020CEBE /* AttendanceRecordForPersonTests.swift in Sources */,
 				335CEFCF23ABB6C300CE00CF /* PredicateTests.swift in Sources */,
 			);
@@ -1773,7 +1781,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1791,7 +1799,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				MOMC_NO_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
@@ -1816,7 +1824,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1832,7 +1840,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				MOMC_NO_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.cadets.Timesheets;
@@ -2335,7 +2343,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2354,7 +2362,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Flights-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2384,7 +2392,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2398,7 +2406,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Flights-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2429,7 +2437,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2448,7 +2456,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Hours-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2478,7 +2486,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2492,7 +2500,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Hours-This-Season";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2527,7 +2535,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos4.2]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2549,7 +2557,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Gliding-Centre-Flights";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2582,7 +2590,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 638;
+				CURRENT_PROJECT_VERSION = 639;
 				DEVELOPMENT_TEAM = 77432UPB7H;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2598,7 +2606,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 6.2.7;
+				MARKETING_VERSION = 6.2.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cadets.Timesheets.Gliding-Centre-Flights";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -1433,7 +1433,47 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             statsManager.updateKVSwithTotalNumberOfGliderFlight(totalNumber)
         }
     }
-    
+
+    func getGlidingCentre(forName glidingCentreName : String) -> GlidingCentre
+    {
+        return getGlidingCentre(forName : glidingCentreName, using : managedObjectContext)
+    }
+
+    func getGlidingCentre(forName glidingCentreName : String, using context : NSManagedObjectContext) -> GlidingCentre
+    {
+        if glidingCentreName != ""
+        {
+            let request = GlidingCentre.request
+            request.predicate = NSPredicate(format: "name = %@", argumentArray: [glidingCentreName])
+            let gcs = try! context.fetch(request)
+
+            var glidingCentre = gcs.first as GlidingCentre?
+            if glidingCentre == nil
+            {
+                glidingCentre = GlidingCentre(context: context)
+                glidingCentre!.name = glidingCentreName
+            }
+            return glidingCentre!
+        }
+
+        return getFirstGlidingCentre(using : context)
+    }
+
+    func getFirstGlidingCentre(using context : NSManagedObjectContext) -> GlidingCentre
+    {
+        let request = GlidingCentre.request
+        request.sortDescriptors = [NSSortDescriptor(key:"name", ascending: true)]
+        let gcs = try! context.fetch(request)
+
+        return gcs.first! as GlidingCentre
+    }
+
+    func getGlidingCentres() -> [GlidingCentre]
+    {
+        let request = GlidingCentre.request
+        return try! managedObjectContext.fetch(request)
+    }
+
     //MARK: - Object Lifecycle
     deinit
     {

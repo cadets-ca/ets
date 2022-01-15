@@ -39,7 +39,7 @@ class CoreDataTestSetupHelpers
     func createGlidingCentre(_ name : String) -> GlidingCentre
     {
         let centre = GlidingCentre(context: context)
-        centre.name = "Middle Island"
+        centre.name = name
         return centre
     }
     
