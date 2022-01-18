@@ -2,10 +2,10 @@
 
 # Security
 
-**Do not post any security issues on the public repository!** Security vulnerabilities must be reported by email to [Mark MacPherson](mailto:mark.macpherson@cadets.gc.ca)
+**Do not post any security issues on the public repository!** Security vulnerabilities must be reported by email to [Hugues Ferland](mailto:hugues.ferland@cadets.gc.ca)
 
 ______________________
 
 ## Sécurité
 
-**Ne publiez aucun problème de sécurité sur le dépôt publique!** Les vulnérabilités de sécurité doivent être signalées par courriel à [Mark MacPherson](mailto:mark.macpherson@cadets.gc.ca)
+**Ne publiez aucun problème de sécurité sur le dépôt publique!** Les vulnérabilités de sécurité doivent être signalées par courriel à [Hugues Ferland](mailto:hugues.ferland@cadets.gc.ca)
