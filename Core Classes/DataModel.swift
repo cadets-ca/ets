@@ -11,7 +11,7 @@ import CoreLocation
 import CoreData
 import MobileCoreServices
 
-final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedResultsControllerDelegate, GPSmanagerDelegate, NDHTMLtoPDFDelegate, MFMailComposeViewControllerDelegate, iBeaconDelegate, SelectGlidingCentreDelegate
+final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedResultsControllerDelegate, GPSmanagerDelegate,  MFMailComposeViewControllerDelegate, iBeaconDelegate, SelectGlidingCentreDelegate
 {
     var banditTally: UILabel?
     var apacheTally: UILabel?
@@ -651,69 +651,7 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
             Distributor.getDistributor(withParentView: self.aircraftAreaController?.parent).distribute(urls, given: param)
         })
     }
-    
-    func printTimesheets()
-    {
-//        if (self.RecordAreaController.fetchController.fetchedObjects.count == 0)
-//        {
-//            UIAlertController* NoRecords = [UIAlertController alertControllerWithTitle:@"No Records" message:@"There are currently no stored flight records to send." preferredStyle:UIAlertControllerStyleAlert]
-//            UIAlertAction* OKbutton = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-//            [NoRecords addAction:OKbutton];
-//            
-//            UIViewController *rootController = ((TimesheetsAppDelegate *)UIApplication.sharedApplication.delegate).window.rootViewController;
-//            
-//            if (rootController.presentedViewController)
-//            {
-//                [rootController.presentedViewController presentViewController:NoRecords animated:YES completion:nil];
-//            }
-//                
-//            else
-//            {
-//                [rootController presentViewController:NoRecords animated:YES completion:nil];
-//            }
-//            return;
-//        }
-//        
-//        self.RecordAreaController.sortMethod.selectedSegmentIndex = 0;
-//        
-//        HTMLgenerator* Generator = HTMLgenerator.alloc.init;
-//        Generator.Unit = self.glidingCentre.name;
-//        Generator.dataModel = self;
-//        
-//        NSMutableString* TableText = [Generator GenerateTimesheetsForDate:NSDate.date];
-//        
-//        
-//        UIPrintInteractionController *pic = UIPrintInteractionController.sharedPrintController;
-//        UIPrintInfo *printInfo = UIPrintInfo.printInfo;
-//        printInfo.outputType = UIPrintInfoOutputGeneral;
-//        printInfo.jobName = @"Timesheets";
-//        pic.printInfo = printInfo;
-//        
-//        UIMarkupTextPrintFormatter *htmlFormatter = [UIMarkupTextPrintFormatter.alloc initWithMarkupText:TableText];
-//        htmlFormatter.startPage = 0;
-//        htmlFormatter.contentInsets = UIEdgeInsetsMake(72.0, 40.0, 72.0, 40.0); // 1 = 72.0
-//        htmlFormatter.maximumContentWidth = 7.5 * 72.0;
-//        pic.printFormatter = htmlFormatter;
-//        pic.showsPageRange = YES;
-//        
-//        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =
-//        ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-//            if (!completed && error) {
-//                //NSLog(@"Printing could not complete because of error: %@", error);
-//            }
-//        };
-//        
-//        if (self.regularFormat)
-//        {
-//            [pic presentFromBarButtonItem:AddPilotButton animated:YES completionHandler:completionHandler];
-//        }
-//            
-//        else
-//        {
-//            [pic presentAnimated:YES completionHandler:completionHandler];
-//        }
-    }
-    
+
     func checkThatWinchFinalTTSNisProvidedForDate(_ date: Date) -> Bool
     {
         let GC = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
@@ -1139,92 +1077,7 @@ final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedRes
         let extractedExpr: GlidingCentre? = (regularFormat && viewPreviousRecords) ? previousRecordsGlidingCentre! : glidingCentre
         return extractedExpr?.name ?? "Unknown Gliding Center"
     }
-    
-    func HTMLtoPDFDidSucceed(_ htmlToPDF: NDHTMLtoPDF)
-    {
-        PDFgenerator = nil
-        
-        switch reportTypeBeingGenerated ?? ReportType.logBook
-        {
-        case .timesheets:
-            picker = MFMailComposeViewController()
-            picker?.mailComposeDelegate = self
-            picker?.setSubject(getSubjectLine())
-            let recipients = getRecipients()
-            if !recipients.isEmpty
-            {
-                picker?.setToRecipients(recipients)
-            }
-            
-            let pathArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
-            let pathForPDF = pathArray.first!.stringByAppendingPathComponent("Timesheets.pdf")
-            
-            let attachmentName = "\(getDateOfTimesheets())-\(getGlidingCenterNameToUse())-Timesheets.pdf"
-            let myData = try? Data(contentsOf: URL(fileURLWithPath: pathForPDF))
-            attachmentPath = pathForPDF
-            picker?.addAttachmentData(myData!, mimeType: "application/pdf", fileName:attachmentName)
-            
-            let printWarning = "<b><FONT COLOR='FF0000'>These time sheets are attached as a PDF for easy printing. Please print the attachment, do not print this email message directly.</b></FONT><br><br>"
-            let textWithPrintWarning = "\(printWarning) \(tableText!)"
-            picker?.setMessageBody(textWithPrintWarning, isHTML: true)
-            
-            if regularFormat
-            {
-                let controller = aircraftAreaController?.parent
-                controller?.dismiss(animated: true, completion:nil)
-                controller?.present(picker!, animated: true, completion: nil)
-            }
-                
-            else
-            {
-                UIViewController.presentOnTopmostViewController(picker!)
-            }
-            
-        default:
-            break
-        }
-    }
 
-    fileprivate func getRecipients() -> [String] {
-        let defaults = UserDefaults.standard
-        var toRecipients = Set<String>()
-        
-        for i in 1...3
-        {
-            let key = "Timesheets Address \(i)"
-            if let value = defaults.string(forKey: key)
-            {
-                toRecipients.insert(value)
-            }
-        }
-        
-        var invalidEmails = Set<String>()
-        for address in toRecipients
-        {
-            if stringIsValidEmail(address) == false
-            {
-                invalidEmails.insert(address)
-            }
-        }
-        
-        toRecipients.subtract(invalidEmails)
-        return Array(toRecipients)
-    }
-    
-    fileprivate func getSubjectLine() -> String
-    {
-        return "\(getDateOfTimesheets()) \(getGlidingCenterNameToUse()) Timesheets"
-    }
-    
-    fileprivate func getDateOfTimesheets() -> String
-    {
-        let dateOfTimesheets = viewPreviousRecords ? dateToViewRecords : Date()
-        let militaryFormat = DateFormatter()
-        militaryFormat.dateFormat = "dd-MMMM-yyyy"
-        militaryFormat.timeZone = TimeZone.current
-        return militaryFormat.string(from: dateOfTimesheets)
-    }
-    
     func canSendMail() -> Bool
     {
         return MFMailComposeViewController.canSendMail()
