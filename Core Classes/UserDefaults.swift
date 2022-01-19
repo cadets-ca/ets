@@ -673,5 +673,4 @@ public extension UserDefaults
             return Array(toRecipients)
         }
     }
-
 }
