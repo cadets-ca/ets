@@ -24,7 +24,7 @@ struct TimesheetsForDateParameters : RecipientAndSubjectProvider
     }
     
     func getRecipients() -> [String] {
-        return []
+        return UserDefaults().timesheetsAddressRecipients
     }
     
     private func getDateOfTimesheets() -> String

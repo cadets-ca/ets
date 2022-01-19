@@ -644,4 +644,33 @@ public extension UserDefaults
             return Array(toRecipients)
         }
     }
+
+    var timesheetsAddressRecipients: [String]
+    {
+        get
+        {
+            var toRecipients = Set<String>()
+
+            for i in 1...3
+            {
+                let key = "Timesheets Address \(i)"
+                if let value = self.string(forKey: key)
+                {
+                    toRecipients.insert(value)
+                }
+            }
+
+            var invalidEmails = Set<String>()
+            for address in toRecipients
+            {
+                if stringIsValidEmail(address) == false
+                {
+                    invalidEmails.insert(address)
+                }
+            }
+
+            toRecipients.subtract(invalidEmails)
+            return Array(toRecipients)
+        }
+    }
 }
