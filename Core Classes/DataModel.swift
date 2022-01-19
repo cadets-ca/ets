@@ -11,7 +11,7 @@ import CoreLocation
 import CoreData
 import MobileCoreServices
 
-final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedResultsControllerDelegate, GPSmanagerDelegate,  MFMailComposeViewControllerDelegate, iBeaconDelegate, SelectGlidingCentreDelegate
+final class TimesheetsDataModel: NSObject, AddPilotPopoverDelegate, NSFetchedResultsControllerDelegate, GPSmanagerDelegate, MFMailComposeViewControllerDelegate, iBeaconDelegate, SelectGlidingCentreDelegate
 {
     var banditTally: UILabel?
     var apacheTally: UILabel?
