@@ -8,6 +8,9 @@
 
 import XCTest
 
+// This test currently only works with specific combination of iPhone and MacOS:
+// - iPhone 8 (14.3) on MacOs 10.15 (used on GitHub)
+// - iPhone 8 (15.2) on MacOS 11.6.2
 class TimesheetsUITests: XCTestCase
 {
     override func setUp()
